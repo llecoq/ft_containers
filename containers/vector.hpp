@@ -6,7 +6,7 @@
 /*   By: llecoq <llecoq@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/16 15:57:56 by llecoq            #+#    #+#             */
-/*   Updated: 2022/02/27 14:18:51 by llecoq           ###   ########.fr       */
+/*   Updated: 2022/02/27 15:53:58 by llecoq           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -271,6 +271,11 @@ return _begin[index];
 //   __invalidate_all_iterators();
 // }
 
+	class	lengthErrorException : public std::exception
+	{
+			virtual const char * what() const throw() {return "vector";}
+	} lenghtErrorException;
+
 	private :
 
 		pointer											_begin;
@@ -295,8 +300,8 @@ return _begin[index];
 
 		void	_vectorAllocation(size_type n)
 		{
-			// if (n > max_size())
-				// throw lenght error
+			if (n > max_size())
+				throw lenghtErrorException;
 			_begin = _end = _allocator.allocate(n);
 			_endCapacity = _begin + n;
 		}

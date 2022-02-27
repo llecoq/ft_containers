@@ -6,22 +6,24 @@
 #    By: llecoq <llecoq@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/11/16 11:27:48 by llecoq            #+#    #+#              #
-#    Updated: 2022/02/22 17:12:40 by llecoq           ###   ########.fr        #
+#    Updated: 2022/02/27 15:22:13 by llecoq           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-SRCS_FILES	=	main.cpp\
-				Ah.cpp
+SRCS_FILES	=			main.cpp\
+						Ah.cpp\
+						tester_vector.cpp
 
 OBJS_FILES = $(SRCS_FILES:.cpp=.o)
 
-INCLUDES_FILES =  vector.hpp
+INCLUDES_FILES =  		vector.hpp
 
-INCLUDES_PATH = containers/
+INCLUDES_PATH = 		containers/
 
-INCLUDES_UTILS_PATH = utils/
+INCLUDES_UTILS_PATH = 	utils/
 
-INCLUDES_UTILS_FILES = iterator.hpp
+INCLUDES_UTILS_FILES =	iterator.hpp\
+						tester.hpp
 
 OBJSPATH = .objs/
 
@@ -53,7 +55,7 @@ $(NAME):	$(OBJS)
 			$(CXXC) $(CFLAGS) $(OBJS) -o $(NAME)
 
 clean:
-			$(RM) $(OBJSPATH)
+			$(RM) $(OBJSPATH) tester_results/*.test
 
 fclean:		clean
 			$(RM) $(NAME)

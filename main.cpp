@@ -6,26 +6,44 @@
 /*   By: llecoq <llecoq@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/18 11:21:24 by llecoq            #+#    #+#             */
-/*   Updated: 2022/02/27 14:19:43 by llecoq           ###   ########.fr       */
+/*   Updated: 2022/02/27 15:18:54 by llecoq           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "containers/vector.hpp"
 #include <vector>
+#include "containers/vector.hpp"
+#include "utils/tester.hpp"
 #include "Ah.hpp"
 
-int	main()
+int	tester(std::string library, std::string container)
 {
-	std::vector<float>		vec(5);
-	// ft::vector<float>		vec(5, 10);
-	// std::vector<Ah>		vec(5);
-	// std::cout << vec[2] << std::endl;
-	// ft::vector<int>	v(5);
-	
-	std::cout << vec.max_size() << std::endl;
-	// std::cout << vec[0] << std::endl;
-	return (0);
+	if (container == "vector")
+		return tester_vector(library);
+	// else if (container == "")
+	return (ERROR);
 }
+
+int	main(int argc, char **argv)
+{
+	if (argc != 3)
+	{
+		std::cout << "Usage : [ft/std] <container>" << std::endl;
+		return (ERROR);
+	}
+	if (tester(argv[1], argv[2]) == ERROR)
+		std::cout << "Usage : [ft/std] <container>" << std::endl;
+	return (EXIT_SUCCESS);
+}
+
+
+	// std::vector<float>		vec(5);
+	// // ft::vector<float>		vec(5, 10);
+	// // std::vector<Ah>		vec(5);
+	// // std::cout << vec[2] << std::endl;
+	// // ft::vector<int>	v(5);
+	
+	// std::cout << vec.max_size() << std::endl;
+	// // std::cout << vec[0] << std::endl;
 
 //   // constructors used in the same order as described above:
 //   std::vector<int> first;                                // empty vector of ints
