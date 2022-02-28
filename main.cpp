@@ -6,14 +6,12 @@
 /*   By: llecoq <llecoq@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/18 11:21:24 by llecoq            #+#    #+#             */
-/*   Updated: 2022/02/27 15:18:54 by llecoq           ###   ########.fr       */
+/*   Updated: 2022/02/27 16:02:31 by llecoq           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <vector>
 #include "containers/vector.hpp"
 #include "utils/tester.hpp"
-#include "Ah.hpp"
 
 int	tester(std::string library, std::string container)
 {

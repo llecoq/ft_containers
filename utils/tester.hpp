@@ -6,7 +6,7 @@
 /*   By: llecoq <llecoq@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/27 14:49:09 by llecoq            #+#    #+#             */
-/*   Updated: 2022/02/27 15:18:18 by llecoq           ###   ########.fr       */
+/*   Updated: 2022/02/27 16:02:41 by llecoq           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@
 #include <fstream>
 #include <string>
 #include <vector>
+#include "../TestClass.hpp"
 
 int	tester_vector(std::string library);
 

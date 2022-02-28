@@ -6,7 +6,7 @@
 /*   By: llecoq <llecoq@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/16 15:57:56 by llecoq            #+#    #+#             */
-/*   Updated: 2022/02/27 15:53:58 by llecoq           ###   ########.fr       */
+/*   Updated: 2022/02/28 14:58:56 by llecoq           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@
 #include <memory>
 #include <string>
 #include <iostream>
-#include "../utils/iterator.hpp"
+#include "../utils/random_access_iterator.hpp"
 
 namespace	ft
 {
@@ -36,15 +36,15 @@ class vector
 		** -------------------------------------------------------- MEMBER TYPES
 		*/
 	
-		typedef typename allocator_type::reference				reference;
-		typedef typename allocator_type::const_reference		const_reference;
-		typedef typename allocator_type::pointer				pointer;
-		// typedef ft::random_access_iterator<value_type>			iterator;   // iterator a creer
-		// typedef ft::random_access_iterator<const value_type>	const_iterator;   // iterator a creer
+		typedef typename allocator_type::reference					reference;
+		typedef typename allocator_type::const_reference			const_reference;
+		typedef typename allocator_type::pointer					pointer;
+		typedef random_access_iterator<value_type>					iterator;   // iterator a creer
+		typedef random_access_iterator<const value_type>			const_iterator;   // iterator a creer
 		// typedef ft::reverse_iterator<iterator>					reverse_iterator;
 		// typedef ft::reverse_iterator<const_iterator>			const_reverse_iterator;
-		// typedef ft::iterator_traits<iterator>::difference_type	difference_type;
-		typedef typename allocator_type::size_type				size_type;
+		typedef typename iterator_traits<iterator>::difference_type	difference_type;
+		typedef typename allocator_type::size_type					size_type;
 		
 		/*
 		** -------------------------------------------------------- CONSTRUCTORS
@@ -60,7 +60,7 @@ class vector
 			_endCapacity(nullptr),
 			_allocator(alloc)
 		{
-			std::cout << "VECTOR DEFAULT CONSTRUCTOR" << std::endl;
+			// std::cout << "VECTOR DEFAULT CONSTRUCTOR" << std::endl;
 		}
 		
 		/* 															    fill (2)
@@ -74,7 +74,7 @@ class vector
 			_endCapacity(nullptr),
 			_allocator(alloc)
 		{
-			std::cout << "VECTOR FILL CONSTRUCTOR" << std::endl;
+			// std::cout << "VECTOR FILL CONSTRUCTOR" << std::endl;
 			
 			if (n > 0)
 			{
@@ -137,15 +137,23 @@ class vector
 		** ----------------------------------------------------------- ITERATORS
 		*/
 	    
-		// iterator begin()
+		iterator begin()
+		{
+			return (_begin);
+		}
+
+		// const_iterator begin() const
 		// {
 		// 	return (_begin);
 		// }
+	
+		iterator end()
+		{
+			return (_end);
+		}
 		
-		// const_iterator begin() const
-		// {
-
-		// }
+		// const_iterator end() const;
+		
 		/*
 		** ------------------------------------------------------------ CAPACITY
 		*/
@@ -273,7 +281,10 @@ return _begin[index];
 
 	class	lengthErrorException : public std::exception
 	{
-			virtual const char * what() const throw() {return "vector";}
+		virtual const char * what() const throw()
+		{
+			return "vector";
+		}
 	} lenghtErrorException;
 
 	private :
