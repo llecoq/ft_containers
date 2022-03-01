@@ -6,13 +6,13 @@
 #    By: llecoq <llecoq@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/11/16 11:27:48 by llecoq            #+#    #+#              #
-#    Updated: 2022/02/27 18:02:07 by llecoq           ###   ########.fr        #
+#    Updated: 2022/03/01 17:28:49 by llecoq           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 SRCS_FILES	=			main.cpp\
-						TestClass.cpp\
-						tester_vector.cpp
+						tester_vector.cpp\
+						tester_push_back.cpp
 
 OBJS_FILES = $(SRCS_FILES:.cpp=.o)
 
@@ -23,6 +23,7 @@ INCLUDES_PATH = 		containers/
 INCLUDES_UTILS_PATH = 	utils/
 
 INCLUDES_UTILS_FILES =	iterator.hpp\
+						TestClass.hpp\
 						random_access_iterator.hpp\
 						tester.hpp
 

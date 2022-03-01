@@ -6,12 +6,20 @@
 /*   By: llecoq <llecoq@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/18 11:21:24 by llecoq            #+#    #+#             */
-/*   Updated: 2022/02/27 16:02:31 by llecoq           ###   ########.fr       */
+/*   Updated: 2022/03/01 18:12:41 by llecoq           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "containers/vector.hpp"
 #include "utils/tester.hpp"
+
+int TestClass::objectCount = 0;
+
+std::ostream	&operator<<(std::ostream &output, TestClass &rhs)
+{
+	output << rhs.getName() << std::endl;
+	return output;
+};
 
 int	tester(std::string library, std::string container)
 {
@@ -23,6 +31,11 @@ int	tester(std::string library, std::string container)
 
 int	main(int argc, char **argv)
 {
+	if (argc == 1)
+	{
+		tester_push_back();
+		return (0);
+	}
 	if (argc != 3)
 	{
 		std::cout << "Usage : [ft/std] <container>" << std::endl;

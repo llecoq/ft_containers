@@ -6,7 +6,7 @@
 /*   By: llecoq <llecoq@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/27 14:26:55 by llecoq            #+#    #+#             */
-/*   Updated: 2022/03/01 11:31:07 by llecoq           ###   ########.fr       */
+/*   Updated: 2022/03/01 17:48:08 by llecoq           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -195,6 +195,7 @@ int	tester_vector(std::string library)
 //STD		/*-------------------- MEMBER ACCESS */
 			std::vector<TestClass>				michel;
 			michel.push_back(TestClass());
+			michel.push_back(TestClass());
 			std::vector<TestClass>::iterator	iterClass = michel.begin();
 			
 			// indirection to rvalue
@@ -260,6 +261,11 @@ int	tester_vector(std::string library)
 
 //STD		/*------------------------ SUBSCRIPT */
 			outputFile << it[2] << std::endl;
+
+//STD	/*------------------------- REVERSE ITERATOR -------------------------*/
+		{
+			
+		}
 
 		}
 //STD	/*----------------------------- CAPACITY -----------------------------*/

@@ -6,7 +6,7 @@
 /*   By: llecoq <llecoq@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/27 18:01:12 by llecoq            #+#    #+#             */
-/*   Updated: 2022/03/01 11:26:28 by llecoq           ###   ########.fr       */
+/*   Updated: 2022/03/01 13:31:05 by llecoq           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,17 +29,17 @@ class random_access_iterator : virtual public iterator_traits< iterator<random_a
 		typedef typename iterator<random_access_iterator_tag, T>::reference				reference;
 		typedef typename iterator<random_access_iterator_tag, T>::iterator_category		iterator_category;
 
+	
 		/*
 		** -------------------------------------------------------- CONSTRUCTORS
 		*/
-
 		// Default
 		random_access_iterator()
 		:
 			_pointer(nullptr)
 		{}
 
-		// Copy
+		// Copy construct
 		random_access_iterator( random_access_iterator const &src )
 		{
 			*this = src;
@@ -60,10 +60,10 @@ class random_access_iterator : virtual public iterator_traits< iterator<random_a
 			return *this;
 		}
 
+	
 		/*
 		** ------------------------------------------------------- MEMBER ACCESS
 		*/
-
 		// indirection to rvalue
 		reference	& operator*( void ) const
 		{
@@ -82,10 +82,10 @@ class random_access_iterator : virtual public iterator_traits< iterator<random_a
 			return (*_pointer);
 		}
 
+
 		/*
 		** --------------------------------------------- DE/IN-CREMENT OPERATORS
 		*/
-
 		random_access_iterator	& operator++( void )
 		{
 			_pointer++;
@@ -114,10 +114,10 @@ class random_access_iterator : virtual public iterator_traits< iterator<random_a
 			return (tmp);
 		}
 
+
 		/*
 		** ------------------------------------------------ ARITHMETIC OPERATORS
 		*/
-
 		random_access_iterator	operator+( difference_type n ) const
 		{
 			random_access_iterator	tmp(*this);
@@ -145,10 +145,10 @@ class random_access_iterator : virtual public iterator_traits< iterator<random_a
 			return (_pointer - rhs._pointer);
 		}
 
+
 		/*
 		** ------------------------------------------------ COMPARISON OPERATORS
 		*/
-
 		bool	operator==( random_access_iterator rhs ) const
 		{
 			return (_pointer == rhs._pointer);
@@ -159,10 +159,10 @@ class random_access_iterator : virtual public iterator_traits< iterator<random_a
 			return (_pointer != rhs._pointer);
 		}
 
+
 		/*
 		** ------------------------------------- INEQUALITY RELATIONAL OPERATORS
 		*/
-
 		bool	operator<(random_access_iterator const &rhs) const
 		{
 			return (*this->_pointer < *rhs._pointer);
@@ -183,10 +183,10 @@ class random_access_iterator : virtual public iterator_traits< iterator<random_a
 			return (*this->_pointer >= *rhs._pointer);
 		}
 
+
 		/*
 		** --------------------------------------- COMPOUND ASSIGNMENT OPERATORS
 		*/
-
 		random_access_iterator	& operator+=( difference_type const n )
 		{
 			_pointer += n;
@@ -199,20 +199,20 @@ class random_access_iterator : virtual public iterator_traits< iterator<random_a
 			return (*this);
 		}
 
+
 		/*
 		** --------------------------------------------- OUTPUT STREAM OPERATORS
 		*/
-
 		friend std::ostream	&operator<<(std::ostream &output, random_access_iterator const &rhs)
 		{
 			output << rhs._pointer;
 			return (output);
 		}
 
+
 		/*
 		** ----------------------------------------------------------- SUBSCRIPT
 		*/
-
 		// offset dereference operator
 		reference	& operator[]( difference_type index )
 		{

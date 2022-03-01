@@ -1,27 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   tester.hpp                                         :+:      :+:    :+:   */
+/*   tester_push_back.cpp                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: llecoq <llecoq@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/02/27 14:49:09 by llecoq            #+#    #+#             */
-/*   Updated: 2022/03/01 17:36:50 by llecoq           ###   ########.fr       */
+/*   Created: 2022/03/01 15:49:23 by llecoq            #+#    #+#             */
+/*   Updated: 2022/03/01 18:14:17 by llecoq           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef TESTER_HPP
-#define TESTER_HPP
+#include "containers/vector.hpp"
+#include "utils/tester.hpp"
 
-#include <iostream>
-#include <fstream>
-#include <string>
-#include <vector>
-#include "TestClass.hpp"
+void	tester_push_back(void)
+{
+	ft::vector<TestClass>	ft;
 
-int		tester_vector(std::string library);
-void	tester_push_back(void);
-
-#define ERROR 1
-
-#endif
+	ft.push_back(TestClass());
+	// std.push_back(TestClass());
+	// std.push_back(TestClass());
+}

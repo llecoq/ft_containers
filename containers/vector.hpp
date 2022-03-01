@@ -6,7 +6,7 @@
 /*   By: llecoq <llecoq@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/16 15:57:56 by llecoq            #+#    #+#             */
-/*   Updated: 2022/02/28 14:58:56 by llecoq           ###   ########.fr       */
+/*   Updated: 2022/03/01 18:18:21 by llecoq           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,17 +25,15 @@ template < class T, class Alloc = std::allocator<T> > //        GENERIC TEMPLATE
 class vector
 {
 	public:
-		/*
-		** ------------------------------------------------- TEMPLATE PARAMETERS
-		*/
-	
+	/*
+	** ----------------------------------------------------- TEMPLATE PARAMETERS
+	*/
 		typedef	T												value_type;
 		typedef	Alloc											allocator_type;
 	
-		/*
-		** -------------------------------------------------------- MEMBER TYPES
-		*/
-	
+	/*
+	** ------------------------------------------------------------ MEMBER TYPES
+	*/
 		typedef typename allocator_type::reference					reference;
 		typedef typename allocator_type::const_reference			const_reference;
 		typedef typename allocator_type::pointer					pointer;
@@ -46,18 +44,17 @@ class vector
 		typedef typename iterator_traits<iterator>::difference_type	difference_type;
 		typedef typename allocator_type::size_type					size_type;
 		
-		/*
-		** -------------------------------------------------------- CONSTRUCTORS
-		**
-		** 															 default (1)
-		**						Constructs an empty container, with no elements.
-		*/
-
+	/*
+	** ------------------------------------------------------------ CONSTRUCTORS
+	**
+	** 																 default (1)
+	**							Constructs an empty container, with no elements.
+	*/
 		explicit vector (const allocator_type& alloc = allocator_type())
 		:
 			_begin(nullptr),
 			_end(nullptr),
-			_endCapacity(nullptr),
+			_end_capacity(nullptr),
 			_allocator(alloc)
 		{
 			// std::cout << "VECTOR DEFAULT CONSTRUCTOR" << std::endl;
@@ -71,15 +68,15 @@ class vector
 		:
 			_begin(nullptr),
 			_end(nullptr),
-			_endCapacity(nullptr),
+			_end_capacity(nullptr),
 			_allocator(alloc)
 		{
 			// std::cout << "VECTOR FILL CONSTRUCTOR" << std::endl;
 			
 			if (n > 0)
 			{
-				_vectorAllocation(n);
-				_constructAtEnd(n, val);
+				_vector_allocation(n);
+				_construct_at_end(n, val);
 			}					
 		}
 
@@ -119,23 +116,15 @@ class vector
 		** ---------------------------------------------------------- DESTRUCTOR
 		*/	
 
-		// template <class _Allocator>
-		// vector<bool, _Allocator>::~vector()
-		// {
-		//     if (__begin_ != nullptr)
-		//         __storage_traits::deallocate(__alloc(), __begin_, __cap());
-		//     __invalidate_all_iterators();
-		// }
-
 		~vector()
 		{
 			if (_begin != nullptr)
 				_allocator.deallocate(_begin, capacity());
 		}
 
-		/*
-		** ----------------------------------------------------------- ITERATORS
-		*/
+	/*
+	** --------------------------------------------------------------- ITERATORS
+	*/
 	    
 		iterator begin()
 		{
@@ -154,9 +143,9 @@ class vector
 		
 		// const_iterator end() const;
 		
-		/*
-		** ------------------------------------------------------------ CAPACITY
-		*/
+	/*
+	** ---------------------------------------------------------------- CAPACITY
+	*/
 
 		// This is the number of actual objects held in the vector, which is not necessarily equal to its storage capacity.
 		size_type size() const
@@ -193,7 +182,7 @@ class vector
 		// The capacity of a vector can be explicitly altered by calling member vector::reserve.
 		size_type capacity() const
 		{
-			return static_cast<size_type>(_endCapacity - _begin);
+			return static_cast<size_type>(_end_capacity - _begin);
 		}
 
 		// Test whether vector is empty
@@ -217,22 +206,18 @@ class vector
 			}
 		}
 
-		/*
-		** ----------------------------------------------------------- MODIFIERS
-		**
-		**															    range(1)
-		**	In the range version (1), the new contents are elements constructed 
-		**	from each of the elements in the range between first and last, in the
-		**	same order.
-		*/
+	/*
+	** --------------------------------------------------------------- MODIFIERS
+	**
+	**																    range(1)
+	**		In the range version (1), the new contents are elements constructed 
+	**		from each of the elements in the range between first and last, in the
+	**		same order.
+	*/
 
 		template <class InputIterator>
 		void assign (InputIterator first, InputIterator last)
 		{
-
-			// clear();
-			// for (; __first != __last; ++__first)
-			//     __emplace_back(*__first);
 			(void)first;
 			(void)last;
 		}
@@ -240,8 +225,6 @@ class vector
 		/*																 fill(2)
 		**	In the fill version (2), the new contents are n elements, each init-
 		**	-ialized to a copy of val.
-		**	
-		**
 		*/
 
 		void assign (size_type n, const value_type& val)
@@ -250,34 +233,27 @@ class vector
 			(void)val;
 		}
 
+		void push_back (const value_type& val)
+		{
+			if (_end != _end_capacity)
+			{
+				_allocator.construct(_end, val);
+				++_end;
+			}
+			else
+			{
+				_reallocate_and_copy_elements();
+				push_back(val);
+			}
+		}
+
+
 
 
 T &		operator[]( unsigned int index )
 {
 return _begin[index];
 };
-
-// template <class _Allocator>
-// void
-// vector<bool, _Allocator>::assign(size_type __n, const value_type& __x)
-// {
-//     __size_ = 0;
-//     if (__n > 0)
-//     {
-//         size_type __c = capacity();
-//         if (__n <= __c)
-//             __size_ = __n;
-//         else
-//         {
-//             vector __v(__alloc());
-//             __v.reserve(__recommend(__n));
-//             __v.__size_ = __n;
-//             swap(__v);
-//         }
-//         _VSTD::fill_n(begin(), __n, __x);
-//     }
-//   __invalidate_all_iterators();
-// }
 
 	class	lengthErrorException : public std::exception
 	{
@@ -291,33 +267,18 @@ return _begin[index];
 
 		pointer											_begin;
 		pointer											_end;
-		pointer											_endCapacity;
+		pointer											_end_capacity;
 		allocator_type									_allocator;
-		// std::__compressed_pair<pointer, allocator_type>	_allocatedEndCapacity;
-		// size_type			_allocatedStorageCapacity;
-		// size_t				_numberOfElements;
 
-
-// template <class _Tp, class _Allocator>
-// void
-// vector<_Tp, _Allocator>::__vallocate(size_type __n)
-// {
-//     if (__n > max_size())
-//         this->__throw_length_error();
-//     this->__begin_ = this->__end_ = __alloc_traits::allocate(this->__alloc(), __n);
-//     this->__end_cap() = this->__begin_ + __n;
-//     __annotate_new(0);
-// }
-
-		void	_vectorAllocation(size_type n)
+		void	_vector_allocation(size_type n)
 		{
 			if (n > max_size())
 				throw lenghtErrorException;
 			_begin = _end = _allocator.allocate(n);
-			_endCapacity = _begin + n;
+			_end_capacity = _begin + n;
 		}
 
-		void	_constructAtEnd(size_type n, const value_type& val)
+		void	_construct_at_end(size_type n, const value_type &val)
 		{
 			while (n-- > 0)
 			{
@@ -326,36 +287,45 @@ return _begin[index];
 			}
 		}
 
+		void	_construct_at_end(const value_type &val)
+		{
+			_allocator.construct(_end, val);
+			_end++;
+		}
 
-// template <class _Tp, class _Allocator>
-// void
-// vector<_Tp, _Allocator>::__construct_at_end(size_type __n)
-// {
-//     allocator_type& __a = this->__alloc();
-//     do
-//     {
-//         __RAII_IncreaseAnnotator __annotator(*this);
-//         __alloc_traits::construct(__a, _VSTD::__to_raw_pointer(this->__end_));
-//         ++this->__end_;
-//         --__n;
-//         __annotator.__done();
-//     } while (__n > 0);
-// }
+		void	_destruct_old_vector(pointer old_vector)
+		{
+			pointer		begin = old_vector;
+			size_type	old_size = capacity() - 1;
 
-		// allocator_type	get_allocator() const
-		// {
-		// 	return (_allocatedEndCapacity.second());
-		// }
+			for (size_type i = 0; i < old_size; i++)
+			{
+				_allocator.destroy(old_vector++);
+			}
+			_allocator.deallocate(begin, old_size);
+		}
 
-		// allocator_type&	_alloc()
-        // {
-		// 	return _allocatedEndCapacity.second();
-		// }
+		void	_reallocate_and_copy_elements(void)
+		{
+			pointer		old_vector = _begin;
 
-		// pointer&	_endCapacity()
-		// {
-			// return (_allocatedEndCapacity.first());
-		// }
+			_vector_allocation(capacity() + 1);
+			_copy_elements_to_new_vector(old_vector);
+			_destruct_old_vector(old_vector);
+		}
+
+		void	_copy_elements_to_new_vector(pointer old_vector)
+		{
+			size_type	number_of_elements = capacity() - 1;
+
+			for (size_type i = 0; i < number_of_elements; i++)
+			{
+				_construct_at_end(old_vector[i]);
+				// _allocator.destroy(old_vector++);
+			}
+		
+			// deallocate pointer
+		}
 
 };
 }
