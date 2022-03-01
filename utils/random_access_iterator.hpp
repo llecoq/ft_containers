@@ -6,7 +6,7 @@
 /*   By: llecoq <llecoq@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/27 18:01:12 by llecoq            #+#    #+#             */
-/*   Updated: 2022/02/28 19:25:11 by llecoq           ###   ########.fr       */
+/*   Updated: 2022/03/01 11:26:28 by llecoq           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,21 +32,23 @@ class random_access_iterator : virtual public iterator_traits< iterator<random_a
 		/*
 		** -------------------------------------------------------- CONSTRUCTORS
 		*/
-	// Is default-constructible, copy-constructible, copy-assignable and destructible
-	// Default
+
+		// Default
 		random_access_iterator()
 		:
 			_pointer(nullptr)
 		{}
-	// Copy
+
+		// Copy
 		random_access_iterator( random_access_iterator const &src )
 		{
 			*this = src;
 		}
-	// Destructor
+	
+		// Destructor
 		~random_access_iterator(){}
 
-	// copy assignment
+		// copy assignment
 		random_access_iterator( random_access_iterator::pointer pointer )
 		{
 			_pointer = pointer;
@@ -59,26 +61,26 @@ class random_access_iterator : virtual public iterator_traits< iterator<random_a
 		}
 
 		/*
-		** ------------------------------------------------ COMPARISON OPERATORS
+		** ------------------------------------------------------- MEMBER ACCESS
 		*/
 
-		bool	operator==( random_access_iterator rhs ) const
+		// indirection to rvalue
+		reference	& operator*( void ) const
 		{
-			return (_pointer == rhs._pointer);
-		}
-	
-		bool	operator!=( random_access_iterator rhs ) const
-		{
-			return (_pointer != rhs._pointer);
+			return (_pointer);
 		}
 
-		// Can be dereferenced as an rvalue (if in a dereferenceable state).
-			// *a
-			// a->m
+		// member of pointer
+		pointer	* operator->( void ) const
+		{
+			return (operator*());
+		}
 
-		// For mutable iterators (non-constant iterators):
-		// Can be dereferenced as an lvalue (if in a dereferenceable state).	
-			// *a = t
+		// indirection to lvalue
+		reference	& operator*( void )
+		{
+			return (*_pointer);
+		}
 
 		/*
 		** --------------------------------------------- DE/IN-CREMENT OPERATORS
@@ -98,11 +100,6 @@ class random_access_iterator : virtual public iterator_traits< iterator<random_a
 			return (tmp);
 		}
 
-		value_type& operator*( void ) const
-		{
-			return (*this->_pointer);
-		}
-
 		random_access_iterator	& operator--( void )
 		{
 			_pointer--;
@@ -116,8 +113,6 @@ class random_access_iterator : virtual public iterator_traits< iterator<random_a
 			_pointer--;
 			return (tmp);
 		}
-
-		// *a--
 
 		/*
 		** ------------------------------------------------ ARITHMETIC OPERATORS
@@ -145,13 +140,23 @@ class random_access_iterator : virtual public iterator_traits< iterator<random_a
 			return (tmp);
 		}
 
-		// AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAH
-		friend random_access_iterator	operator-( random_access_iterator const &rls, random_access_iterator const &rhs )
+		difference_type	operator-( random_access_iterator const &rhs ) const
 		{
-			random_access_iterator	tmp(rls);
-			
-			*tmp._pointer -= *rhs._pointer;
-			return (tmp);
+			return (_pointer - rhs._pointer);
+		}
+
+		/*
+		** ------------------------------------------------ COMPARISON OPERATORS
+		*/
+
+		bool	operator==( random_access_iterator rhs ) const
+		{
+			return (_pointer == rhs._pointer);
+		}
+	
+		bool	operator!=( random_access_iterator rhs ) const
+		{
+			return (_pointer != rhs._pointer);
 		}
 
 		/*
@@ -182,13 +187,13 @@ class random_access_iterator : virtual public iterator_traits< iterator<random_a
 		** --------------------------------------- COMPOUND ASSIGNMENT OPERATORS
 		*/
 
-		random_access_iterator	&operator+=( difference_type const n )
+		random_access_iterator	& operator+=( difference_type const n )
 		{
 			_pointer += n;
 			return (*this);
 		}
 
-		random_access_iterator	&operator-=( difference_type const n )
+		random_access_iterator	& operator-=( difference_type const n )
 		{
 			_pointer -= n;
 			return (*this);
@@ -204,6 +209,15 @@ class random_access_iterator : virtual public iterator_traits< iterator<random_a
 			return (output);
 		}
 
+		/*
+		** ----------------------------------------------------------- SUBSCRIPT
+		*/
+
+		// offset dereference operator
+		reference	& operator[]( difference_type index )
+		{
+			return (_pointer[index]);
+		}
 
 	protected :
 
