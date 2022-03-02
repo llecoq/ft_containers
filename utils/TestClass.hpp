@@ -16,6 +16,16 @@
 # include <iostream>
 # include <string>
 
+#define RESET   "\033[0m"
+#define BLACK   "\033[30m"      /* Black */
+#define RED     "\033[31m"      /* Red */
+#define GREEN   "\033[32m"      /* Green */
+#define YELLOW  "\033[33m"      /* Yellow */
+#define BLUE    "\033[34m"      /* Blue */
+#define MAGENTA "\033[35m"      /* Magenta */
+#define CYAN    "\033[36m"      /* Cyan */
+#define WHITE   "\033[37m"      /* White */
+
 class TestClass
 {
    public:
@@ -24,16 +34,16 @@ class TestClass
       
     	TestClass()
 		{
-			_name = new std::string("default");
+			_name = new std::string("Default");
     		_number = objectCount++;
-    		std::cout << _number << " - Default Constructor called." << std::endl;
+    		std::cout << CYAN << _number << " - Default Constructor called." << RESET << std::endl;
       	}
 
 		TestClass(const TestClass &src)
 	  	{
-			_name = new std::string("copy");
+			_name = new std::string("Copy");
 			_number = src.objectCount++;
-      		std::cout << _number << " - Copy Constructor called." << std::endl;
+      		std::cout << GREEN << _number << " - Copy Constructor called." << RESET << std::endl;
 	  	}
 
 		TestClass( std::string name ) : _name(new std::string(name))
@@ -44,13 +54,23 @@ class TestClass
 
 		~TestClass()
 		{
-      		std::cout << _number << " - Destructor called ------- DEAD" << std::endl;
+			if (*_name == "Default")
+      			std::cout << CYAN << _number << " - " << *_name << RED 
+				<< " Destructor " << CYAN << "called" << RESET << std::endl;
+			else
+      			std::cout << GREEN << _number << " - " << *_name << RED 
+				<< " Destructor " << GREEN << "called" << RESET << std::endl;
 			delete _name;
 		}
 
 		std::string	getName() const
 		{
 			return (*_name);
+		}
+		
+		int	getNumber() const
+		{
+			return (_number);
 		}
       
    private:

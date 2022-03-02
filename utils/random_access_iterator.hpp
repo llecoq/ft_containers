@@ -6,7 +6,7 @@
 /*   By: llecoq <llecoq@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/27 18:01:12 by llecoq            #+#    #+#             */
-/*   Updated: 2022/03/01 13:31:05 by llecoq           ###   ########.fr       */
+/*   Updated: 2022/03/02 15:40:17 by llecoq           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,13 +67,13 @@ class random_access_iterator : virtual public iterator_traits< iterator<random_a
 		// indirection to rvalue
 		reference	& operator*( void ) const
 		{
-			return (_pointer);
+			return (*_pointer);
 		}
 
 		// member of pointer
-		pointer	* operator->( void ) const
+		pointer	operator->( void ) const
 		{
-			return (operator*());
+			return (_pointer);
 		}
 
 		// indirection to lvalue
@@ -81,7 +81,7 @@ class random_access_iterator : virtual public iterator_traits< iterator<random_a
 		{
 			return (*_pointer);
 		}
-
+		
 
 		/*
 		** --------------------------------------------- DE/IN-CREMENT OPERATORS
