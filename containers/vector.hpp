@@ -6,7 +6,7 @@
 /*   By: llecoq <llecoq@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/16 15:57:56 by llecoq            #+#    #+#             */
-/*   Updated: 2022/03/02 16:53:20 by llecoq           ###   ########.fr       */
+/*   Updated: 2022/03/02 18:18:44 by llecoq           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -123,10 +123,19 @@ class vector
 		{
 			if (_begin != nullptr)
 			{
-				_destruct_and_deallocate_vector(_begin, DESTRUCTOR);
+				_destruct_and_deallocate_vector(_end - 1, _begin, capacity());
 				// _allocator.deallocate(_begin, capacity());
 			}
 		}
+
+		// ~vector()
+		// {
+		// 	if (_begin != nullptr)
+		// 	{
+		// 		_destruct_and_deallocate_vector(_begin, DESTRUCTOR);
+		// 		// _allocator.deallocate(_begin, capacity());
+		// 	}
+		// }
 
 	/*
 	** --------------------------------------------------------------- ITERATORS
@@ -292,12 +301,6 @@ return _begin[index];
 			_allocator.construct(_end, val);
 			_end++;
 		}
-		
-		// void	_construct_from_end(const value_type &val, pointer end)
-		// {
-		// 	_allocator.construct(end, val);
-		// 	_end++;
-		// }
 
 		void	_destruct_and_deallocate_vector(pointer old_vector, int function)
 		{
@@ -313,10 +316,21 @@ return _begin[index];
 			_allocator.deallocate(begin, old_size);
 		}
 
+		void	_destruct_and_deallocate_vector(pointer end, pointer begin, size_type capacity)
+		{
+			if (capacity > 0)
+			{
+				while (end >= begin)
+					_allocator.destroy(end--);
+				_allocator.deallocate(begin, capacity);
+			}
+		}
+
 		void	_reallocate_and_copy_elements(const value_type &val)
 		{
 			pointer		old_begin = _begin;
 			size_type	old_size = size();
+			pointer		old_end = _end;
 			size_type	new_size = capacity() + 1;
 
 			if ((new_size > 2) && (new_size % 2))
@@ -324,32 +338,37 @@ return _begin[index];
 			// std::cout << "vector allocation" << std::endl;
 			_vector_allocation(new_size);
 			// std::cout << "copy elements to new vector" << std::endl;
-			_copy_elements_to_new_vector(old_begin, old_size);
+			
+			_end += old_size;
+			_allocator.construct(_end++, val);
+
+			_copy_new_vector(old_begin, old_end, old_size);
+
+			// _copy_elements_to_new_vector(old_begin, old_size);
 			// std::cout << "push back" << std::endl;
-			push_back(val);
+			// push_back(val);
 			// std::cout << "destruct and deallocate" << std::endl;
-			_destruct_and_deallocate_vector(old_begin, PUSH_BACK);
+			_destruct_and_deallocate_vector(old_end - 1, old_begin, old_size);
+			// _destruct_and_deallocate_vector(old_begin, PUSH_BACK);
 			// std::cout << "end" << std::endl;
 		}
 
 		void	_copy_elements_to_new_vector(pointer old_vector, size_type number_of_elements)
 		{
-			// size_type	number_of_elements = static_cast<size_type>(old_end - old_begin);
-			// pointer		new_end = _begin + number_of_elements;
-
-			// while (old_end != old_begin)
-			// {
-			// 	_construct_from_end(*old_end, new_end);
-			// 	old_end--;
-			// 	new_end--;
-			// }
-			// (void)number_of_elements;
-			// (void)old_begin;
-			// (void)old_end;
-			// (void)new_end;
 			for (size_type i = 0; i < number_of_elements; i++)
 				_construct_at_end(old_vector[i]);
 		}
+
+		void	_copy_new_vector(pointer old_begin, pointer old_end, size_type number_of_elements)
+		{
+			while (old_end != old_begin)
+			{
+				_allocator.construct(_begin + number_of_elements - 1, old_begin[number_of_elements]);
+				number_of_elements--;
+				old_end--;
+			}
+		}
+
 };
 }
 

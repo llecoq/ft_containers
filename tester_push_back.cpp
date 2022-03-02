@@ -6,7 +6,7 @@
 /*   By: llecoq <llecoq@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/01 15:49:23 by llecoq            #+#    #+#             */
-/*   Updated: 2022/03/02 16:31:11 by llecoq           ###   ########.fr       */
+/*   Updated: 2022/03/02 18:15:20 by llecoq           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,27 +16,74 @@
 void	tester_push_back(void)
 {
 	ft::vector<TestClass>	ft;
+	ft::vector<TestClass>::iterator	it = ft.begin();
+	ft::vector<TestClass>::iterator	ite = ft.end();
 
 	ft.push_back(TestClass());
 	dprintf(2, "%zu -----------------------------------\n", ft.capacity());
 	
+	it = ft.begin();
+	ite = ft.end();
+	while (it != ite)
+	{
+		dprintf(2, "%d ", it->getNumber());
+		it++;
+	}
+	dprintf(2, "\n");	
+	
 	ft.push_back(TestClass());
 	dprintf(2, "%zu -----------------------------------\n", ft.capacity());
 	
-	// ft.push_back(TestClass());
-	// dprintf(2, "%zu -----------------------------------\n", ft.capacity());
+	it = ft.begin();
+	ite = ft.end();
+	while (it != ite)
+	{
+		dprintf(2, "%d ", it->getNumber());
+		it++;
+	}
+	dprintf(2, "\n");	
 	
-	// ft.push_back(TestClass());
-	// dprintf(2, "%zu -----------------------------------\n", ft.capacity());
+	ft.push_back(TestClass());
+	dprintf(2, "%zu -----------------------------------\n", ft.capacity());
+
+	it = ft.begin();
+	ite = ft.end();
+	while (it != ite)
+	{
+		dprintf(2, "%d ", it->getNumber());
+		it++;
+	}
+	dprintf(2, "\n");	
+		
+	ft.push_back(TestClass());
+	dprintf(2, "%zu -----------------------------------\n", ft.capacity());
 	
-	// ft.push_back(TestClass());
-	// dprintf(2, "%zu -----------------------------------\n", ft.capacity());
+	it = ft.begin();
+	ite = ft.end();
+	while (it != ite)
+	{
+		dprintf(2, "%d ", it->getNumber());
+		it++;
+	}
 	
-	// ft.push_back(TestClass());
-	// dprintf(2, "%zu -----------------------------------\n", ft.capacity());
+	dprintf(2, "\n");
+	ft.push_back(TestClass());
+	dprintf(2, "%zu -----------------------------------\n", ft.capacity());
+
+	it = ft.begin();
+	ite = ft.end();
+	while (it != ite)
+	{
+		dprintf(2, "%d ", it->getNumber());
+		it++;
+	}
+	dprintf(2, "\n");	
 	
-	ft::vector<TestClass>::iterator	it = ft.begin();
-	ft::vector<TestClass>::iterator	ite = ft.end();
+	ft.push_back(TestClass());
+	dprintf(2, "%zu -----------------------------------\n", ft.capacity());
+	
+	it = ft.begin();
+	ite = ft.end();
 	while (it != ite)
 	{
 		dprintf(2, "%d ", it->getNumber());
@@ -52,7 +99,7 @@ void	tester_push_back(void)
 	// 	dprintf(2, "%d ", *it);
 	// }
 	
-	// ft.push_back(TestClass());
+	// std.push_back(TestClass());
 	// dprintf(2, "%zu\n", std.capacity());
 	// std.push_back(TestClass());
 	// dprintf(2, "%zu\n", std.capacity());
