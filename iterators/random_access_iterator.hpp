@@ -6,7 +6,7 @@
 /*   By: llecoq <llecoq@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/27 18:01:12 by llecoq            #+#    #+#             */
-/*   Updated: 2022/03/02 15:40:17 by llecoq           ###   ########.fr       */
+/*   Updated: 2022/03/03 16:23:12 by llecoq           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -146,6 +146,22 @@ class random_access_iterator : virtual public iterator_traits< iterator<random_a
 		}
 
 
+
+		/*
+		** --------------------------------------- COMPOUND ASSIGNMENT OPERATORS
+		*/
+		random_access_iterator	& operator+=( difference_type const n )
+		{
+			_pointer += n;
+			return (*this);
+		}
+
+		random_access_iterator	& operator-=( difference_type const n )
+		{
+			_pointer -= n;
+			return (*this);
+		}
+
 		/*
 		** ------------------------------------------------ COMPARISON OPERATORS
 		*/
@@ -181,22 +197,6 @@ class random_access_iterator : virtual public iterator_traits< iterator<random_a
 		bool	operator>=(random_access_iterator const &rhs) const
 		{
 			return (*this->_pointer >= *rhs._pointer);
-		}
-
-
-		/*
-		** --------------------------------------- COMPOUND ASSIGNMENT OPERATORS
-		*/
-		random_access_iterator	& operator+=( difference_type const n )
-		{
-			_pointer += n;
-			return (*this);
-		}
-
-		random_access_iterator	& operator-=( difference_type const n )
-		{
-			_pointer -= n;
-			return (*this);
 		}
 
 

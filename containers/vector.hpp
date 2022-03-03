@@ -6,7 +6,7 @@
 /*   By: llecoq <llecoq@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/16 15:57:56 by llecoq            #+#    #+#             */
-/*   Updated: 2022/03/03 13:13:01 by llecoq           ###   ########.fr       */
+/*   Updated: 2022/03/03 18:01:24 by llecoq           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@
 #include <string>
 #include <iostream>
 #include "../iterators/random_access_iterator.hpp"
+#include "../iterators/reverse_iterator.hpp"
 
 namespace	ft
 {
@@ -37,9 +38,9 @@ class vector
 		typedef typename allocator_type::reference					reference;
 		typedef typename allocator_type::const_reference			const_reference;
 		typedef typename allocator_type::pointer					pointer;
-		typedef random_access_iterator<value_type>					iterator;   // iterator a creer
+		typedef random_access_iterator<value_type>					iterator;
 		typedef random_access_iterator<const value_type>			const_iterator;   // iterator a creer
-		// typedef ft::reverse_iterator<iterator>					reverse_iterator;
+		typedef reverse_iterator<iterator>							reverse_iterator;
 		// typedef ft::reverse_iterator<const_iterator>			const_reverse_iterator;
 		typedef typename iterator_traits<iterator>::difference_type	difference_type;
 		typedef typename allocator_type::size_type					size_type;
@@ -138,13 +139,23 @@ class vector
 		// {
 		// 	return (_begin);
 		// }
-	
+
+		iterator rbegin()
+		{
+			return (_end - 1);
+		}
+
 		iterator end()
 		{
 			return (_end);
 		}
 		
 		// const_iterator end() const;
+
+		iterator rend()
+		{
+			return (_begin);
+		}
 		
 	/*
 	** ---------------------------------------------------------------- CAPACITY
@@ -175,10 +186,10 @@ class vector
 		// from it.
 		void resize (size_type n, value_type val = value_type())
 		{
-			// if n < size
-			//	destruct from end
-			(void)n;
-			(void)val;
+			if (n < size())
+				_destruct_from_end(_end, size() - n);
+			else if (n > capacity())
+				_expand_vector(_end, n, val);
 		}
 
 		// Return size of allocated storage capacity
@@ -292,6 +303,12 @@ return _begin[index];
 				_allocator.construct(--_begin, *--old_end);
 		}
 		
+		void	_construct_from_end(pointer old_end, size_type number_of_elements)
+		{
+			while (number_of_elements-- > 0)
+				_allocator.construct(--_begin, *--old_end);
+		}
+		
 		void	_destruct_from_end(pointer &end, size_type size)
 		{
 				while (size-- > 0)
@@ -309,6 +326,18 @@ return _begin[index];
 				new_capacity *= 2;
 			_vector_allocation(new_capacity);
 			_construct_from_end(old_end, old_size, val);
+			_destruct_from_end(old_end, old_size);
+			_allocator.deallocate(old_end, old_size);
+		}
+
+		void	_expand_vector(pointer old_end, size_type new_capacity, const value_type &val)
+		{
+			size_type	old_size = size();
+		
+			_vector_allocation(new_capacity);
+			_begin = _end = _begin + old_size;
+			_construct_at_end(new_capacity - old_size, val);
+			_construct_from_end(old_end, old_size);
 			_destruct_from_end(old_end, old_size);
 			_allocator.deallocate(old_end, old_size);
 		}

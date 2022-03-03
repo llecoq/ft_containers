@@ -6,7 +6,7 @@
 /*   By: llecoq <llecoq@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/16 16:19:24 by llecoq            #+#    #+#             */
-/*   Updated: 2022/03/03 13:12:28 by llecoq           ###   ########.fr       */
+/*   Updated: 2022/03/03 13:24:13 by llecoq           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,34 +72,6 @@ namespace ft
 			typedef random_access_iterator_tag				iterator_category;
 	};
 
-
-/*
-** ------------------------------------------------------------ REVERSE ITERATOR
-*/
-	// template <class Iterator>
-	// class reverse_iterator
-	// {
-	// 	public :
-
-	// 		typedef typename iterator_type											Iterator;
-	// 		typedef typename iterator_traits<Iterator>::iterator_category	iterator_category;
-	// 		typedef typename iterator_traits<Iterator>::value_type			value_type;
-	// 		typedef typename iterator_traits<Iterator>::difference_type		difference_type;
-	// 		typedef typename iterator_traits<Iterator>::pointer				pointer;
-	// 		typedef typename iterator_traits<Iterator>::reference			reference;
-
-	// 	/*------------------------- MEMBER FUNCTIONS -------------------------*/
-	// 	// default (1)
-	// 		reverse_iterator(){}
-
-	// 	// initialization (2)	
-	// 		explicit reverse_iterator (iterator_type it);
-
-	// 	// copy (3)	
-	// 		template <class Iter>
-	// 		reverse_iterator (const reverse_iterator<Iter>& rev_it);
-
-	// };
 }
 
 #endif
