@@ -6,33 +6,34 @@
 #    By: llecoq <llecoq@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/11/16 11:27:48 by llecoq            #+#    #+#              #
-#    Updated: 2022/03/03 11:41:02 by llecoq           ###   ########.fr        #
+#    Updated: 2022/03/03 13:12:18 by llecoq           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-SRCS_FILES	=			main.cpp
+SRCS_FILES	=				main.cpp
 
-INCLUDES_UTILS_FILES =	iterator.hpp\
-						TestClass.hpp\
-						random_access_iterator.hpp\
-						tester.hpp
+INCLUDES_UTILS_FILES =		TestClass.hpp\
+							tester.hpp
 
-INCLUDES_FILES =  		vector.hpp
+INCLUDES_FILES =  			vector.hpp
 
-TESTER_FILES =			tester_vector.cpp\
-						tester_push_back.cpp
+ITERATORS_FILES =  			iterator.hpp\
+							random_access_iterator.hpp
 
-OBJS_FILES = $(SRCS_FILES:.cpp=.o) $(TESTER_SRCS:.cpp=.o)
+TESTER_FILES =				tester_vector.cpp\
+							tester_push_back.cpp
 
-INCLUDES_PATH = 		containers/
+INCLUDES_PATH = 			containers/
 
-INCLUDES_UTILS_PATH = 	utils/
+INCLUDES_UTILS_PATH = 		utils/
 
-TESTER_PATH = 			tester/
+INCLUDES_ITERATOR_PATH =	iterators/
+
+TESTER_PATH = 				tester/
 
 OBJSPATH = .objs/
 
-# SRCS = $(addprefix $(SRCSPATH),$(SRCS_FILES))
+OBJS_FILES = $(SRCS_FILES:.cpp=.o) $(TESTER_SRCS:.cpp=.o)
 
 TESTER_SRCS = $(addprefix $(TESTER_PATH),$(TESTER_FILES))
 
@@ -41,6 +42,8 @@ OBJS = $(addprefix $(OBJSPATH),$(OBJS_FILES))
 INCLUDES = $(addprefix $(INCLUDES_PATH),$(INCLUDES_FILES))
 
 INCLUDES_UTILS = $(addprefix $(INCLUDES_UTILS_PATH),$(INCLUDES_UTILS_FILES))
+
+INCLUDES_ITERATOR = $(addprefix $(INCLUDES_ITERATOR_PATH),$(ITERATORS_FILES))
 
 NAME	= ft_containers
 
@@ -54,7 +57,7 @@ DIR		=	.objs/
 
 all		:	$(NAME)
 
-$(OBJSPATH)%.o:		$(SRCSPATH)%.cpp $(INCLUDES) $(INCLUDES_UTILS) Makefile
+$(OBJSPATH)%.o:		$(SRCSPATH)%.cpp $(INCLUDES) $(INCLUDES_UTILS) $(INCLUDES_ITERATOR) Makefile
 			@mkdir -p $(OBJSPATH) $(DIR)
 			@mkdir -p $(OBJSPATH) .objs/tester
 			$(CXXC) $(CFLAGS) -c $< -o $@ -I containers/ -I utils/

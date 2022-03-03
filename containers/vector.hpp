@@ -6,7 +6,7 @@
 /*   By: llecoq <llecoq@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/16 15:57:56 by llecoq            #+#    #+#             */
-/*   Updated: 2022/03/03 13:00:25 by llecoq           ###   ########.fr       */
+/*   Updated: 2022/03/03 13:13:01 by llecoq           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@
 #include <memory>
 #include <string>
 #include <iostream>
-#include "../utils/random_access_iterator.hpp"
+#include "../iterators/random_access_iterator.hpp"
 
 namespace	ft
 {
@@ -124,15 +124,6 @@ class vector
 				_allocator.deallocate(_begin, capacity());
 			}
 		}
-
-		// ~vector()
-		// {
-		// 	if (_begin != nullptr)
-		// 	{
-		// 		_destruct_and_deallocate_vector(_begin, DESTRUCTOR);
-		// 		// _allocator.deallocate(_begin, capacity());
-		// 	}
-		// }
 
 	/*
 	** --------------------------------------------------------------- ITERATORS
