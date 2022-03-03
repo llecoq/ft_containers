@@ -6,7 +6,7 @@
 #    By: llecoq <llecoq@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/11/16 11:27:48 by llecoq            #+#    #+#              #
-#    Updated: 2022/03/03 13:12:18 by llecoq           ###   ########.fr        #
+#    Updated: 2022/03/03 13:22:06 by llecoq           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -18,24 +18,23 @@ INCLUDES_UTILS_FILES =		TestClass.hpp\
 INCLUDES_FILES =  			vector.hpp
 
 ITERATORS_FILES =  			iterator.hpp\
-							random_access_iterator.hpp
+							random_access_iterator.hpp\
+							reverse_iterator.hpp
 
 TESTER_FILES =				tester_vector.cpp\
-							tester_push_back.cpp
+							tester_push_back.cpp\
+							tester_reverse_iterator.cpp
 
 INCLUDES_PATH = 			containers/
-
 INCLUDES_UTILS_PATH = 		utils/
-
 INCLUDES_ITERATOR_PATH =	iterators/
-
-TESTER_PATH = 				tester/
+INCLUDES_TESTER_PATH = 		tester/
 
 OBJSPATH = .objs/
 
 OBJS_FILES = $(SRCS_FILES:.cpp=.o) $(TESTER_SRCS:.cpp=.o)
 
-TESTER_SRCS = $(addprefix $(TESTER_PATH),$(TESTER_FILES))
+TESTER_SRCS = $(addprefix $(INCLUDES_TESTER_PATH),$(TESTER_FILES))
 
 OBJS = $(addprefix $(OBJSPATH),$(OBJS_FILES))
 
@@ -47,7 +46,7 @@ INCLUDES_ITERATOR = $(addprefix $(INCLUDES_ITERATOR_PATH),$(ITERATORS_FILES))
 
 NAME	= ft_containers
 
-CXXC	= clang++
+CXXC	= c++
 
 RM		= rm -rf
 
