@@ -6,7 +6,7 @@
 /*   By: llecoq <llecoq@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/16 15:57:56 by llecoq            #+#    #+#             */
-/*   Updated: 2022/03/03 11:03:46 by llecoq           ###   ########.fr       */
+/*   Updated: 2022/03/03 13:00:25 by llecoq           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,9 +17,6 @@
 #include <string>
 #include <iostream>
 #include "../utils/random_access_iterator.hpp"
-
-#define PUSH_BACK 1
-#define DESTRUCTOR 2
 
 namespace	ft
 {
@@ -123,7 +120,8 @@ class vector
 		{
 			if (_begin != nullptr)
 			{
-				_destruct_and_deallocate_vector(_end, capacity(), DESTRUCTOR);
+				_destruct_from_end(_end, size());
+				_allocator.deallocate(_begin, capacity());
 			}
 		}
 
@@ -167,10 +165,6 @@ class vector
 			return static_cast<size_type>(_end - _begin);		
 		}
 
-		// Returns the maximum number of elements that the vector can hold.
-		// This is the maximum potential size the container can reach due to known system or library implementation limitations, 
-		// but the container is by no means guaranteed to be able to reach that size: it can still fail to allocate storage at 
-		// any point before that size is reached.
 		size_type max_size() const
 		{
 			if (sizeof(value_type) == sizeof(char))
@@ -179,29 +173,30 @@ class vector
 		}
 
 		// Resizes the container so that it contains n elements.
-		// If n is smaller than the current container size, the content is reduced to its first n elements, removing those beyond (and destroying them).
-		// If n is greater than the current container size, the content is expanded by inserting at the end as many elements as needed to reach a size of n. If val is specified, the new elements are initialized as copies of val, otherwise, they are value-initialized.
-		// If n is also greater than the current container capacity, an automatic reallocation of the allocated storage space takes place.
-		// Notice that this function changes the actual content of the container by inserting or erasing elements from it.
+		// If n is smaller than the current container size, the content is reduced to its first n elements, 
+		// removing those beyond (and destroying them).
+		// If n is greater than the current container size, the content is expanded by inserting at the end as 
+		// many elements as needed to reach a size of n. If val is specified, the new elements are initialized as 
+		// copies of val, otherwise, they are value-initialized.
+		// If n is also greater than the current container capacity, an automatic reallocation of the allocated 
+		// storage space takes place.
+		// Notice that this function changes the actual content of the container by inserting or erasing elements 
+		// from it.
 		void resize (size_type n, value_type val = value_type())
 		{
+			// if n < size
+			//	destruct from end
 			(void)n;
 			(void)val;
 		}
 
 		// Return size of allocated storage capacity
-		// Returns the size of the storage space currently allocated for the vector, expressed in terms of elements.
-		// This capacity is not necessarily equal to the vector size. It can be equal or greater, with the extra space allowing to accommodate for growth without the need to reallocate on each insertion.
-		// Notice that this capacity does not suppose a limit on the size of the vector. When this capacity is exhausted and more is needed, it is automatically expanded by the container (reallocating it storage space). The theoretical limit on the size of a vector is given by member max_size.
-		// The capacity of a vector can be explicitly altered by calling member vector::reserve.
 		size_type capacity() const
 		{
 			return static_cast<size_type>(_end_capacity - _begin);
 		}
 
 		// Test whether vector is empty
-		// Returns whether the vector is empty (i.e. whether its size is 0).
-		// This function does not modify the container in any way. To clear the content of a vector, see vector::clear.
 		bool empty() const
 		{
 			return (_begin == _end);
@@ -286,22 +281,6 @@ return _begin[index];
 			_end_capacity = _begin + n;
 		}
 
-		void	_destruct_and_deallocate_vector(pointer end, size_type capacity, int function)
-		{
-			size_type	size = 0;
-
-			if (function == DESTRUCTOR)
-				size = static_cast<size_type>(_end - _begin);         // WTF
-			else if (function == PUSH_BACK)
-				size = capacity;
-			if (capacity > 0)
-			{
-				while (size-- > 0)
-					_allocator.destroy(--end);
-				_allocator.deallocate(end, capacity);
-			}
-		}
-
 		void	_construct_at_end(size_type n, const value_type &val)
 		{
 			while (n-- > 0)
@@ -321,6 +300,12 @@ return _begin[index];
 			while (number_of_elements-- > 0)
 				_allocator.construct(--_begin, *--old_end);
 		}
+		
+		void	_destruct_from_end(pointer &end, size_type size)
+		{
+				while (size-- > 0)
+					_allocator.destroy(--end);
+		}
 
 		void	_reallocate_and_copy_elements(pointer old_end, const value_type &val)
 		{
@@ -333,13 +318,8 @@ return _begin[index];
 				new_capacity *= 2;
 			_vector_allocation(new_capacity);
 			_construct_from_end(old_end, old_size, val);
-			_destruct_and_deallocate_vector(old_end, old_size, PUSH_BACK);
-		}
-
-		void	_copy_elements_to_new_vector(pointer old_begin, pointer old_end, size_type number_of_elements)
-		{
-			while (old_end != old_begin)
-				_allocator.construct(_begin + number_of_elements, *old_end--);
+			_destruct_from_end(old_end, old_size);
+			_allocator.deallocate(old_end, old_size);
 		}
 
 };
