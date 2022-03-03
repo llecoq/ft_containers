@@ -6,7 +6,7 @@
 /*   By: llecoq <llecoq@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/16 15:57:56 by llecoq            #+#    #+#             */
-/*   Updated: 2022/03/02 18:18:44 by llecoq           ###   ########.fr       */
+/*   Updated: 2022/03/03 11:03:46 by llecoq           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,8 +18,8 @@
 #include <iostream>
 #include "../utils/random_access_iterator.hpp"
 
-#define	DESTRUCTOR 1
-#define	PUSH_BACK 2
+#define PUSH_BACK 1
+#define DESTRUCTOR 2
 
 namespace	ft
 {
@@ -123,8 +123,7 @@ class vector
 		{
 			if (_begin != nullptr)
 			{
-				_destruct_and_deallocate_vector(_end - 1, _begin, capacity());
-				// _allocator.deallocate(_begin, capacity());
+				_destruct_and_deallocate_vector(_end, capacity(), DESTRUCTOR);
 			}
 		}
 
@@ -253,7 +252,7 @@ class vector
 			if (_end != _end_capacity)
 				_allocator.construct(_end++, val);
 			else
-				_reallocate_and_copy_elements(val);
+				_reallocate_and_copy_elements(_end, val);
 		}
 
 
@@ -287,86 +286,60 @@ return _begin[index];
 			_end_capacity = _begin + n;
 		}
 
+		void	_destruct_and_deallocate_vector(pointer end, size_type capacity, int function)
+		{
+			size_type	size = 0;
+
+			if (function == DESTRUCTOR)
+				size = static_cast<size_type>(_end - _begin);         // WTF
+			else if (function == PUSH_BACK)
+				size = capacity;
+			if (capacity > 0)
+			{
+				while (size-- > 0)
+					_allocator.destroy(--end);
+				_allocator.deallocate(end, capacity);
+			}
+		}
+
 		void	_construct_at_end(size_type n, const value_type &val)
 		{
 			while (n-- > 0)
-			{
-				_allocator.construct(_end, val);
-				_end++;
-			}
+				_allocator.construct(_end++, val);
 		}
 
 		void	_construct_at_end(const value_type &val)
 		{
-			_allocator.construct(_end, val);
-			_end++;
-		}
-
-		void	_destruct_and_deallocate_vector(pointer old_vector, int function)
-		{
-			pointer		begin = old_vector;
-			size_type	old_size = 0;
-		
-			if (function == PUSH_BACK)
-				old_size = size() - 1;
-			else if (function == DESTRUCTOR)
-				old_size = size();
-			for (size_type i = 0; i < old_size; i++)
-				_allocator.destroy(old_vector++);
-			_allocator.deallocate(begin, old_size);
-		}
-
-		void	_destruct_and_deallocate_vector(pointer end, pointer begin, size_type capacity)
-		{
-			if (capacity > 0)
-			{
-				while (end >= begin)
-					_allocator.destroy(end--);
-				_allocator.deallocate(begin, capacity);
-			}
-		}
-
-		void	_reallocate_and_copy_elements(const value_type &val)
-		{
-			pointer		old_begin = _begin;
-			size_type	old_size = size();
-			pointer		old_end = _end;
-			size_type	new_size = capacity() + 1;
-
-			if ((new_size > 2) && (new_size % 2))
-				new_size = capacity() * 2;
-			// std::cout << "vector allocation" << std::endl;
-			_vector_allocation(new_size);
-			// std::cout << "copy elements to new vector" << std::endl;
-			
-			_end += old_size;
 			_allocator.construct(_end++, val);
-
-			_copy_new_vector(old_begin, old_end, old_size);
-
-			// _copy_elements_to_new_vector(old_begin, old_size);
-			// std::cout << "push back" << std::endl;
-			// push_back(val);
-			// std::cout << "destruct and deallocate" << std::endl;
-			_destruct_and_deallocate_vector(old_end - 1, old_begin, old_size);
-			// _destruct_and_deallocate_vector(old_begin, PUSH_BACK);
-			// std::cout << "end" << std::endl;
 		}
 
-		void	_copy_elements_to_new_vector(pointer old_vector, size_type number_of_elements)
+		void	_construct_from_end(pointer old_end, size_type number_of_elements, const value_type &val)
 		{
-			for (size_type i = 0; i < number_of_elements; i++)
-				_construct_at_end(old_vector[i]);
+			_end = _begin = _begin + number_of_elements + 1;
+
+			_allocator.construct(--_begin, val);
+			while (number_of_elements-- > 0)
+				_allocator.construct(--_begin, *--old_end);
 		}
 
-		void	_copy_new_vector(pointer old_begin, pointer old_end, size_type number_of_elements)
+		void	_reallocate_and_copy_elements(pointer old_end, const value_type &val)
+		{
+			size_type	new_capacity = capacity();
+			size_type	old_size = size();
+
+			if (new_capacity == 0)
+				new_capacity = 1;
+			else
+				new_capacity *= 2;
+			_vector_allocation(new_capacity);
+			_construct_from_end(old_end, old_size, val);
+			_destruct_and_deallocate_vector(old_end, old_size, PUSH_BACK);
+		}
+
+		void	_copy_elements_to_new_vector(pointer old_begin, pointer old_end, size_type number_of_elements)
 		{
 			while (old_end != old_begin)
-			{
-				_allocator.construct(_begin + number_of_elements - 1, old_begin[number_of_elements]);
-				number_of_elements--;
-				old_end--;
-			}
+				_allocator.construct(_begin + number_of_elements, *old_end--);
 		}
 
 };
