@@ -6,30 +6,35 @@
 #    By: llecoq <llecoq@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/11/16 11:27:48 by llecoq            #+#    #+#              #
-#    Updated: 2022/03/03 10:02:33 by llecoq           ###   ########.fr        #
+#    Updated: 2022/03/03 11:41:02 by llecoq           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-SRCS_FILES	=			main.cpp\
-						tester_vector.cpp\
-						tester_push_back.cpp
-
-OBJS_FILES = $(SRCS_FILES:.cpp=.o)
-
-INCLUDES_FILES =  		vector.hpp
-
-INCLUDES_PATH = 		containers/
-
-INCLUDES_UTILS_PATH = 	utils/
+SRCS_FILES	=			main.cpp
 
 INCLUDES_UTILS_FILES =	iterator.hpp\
 						TestClass.hpp\
 						random_access_iterator.hpp\
 						tester.hpp
 
+INCLUDES_FILES =  		vector.hpp
+
+TESTER_FILES =			tester_vector.cpp\
+						tester_push_back.cpp
+
+OBJS_FILES = $(SRCS_FILES:.cpp=.o) $(TESTER_SRCS:.cpp=.o)
+
+INCLUDES_PATH = 		containers/
+
+INCLUDES_UTILS_PATH = 	utils/
+
+TESTER_PATH = 			tester/
+
 OBJSPATH = .objs/
 
-SRCS = $(addprefix $(SRCSPATH),$(SRCS_FILES))
+# SRCS = $(addprefix $(SRCSPATH),$(SRCS_FILES))
+
+TESTER_SRCS = $(addprefix $(TESTER_PATH),$(TESTER_FILES))
 
 OBJS = $(addprefix $(OBJSPATH),$(OBJS_FILES))
 
@@ -51,6 +56,7 @@ all		:	$(NAME)
 
 $(OBJSPATH)%.o:		$(SRCSPATH)%.cpp $(INCLUDES) $(INCLUDES_UTILS) Makefile
 			@mkdir -p $(OBJSPATH) $(DIR)
+			@mkdir -p $(OBJSPATH) .objs/tester
 			$(CXXC) $(CFLAGS) -c $< -o $@ -I containers/ -I utils/
 
 $(NAME):	$(OBJS)
