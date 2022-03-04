@@ -6,7 +6,7 @@
 /*   By: llecoq <llecoq@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/27 14:49:09 by llecoq            #+#    #+#             */
-/*   Updated: 2022/03/04 16:03:31 by llecoq           ###   ########.fr       */
+/*   Updated: 2022/03/04 17:20:03 by llecoq           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,7 @@ void	tester_pop_back(void);
 void	tester_copy_constructor(void);
 void	tester_element_access(void);
 void	tester_erase(void);
+void	tester_insert(void);
 
 #define ERROR 1
 

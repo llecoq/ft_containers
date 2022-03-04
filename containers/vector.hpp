@@ -6,7 +6,7 @@
 /*   By: llecoq <llecoq@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/16 15:57:56 by llecoq            #+#    #+#             */
-/*   Updated: 2022/03/04 17:15:12 by llecoq           ###   ########.fr       */
+/*   Updated: 2022/03/04 18:05:04 by llecoq           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -299,8 +299,45 @@ class vector
 			_destruct_backward(_end, 1);
 		}
 
-		// insert
-		// Insert elements (public member function )
+		// single element (1)	
+		// iterator insert (iterator position, const value_type& val)
+		// {
+		// 	pointer				insert_ptr;
+		// 	difference_type		index;
+
+		// 	index = position - begin();
+		// 	insert_ptr = _begin + index;
+		// 	// if _end == _end_capacity
+		// 		// realloc
+		// 		// premier constructeur est celui du nouvel element
+		// 		// construct backward du new elem a begin
+		// 		// construct at end ancien elems
+		// 	// else... just move stuff !
+		// 	if (_end == _end_capacity)
+		// 	{
+		// 		pointer		old_end = _end;
+		// 		size_type	old_size = size();
+			
+		// 		_vector_allocation(capacity() + 1);
+		// 		_construct_backward(old_end, old_size, val);
+		// 		// while (_end != _end_capacity - 1)
+		// 		// {
+		// 		// 	_construct_at_end(*insert_ptr++);
+		// 		// }
+		// 		_destruct_backward(old_end, old_size);
+		// 		_allocator.deallocate(old_end, old_size);
+		// 	}
+		// 	(void)position;
+		// 	(void)val;
+
+		// 	return position;
+		// }
+		// fill (2)	
+		// void insert (iterator position, size_type n, const value_type& val);
+		// // range (3)	
+		// template <class InputIterator>
+		// 	void insert (iterator position, InputIterator first, InputIterator last);
+
 		// erase
 		// Erase elements (public member function )
 		iterator erase (iterator position)
