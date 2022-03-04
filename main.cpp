@@ -6,7 +6,7 @@
 /*   By: llecoq <llecoq@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/18 11:21:24 by llecoq            #+#    #+#             */
-/*   Updated: 2022/03/04 10:57:50 by llecoq           ###   ########.fr       */
+/*   Updated: 2022/03/04 12:11:30 by llecoq           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,9 +33,7 @@ int	main(int argc, char **argv)
 {
 	if (argc == 1)
 	{
-		// tester_push_back();
-		// tester_resize();
-		tester_copy_constructor();
+		tester_reserve();
 		return (0);
 	}
 	if (argc != 3)

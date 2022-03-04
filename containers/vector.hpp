@@ -6,7 +6,7 @@
 /*   By: llecoq <llecoq@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/16 15:57:56 by llecoq            #+#    #+#             */
-/*   Updated: 2022/03/04 12:00:30 by llecoq           ###   ########.fr       */
+/*   Updated: 2022/03/04 12:33:47 by llecoq           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,19 +91,19 @@ class vector
 		// vector(InputIterator first, InputIterator last,	const allocator_type& alloc = allocator_type(),
 		// 		typename enable_if<!is_integral<InputIterator>::value>::type* = 0) : _alloc(alloc)
 
-		template <class InputIterator>
-		        vector (InputIterator first, InputIterator last,
-		                const allocator_type& alloc = allocator_type())
-		:
-			_begin(nullptr),
-			_end(nullptr),
-			_end_capacity(nullptr),
-			_allocator(alloc)
-		{
-			_vector_allocation(static_cast<size_type>(last - first));
-			while (first != last)
-				_construct_at_end(*first++);
-		};
+		// template <class InputIterator>
+		//         vector (InputIterator first, InputIterator last,
+		//                 const allocator_type& alloc = allocator_type())
+		// :
+		// 	_begin(nullptr),
+		// 	_end(nullptr),
+		// 	_end_capacity(nullptr),
+		// 	_allocator(alloc)
+		// {
+		// 	_vector_allocation(static_cast<size_type>(last - first));
+		// 	while (first != last)
+		// 		_construct_at_end(*first++);
+		// };
 		
 		/* 															    copy (4)
 		**	Constructs a container with a copy of each of the elements in x, in 
@@ -232,9 +232,7 @@ class vector
 		void reserve (size_type n)
 		{
 			if (n > capacity())
-			{
-				// reallocate storage increasing capacity
-			}
+				_reallocate_and_copy_elements(_end, n);
 		}
 
 	/*
@@ -346,6 +344,17 @@ return _begin[index];
 				new_capacity *= 2;
 			_vector_allocation(new_capacity);
 			_construct_from_end(old_end, old_size, val);
+			_destruct_from_end(old_end, old_size);
+			_allocator.deallocate(old_end, old_size);
+		}
+
+		void	_reallocate_and_copy_elements(pointer old_end, size_type new_capacity)
+		{
+			size_type	old_size = size();
+
+			_vector_allocation(new_capacity);
+			_begin = _end = _begin + old_size;
+			_construct_from_end(old_end, old_size);
 			_destruct_from_end(old_end, old_size);
 			_allocator.deallocate(old_end, old_size);
 		}
