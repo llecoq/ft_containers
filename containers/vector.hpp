@@ -6,7 +6,7 @@
 /*   By: llecoq <llecoq@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/16 15:57:56 by llecoq            #+#    #+#             */
-/*   Updated: 2022/03/04 11:12:53 by llecoq           ###   ########.fr       */
+/*   Updated: 2022/03/04 12:00:30 by llecoq           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,16 +91,19 @@ class vector
 		// vector(InputIterator first, InputIterator last,	const allocator_type& alloc = allocator_type(),
 		// 		typename enable_if<!is_integral<InputIterator>::value>::type* = 0) : _alloc(alloc)
 
-		// template <class InputIterator>
-		//         vector (InputIterator first, InputIterator last,
-		//                 const allocator_type& alloc = allocator_type())
-		// {
-		// 	std::cout << "VECTOR RANGE CONSTRUCTOR" << std::endl;
-		
-		// 	(void)first;
-		// 	(void)last;
-		// 	(void)alloc;
-		// };
+		template <class InputIterator>
+		        vector (InputIterator first, InputIterator last,
+		                const allocator_type& alloc = allocator_type())
+		:
+			_begin(nullptr),
+			_end(nullptr),
+			_end_capacity(nullptr),
+			_allocator(alloc)
+		{
+			_vector_allocation(static_cast<size_type>(last - first));
+			while (first != last)
+				_construct_at_end(*first++);
+		};
 		
 		/* 															    copy (4)
 		**	Constructs a container with a copy of each of the elements in x, in 
@@ -116,6 +119,18 @@ class vector
 			_vector_allocation(x.size());
 			for (size_type i = 0; i < x.size(); i++)
 				_construct_at_end(x._begin[i]);
+		}
+
+		/* 															    copy (1)
+		**															  assignment
+		**
+		*/
+		vector& operator= (const vector& x)
+		{
+			// clear ?
+			// if *this.capacity() > x, original malloc error et leaks
+			// assign ?
+			(void)x;
 		}
 
 		/*

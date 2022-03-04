@@ -43,6 +43,7 @@ class TestClass
 	  	{
 			_name = new std::string("Copy");
 			_number = src.objectCount++;
+			_i = src._i;
       		std::cout << GREEN << _number << " - Copy Constructor called." << RESET << std::endl;
 	  	}
 
@@ -50,6 +51,13 @@ class TestClass
 		{
 			_number = objectCount++;
     		std::cout << _number << " - String Constructor called." << std::endl;
+		}
+
+		TestClass(int i) : _i(i)
+		{
+			_name = new std::string("I");
+			_number = objectCount++;
+    		std::cout << _number << " - I Constructor called." << std::endl;
 		}
 
 		~TestClass()
@@ -72,11 +80,17 @@ class TestClass
 		{
 			return (_number);
 		}
+
+		int	getI() const
+		{
+			return (_i);
+		}
       
    private:
       
 		std::string	*_name;
 		int			_number;
+		int			_i;
 };
 
 #endif /* ****************************************************** TestClass_H */
