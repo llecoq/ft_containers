@@ -6,7 +6,7 @@
 /*   By: llecoq <llecoq@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/16 15:57:56 by llecoq            #+#    #+#             */
-/*   Updated: 2022/03/03 18:01:24 by llecoq           ###   ########.fr       */
+/*   Updated: 2022/03/04 11:12:53 by llecoq           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -107,10 +107,15 @@ class vector
 		**	the same order.
 		*/	
 		vector (const vector& x)
+		:
+			_begin(nullptr),
+			_end(nullptr),
+			_end_capacity(nullptr),
+			_allocator(x._allocator)
 		{
-			std::cout << "COPY" << std::endl;
-
-			(void)x;
+			_vector_allocation(x.size());
+			for (size_type i = 0; i < x.size(); i++)
+				_construct_at_end(x._begin[i]);
 		}
 
 		/*

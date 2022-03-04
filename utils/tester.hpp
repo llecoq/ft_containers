@@ -6,7 +6,7 @@
 /*   By: llecoq <llecoq@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/27 14:49:09 by llecoq            #+#    #+#             */
-/*   Updated: 2022/03/03 16:43:11 by llecoq           ###   ########.fr       */
+/*   Updated: 2022/03/04 10:57:25 by llecoq           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,7 @@ int		tester_vector(std::string library);
 void	tester_push_back(void);
 void	tester_reverse_iterator(void);
 void	tester_resize(void);
+void	tester_copy_constructor(void);
 
 #define ERROR 1
 
