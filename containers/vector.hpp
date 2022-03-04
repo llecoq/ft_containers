@@ -6,7 +6,7 @@
 /*   By: llecoq <llecoq@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/16 15:57:56 by llecoq            #+#    #+#             */
-/*   Updated: 2022/03/04 13:48:20 by llecoq           ###   ########.fr       */
+/*   Updated: 2022/03/04 17:15:12 by llecoq           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -143,7 +143,7 @@ class vector
 		{
 			if (_begin != nullptr)
 			{
-				_destruct_from_end(_end, size());
+				_destruct_backward(_end, size());
 				_allocator.deallocate(_begin, capacity());
 			}
 		}
@@ -197,19 +197,10 @@ class vector
 		}
 
 		// Resizes the container so that it contains n elements.
-		// If n is smaller than the current container size, the content is reduced to its first n elements, 
-		// removing those beyond (and destroying them).
-		// If n is greater than the current container size, the content is expanded by inserting at the end as 
-		// many elements as needed to reach a size of n. If val is specified, the new elements are initialized as 
-		// copies of val, otherwise, they are value-initialized.
-		// If n is also greater than the current container capacity, an automatic reallocation of the allocated 
-		// storage space takes place.
-		// Notice that this function changes the actual content of the container by inserting or erasing elements 
-		// from it.
 		void resize (size_type n, value_type val = value_type())
 		{
 			if (n < size())
-				_destruct_from_end(_end, size() - n);
+				_destruct_backward(_end, size() - n);
 			else if (n > capacity())
 				_expand_vector(_end, n, val);
 		}
@@ -226,11 +217,7 @@ class vector
 			return (_begin == _end);
 		}
 
-		// Request a change in capacity
-		// Requests that the vector capacity be at least enough to contain n elements.
-		// If n is greater than the current vector capacity, the function causes the container to reallocate its storage increasing its capacity to n (or greater).
-		// In all other cases, the function call does not cause a reallocation and the vector capacity is not affected.
-		// This function has no effect on the vector size and cannot alter its elements.		
+		// Request a change in capacity	
 		void reserve (size_type n)
 		{
 			if (n > capacity())
@@ -240,15 +227,15 @@ class vector
 	/*
 	** ---------------------------------------------------------- ELEMENT ACCESS
 	*/
-// operator[]
+		// Access element
 		reference operator[] (size_type n)
 		{
 			return _begin[n];
 		}
 
-// const_reference operator[] (size_type n) const;
+		// const_reference operator[] (size_type n) const;
 
-// at
+		// Returns a reference to the element at position n in the vector.
 		reference at (size_type n)
 		{
 			if (n > size())
@@ -259,15 +246,13 @@ class vector
 		// const_reference at (size_type n) const;
 		
 		// Access element (public member function )
-		// front
 		reference front()
 		{
 			return *_begin;
 		}
 		// const_reference front() const;
 
-// Access first element (public member function )
-// back
+		// Access first element (public member function )
 		reference back()
 		{
 			return *(_end - 1);
@@ -311,8 +296,34 @@ class vector
 
 		void pop_back(void)
 		{
-			_destruct_from_end(_end, 1);
+			_destruct_backward(_end, 1);
 		}
+
+		// insert
+		// Insert elements (public member function )
+		// erase
+		// Erase elements (public member function )
+		iterator erase (iterator position)
+		{
+			pointer				element_to_erase;
+			difference_type		index;
+
+			index = position - begin();
+			element_to_erase = _begin + index;
+
+			_allocator.destroy(element_to_erase);
+			
+			return position;
+		}
+		// iterator erase (iterator first, iterator last);
+		// swap
+		// void swap (vector& x)
+		// {
+			
+		// }
+		// Swap content (public member function )
+		// clear
+		// Clear content (public member function )
 
 		class	lengthErrorException : public std::exception
 		{
@@ -348,7 +359,7 @@ class vector
 			_allocator.construct(_end++, val);
 		}
 
-		void	_construct_from_end(pointer old_end, size_type number_of_elements, const value_type &val)
+		void	_construct_backward(pointer old_end, size_type number_of_elements, const value_type &val)
 		{
 			_end = _begin = _begin + number_of_elements + 1;
 
@@ -357,13 +368,13 @@ class vector
 				_allocator.construct(--_begin, *--old_end);
 		}
 		
-		void	_construct_from_end(pointer old_end, size_type number_of_elements)
+		void	_construct_backward(pointer old_end, size_type number_of_elements)
 		{
 			while (number_of_elements-- > 0)
 				_allocator.construct(--_begin, *--old_end);
 		}
 		
-		void	_destruct_from_end(pointer &end, size_type size)
+		void	_destruct_backward(pointer &end, size_type size)
 		{
 				while (size-- > 0)
 					_allocator.destroy(--end);
@@ -382,8 +393,8 @@ class vector
 			else
 				new_capacity *= 2;
 			_vector_allocation(new_capacity);
-			_construct_from_end(old_end, old_size, val);
-			_destruct_from_end(old_end, old_size);
+			_construct_backward(old_end, old_size, val);
+			_destruct_backward(old_end, old_size);
 			_allocator.deallocate(old_end, old_size);
 		}
 
@@ -393,8 +404,8 @@ class vector
 
 			_vector_allocation(new_capacity);
 			_begin = _end = _begin + old_size;
-			_construct_from_end(old_end, old_size);
-			_destruct_from_end(old_end, old_size);
+			_construct_backward(old_end, old_size);
+			_destruct_backward(old_end, old_size);
 			_allocator.deallocate(old_end, old_size);
 		}
 
@@ -405,8 +416,8 @@ class vector
 			_vector_allocation(new_capacity);
 			_begin = _end = _begin + old_size;
 			_construct_at_end(new_capacity - old_size, val);
-			_construct_from_end(old_end, old_size);
-			_destruct_from_end(old_end, old_size);
+			_construct_backward(old_end, old_size);
+			_destruct_backward(old_end, old_size);
 			_allocator.deallocate(old_end, old_size);
 		}
 

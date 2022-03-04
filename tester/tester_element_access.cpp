@@ -6,7 +6,7 @@
 /*   By: llecoq <llecoq@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/04 13:01:18 by llecoq            #+#    #+#             */
-/*   Updated: 2022/03/04 13:47:50 by llecoq           ###   ########.fr       */
+/*   Updated: 2022/03/04 13:50:48 by llecoq           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,5 +68,20 @@ void	tester_element_access(void)
 		myvector.front() -= myvector.back();
 		
 		std::cout << "myvector.front() is now " << myvector.front() << '\n';
+	}
+	{	// BACK
+		ft::vector<int> myvector;
+		
+		myvector.push_back(10);
+		
+		while (myvector.back() != 0)
+		{
+			myvector.push_back ( myvector.back() -1 );
+		}
+		
+		std::cout << "myvector contains:";
+		for (unsigned i=0; i<myvector.size() ; i++)
+		std::cout << ' ' << myvector[i];
+		std::cout << '\n';
 	}
 }

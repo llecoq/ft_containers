@@ -6,7 +6,7 @@
 /*   By: llecoq <llecoq@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/04 12:48:53 by llecoq            #+#    #+#             */
-/*   Updated: 2022/03/04 13:08:33 by llecoq           ###   ########.fr       */
+/*   Updated: 2022/03/04 13:54:54 by llecoq           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 void	tester_pop_back(void)
 {
 	std::vector<int>	vec;
-	vec.pop_back(); // std::vector non protege, segfault
+	// vec.pop_back(); // std::vector non protege, segfault
 	vec.push_back(1);
 	vec.push_back(2);
 	vec.push_back(3);
@@ -34,6 +34,6 @@ void	tester_pop_back(void)
 		sum+=myvector.back();
 		myvector.pop_back();
 	}
-	
+
 	std::cout << "The elements of myvector add up to " << sum << '\n';
 }

@@ -68,7 +68,7 @@ class TestClass
 			else
       			std::cout << GREEN << _number << " - " << *_name << RED 
 				<< " Destructor " << GREEN << "called" << RESET << std::endl;
-			delete _name;
+			// delete _name;
 		}
 
 		std::string	getName() const
