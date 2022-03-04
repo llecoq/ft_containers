@@ -6,7 +6,7 @@
 /*   By: llecoq <llecoq@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/16 15:57:56 by llecoq            #+#    #+#             */
-/*   Updated: 2022/03/04 12:33:47 by llecoq           ###   ########.fr       */
+/*   Updated: 2022/03/04 13:48:20 by llecoq           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,8 @@
 #include <memory>
 #include <string>
 #include <iostream>
+#include <stdexcept>
+#include <exception>
 #include "../iterators/random_access_iterator.hpp"
 #include "../iterators/reverse_iterator.hpp"
 
@@ -236,6 +238,43 @@ class vector
 		}
 
 	/*
+	** ---------------------------------------------------------- ELEMENT ACCESS
+	*/
+// operator[]
+		reference operator[] (size_type n)
+		{
+			return _begin[n];
+		}
+
+// const_reference operator[] (size_type n) const;
+
+// at
+		reference at (size_type n)
+		{
+			if (n > size())
+				throw std::out_of_range("vector");
+			return _begin[n];
+		}
+
+		// const_reference at (size_type n) const;
+		
+		// Access element (public member function )
+		// front
+		reference front()
+		{
+			return *_begin;
+		}
+		// const_reference front() const;
+
+// Access first element (public member function )
+// back
+		reference back()
+		{
+			return *(_end - 1);
+		}
+		// const_reference back() const;
+
+	/*
 	** --------------------------------------------------------------- MODIFIERS
 	**
 	**																    range(1)
@@ -270,21 +309,18 @@ class vector
 				_reallocate_and_copy_elements(_end, val);
 		}
 
-
-
-
-T &		operator[]( unsigned int index )
-{
-return _begin[index];
-};
-
-	class	lengthErrorException : public std::exception
-	{
-		virtual const char * what() const throw()
+		void pop_back(void)
 		{
-			return "vector";
+			_destruct_from_end(_end, 1);
 		}
-	} lenghtErrorException;
+
+		class	lengthErrorException : public std::exception
+		{
+			virtual const char * what() const throw()
+			{
+				return "vector";
+			}
+		} lenghtErrorException;
 
 	private :
 
@@ -332,6 +368,9 @@ return _begin[index];
 				while (size-- > 0)
 					_allocator.destroy(--end);
 		}
+
+		// faire passer petite structure dedans pour avoir une fonction plus generale
+		// avec size, capacity, val etc. ?
 
 		void	_reallocate_and_copy_elements(pointer old_end, const value_type &val)
 		{

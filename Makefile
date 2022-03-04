@@ -6,7 +6,7 @@
 #    By: llecoq <llecoq@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/11/16 11:27:48 by llecoq            #+#    #+#              #
-#    Updated: 2022/03/04 12:10:26 by llecoq           ###   ########.fr        #
+#    Updated: 2022/03/04 13:02:50 by llecoq           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -26,6 +26,8 @@ TESTER_FILES =				tester_vector.cpp\
 							tester_resize.cpp\
 							tester_reverse_iterator.cpp\
 							tester_reserve.cpp\
+							tester_pop_back.cpp\
+							tester_element_access.cpp\
 							tester_copy_constructor.cpp
 
 INCLUDES_PATH = 			containers/
