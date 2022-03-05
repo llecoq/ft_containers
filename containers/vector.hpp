@@ -6,7 +6,7 @@
 /*   By: llecoq <llecoq@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/16 15:57:56 by llecoq            #+#    #+#             */
-/*   Updated: 2022/03/05 14:51:00 by llecoq           ###   ########.fr       */
+/*   Updated: 2022/03/05 18:59:38 by llecoq           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,19 +95,19 @@ class vector
 		// vector(InputIterator first, InputIterator last,	const allocator_type& alloc = allocator_type(),
 		// 		typename enable_if<!is_integral<InputIterator>::value>::type* = 0) : _alloc(alloc)
 
-		// template <class InputIterator>
-		//         vector (InputIterator first, InputIterator last,
-		//                 const allocator_type& alloc = allocator_type())
-		// :
-		// 	_begin(0),
-		// 	_end(0),
-		// 	_end_capacity(0),
-		// 	_allocator(alloc)
-		// {
-		// 	_vector_allocation(static_cast<size_type>(last - first));
-		// 	while (first != last)
-		// 		_construct_at_end(*first++);
-		// };
+		template <class InputIterator>
+		        vector (InputIterator first, InputIterator last,
+		                const allocator_type& alloc = allocator_type())
+		:
+			_begin(0),
+			_end(0),
+			_end_capacity(0),
+			_allocator(alloc)
+		{
+			_vector_allocation(static_cast<size_type>(last - first));
+			while (first != last)
+				_construct_at_end(*first++);
+		};
 		
 		/* 															    copy (4)
 		**	Constructs a container with a copy of each of the elements in x, in 
@@ -301,14 +301,13 @@ class vector
 			_destruct_backward(_end, 1);
 		}
 
+		// A REVOIR MOOOOOOCHE BEURK
+		// Le vrai tourne en boucle si position > end, comme le mien lolz
 		// single element (1)	
 		iterator insert (iterator position, const value_type& val)
 		{
-			// pointer				insert_ptr;
-			// difference_type		index;
-
-			// index = position - begin();
-			// insert_ptr = _begin + index;
+			iterator		insert_iter = position;
+			pointer			insert_ptr = _iterator_to_pointer(position);
 			// if _end == _end_capacity
 				// realloc
 				// premier constructeur est celui du nouvel element
@@ -319,19 +318,24 @@ class vector
 			{
 				pointer		old_end = _end;
 				size_type	old_size = size();
+				size_type	insert_position = static_cast<size_type>(position - begin());
 			
 				_vector_allocation(capacity() + 1);
-				_construct_backward(old_end, old_size, val);
-				// while (_end != _end_capacity - 1)
-				// {
-				// 	_construct_at_end(*insert_ptr++);
-				// }
+				_construct_backward(insert_ptr, insert_position, val);
+				while (_end != _end_capacity)
+					_construct_at_end(*insert_iter++);
 				_destruct_backward(old_end, old_size);
 				_allocator.deallocate(old_end, old_size);
 			}
-			(void)position;
-			(void)val;
+			else 
+			{
+				size_type	insert_position = static_cast<size_type>(position - begin());
 
+				_construct_at_end(*(_end - 1));
+				for (iterator it = end() - 2; it != position; it--)
+					*it = *(it - 1);
+				_begin[insert_position] = val;
+			}
 			return position;
 		}
 		// fill (2)	
@@ -475,7 +479,7 @@ class vector
 		{
 			size_type	old_size = size();
 		
-			_vector_allocation(new_capacity);
+			_vector_allocation(new_capacity + 1);
 			_begin = _end = _begin + old_size;
 			_construct_at_end(new_capacity - old_size, val);
 			_construct_backward(old_end, old_size);

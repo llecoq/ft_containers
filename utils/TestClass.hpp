@@ -49,11 +49,11 @@ class TestClass
 
 		TestClass	&operator=(const TestClass &src)
 		{
-			std::cout << "OOOOOH\n";
 			// if (_name)
 			// 	delete _name;
 			// _name = src._name;
 			_i = src._i;
+      		std::cout << MAGENTA << _number << " - Operator= Constructor called." << RESET << std::endl;
 			return (*this);
 		}
 
