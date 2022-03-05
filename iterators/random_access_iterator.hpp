@@ -6,7 +6,7 @@
 /*   By: llecoq <llecoq@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/27 18:01:12 by llecoq            #+#    #+#             */
-/*   Updated: 2022/03/04 18:01:46 by llecoq           ###   ########.fr       */
+/*   Updated: 2022/03/05 10:18:58 by llecoq           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ class random_access_iterator : virtual public iterator_traits< iterator<random_a
 		// Default
 		random_access_iterator()
 		:
-			_pointer(nullptr)
+			_pointer(0)
 		{}
 
 		// Copy construct
@@ -65,7 +65,7 @@ class random_access_iterator : virtual public iterator_traits< iterator<random_a
 		** ------------------------------------------------------- MEMBER ACCESS
 		*/
 		// indirection to rvalue
-		reference	& operator*( void ) const
+		reference	operator*( void ) const
 		{
 			return (*_pointer);
 		}
@@ -77,7 +77,7 @@ class random_access_iterator : virtual public iterator_traits< iterator<random_a
 		}
 
 		// indirection to lvalue
-		reference	& operator*( void )
+		reference	operator*( void )
 		{
 			return (*_pointer);
 		}
@@ -214,7 +214,7 @@ class random_access_iterator : virtual public iterator_traits< iterator<random_a
 		** ----------------------------------------------------------- SUBSCRIPT
 		*/
 		// offset dereference operator
-		reference	& operator[]( difference_type index )
+		reference	operator[]( difference_type index )
 		{
 			return (_pointer[index]);
 		}

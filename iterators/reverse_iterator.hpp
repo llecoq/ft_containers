@@ -6,7 +6,7 @@
 /*   By: llecoq <llecoq@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/03 13:20:29 by llecoq            #+#    #+#             */
-/*   Updated: 2022/03/03 16:41:20 by llecoq           ###   ########.fr       */
+/*   Updated: 2022/03/05 10:10:42 by llecoq           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ namespace ft
 		// default (1)
 			reverse_iterator()
 			: 
-				_pointer(nullptr)
+				_pointer(0)
 			{}
 
 		// initialization (2)	

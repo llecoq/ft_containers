@@ -6,7 +6,7 @@
 /*   By: llecoq <llecoq@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/18 11:21:24 by llecoq            #+#    #+#             */
-/*   Updated: 2022/03/04 17:20:17 by llecoq           ###   ########.fr       */
+/*   Updated: 2022/03/05 10:50:35 by llecoq           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ int	main(int argc, char **argv)
 {
 	if (argc == 1)
 	{
-		tester_insert();
+		tester_push_back();
 		return (0);
 	}
 	if (argc != 3)

@@ -6,7 +6,7 @@
 /*   By: llecoq <llecoq@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/16 15:57:56 by llecoq            #+#    #+#             */
-/*   Updated: 2022/03/04 18:05:04 by llecoq           ###   ########.fr       */
+/*   Updated: 2022/03/05 10:38:56 by llecoq           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,8 @@
 #include <iostream>
 #include <stdexcept>
 #include <exception>
+#include <cstddef>
+#include <limits>
 #include "../iterators/random_access_iterator.hpp"
 #include "../iterators/reverse_iterator.hpp"
 
@@ -42,7 +44,7 @@ class vector
 		typedef typename allocator_type::pointer					pointer;
 		typedef random_access_iterator<value_type>					iterator;
 		typedef random_access_iterator<const value_type>			const_iterator;   // iterator a creer
-		typedef reverse_iterator<iterator>							reverse_iterator;
+		// typedef reverse_iterator<iterator>							reverse_iterator;
 		// typedef ft::reverse_iterator<const_iterator>			const_reverse_iterator;
 		typedef typename iterator_traits<iterator>::difference_type	difference_type;
 		typedef typename allocator_type::size_type					size_type;
@@ -55,9 +57,9 @@ class vector
 	*/
 		explicit vector (const allocator_type& alloc = allocator_type())
 		:
-			_begin(nullptr),
-			_end(nullptr),
-			_end_capacity(nullptr),
+			_begin(0),
+			_end(0),
+			_end_capacity(0),
 			_allocator(alloc)
 		{
 			// std::cout << "VECTOR DEFAULT CONSTRUCTOR" << std::endl;
@@ -69,9 +71,9 @@ class vector
 		explicit vector (size_type n, const value_type& val = value_type(),
 						const allocator_type& alloc = allocator_type())
 		:
-			_begin(nullptr),
-			_end(nullptr),
-			_end_capacity(nullptr),
+			_begin(0),
+			_end(0),
+			_end_capacity(0),
 			_allocator(alloc)
 		{
 			// std::cout << "VECTOR FILL CONSTRUCTOR" << std::endl;
@@ -97,9 +99,9 @@ class vector
 		//         vector (InputIterator first, InputIterator last,
 		//                 const allocator_type& alloc = allocator_type())
 		// :
-		// 	_begin(nullptr),
-		// 	_end(nullptr),
-		// 	_end_capacity(nullptr),
+		// 	_begin(0),
+		// 	_end(0),
+		// 	_end_capacity(0),
 		// 	_allocator(alloc)
 		// {
 		// 	_vector_allocation(static_cast<size_type>(last - first));
@@ -113,9 +115,9 @@ class vector
 		*/	
 		vector (const vector& x)
 		:
-			_begin(nullptr),
-			_end(nullptr),
-			_end_capacity(nullptr),
+			_begin(0),
+			_end(0),
+			_end_capacity(0),
 			_allocator(x._allocator)
 		{
 			_vector_allocation(x.size());
@@ -141,7 +143,7 @@ class vector
 
 		~vector()
 		{
-			if (_begin != nullptr)
+			if (_begin != 0)
 			{
 				_destruct_backward(_end, size());
 				_allocator.deallocate(_begin, capacity());
@@ -300,38 +302,38 @@ class vector
 		}
 
 		// single element (1)	
-		// iterator insert (iterator position, const value_type& val)
-		// {
-		// 	pointer				insert_ptr;
-		// 	difference_type		index;
+		iterator insert (iterator position, const value_type& val)
+		{
+			// pointer				insert_ptr;
+			// difference_type		index;
 
-		// 	index = position - begin();
-		// 	insert_ptr = _begin + index;
-		// 	// if _end == _end_capacity
-		// 		// realloc
-		// 		// premier constructeur est celui du nouvel element
-		// 		// construct backward du new elem a begin
-		// 		// construct at end ancien elems
-		// 	// else... just move stuff !
-		// 	if (_end == _end_capacity)
-		// 	{
-		// 		pointer		old_end = _end;
-		// 		size_type	old_size = size();
+			// index = position - begin();
+			// insert_ptr = _begin + index;
+			// if _end == _end_capacity
+				// realloc
+				// premier constructeur est celui du nouvel element
+				// construct backward du new elem a begin
+				// construct at end ancien elems
+			// else... just move stuff !
+			if (_end == _end_capacity)
+			{
+				pointer		old_end = _end;
+				size_type	old_size = size();
 			
-		// 		_vector_allocation(capacity() + 1);
-		// 		_construct_backward(old_end, old_size, val);
-		// 		// while (_end != _end_capacity - 1)
-		// 		// {
-		// 		// 	_construct_at_end(*insert_ptr++);
-		// 		// }
-		// 		_destruct_backward(old_end, old_size);
-		// 		_allocator.deallocate(old_end, old_size);
-		// 	}
-		// 	(void)position;
-		// 	(void)val;
+				_vector_allocation(capacity() + 1);
+				_construct_backward(old_end, old_size, val);
+				// while (_end != _end_capacity - 1)
+				// {
+				// 	_construct_at_end(*insert_ptr++);
+				// }
+				_destruct_backward(old_end, old_size);
+				_allocator.deallocate(old_end, old_size);
+			}
+			(void)position;
+			(void)val;
 
-		// 	return position;
-		// }
+			return position;
+		}
 		// fill (2)	
 		// void insert (iterator position, size_type n, const value_type& val);
 		// // range (3)	

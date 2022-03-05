@@ -6,7 +6,7 @@
 /*   By: llecoq <llecoq@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/01 15:49:23 by llecoq            #+#    #+#             */
-/*   Updated: 2022/03/03 12:55:33 by llecoq           ###   ########.fr       */
+/*   Updated: 2022/03/05 10:51:34 by llecoq           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,9 +17,9 @@ void	tester_push_back(void)
 {
 	/* -------------------------------- FT -----------------------------------*/
 	{
-	ft::vector<TestClass>	ft;
-	ft::vector<TestClass>::iterator	it = ft.begin();
-	ft::vector<TestClass>::iterator	ite = ft.end();
+	std::vector<TestClass>	ft;
+	std::vector<TestClass>::iterator	it = ft.begin();
+	std::vector<TestClass>::iterator	ite = ft.end();
 
 	ft.push_back(TestClass());
 	dprintf(2, "%zu -----------------------------------\n", ft.capacity());
