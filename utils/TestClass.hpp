@@ -47,6 +47,16 @@ class TestClass
       		std::cout << GREEN << _number << " - Copy Constructor called." << RESET << std::endl;
 	  	}
 
+		TestClass	&operator=(const TestClass &src)
+		{
+			std::cout << "OOOOOH\n";
+			// if (_name)
+			// 	delete _name;
+			// _name = src._name;
+			_i = src._i;
+			return (*this);
+		}
+
 		TestClass( std::string name ) : _name(new std::string(name))
 		{
 			_number = objectCount++;
@@ -68,7 +78,9 @@ class TestClass
 			else
       			std::cout << GREEN << _number << " - " << *_name << RED 
 				<< " Destructor " << GREEN << "called" << RESET << std::endl;
-			// delete _name;
+			if (_name)
+				delete _name;
+			_name = 0;
 		}
 
 		std::string	getName() const

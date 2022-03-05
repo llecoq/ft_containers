@@ -6,7 +6,7 @@
 /*   By: llecoq <llecoq@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/16 15:57:56 by llecoq            #+#    #+#             */
-/*   Updated: 2022/03/05 10:38:56 by llecoq           ###   ########.fr       */
+/*   Updated: 2022/03/05 14:08:24 by llecoq           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -344,16 +344,19 @@ class vector
 		// Erase elements (public member function )
 		iterator erase (iterator position)
 		{
-			pointer				element_to_erase;
-			difference_type		index;
-
-			index = position - begin();
-			element_to_erase = _begin + index;
-
-			_allocator.destroy(element_to_erase);
-			
+			if (position + 1 != end())
+			{
+				value_type	tmp(*position);
+				// size_type index = static_cast<size_type>(_begin + element_to_erase);
+				// ATTENTION it < end() ne marche pas, overload a refaire
+				for (iterator it = position; it != (end() - 1); it++)
+					*it = *(it + 1);
+				*(_end - 1) = tmp;
+			}
+			_destruct_backward(_end, 1);
 			return position;
 		}
+
 		// iterator erase (iterator first, iterator last);
 		// swap
 		// void swap (vector& x)
@@ -458,6 +461,16 @@ class vector
 			_construct_backward(old_end, old_size);
 			_destruct_backward(old_end, old_size);
 			_allocator.deallocate(old_end, old_size);
+		}
+
+		pointer	_iterator_to_pointer(iterator position)
+		{
+			difference_type	index;
+			pointer			ptr;
+
+			index = position - begin();
+			ptr = _begin + index;
+			return ptr;
 		}
 
 };
