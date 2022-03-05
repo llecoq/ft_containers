@@ -6,7 +6,7 @@
 /*   By: llecoq <llecoq@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/04 16:02:50 by llecoq            #+#    #+#             */
-/*   Updated: 2022/03/05 13:49:50 by llecoq           ###   ########.fr       */
+/*   Updated: 2022/03/05 14:54:31 by llecoq           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,8 +32,8 @@ void	tester_erase(void)
 		std::cout << ' ' << myvector[i].getI() << "(copy " << myvector[i].getNumber() << ")";
 
 	// erase the first 3 elements:
-	// std::cout << std::endl << "erase 3 first elements" << std::endl;
-	// myvector.erase (myvector.begin(),myvector.begin()+3);
+	std::cout << std::endl << "erase 3 first elements" << std::endl;
+	myvector.erase (myvector.begin(),myvector.begin()+3);
 
 	std::cout << "\nmyvector contains:";
 	for (unsigned i=0; i<myvector.size(); ++i)

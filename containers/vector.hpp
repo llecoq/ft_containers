@@ -6,7 +6,7 @@
 /*   By: llecoq <llecoq@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/16 15:57:56 by llecoq            #+#    #+#             */
-/*   Updated: 2022/03/05 14:08:24 by llecoq           ###   ########.fr       */
+/*   Updated: 2022/03/05 14:51:00 by llecoq           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -342,11 +342,13 @@ class vector
 
 		// erase
 		// Erase elements (public member function )
+// si juste un, mettre sur end ?
 		iterator erase (iterator position)
 		{
 			if (position + 1 != end())
 			{
 				value_type	tmp(*position);
+				
 				// size_type index = static_cast<size_type>(_begin + element_to_erase);
 				// ATTENTION it < end() ne marche pas, overload a refaire
 				for (iterator it = position; it != (end() - 1); it++)
@@ -357,7 +359,25 @@ class vector
 			return position;
 		}
 
-		// iterator erase (iterator first, iterator last);
+		// possibilite d'appeler erase(it) en boucle mais moins opti
+		iterator erase (iterator first, iterator last)
+		{
+			if (first != last)
+			{
+				size_type	range_size = last - first;
+				value_type	buffer[range_size];
+				size_type	i = 0;
+
+				for (iterator it = first; it != last; it++)
+					buffer[i++] = *it;
+				for (iterator it = first; it != (end() - range_size); it++)
+					*it = *(it + range_size);
+				for (iterator it = (end() - 1); i > 0; i--)
+					*it-- = buffer[i];				
+				_destruct_backward(_end, range_size);
+			}
+			return last;
+		}
 		// swap
 		// void swap (vector& x)
 		// {
