@@ -6,7 +6,7 @@
 /*   By: llecoq <llecoq@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/16 15:57:56 by llecoq            #+#    #+#             */
-/*   Updated: 2022/03/05 18:59:38 by llecoq           ###   ########.fr       */
+/*   Updated: 2022/03/07 14:56:41 by llecoq           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -346,18 +346,13 @@ class vector
 
 		// erase
 		// Erase elements (public member function )
-// si juste un, mettre sur end ?
 		iterator erase (iterator position)
 		{
 			if (position + 1 != end())
 			{
-				value_type	tmp(*position);
-				
-				// size_type index = static_cast<size_type>(_begin + element_to_erase);
 				// ATTENTION it < end() ne marche pas, overload a refaire
 				for (iterator it = position; it != (end() - 1); it++)
 					*it = *(it + 1);
-				*(_end - 1) = tmp;
 			}
 			_destruct_backward(_end, 1);
 			return position;
@@ -369,15 +364,8 @@ class vector
 			if (first != last)
 			{
 				size_type	range_size = last - first;
-				value_type	buffer[range_size];
-				size_type	i = 0;
-
-				for (iterator it = first; it != last; it++)
-					buffer[i++] = *it;
 				for (iterator it = first; it != (end() - range_size); it++)
 					*it = *(it + range_size);
-				for (iterator it = (end() - 1); i > 0; i--)
-					*it-- = buffer[i];				
 				_destruct_backward(_end, range_size);
 			}
 			return last;
@@ -475,13 +463,16 @@ class vector
 			_allocator.deallocate(old_end, old_size);
 		}
 
-		void	_expand_vector(pointer old_end, size_type new_capacity, const value_type &val)
+		void	_expand_vector(pointer old_end, size_type n, const value_type &val)
 		{
 			size_type	old_size = size();
+			size_type	new_capacity = n;
 		
-			_vector_allocation(new_capacity + 1);
+			if (capacity() * 2 > n)
+				new_capacity = capacity() * 2;
+			_vector_allocation(new_capacity);
 			_begin = _end = _begin + old_size;
-			_construct_at_end(new_capacity - old_size, val);
+			_construct_at_end(n - old_size, val);
 			_construct_backward(old_end, old_size);
 			_destruct_backward(old_end, old_size);
 			_allocator.deallocate(old_end, old_size);

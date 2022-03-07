@@ -6,7 +6,7 @@
 /*   By: llecoq <llecoq@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/03 16:42:26 by llecoq            #+#    #+#             */
-/*   Updated: 2022/03/05 10:44:52 by llecoq           ###   ########.fr       */
+/*   Updated: 2022/03/07 14:37:34 by llecoq           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,16 +14,19 @@
 
 void	tester_resize()
 {
-	ft::vector<TestClass>		vec;
+	std::vector<TestClass>		vec;
 
-	for (int i = 0; i < 4; i++)
-		vec.push_back(TestClass());
-	for (ft::vector<TestClass>::iterator it = vec.begin(); it != vec.end(); it++)
+	// for (int i = 0; i < 3; i++)
+	// 	vec.push_back(TestClass());
+	vec.reserve(4);
+	for (std::vector<TestClass>::iterator it = vec.begin(); it != vec.end(); it++)
 		dprintf(2, "%d ", it->getNumber());
+
 	dprintf(2, "\n");
-	vec.resize(20, TestClass());
 	dprintf(2, "capacity = %zu\n", vec.capacity());
-	for (ft::vector<TestClass>::iterator it = vec.begin(); it != vec.end(); it++)
+	vec.resize(15);
+	dprintf(2, "capacity = %zu    size = %zu\n", vec.capacity(), vec.size());
+	for (std::vector<TestClass>::iterator it = vec.begin(); it != vec.end(); it++)
 		dprintf(2, "%d ", it->getNumber());
 	dprintf(2, "\n");
 	vec.resize(2, TestClass());

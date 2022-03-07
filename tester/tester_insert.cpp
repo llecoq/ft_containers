@@ -6,7 +6,7 @@
 /*   By: llecoq <llecoq@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/04 17:19:02 by llecoq            #+#    #+#             */
-/*   Updated: 2022/03/05 18:55:07 by llecoq           ###   ########.fr       */
+/*   Updated: 2022/03/07 14:47:06 by llecoq           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,12 +14,13 @@
 
 void	tester_insert(void)
 {
-	ft::vector<TestClass> myvector (3, TestClass(100));
+	ft::vector<TestClass> myvector (4, TestClass(100));
 	ft::vector<TestClass>::iterator it;
 
+	std::cout << "capacity = " << myvector.capacity() << " size = " << myvector.size() << std::endl;
 	std::cout << "resize" << std::endl;
-	myvector.resize(5);
-	std::cout << "capacity = " << myvector.capacity() << std::endl;
+	myvector.resize(6, TestClass());
+	std::cout << "capacity = " << myvector.capacity() << " size = " << myvector.size() << std::endl;
 	std::cout << "myvector contains:\n";
 	for (it=myvector.begin(); it != myvector.end(); it++)
 		std::cout << it->getI() << "(copy " << it->getNumber() << ")" << ' ';
