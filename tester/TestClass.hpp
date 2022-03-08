@@ -49,9 +49,6 @@ class TestClass
 
 		TestClass	&operator=(const TestClass &src)
 		{
-			// if (_name)
-			// 	delete _name;
-			// _name = src._name;
 			_i = src._i;
       		std::cout << MAGENTA << _number << " - Operator= Constructor called." << RESET << std::endl;
 			return (*this);
@@ -104,5 +101,7 @@ class TestClass
 		int			_number;
 		int			_i;
 };
+
+std::ostream	&operator<<(std::ostream &output, const TestClass &rhs);
 
 #endif /* ****************************************************** TestClass_H */

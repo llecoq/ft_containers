@@ -6,7 +6,7 @@
 /*   By: llecoq <llecoq@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/16 15:57:56 by llecoq            #+#    #+#             */
-/*   Updated: 2022/03/07 14:56:41 by llecoq           ###   ########.fr       */
+/*   Updated: 2022/03/08 18:00:36 by llecoq           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,7 @@
 #include <limits>
 #include "../iterators/random_access_iterator.hpp"
 #include "../iterators/reverse_iterator.hpp"
+#include "../utils/utils.hpp"
 
 namespace	ft
 {
@@ -44,7 +45,7 @@ class vector
 		typedef typename allocator_type::pointer					pointer;
 		typedef random_access_iterator<value_type>					iterator;
 		typedef random_access_iterator<const value_type>			const_iterator;   // iterator a creer
-		// typedef reverse_iterator<iterator>							reverse_iterator;
+		typedef reverse_iterator<iterator>							reverse_iterator;
 		// typedef ft::reverse_iterator<const_iterator>			const_reverse_iterator;
 		typedef typename iterator_traits<iterator>::difference_type	difference_type;
 		typedef typename allocator_type::size_type					size_type;
@@ -164,9 +165,9 @@ class vector
 		// 	return (_begin);
 		// }
 
-		iterator rbegin()
+		reverse_iterator rbegin()
 		{
-			return (_end - 1);
+			return (static_cast<reverse_iterator>(_end - 1));
 		}
 
 		iterator end()
@@ -176,9 +177,9 @@ class vector
 		
 		// const_iterator end() const;
 
-		iterator rend()
+		reverse_iterator rend()
 		{
-			return (_begin);
+			return (static_cast<reverse_iterator>(_begin));
 		}
 		
 	/*
@@ -307,7 +308,6 @@ class vector
 		iterator insert (iterator position, const value_type& val)
 		{
 			iterator		insert_iter = position;
-			pointer			insert_ptr = _iterator_to_pointer(position);
 			// if _end == _end_capacity
 				// realloc
 				// premier constructeur est celui du nouvel element
@@ -316,6 +316,7 @@ class vector
 			// else... just move stuff !
 			if (_end == _end_capacity)
 			{
+				pointer		insert_ptr = _iterator_to_pointer(position);
 				pointer		old_end = _end;
 				size_type	old_size = size();
 				size_type	insert_position = static_cast<size_type>(position - begin());
@@ -339,7 +340,10 @@ class vector
 			return position;
 		}
 		// fill (2)	
-		// void insert (iterator position, size_type n, const value_type& val);
+		// void insert (iterator position, size_type n, const value_type& val)
+		// {
+
+		// }
 		// // range (3)	
 		// template <class InputIterator>
 		// 	void insert (iterator position, InputIterator first, InputIterator last);
@@ -358,7 +362,6 @@ class vector
 			return position;
 		}
 
-		// possibilite d'appeler erase(it) en boucle mais moins opti
 		iterator erase (iterator first, iterator last)
 		{
 			if (first != last)
@@ -393,7 +396,8 @@ class vector
 		pointer											_end;
 		pointer											_end_capacity;
 		allocator_type									_allocator;
-
+		// data<T, Alloc>	_test;
+		
 		void	_vector_allocation(size_type n)
 		{
 			if (n > max_size())
@@ -488,6 +492,12 @@ class vector
 			return ptr;
 		}
 
+		void	_init_data(data<T, Alloc> &old_vector)
+		{
+			old_vector._begin = _begin;
+			old_vector._end = _end;
+			old_vector._size = size();
+		}
 };
 }
 

@@ -6,13 +6,13 @@
 #    By: llecoq <llecoq@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/11/16 11:27:48 by llecoq            #+#    #+#              #
-#    Updated: 2022/03/05 10:45:22 by llecoq           ###   ########.fr        #
+#    Updated: 2022/03/08 18:29:18 by llecoq           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 SRCS_FILES	=				main.cpp
 
-INCLUDES_UTILS_FILES =		TestClass.hpp\
+INCLUDES_UTILS_FILES =		utils.hpp\
 							tester.hpp
 
 INCLUDES_FILES =  			vector.hpp
@@ -22,12 +22,14 @@ ITERATORS_FILES =  			iterator.hpp\
 							reverse_iterator.hpp
 
 TESTER_FILES =				tester_vector.cpp\
+							TestClass.cpp\
 							tester_push_back.cpp\
-							tester_erase.cpp\
+							tester_reverse_iterator.cpp
+							# tester_erase.cpp\
 							tester_insert.cpp\
 							tester_resize.cpp\
+							tester_assign.cpp\
 							tester_copy_constructor.cpp
-							# tester_reverse_iterator.cpp\
 							# tester_reserve.cpp\
 							# tester_pop_back.cpp\
 							# tester_element_access.cpp\
@@ -66,7 +68,7 @@ all		:	$(NAME)
 $(OBJSPATH)%.o:		$(SRCSPATH)%.cpp $(INCLUDES) $(INCLUDES_UTILS) $(INCLUDES_ITERATOR) Makefile
 			@mkdir -p $(OBJSPATH) $(DIR)
 			@mkdir -p $(OBJSPATH) .objs/tester
-			$(CXXC) $(CFLAGS) -c $< -o $@ -I containers/ -I utils/
+			$(CXXC) $(CFLAGS) -c $< -o $@ -I containers/ -I utils/ -I tester/
 
 $(NAME):	$(OBJS)
 			$(CXXC) $(CFLAGS) $(OBJS) -o $(NAME)
