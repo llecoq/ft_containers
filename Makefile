@@ -6,7 +6,7 @@
 #    By: llecoq <llecoq@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/11/16 11:27:48 by llecoq            #+#    #+#              #
-#    Updated: 2022/03/08 18:29:18 by llecoq           ###   ########.fr        #
+#    Updated: 2022/03/09 10:00:03 by llecoq           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -65,7 +65,7 @@ DIR		=	.objs/
 
 all		:	$(NAME)
 
-$(OBJSPATH)%.o:		$(SRCSPATH)%.cpp $(INCLUDES) $(INCLUDES_UTILS) $(INCLUDES_ITERATOR) Makefile
+$(OBJSPATH)%.o:		$(SRCSPATH)%.cpp $(INCLUDES) $(INCLUDES_UTILS) $(INCLUDES_ITERATOR) Makefile tester/TestClass.hpp
 			@mkdir -p $(OBJSPATH) $(DIR)
 			@mkdir -p $(OBJSPATH) .objs/tester
 			$(CXXC) $(CFLAGS) -c $< -o $@ -I containers/ -I utils/ -I tester/

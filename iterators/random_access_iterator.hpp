@@ -6,7 +6,7 @@
 /*   By: llecoq <llecoq@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/27 18:01:12 by llecoq            #+#    #+#             */
-/*   Updated: 2022/03/08 15:56:47 by llecoq           ###   ########.fr       */
+/*   Updated: 2022/03/09 11:18:22 by llecoq           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -181,22 +181,22 @@ class random_access_iterator : virtual public iterator_traits< iterator<random_a
 		*/
 		bool	operator<(random_access_iterator const &rhs) const
 		{
-			return (*this->_pointer < *rhs._pointer);
+			return (_pointer < rhs._pointer);
 		}
 		
 		bool	operator>(random_access_iterator const &rhs) const
 		{
-			return (*this->_pointer > *rhs._pointer);
+			return (_pointer > rhs._pointer);
 		}
 
 		bool	operator<=(random_access_iterator const &rhs) const
 		{
-			return (*this->_pointer <= *rhs._pointer);
+			return (_pointer <= rhs._pointer);
 		}
 		
 		bool	operator>=(random_access_iterator const &rhs) const
 		{
-			return (*this->_pointer >= *rhs._pointer);
+			return (_pointer >= rhs._pointer);
 		}
 
 

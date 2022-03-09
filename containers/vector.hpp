@@ -6,7 +6,7 @@
 /*   By: llecoq <llecoq@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/16 15:57:56 by llecoq            #+#    #+#             */
-/*   Updated: 2022/03/08 18:00:36 by llecoq           ###   ########.fr       */
+/*   Updated: 2022/03/09 10:07:32 by llecoq           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -167,7 +167,7 @@ class vector
 
 		reverse_iterator rbegin()
 		{
-			return (static_cast<reverse_iterator>(_end - 1));
+			return (static_cast<reverse_iterator>(_end));
 		}
 
 		iterator end()

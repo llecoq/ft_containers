@@ -36,7 +36,7 @@ class TestClass
 		{
 			_name = new std::string("Default");
     		_number = objectCount++;
-    		std::cout << CYAN << _number << " - Default Constructor called." << RESET << std::endl;
+    		// std::cout << CYAN << _number << " - Default Constructor called." << RESET << std::endl;
       	}
 
 		TestClass(const TestClass &src)
@@ -44,37 +44,37 @@ class TestClass
 			_name = new std::string("Copy");
 			_number = src.objectCount++;
 			_i = src._i;
-      		std::cout << GREEN << _number << " - Copy Constructor called." << RESET << std::endl;
+      		// std::cout << GREEN << _number << " - Copy Constructor called." << RESET << std::endl;
 	  	}
 
 		TestClass	&operator=(const TestClass &src)
 		{
 			_i = src._i;
-      		std::cout << MAGENTA << _number << " - Operator= Constructor called." << RESET << std::endl;
+      		// std::cout << MAGENTA << _number << " - Operator= Constructor called." << RESET << std::endl;
 			return (*this);
 		}
 
 		TestClass( std::string name ) : _name(new std::string(name))
 		{
 			_number = objectCount++;
-    		std::cout << _number << " - String Constructor called." << std::endl;
+    		// std::cout << _number << " - String Constructor called." << std::endl;
 		}
 
 		TestClass(int i) : _i(i)
 		{
 			_name = new std::string("I");
 			_number = objectCount++;
-    		std::cout << _number << " - I Constructor called." << std::endl;
+    		// std::cout << _number << " - I Constructor called." << std::endl;
 		}
 
 		~TestClass()
 		{
-			if (*_name == "Default")
-      			std::cout << CYAN << _number << " - " << *_name << RED 
-				<< " Destructor " << CYAN << "called" << RESET << std::endl;
-			else
-      			std::cout << GREEN << _number << " - " << *_name << RED 
-				<< " Destructor " << GREEN << "called" << RESET << std::endl;
+			// if (*_name == "Default")
+      		// 	std::cout << CYAN << _number << " - " << *_name << RED 
+			// 	<< " Destructor " << CYAN << "called" << RESET << std::endl;
+			// else
+      		// 	std::cout << GREEN << _number << " - " << *_name << RED 
+			// 	<< " Destructor " << GREEN << "called" << RESET << std::endl;
 			if (_name)
 				delete _name;
 			_name = 0;
