@@ -6,7 +6,7 @@
 /*   By: llecoq <llecoq@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/07 15:08:10 by llecoq            #+#    #+#             */
-/*   Updated: 2022/03/09 09:55:39 by llecoq           ###   ########.fr       */
+/*   Updated: 2022/03/09 13:15:24 by llecoq           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,14 +30,20 @@ namespace ft
 	};
 
 	template < typename T >
-	void	displayVec(T vec)
+	void	displayVec(T &vec)
 	{
 		typename T::iterator	it = vec.begin();
 
 		std::cout << "Vector contains :" << std::endl;
 		while (it != vec.end())
-			std::cout << *it++;
-		std::cout << std::endl;
+			std::cout << *it++ << std::endl;
+	}
+
+	template < typename T >
+	void	displayData(T &vec)
+	{
+		std::cout << "size = " << vec.size() << std::endl;
+		std::cout << "capacity = " << vec.capacity() << std::endl;
 	}
 }
 

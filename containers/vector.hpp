@@ -6,7 +6,7 @@
 /*   By: llecoq <llecoq@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/16 15:57:56 by llecoq            #+#    #+#             */
-/*   Updated: 2022/03/09 10:07:32 by llecoq           ###   ########.fr       */
+/*   Updated: 2022/03/09 14:11:19 by llecoq           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -308,12 +308,7 @@ class vector
 		iterator insert (iterator position, const value_type& val)
 		{
 			iterator		insert_iter = position;
-			// if _end == _end_capacity
-				// realloc
-				// premier constructeur est celui du nouvel element
-				// construct backward du new elem a begin
-				// construct at end ancien elems
-			// else... just move stuff !
+
 			if (_end == _end_capacity)
 			{
 				pointer		insert_ptr = _iterator_to_pointer(position);
@@ -354,8 +349,7 @@ class vector
 		{
 			if (position + 1 != end())
 			{
-				// ATTENTION it < end() ne marche pas, overload a refaire
-				for (iterator it = position; it != (end() - 1); it++)
+				for (iterator it = position; it < (end() - 1); it++)
 					*it = *(it + 1);
 			}
 			_destruct_backward(_end, 1);
@@ -381,6 +375,10 @@ class vector
 		// Swap content (public member function )
 		// clear
 		// Clear content (public member function )
+		void clear()
+		{
+			_destruct_backward(_end, size());
+		}
 
 		class	lengthErrorException : public std::exception
 		{
@@ -396,7 +394,6 @@ class vector
 		pointer											_end;
 		pointer											_end_capacity;
 		allocator_type									_allocator;
-		// data<T, Alloc>	_test;
 		
 		void	_vector_allocation(size_type n)
 		{
@@ -437,9 +434,6 @@ class vector
 				while (size-- > 0)
 					_allocator.destroy(--end);
 		}
-
-		// faire passer petite structure dedans pour avoir une fonction plus generale
-		// avec size, capacity, val etc. ?
 
 		void	_reallocate_and_copy_elements(pointer old_end, const value_type &val)
 		{

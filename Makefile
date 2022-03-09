@@ -6,7 +6,7 @@
 #    By: llecoq <llecoq@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/11/16 11:27:48 by llecoq            #+#    #+#              #
-#    Updated: 2022/03/09 10:00:03 by llecoq           ###   ########.fr        #
+#    Updated: 2022/03/09 13:38:42 by llecoq           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -24,13 +24,14 @@ ITERATORS_FILES =  			iterator.hpp\
 TESTER_FILES =				tester_vector.cpp\
 							TestClass.cpp\
 							tester_push_back.cpp\
-							tester_reverse_iterator.cpp
-							# tester_erase.cpp\
-							tester_insert.cpp\
+							tester_erase.cpp\
+							tester_clear.cpp\
+							tester_reserve.cpp\
 							tester_resize.cpp\
-							tester_assign.cpp\
-							tester_copy_constructor.cpp
-							# tester_reserve.cpp\
+							tester_reverse_iterator.cpp
+							# tester_insert.cpp\
+							# tester_assign.cpp\
+							# tester_copy_constructor.cpp
 							# tester_pop_back.cpp\
 							# tester_element_access.cpp\
 
