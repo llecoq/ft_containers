@@ -6,7 +6,7 @@
 /*   By: llecoq <llecoq@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/03 16:42:26 by llecoq            #+#    #+#             */
-/*   Updated: 2022/03/09 14:07:39 by llecoq           ###   ########.fr       */
+/*   Updated: 2022/03/09 14:48:45 by llecoq           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ void	tester_resize()
 	vec.reserve(4);
 	// ft::displayVec(vec);
 	ft::displayData(vec);
-	vec.resize(15);
+	vec.resize(15, TestClass());
 	ft::displayData(vec);
 	ft::displayVec(vec);
 	vec.resize(2, TestClass());

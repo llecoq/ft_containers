@@ -6,7 +6,7 @@
 /*   By: llecoq <llecoq@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/16 15:57:56 by llecoq            #+#    #+#             */
-/*   Updated: 2022/03/09 14:11:19 by llecoq           ###   ########.fr       */
+/*   Updated: 2022/03/09 16:54:05 by llecoq           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,7 @@ class vector
 		typedef random_access_iterator<value_type>					iterator;
 		typedef random_access_iterator<const value_type>			const_iterator;   // iterator a creer
 		typedef reverse_iterator<iterator>							reverse_iterator;
-		// typedef ft::reverse_iterator<const_iterator>			const_reverse_iterator;
+		typedef ft::reverse_iterator<const_iterator>				const_reverse_iterator;
 		typedef typename iterator_traits<iterator>::difference_type	difference_type;
 		typedef typename allocator_type::size_type					size_type;
 		
@@ -271,12 +271,20 @@ class vector
 	**		same order.
 	*/
 
-		template <class InputIterator>
-		void assign (InputIterator first, InputIterator last)
-		{
-			(void)first;
-			(void)last;
-		}
+		// template <class InputIterator>
+		// void assign (InputIterator first, InputIterator last)
+		// {
+		// 	// if needed, new allocation with new size() = new capacity()
+		// 	// clear()
+		// 	// construct at end
+		// 	// dealloc old
+			
+		// 	// if pas dalloc
+		// 	// assign operator= from begin to end, then construct at end
+		// 	// destruct at end 
+		// 	(void)first;
+		// 	(void)last;
+		// }
 
 		/*																 fill(2)
 		**	In the fill version (2), the new contents are n elements, each init-
@@ -285,8 +293,32 @@ class vector
 
 		void assign (size_type n, const value_type &val)
 		{
-			(void)n;
-			(void)val;
+			// if n > capacity()
+			//		clear()
+			//		construct at end
+			//		deallocate old
+			// else
+			//		assign
+			//		destruct at end
+			
+			if (n > capacity())
+			{
+				size_type	old_capacity = capacity();
+				
+				clear();
+				_allocator.deallocate(_begin, old_capacity);
+				_vector_allocation(n);
+				_construct_at_end(n, val);
+			}
+			else
+			{
+				pointer	begin = _begin;
+				for (size_t i = 0; i < n && i < size(); i++)
+					*begin++ = val;
+				if (n > size())
+					_construct_at_end(n - size(), val);
+				_destruct_backward(begin);
+			}
 		}
 
 		void push_back (const value_type& val)
@@ -431,8 +463,14 @@ class vector
 		
 		void	_destruct_backward(pointer &end, size_type size)
 		{
-				while (size-- > 0)
-					_allocator.destroy(--end);
+			while (size-- > 0)
+				_allocator.destroy(--end);
+		}
+
+		void	_destruct_backward(pointer new_end)
+		{
+			while (_end != new_end)
+				_allocator.destroy(--_end);
 		}
 
 		void	_reallocate_and_copy_elements(pointer old_end, const value_type &val)
