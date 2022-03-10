@@ -6,7 +6,7 @@
 #    By: llecoq <llecoq@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/11/16 11:27:48 by llecoq            #+#    #+#              #
-#    Updated: 2022/03/10 14:44:41 by llecoq           ###   ########.fr        #
+#    Updated: 2022/03/10 16:32:01 by llecoq           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -26,7 +26,8 @@ TESTER_FILES =				tester_vector.cpp\
 							TestClass.cpp\
 							tester_assign.cpp\
 							tester_copy_assignment.cpp\
-							tester_swap.cpp\
+							tester_relational_operators.cpp\
+							tester_insert.cpp\
 							tester_is_integral.cpp
 							# tester_reserve.cpp
 							# tester_push_back.cpp\

@@ -6,7 +6,7 @@
 /*   By: llecoq <llecoq@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/27 14:49:09 by llecoq            #+#    #+#             */
-/*   Updated: 2022/03/10 14:44:26 by llecoq           ###   ########.fr       */
+/*   Updated: 2022/03/10 15:23:24 by llecoq           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,7 @@ void	tester_assign(void);
 void	tester_clear(void);
 void	tester_is_integral(void);
 void	tester_swap(void);
+void	tester_relational_operators(void);
 
 #define ERROR 1
 

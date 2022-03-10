@@ -6,7 +6,7 @@
 /*   By: llecoq <llecoq@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/16 15:57:56 by llecoq            #+#    #+#             */
-/*   Updated: 2022/03/10 15:10:19 by llecoq           ###   ########.fr       */
+/*   Updated: 2022/03/10 17:13:45 by llecoq           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -132,8 +132,8 @@ class vector
 		*/
 		vector& operator= (const vector& x)
 		{
-			// assign(x._begin, x._end);
-			(void)x;
+			assign(x._begin, x._end);
+			return (*this);
 		}
 
 		/*
@@ -304,20 +304,32 @@ class vector
 	**		same order.
 	*/
 
-		// template <class InputIterator>
-		// void assign (InputIterator first, InputIterator last)
-		// {
-		// 	// if needed, new allocation with new size() = new capacity()
-		// 	// clear()
-		// 	// construct at end
-		// 	// dealloc old
-			
-		// 	// if pas dalloc
-		// 	// assign operator= from begin to end, then construct at end
-		// 	// destruct at end 
-		// 	(void)first;
-		// 	(void)last;
-		// }
+		template <class InputIterator>
+		void assign (InputIterator first, InputIterator last)
+		{
+			size_type	n = last - first;
+
+			_update_data(_old_vector);
+			if (n > capacity())
+			{
+				clear();
+				_allocator.deallocate(_begin, _old_vector.capacity);
+				_vector_allocation(n);
+				while (first != last)
+					_construct_at_end(*(first++));
+			}
+			else
+			{
+				for (size_t i = 0; i < n && i < size(); i++)
+					*(_old_vector._begin++) = *(first++);
+				if (n > size())
+				{
+					while (first != last)
+						_construct_at_end(*(first++));
+				}
+				_destruct_backward(_old_vector._begin);
+			}
+		}
 
 		/*																 fill(2)
 		**	In the fill version (2), the new contents are n elements, each init-
@@ -463,6 +475,44 @@ class vector
 			return (_allocator);
 		}
 
+
+	/*
+	** ---------------------------------------------------- RELATIONAL OPERATORS
+	*/
+		friend bool operator==(const vector<T,Alloc>& lhs, const vector<T,Alloc>& rhs)
+		{
+			return (lhs.size() == rhs.size());
+		}
+
+		friend bool operator!=(const vector<T,Alloc>& lhs, const vector<T,Alloc>& rhs)
+		{
+			return (lhs.size() != rhs.size());
+		}
+
+		friend bool operator<(const vector<T,Alloc>& lhs, const vector<T,Alloc>& rhs)
+		{
+			return (lhs.size() < rhs.size());
+		}
+
+		friend bool operator<=(const vector<T,Alloc>& lhs, const vector<T,Alloc>& rhs)
+		{
+			return (lhs.size() <= rhs.size());
+		}
+
+		friend bool operator>(const vector<T,Alloc>& lhs, const vector<T,Alloc>& rhs)
+		{
+			return (lhs.size() > rhs.size());
+		}
+
+		friend bool operator>=(const vector<T,Alloc>& lhs, const vector<T,Alloc>& rhs)
+		{
+			return (lhs.size() >= rhs.size());
+		}
+
+
+	/*
+	** -------------------------------------------------------------- EXCEPTIONS
+	*/
 		class	lengthErrorException : public std::exception
 		{
 			virtual const char * what() const throw()

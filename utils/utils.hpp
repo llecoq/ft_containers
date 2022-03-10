@@ -6,7 +6,7 @@
 /*   By: llecoq <llecoq@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/07 15:08:10 by llecoq            #+#    #+#             */
-/*   Updated: 2022/03/10 14:33:00 by llecoq           ###   ########.fr       */
+/*   Updated: 2022/03/10 16:37:45 by llecoq           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,6 +44,7 @@ namespace ft
 		std::cout << "Vector contains :" << std::endl;
 		while (it != vec.end())
 			std::cout << *it++ << std::endl;
+		std::cout << std::endl;
 	}
 
 	template < typename T >
@@ -52,6 +53,7 @@ namespace ft
 		std::cout << "name = " << name << std::endl;
 		std::cout << "size = " << vec.size() << std::endl;
 		std::cout << "capacity = " << vec.capacity() << std::endl;
+		std::cout << std::endl;
 	}
 
 	template < typename T >

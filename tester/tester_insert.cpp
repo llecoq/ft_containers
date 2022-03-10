@@ -6,7 +6,7 @@
 /*   By: llecoq <llecoq@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/04 17:19:02 by llecoq            #+#    #+#             */
-/*   Updated: 2022/03/07 15:30:44 by llecoq           ###   ########.fr       */
+/*   Updated: 2022/03/10 16:38:36 by llecoq           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,33 +14,46 @@
 
 void	tester_insert(void)
 {
-	std::vector<TestClass> myvector (3, TestClass(100));
-	std::vector<TestClass>::iterator it;
+	std::vector<TestClass>				vec(10, 500);
+	std::vector<TestClass>::iterator	vec_it = vec.begin();
+	// std::vector<TestClass>::iterator	vec_ite = vec.end();
+	
+	std::vector<TestClass>	vec_2;
+	// std::vector<TestClass>::iterator	vec_2_it = vec_2.begin();
 
-	std::cout << "capacity = " << myvector.capacity() << " size = " << myvector.size() << std::endl;
-	std::cout << "resize" << std::endl;
-	myvector.resize(6, TestClass());
-	std::cout << "capacity = " << myvector.capacity() << " size = " << myvector.size() << std::endl;
-	std::cout << "myvector contains:\n";
-	for (it=myvector.begin(); it != myvector.end(); it++)
-		std::cout << it->getI() << "(copy " << it->getNumber() << ")" << ' ';
-	std::cout << '\n';
+	vec.insert(vec_it, 5, 10);
+	ft::displayData(vec);
+	ft::displayVec(vec);
+	// vec_2.insert(vec_2_it, vec_it, vec_ite);
 
-	it = myvector.begin();
-	it = myvector.insert ( it + 1 , 200 );
+}
+	// std::vector<TestClass> myvector (3, TestClass(100));
+	// std::vector<TestClass>::iterator it;
 
-	std::cout << "myvector contains:\n";
-	// for (it=myvector.begin(); it<myvector.end(); it++) NE MARCHE PAS ITERATOR OVERLOAD A REVOIR
-	for (it=myvector.begin(); it != myvector.end(); it++)
-		std::cout << it->getI() << "(copy " << it->getNumber() << ")" << ' ';
-	std::cout << '\n';
+	// std::cout << "capacity = " << myvector.capacity() << " size = " << myvector.size() << std::endl;
+	// std::cout << "resize" << std::endl;
+	// myvector.resize(6, TestClass());
+	// std::cout << "capacity = " << myvector.capacity() << " size = " << myvector.size() << std::endl;
+	// std::cout << "myvector contains:\n";
+	// for (it=myvector.begin(); it != myvector.end(); it++)
+	// 	std::cout << it->getI() << "(copy " << it->getNumber() << ")" << ' ';
+	// std::cout << '\n';
 
-	myvector.insert (it - 3,2,300);
+	// it = myvector.begin();
+	// it = myvector.insert ( it + 1 , 200 );
 
-	std::cout << "myvector contains:\n";
-	for (it=myvector.begin(); it<myvector.end(); it++)
-		std::cout <<  it->getI() << "(copy " << it->getNumber() << ")" << ' ';
-	std::cout << '\n';
+	// std::cout << "myvector contains:\n";
+	// // for (it=myvector.begin(); it<myvector.end(); it++) NE MARCHE PAS ITERATOR OVERLOAD A REVOIR
+	// for (it=myvector.begin(); it != myvector.end(); it++)
+	// 	std::cout << it->getI() << "(copy " << it->getNumber() << ")" << ' ';
+	// std::cout << '\n';
+
+	// myvector.insert (it - 3,2,300);
+
+	// std::cout << "myvector contains:\n";
+	// for (it=myvector.begin(); it<myvector.end(); it++)
+	// 	std::cout <<  it->getI() << "(copy " << it->getNumber() << ")" << ' ';
+	// std::cout << '\n';
 
 	// // "it" no longer valid, get a new one:
 	// it = myvector.begin();
@@ -55,5 +68,3 @@ void	tester_insert(void)
 	// for (it=myvector.begin(); it<myvector.end(); it++)
 	// 	std::cout <<  it->getI() << "(copy " << it->getNumber() << ")" << ' ';
 	// std::cout << '\n';
-
-}
