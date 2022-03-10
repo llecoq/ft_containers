@@ -6,7 +6,7 @@
 /*   By: llecoq <llecoq@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/07 15:08:10 by llecoq            #+#    #+#             */
-/*   Updated: 2022/03/09 13:15:24 by llecoq           ###   ########.fr       */
+/*   Updated: 2022/03/10 14:33:00 by llecoq           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,8 +17,12 @@
 
 namespace ft
 {
+	/*
+	** ------------------------------------------------------------------- UTILS
+	*/
+
 	template < class T, class Alloc = std::allocator<T> >
-	struct data
+	struct	data
 	{
 		typedef	Alloc											allocator_type;
 		typedef typename allocator_type::pointer				pointer;
@@ -26,7 +30,10 @@ namespace ft
 
 		pointer													_begin;
 		pointer													_end;
-		size_type												_size;
+		pointer													_end_capacity;
+		allocator_type											_allocator;
+		size_type												capacity;
+		size_type												size;
 	};
 
 	template < typename T >
@@ -40,10 +47,18 @@ namespace ft
 	}
 
 	template < typename T >
-	void	displayData(T &vec)
+	void	displayData(T &vec, std::string name = "vec")
 	{
+		std::cout << "name = " << name << std::endl;
 		std::cout << "size = " << vec.size() << std::endl;
 		std::cout << "capacity = " << vec.capacity() << std::endl;
+	}
+
+	template < typename T >
+	void	pushBackVec(T &vec, int n = 10)
+	{
+		for (int i = 0; i < n; ++i)
+			vec.push_back(i);
 	}
 }
 

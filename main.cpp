@@ -6,7 +6,7 @@
 /*   By: llecoq <llecoq@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/18 11:21:24 by llecoq            #+#    #+#             */
-/*   Updated: 2022/03/09 15:51:44 by llecoq           ###   ########.fr       */
+/*   Updated: 2022/03/10 13:59:54 by llecoq           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ int	main(int argc, char **argv)
 {
 	if (argc == 1)
 	{
-		tester_assign();
+		tester_swap();
 		return (0);
 	}
 	if (argc != 3)
