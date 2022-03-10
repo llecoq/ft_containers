@@ -6,7 +6,7 @@
 /*   By: llecoq <llecoq@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/16 15:57:56 by llecoq            #+#    #+#             */
-/*   Updated: 2022/03/10 14:38:08 by llecoq           ###   ########.fr       */
+/*   Updated: 2022/03/10 15:10:19 by llecoq           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,9 +44,9 @@ class vector
 		typedef typename allocator_type::const_reference			const_reference;
 		typedef typename allocator_type::pointer					pointer;
 		typedef random_access_iterator<value_type>					iterator;
-		// typedef random_access_iterator<const value_type>			const_iterator;   // iterator a creer
+		typedef random_access_iterator<const value_type>			const_iterator;
 		typedef reverse_iterator<iterator>							reverse_iterator;
-		// typedef ft::reverse_iterator<const_iterator>				const_reverse_iterator;
+		typedef ft::reverse_iterator<const_iterator>				const_reverse_iterator;
 		typedef typename iterator_traits<iterator>::difference_type	difference_type;
 		typedef typename allocator_type::size_type					size_type;
 		
@@ -132,9 +132,7 @@ class vector
 		*/
 		vector& operator= (const vector& x)
 		{
-			// clear ?
-			// if *this.capacity() > x, original malloc error et leaks
-			// assign ?
+			// assign(x._begin, x._end);
 			(void)x;
 		}
 
@@ -160,14 +158,19 @@ class vector
 			return (_begin);
 		}
 
-		// const_iterator begin() const
-		// {
-		// 	return (_begin);
-		// }
+		const_iterator begin() const
+		{
+			return (_begin);
+		}
 
 		reverse_iterator rbegin()
 		{
-			return (static_cast<reverse_iterator>(_end));
+			return (reverse_iterator(_end));
+		}
+
+		const_reverse_iterator rbegin() const
+		{
+			return (reverse_iterator(_end));
 		}
 
 		iterator end()
@@ -175,11 +178,19 @@ class vector
 			return (_end);
 		}
 		
-		// const_iterator end() const;
+		const_iterator end() const
+		{
+			return (_end);
+		}
 
 		reverse_iterator rend()
 		{
-			return (static_cast<reverse_iterator>(_begin));
+			return (reverse_iterator(_begin));
+		}
+
+		reverse_iterator rend() const
+		{
+			return (reverse_iterator(_begin));
 		}
 		
 	/*
@@ -242,7 +253,10 @@ class vector
 			return _begin[n];
 		}
 
-		// const_reference operator[] (size_type n) const;
+		const_reference operator[] (size_type n) const
+		{
+			return _begin[n];
+		}
 
 		// Returns a reference to the element at position n in the vector.
 		reference at (size_type n)
@@ -252,21 +266,34 @@ class vector
 			return _begin[n];
 		}
 
-		// const_reference at (size_type n) const;
+		const_reference at (size_type n) const
+		{
+			if (n > size())
+				throw std::out_of_range("vector");
+			return _begin[n];
+		}
 		
 		// Access element (public member function )
 		reference front()
 		{
 			return *_begin;
 		}
-		// const_reference front() const;
+
+		const_reference front() const
+		{
+			return *_begin;
+		}
 
 		// Access first element (public member function )
 		reference back()
 		{
 			return *(_end - 1);
 		}
-		// const_reference back() const;
+
+		const_reference back() const
+		{
+			return *(_end - 1);
+		}
 
 	/*
 	** --------------------------------------------------------------- MODIFIERS
@@ -411,16 +438,29 @@ class vector
 		{
 			data<T>	tmp;
 
-			_update_data(tmp);
 			_swap_data(tmp, *this);
 			_swap_data(*this, x);
 			_swap_data(x, tmp);
+		}
+
+		friend void swap (vector<T,Alloc>& x, vector<T,Alloc>& y)
+		{
+			data<T>	tmp;
+
+			x._swap_data(tmp, x);
+			x._swap_data(x, y);
+			x._swap_data(y, tmp);
 		}
 
 		// clear
 		void clear()
 		{
 			_destruct_backward(_end, size());
+		}
+
+		allocator_type get_allocator() const
+		{
+			return (_allocator);
 		}
 
 		class	lengthErrorException : public std::exception
@@ -536,8 +576,6 @@ class vector
 		{
 			old_vector._begin = _begin;
 			old_vector._end = _end;
-			old_vector._end_capacity = _end_capacity;
-			old_vector._allocator = _allocator;
 			old_vector.capacity = capacity();
 			old_vector.size = size();
 		}
