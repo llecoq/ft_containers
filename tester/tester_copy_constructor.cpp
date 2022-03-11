@@ -6,7 +6,7 @@
 /*   By: llecoq <llecoq@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/04 10:56:21 by llecoq            #+#    #+#             */
-/*   Updated: 2022/03/04 12:29:58 by llecoq           ###   ########.fr       */
+/*   Updated: 2022/03/11 16:07:43 by llecoq           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,26 +15,26 @@
 void	tester_copy_constructor()
 {
 	{	/* COPY CONSTRUCTOR */
-		// ft::vector<TestClass>		vec;
+		ft::vector<TestClass>		vec;
 	
-		// for (int i = 0; i < 5; i++)
-		// 	vec.push_back(TestClass(i));
-		// for (ft::vector<TestClass>::iterator it = vec.begin(); it != vec.end(); it++)
-		// 	dprintf(2, "%d ", it->getNumber());
-		// dprintf(2, "\n");
-		// for (ft::vector<TestClass>::iterator it = vec.begin(); it != vec.end(); it++)
-		// 	dprintf(2, "%d ", it->getI());
-		// dprintf(2, "\n");
-		// dprintf(2, "vec capacity = %zu   zize = %zu\n", vec.capacity(), vec.size());
+		for (int i = 0; i < 5; i++)
+			vec.push_back(TestClass(i));
+		for (ft::vector<TestClass>::iterator it = vec.begin(); it != vec.end(); it++)
+			dprintf(2, "%d ", it->getNumber());
+		dprintf(2, "\n");
+		for (ft::vector<TestClass>::iterator it = vec.begin(); it != vec.end(); it++)
+			dprintf(2, "%d ", it->getI());
+		dprintf(2, "\n");
+		dprintf(2, "vec capacity = %zu   zize = %zu\n", vec.capacity(), vec.size());
 		
-		// ft::vector<TestClass>		copy(vec);
-		// for (ft::vector<TestClass>::iterator it = copy.begin(); it != copy.end(); it++)
-		// 	dprintf(2, "%d ", it->getNumber());
-		// dprintf(2, "\n");
-		// for (ft::vector<TestClass>::iterator it = copy.begin(); it != copy.end(); it++)
-		// 	dprintf(2, "%d ", it->getI());
-		// dprintf(2, "\n");
-		// dprintf(2, "copy capacity = %zu   zize = %zu\n", copy.capacity(), copy.size());
+		ft::vector<TestClass>		copy(vec);
+		for (ft::vector<TestClass>::iterator it = copy.begin(); it != copy.end(); it++)
+			dprintf(2, "%d ", it->getNumber());
+		dprintf(2, "\n");
+		for (ft::vector<TestClass>::iterator it = copy.begin(); it != copy.end(); it++)
+			dprintf(2, "%d ", it->getI());
+		dprintf(2, "\n");
+		dprintf(2, "copy capacity = %zu   zize = %zu\n", copy.capacity(), copy.size());
 
 		// /* RANGE */
 		// ft::vector<TestClass>	range(vec.begin() + 1, vec.end());

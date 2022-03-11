@@ -1,0 +1,297 @@
+0 - I Constructor called.
+[32m1 - Copy Constructor called.[0m
+[32m2 - Copy Constructor called.[0m
+[32m3 - Copy Constructor called.[0m
+[32m4 - Copy Constructor called.[0m
+[32m5 - Copy Constructor called.[0m
+[32m6 - Copy Constructor called.[0m
+[32m7 - Copy Constructor called.[0m
+[32m8 - Copy Constructor called.[0m
+[32m9 - Copy Constructor called.[0m
+[32m10 - Copy Constructor called.[0m
+[32m11 - Copy Constructor called.[0m
+[32m12 - Copy Constructor called.[0m
+[32m13 - Copy Constructor called.[0m
+[32m0 - I[31m Destructor [32mcalled[0m
+14 - I Constructor called.
+[32m15 - Copy Constructor called.[0m
+[32m16 - Copy Constructor called.[0m
+[32m17 - Copy Constructor called.[0m
+[32m18 - Copy Constructor called.[0m
+[32m19 - Copy Constructor called.[0m
+[32m20 - Copy Constructor called.[0m
+[32m21 - Copy Constructor called.[0m
+[32m22 - Copy Constructor called.[0m
+[32m23 - Copy Constructor called.[0m
+[32m24 - Copy Constructor called.[0m
+[32m25 - Copy Constructor called.[0m
+[32m26 - Copy Constructor called.[0m
+[32m27 - Copy Constructor called.[0m
+[32m28 - Copy Constructor called.[0m
+[32m13 - Copy[31m Destructor [32mcalled[0m
+[32m12 - Copy[31m Destructor [32mcalled[0m
+[32m11 - Copy[31m Destructor [32mcalled[0m
+[32m10 - Copy[31m Destructor [32mcalled[0m
+[32m9 - Copy[31m Destructor [32mcalled[0m
+[32m8 - Copy[31m Destructor [32mcalled[0m
+[32m7 - Copy[31m Destructor [32mcalled[0m
+[32m6 - Copy[31m Destructor [32mcalled[0m
+[32m5 - Copy[31m Destructor [32mcalled[0m
+[32m4 - Copy[31m Destructor [32mcalled[0m
+[32m3 - Copy[31m Destructor [32mcalled[0m
+[32m2 - Copy[31m Destructor [32mcalled[0m
+[32m1 - Copy[31m Destructor [32mcalled[0m
+[32m14 - I[31m Destructor [32mcalled[0m
+name = vec
+size = 14
+capacity = 26
+
+29 - I Constructor called.
+[32m30 - Copy Constructor called.[0m
+[35m28 - Operator= Constructor called.[0m
+[35m27 - Operator= Constructor called.[0m
+[35m26 - Operator= Constructor called.[0m
+[35m25 - Operator= Constructor called.[0m
+[35m24 - Operator= Constructor called.[0m
+[35m23 - Operator= Constructor called.[0m
+[35m22 - Operator= Constructor called.[0m
+[35m21 - Operator= Constructor called.[0m
+[35m20 - Operator= Constructor called.[0m
+[35m19 - Operator= Constructor called.[0m
+[35m18 - Operator= Constructor called.[0m
+[35m17 - Operator= Constructor called.[0m
+[35m16 - Operator= Constructor called.[0m
+[35m15 - Operator= Constructor called.[0m
+[32m29 - I[31m Destructor [32mcalled[0m
+name = vec
+size = 15
+capacity = 26
+
+31 - I Constructor called.
+[32m32 - Copy Constructor called.[0m
+[35m30 - Operator= Constructor called.[0m
+[35m28 - Operator= Constructor called.[0m
+[35m27 - Operator= Constructor called.[0m
+[35m26 - Operator= Constructor called.[0m
+[35m25 - Operator= Constructor called.[0m
+[35m24 - Operator= Constructor called.[0m
+[35m23 - Operator= Constructor called.[0m
+[35m22 - Operator= Constructor called.[0m
+[35m21 - Operator= Constructor called.[0m
+[35m20 - Operator= Constructor called.[0m
+[35m19 - Operator= Constructor called.[0m
+[35m18 - Operator= Constructor called.[0m
+[35m17 - Operator= Constructor called.[0m
+[35m16 - Operator= Constructor called.[0m
+[35m15 - Operator= Constructor called.[0m
+[32m31 - I[31m Destructor [32mcalled[0m
+name = vec
+size = 16
+capacity = 26
+
+33 - I Constructor called.
+[32m34 - Copy Constructor called.[0m
+[35m32 - Operator= Constructor called.[0m
+[35m30 - Operator= Constructor called.[0m
+[35m28 - Operator= Constructor called.[0m
+[35m27 - Operator= Constructor called.[0m
+[35m26 - Operator= Constructor called.[0m
+[35m25 - Operator= Constructor called.[0m
+[35m24 - Operator= Constructor called.[0m
+[35m23 - Operator= Constructor called.[0m
+[35m22 - Operator= Constructor called.[0m
+[35m21 - Operator= Constructor called.[0m
+[35m20 - Operator= Constructor called.[0m
+[35m19 - Operator= Constructor called.[0m
+[35m18 - Operator= Constructor called.[0m
+[35m17 - Operator= Constructor called.[0m
+[35m16 - Operator= Constructor called.[0m
+[35m15 - Operator= Constructor called.[0m
+[32m33 - I[31m Destructor [32mcalled[0m
+name = vec
+size = 17
+capacity = 26
+
+35 - I Constructor called.
+[32m36 - Copy Constructor called.[0m
+[35m34 - Operator= Constructor called.[0m
+[35m32 - Operator= Constructor called.[0m
+[35m30 - Operator= Constructor called.[0m
+[35m28 - Operator= Constructor called.[0m
+[35m27 - Operator= Constructor called.[0m
+[35m26 - Operator= Constructor called.[0m
+[35m25 - Operator= Constructor called.[0m
+[35m24 - Operator= Constructor called.[0m
+[35m23 - Operator= Constructor called.[0m
+[35m22 - Operator= Constructor called.[0m
+[35m21 - Operator= Constructor called.[0m
+[35m20 - Operator= Constructor called.[0m
+[35m19 - Operator= Constructor called.[0m
+[35m18 - Operator= Constructor called.[0m
+[35m17 - Operator= Constructor called.[0m
+[35m16 - Operator= Constructor called.[0m
+[35m15 - Operator= Constructor called.[0m
+[32m35 - I[31m Destructor [32mcalled[0m
+name = vec
+size = 18
+capacity = 26
+
+37 - I Constructor called.
+[32m38 - Copy Constructor called.[0m
+[35m36 - Operator= Constructor called.[0m
+[35m34 - Operator= Constructor called.[0m
+[35m32 - Operator= Constructor called.[0m
+[35m30 - Operator= Constructor called.[0m
+[35m28 - Operator= Constructor called.[0m
+[35m27 - Operator= Constructor called.[0m
+[35m26 - Operator= Constructor called.[0m
+[35m25 - Operator= Constructor called.[0m
+[35m24 - Operator= Constructor called.[0m
+[35m23 - Operator= Constructor called.[0m
+[35m22 - Operator= Constructor called.[0m
+[35m21 - Operator= Constructor called.[0m
+[35m20 - Operator= Constructor called.[0m
+[35m19 - Operator= Constructor called.[0m
+[35m18 - Operator= Constructor called.[0m
+[35m17 - Operator= Constructor called.[0m
+[35m16 - Operator= Constructor called.[0m
+[35m15 - Operator= Constructor called.[0m
+[32m37 - I[31m Destructor [32mcalled[0m
+name = vec
+size = 19
+capacity = 26
+
+39 - I Constructor called.
+[32m40 - Copy Constructor called.[0m
+[35m38 - Operator= Constructor called.[0m
+[35m36 - Operator= Constructor called.[0m
+[35m34 - Operator= Constructor called.[0m
+[35m32 - Operator= Constructor called.[0m
+[35m30 - Operator= Constructor called.[0m
+[35m28 - Operator= Constructor called.[0m
+[35m27 - Operator= Constructor called.[0m
+[35m26 - Operator= Constructor called.[0m
+[35m25 - Operator= Constructor called.[0m
+[35m24 - Operator= Constructor called.[0m
+[35m23 - Operator= Constructor called.[0m
+[35m22 - Operator= Constructor called.[0m
+[35m21 - Operator= Constructor called.[0m
+[35m20 - Operator= Constructor called.[0m
+[35m19 - Operator= Constructor called.[0m
+[35m18 - Operator= Constructor called.[0m
+[35m17 - Operator= Constructor called.[0m
+[35m16 - Operator= Constructor called.[0m
+[35m15 - Operator= Constructor called.[0m
+[32m39 - I[31m Destructor [32mcalled[0m
+name = vec
+size = 20
+capacity = 26
+
+41 - I Constructor called.
+[32m42 - Copy Constructor called.[0m
+[35m40 - Operator= Constructor called.[0m
+[35m38 - Operator= Constructor called.[0m
+[35m36 - Operator= Constructor called.[0m
+[35m34 - Operator= Constructor called.[0m
+[35m32 - Operator= Constructor called.[0m
+[35m30 - Operator= Constructor called.[0m
+[35m28 - Operator= Constructor called.[0m
+[35m27 - Operator= Constructor called.[0m
+[35m26 - Operator= Constructor called.[0m
+[35m25 - Operator= Constructor called.[0m
+[35m24 - Operator= Constructor called.[0m
+[35m23 - Operator= Constructor called.[0m
+[35m22 - Operator= Constructor called.[0m
+[35m21 - Operator= Constructor called.[0m
+[35m20 - Operator= Constructor called.[0m
+[35m19 - Operator= Constructor called.[0m
+[35m18 - Operator= Constructor called.[0m
+[35m17 - Operator= Constructor called.[0m
+[35m16 - Operator= Constructor called.[0m
+[35m15 - Operator= Constructor called.[0m
+[32m41 - I[31m Destructor [32mcalled[0m
+name = vec
+size = 21
+capacity = 26
+
+43 - I Constructor called.
+[32m44 - Copy Constructor called.[0m
+[35m42 - Operator= Constructor called.[0m
+[35m40 - Operator= Constructor called.[0m
+[35m38 - Operator= Constructor called.[0m
+[35m36 - Operator= Constructor called.[0m
+[35m34 - Operator= Constructor called.[0m
+[35m32 - Operator= Constructor called.[0m
+[35m30 - Operator= Constructor called.[0m
+[35m28 - Operator= Constructor called.[0m
+[35m27 - Operator= Constructor called.[0m
+[35m26 - Operator= Constructor called.[0m
+[35m25 - Operator= Constructor called.[0m
+[35m24 - Operator= Constructor called.[0m
+[35m23 - Operator= Constructor called.[0m
+[35m22 - Operator= Constructor called.[0m
+[35m21 - Operator= Constructor called.[0m
+[35m20 - Operator= Constructor called.[0m
+[35m19 - Operator= Constructor called.[0m
+[35m18 - Operator= Constructor called.[0m
+[35m17 - Operator= Constructor called.[0m
+[35m16 - Operator= Constructor called.[0m
+[35m15 - Operator= Constructor called.[0m
+[32m43 - I[31m Destructor [32mcalled[0m
+name = vec
+size = 22
+capacity = 26
+
+45 - I Constructor called.
+[32m46 - Copy Constructor called.[0m
+[35m44 - Operator= Constructor called.[0m
+[35m42 - Operator= Constructor called.[0m
+[35m40 - Operator= Constructor called.[0m
+[35m38 - Operator= Constructor called.[0m
+[35m36 - Operator= Constructor called.[0m
+[35m34 - Operator= Constructor called.[0m
+[35m32 - Operator= Constructor called.[0m
+[35m30 - Operator= Constructor called.[0m
+[35m28 - Operator= Constructor called.[0m
+[35m27 - Operator= Constructor called.[0m
+[35m26 - Operator= Constructor called.[0m
+[35m25 - Operator= Constructor called.[0m
+[35m24 - Operator= Constructor called.[0m
+[35m23 - Operator= Constructor called.[0m
+[35m22 - Operator= Constructor called.[0m
+[35m21 - Operator= Constructor called.[0m
+[35m20 - Operator= Constructor called.[0m
+[35m19 - Operator= Constructor called.[0m
+[35m18 - Operator= Constructor called.[0m
+[35m17 - Operator= Constructor called.[0m
+[35m16 - Operator= Constructor called.[0m
+[35m15 - Operator= Constructor called.[0m
+[32m45 - I[31m Destructor [32mcalled[0m
+name = vec
+size = 23
+capacity = 26
+
+[0;33m	My vector: [0;37mCopy 15 i = 1 Copy 16 i = 2 Copy 17 i = 3 Copy 18 i = 4 Copy 19 i = 5 Copy 20 i = 6 Copy 21 i = 7 Copy 22 i = 8 Copy 23 i = 9 Copy 24 i = 10 Copy 25 i = 10 Copy 26 i = 10 Copy 27 i = 10 Copy 28 i = 10 Copy 30 i = 10 Copy 32 i = 10 Copy 34 i = 10 Copy 36 i = 10 Copy 38 i = 10 Copy 40 i = 10 Copy 42 i = 10 Copy 44 i = 10 Copy 46 i = 10 [0;33m	Size: [0;37m23 [0;33m	Capacity: [0;37m26 
+[32m46 - Copy[31m Destructor [32mcalled[0m
+[32m44 - Copy[31m Destructor [32mcalled[0m
+[32m42 - Copy[31m Destructor [32mcalled[0m
+[32m40 - Copy[31m Destructor [32mcalled[0m
+[32m38 - Copy[31m Destructor [32mcalled[0m
+[32m36 - Copy[31m Destructor [32mcalled[0m
+[32m34 - Copy[31m Destructor [32mcalled[0m
+[32m32 - Copy[31m Destructor [32mcalled[0m
+[32m30 - Copy[31m Destructor [32mcalled[0m
+[32m28 - Copy[31m Destructor [32mcalled[0m
+[32m27 - Copy[31m Destructor [32mcalled[0m
+[32m26 - Copy[31m Destructor [32mcalled[0m
+[32m25 - Copy[31m Destructor [32mcalled[0m
+[32m24 - Copy[31m Destructor [32mcalled[0m
+[32m23 - Copy[31m Destructor [32mcalled[0m
+[32m22 - Copy[31m Destructor [32mcalled[0m
+[32m21 - Copy[31m Destructor [32mcalled[0m
+[32m20 - Copy[31m Destructor [32mcalled[0m
+[32m19 - Copy[31m Destructor [32mcalled[0m
+[32m18 - Copy[31m Destructor [32mcalled[0m
+[32m17 - Copy[31m Destructor [32mcalled[0m
+[32m16 - Copy[31m Destructor [32mcalled[0m
+[32m15 - Copy[31m Destructor [32mcalled[0m
