@@ -6,7 +6,7 @@
 /*   By: llecoq <llecoq@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/10 11:04:14 by llecoq            #+#    #+#             */
-/*   Updated: 2022/03/14 14:49:23 by llecoq           ###   ########.fr       */
+/*   Updated: 2022/03/14 18:29:44 by llecoq           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -137,7 +137,7 @@ namespace	ft
 	template<> struct is_integral_base<volatile unsigned long long> : true_type {};
 
 	template <class T>
-	struct is_integral : is_integral_base<T> {}; // ne remove pas les signs / cv
+	struct is_integral : is_integral_base<T> {};
 
 }
 

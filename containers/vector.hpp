@@ -6,7 +6,7 @@
 /*   By: llecoq <llecoq@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/16 15:57:56 by llecoq            #+#    #+#             */
-/*   Updated: 2022/03/14 18:17:44 by llecoq           ###   ########.fr       */
+/*   Updated: 2022/03/14 18:35:45 by llecoq           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -303,72 +303,10 @@ class vector
 	**		same order.
 	*/
 
-// template <class _ForwardIterator>
-// typename enable_if
-// <
-//     __is_forward_iterator<_ForwardIterator>::value &&
-//     is_constructible<
-//        _Tp,
-//        typename iterator_traits<_ForwardIterator>::reference>::value,
-//     void
-// >::type
-// vector<_Tp, _Allocator>::assign(_ForwardIterator __first, _ForwardIterator __last)
-
-// typename enable_if
-// <
-//      __is_input_iterator  <_InputIterator>::value &&
-//     !__is_forward_iterator<_InputIterator>::value &&
-//     is_constructible<
-//        _Tp,
-//        typename iterator_traits<_InputIterator>::reference>::value,
-//     void
-// >::type
-// vector<_Tp, _Allocator>::assign(_InputIterator __first, _InputIterator __last)
-
-// template <class _InputIterator>
-// typename enable_if
-// <
-//     __is_input_iterator<_InputIterator>::value &&
-//    !__is_forward_iterator<_InputIterator>::value,
-//    void
-// >::type
-// vector<bool, _Allocator>::assign(_InputIterator __first, _InputIterator __last)
-
-// template <class _Allocator>
-// template <class _ForwardIterator>
-// typename enable_if
-// <
-//     __is_forward_iterator<_ForwardIterator>::value,
-//    void
-// >::type
-// vector<bool, _Allocator>::assign(_ForwardIterator __first, _ForwardIterator __last)
-
-		// template <class InputIterator>
-		// void assign (InputIterator first, InputIterator last)
-		// {
-		// 	size_type	n = last - first;
-
-		// 	_update_data(_old_vector);
-		// 	if (n > capacity())
-		// 	{
-		// 		clear();
-		// 		_allocator.deallocate(_begin, _old_vector.capacity);
-		// 		_vector_allocation(n);
-		// 		_construct_at_end(first, last);
-		// 	}
-		// 	else
-		// 	{
-		// 		for (size_t i = 0; i < n && i < size(); i++)
-		// 			*(_old_vector._begin++) = *(first++);
-		// 		if (n > size())
-		// 			_construct_at_end(first, last);
-		// 		_destruct_backward(_old_vector._begin);
-		// 	}
-		// }
-
 		template <class InputIterator>
-		void assign (typename enable_if<!is_integral<InputIterator>::value, InputIterator>::type first, InputIterator last)
-		// typename enable_if<!is_integral<InputIterator>::value, InputIterator>::type* = 0)
+		void assign (InputIterator first, InputIterator last,
+			typename enable_if<!is_integral<InputIterator>::value
+			&& !std::is_floating_point<InputIterator>::value, InputIterator>::type* = 0)
 		{
 			size_type	n = last - first;
 
@@ -389,6 +327,34 @@ class vector
 				_destruct_backward(_old_vector._begin);
 			}
 		}
+
+		// template <class InputIterator>
+		// void assign (typename enable_if
+		// <
+		// 	!is_integral<InputIterator>::value
+		// 	&& !std::is_floating_point<InputIterator>::value, InputIterator
+		// >::type first, InputIterator last)
+		// // typename enable_if<!is_integral<InputIterator>::value, InputIterator>::type* = 0)
+		// {
+		// 	size_type	n = last - first;
+
+		// 	_update_data(_old_vector);
+		// 	if (n > capacity())
+		// 	{
+		// 		clear();
+		// 		_allocator.deallocate(_begin, _old_vector.capacity);
+		// 		_vector_allocation(n);
+		// 		_construct_at_end(first, last);
+		// 	}
+		// 	else
+		// 	{
+		// 		for (size_t i = 0; i < n && i < size(); i++)
+		// 			*(_old_vector._begin++) = *(first++);
+		// 		if (n > size())
+		// 			_construct_at_end(first, last);
+		// 		_destruct_backward(_old_vector._begin);
+		// 	}
+		// }
 
 		/*																 fill(2)
 		**	In the fill version (2), the new contents are n elements, each init-
