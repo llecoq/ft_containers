@@ -6,7 +6,7 @@
 /*   By: llecoq <llecoq@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/27 18:01:12 by llecoq            #+#    #+#             */
-/*   Updated: 2022/03/09 11:18:22 by llecoq           ###   ########.fr       */
+/*   Updated: 2022/03/14 11:47:32 by llecoq           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,22 +33,18 @@ class random_access_iterator : virtual public iterator_traits< iterator<random_a
 		/*
 		** -------------------------------------------------------- CONSTRUCTORS
 		*/
-		// Default
 		random_access_iterator()
 		:
 			_pointer(0)
 		{}
 
-		// Copy construct
 		random_access_iterator( random_access_iterator const &src )
 		{
 			*this = src;
 		}
 	
-		// Destructor
 		~random_access_iterator(){}
 
-		// copy assignment
 		random_access_iterator( random_access_iterator::pointer pointer )
 		{
 			_pointer = pointer;
@@ -64,19 +60,16 @@ class random_access_iterator : virtual public iterator_traits< iterator<random_a
 		/*
 		** ------------------------------------------------------- MEMBER ACCESS
 		*/
-		// indirection to rvalue
 		reference	operator*( void ) const
 		{
 			return (*_pointer);
 		}
 
-		// member of pointer
 		pointer	operator->( void ) const
 		{
 			return (_pointer);
 		}
 
-		// indirection to lvalue
 		reference	operator*( void )
 		{
 			return (*_pointer);
@@ -146,7 +139,6 @@ class random_access_iterator : virtual public iterator_traits< iterator<random_a
 		}
 
 
-
 		/*
 		** --------------------------------------- COMPOUND ASSIGNMENT OPERATORS
 		*/
@@ -213,7 +205,6 @@ class random_access_iterator : virtual public iterator_traits< iterator<random_a
 		/*
 		** ----------------------------------------------------------- SUBSCRIPT
 		*/
-		// offset dereference operator
 		reference	operator[]( difference_type index )
 		{
 			return (_pointer[index]);

@@ -6,7 +6,7 @@
 /*   By: llecoq <llecoq@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/03 16:42:26 by llecoq            #+#    #+#             */
-/*   Updated: 2022/03/09 17:19:11 by llecoq           ###   ########.fr       */
+/*   Updated: 2022/03/14 10:37:37 by llecoq           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 void	tester_resize()
 {
-	std::vector<TestClass>		vec;
+	ft::vector<TestClass>		vec;
 
 	for (int i = 0; i < 3; i++)
 		vec.push_back(TestClass());

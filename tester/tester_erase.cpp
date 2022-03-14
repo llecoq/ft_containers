@@ -6,7 +6,7 @@
 /*   By: llecoq <llecoq@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/04 16:02:50 by llecoq            #+#    #+#             */
-/*   Updated: 2022/03/09 11:27:03 by llecoq           ###   ########.fr       */
+/*   Updated: 2022/03/14 11:03:55 by llecoq           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 void	tester_erase(void)
 {
-	std::vector<TestClass> myvector;
+	ft::vector<TestClass> myvector;
 
 	// set some values (from 1 to 10)
 	for (int i=1; i<=10; i++) myvector.push_back(TestClass(i));

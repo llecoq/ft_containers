@@ -6,7 +6,7 @@
 /*   By: llecoq <llecoq@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/03 13:20:29 by llecoq            #+#    #+#             */
-/*   Updated: 2022/03/09 11:21:43 by llecoq           ###   ########.fr       */
+/*   Updated: 2022/03/14 13:10:09 by llecoq           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@
 namespace ft
 {
 template <class Iterator>
-class reverse_iterator
+class reverse_iterator 
 {
 	public :
 
@@ -30,19 +30,16 @@ class reverse_iterator
 	typedef typename Iterator::iterator_category			iterator_category;
 
 	/*------------------------- MEMBER FUNCTIONS -------------------------*/
-	// default (1)
 	reverse_iterator()
 	: 
 		_base(0)
 	{}
 
-	// initialization (2)	
 	explicit reverse_iterator (iterator_type it)
 	:
 		_base(it)
 	{}
 
-	// copy (3)	
 	template <class Iter>
 	reverse_iterator (const reverse_iterator<Iter>& rev_it)
 	:

@@ -6,7 +6,7 @@
 /*   By: llecoq <llecoq@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/16 15:57:56 by llecoq            #+#    #+#             */
-/*   Updated: 2022/03/11 16:18:30 by llecoq           ###   ########.fr       */
+/*   Updated: 2022/03/14 18:17:44 by llecoq           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,7 @@
 #include "../iterators/random_access_iterator.hpp"
 #include "../iterators/reverse_iterator.hpp"
 #include "../utils/utils.hpp"
+#include "../utils/metafunctions.hpp"
 
 namespace	ft
 {
@@ -118,8 +119,9 @@ class vector
 			_allocator(x._allocator)
 		{
 			_vector_allocation(x.size());
-			for (size_type i = 0; i < x.size(); i++)
-				_allocator.construct(_end++, x._begin[i]);
+			_construct_at_end(x.begin(), x.end());
+			// for (size_type i = 0; i < x.size(); i++)
+				// _allocator.construct(_end++, x._begin[i]);
 		}
 
 		/* 															    copy (1)
@@ -128,7 +130,7 @@ class vector
 		*/
 		vector& operator= (const vector& x)
 		{
-			// assign(x._begin, x._end);
+			assign(x._begin, x._end);
 			(void)x;
 			return (*this);
 		}
@@ -213,7 +215,12 @@ class vector
 			else if (n > capacity())
 			{
 				_update_data(_old_vector);
-				_expand_vector(_end, n, val);
+				_vector_allocation(_new_capacity(n));
+				_set_ptr(_begin + _old_vector.size);
+				_construct_at_end(n - _old_vector.size, val);
+				_construct_backward(_old_vector._end, _old_vector.size);
+				_destruct_backward(_old_vector._end, _old_vector.size);
+				_allocator.deallocate(_old_vector._end, _old_vector.capacity);
 			}
 		}
 
@@ -296,6 +303,46 @@ class vector
 	**		same order.
 	*/
 
+// template <class _ForwardIterator>
+// typename enable_if
+// <
+//     __is_forward_iterator<_ForwardIterator>::value &&
+//     is_constructible<
+//        _Tp,
+//        typename iterator_traits<_ForwardIterator>::reference>::value,
+//     void
+// >::type
+// vector<_Tp, _Allocator>::assign(_ForwardIterator __first, _ForwardIterator __last)
+
+// typename enable_if
+// <
+//      __is_input_iterator  <_InputIterator>::value &&
+//     !__is_forward_iterator<_InputIterator>::value &&
+//     is_constructible<
+//        _Tp,
+//        typename iterator_traits<_InputIterator>::reference>::value,
+//     void
+// >::type
+// vector<_Tp, _Allocator>::assign(_InputIterator __first, _InputIterator __last)
+
+// template <class _InputIterator>
+// typename enable_if
+// <
+//     __is_input_iterator<_InputIterator>::value &&
+//    !__is_forward_iterator<_InputIterator>::value,
+//    void
+// >::type
+// vector<bool, _Allocator>::assign(_InputIterator __first, _InputIterator __last)
+
+// template <class _Allocator>
+// template <class _ForwardIterator>
+// typename enable_if
+// <
+//     __is_forward_iterator<_ForwardIterator>::value,
+//    void
+// >::type
+// vector<bool, _Allocator>::assign(_ForwardIterator __first, _ForwardIterator __last)
+
 		// template <class InputIterator>
 		// void assign (InputIterator first, InputIterator last)
 		// {
@@ -318,6 +365,30 @@ class vector
 		// 		_destruct_backward(_old_vector._begin);
 		// 	}
 		// }
+
+		template <class InputIterator>
+		void assign (typename enable_if<!is_integral<InputIterator>::value, InputIterator>::type first, InputIterator last)
+		// typename enable_if<!is_integral<InputIterator>::value, InputIterator>::type* = 0)
+		{
+			size_type	n = last - first;
+
+			_update_data(_old_vector);
+			if (n > capacity())
+			{
+				clear();
+				_allocator.deallocate(_begin, _old_vector.capacity);
+				_vector_allocation(n);
+				_construct_at_end(first, last);
+			}
+			else
+			{
+				for (size_t i = 0; i < n && i < size(); i++)
+					*(_old_vector._begin++) = *(first++);
+				if (n > size())
+					_construct_at_end(first, last);
+				_destruct_backward(_old_vector._begin);
+			}
+		}
 
 		/*																 fill(2)
 		**	In the fill version (2), the new contents are n elements, each init-
@@ -402,7 +473,7 @@ class vector
 			{
 				for (iterator it = position; it < (end() - 1); it++)
 					*it = *(it + 1);
-			}
+			}	
 			_destruct_backward(_end, 1);
 			return position;
 		}
@@ -515,7 +586,20 @@ class vector
 				_allocator.construct(_end++, val);
 		}
 
-		void	_construct_at_end(pointer begin, pointer end)
+		// void	_construct_at_end(pointer begin, pointer end)
+		// {
+		// 	while (begin != end)
+		// 		_allocator.construct(_end++, *begin++);
+		// }
+
+		// void	_construct_at_end(iterator begin, iterator end)
+		// {
+		// 	while (begin != end)
+		// 		_allocator.construct(_end++, *begin++);
+		// }
+
+		template <typename Input>
+		void	_construct_at_end(Input begin, Input end)
 		{
 			while (begin != end)
 				_allocator.construct(_end++, *begin++);
@@ -523,8 +607,7 @@ class vector
 
 		void	_construct_backward(pointer old_end, size_type number_of_elements, const value_type &val)
 		{
-			_end = _begin = _begin + number_of_elements + 1;
-
+			_set_ptr(_begin + number_of_elements + 1);
 			_allocator.construct(--_begin, val);
 			while (number_of_elements-- > 0)
 				_allocator.construct(--_begin, *--old_end);
@@ -548,30 +631,29 @@ class vector
 				_allocator.destroy(--_end);
 		}
 
-		void	_expand_vector(pointer old_end, size_type n, const value_type &val)
-		{
-			size_type	new_capacity = n;
-		
-			if (capacity() * 2 > n)
-				new_capacity = capacity() * 2;
-			_vector_allocation(new_capacity);
-			_set_ptr(_begin + _old_vector.size);
-			_construct_at_end(n - _old_vector.size, val);
-			_construct_backward(old_end, _old_vector.size);
-			_destruct_backward(old_end, _old_vector.size);
-			_allocator.deallocate(old_end, _old_vector.capacity);
-		}
-
-		size_type	_new_capacity()
+		size_type	_new_capacity(size_type n = 0)
 		{
 			size_type	new_capacity = capacity();
 
-			if (new_capacity == 0)
-				new_capacity = 1;
+			if (n > 0)
+				return (capacity() * 2 > n ? capacity() * 2 : n);
 			else
-				new_capacity *= 2;
-			return (new_capacity);
+				return (new_capacity == 0 ? 1 : new_capacity * 2);
 		}
+
+		// void	_expand_vector(pointer old_end, size_type n, const value_type &val)
+		// {
+		// 	size_type	new_capacity = n;
+		
+		// 	if (capacity() * 2 > n)
+		// 		new_capacity = capacity() * 2;
+		// 	_vector_allocation(new_capacity);
+		// 	_set_ptr(_begin + _old_vector.size);
+		// 	_construct_at_end(n - _old_vector.size, val);
+		// 	_construct_backward(old_end, _old_vector.size);
+		// 	_destruct_backward(old_end, _old_vector.size);
+		// 	_allocator.deallocate(old_end, _old_vector.capacity);
+		// }
 
 		void	_set_ptr(pointer ptr)
 		{

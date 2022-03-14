@@ -6,7 +6,7 @@
 /*   By: llecoq <llecoq@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/09 11:35:21 by llecoq            #+#    #+#             */
-/*   Updated: 2022/03/10 09:14:18 by llecoq           ###   ########.fr       */
+/*   Updated: 2022/03/14 11:02:02 by llecoq           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 void	tester_clear(void)
 {
-	std::vector<TestClass> myvector;
+	ft::vector<TestClass> myvector;
 	myvector.clear();
 	ft::displayData(myvector);
 	

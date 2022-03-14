@@ -6,7 +6,7 @@
 /*   By: llecoq <llecoq@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/04 17:19:02 by llecoq            #+#    #+#             */
-/*   Updated: 2022/03/10 16:38:36 by llecoq           ###   ########.fr       */
+/*   Updated: 2022/03/14 11:06:09 by llecoq           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,21 +14,21 @@
 
 void	tester_insert(void)
 {
-	std::vector<TestClass>				vec(10, 500);
-	std::vector<TestClass>::iterator	vec_it = vec.begin();
-	// std::vector<TestClass>::iterator	vec_ite = vec.end();
+	// ft::vector<TestClass>				vec(10, 500);
+	// ft::vector<TestClass>::iterator	vec_it = vec.begin();
+	// // ft::vector<TestClass>::iterator	vec_ite = vec.end();
 	
-	std::vector<TestClass>	vec_2;
-	// std::vector<TestClass>::iterator	vec_2_it = vec_2.begin();
+	// ft::vector<TestClass>	vec_2;
+	// // ft::vector<TestClass>::iterator	vec_2_it = vec_2.begin();
 
-	vec.insert(vec_it, 5, 10);
-	ft::displayData(vec);
-	ft::displayVec(vec);
+	// vec.insert(vec_it, 5, 10);
+	// ft::displayData(vec);
+	// ft::displayVec(vec);
 	// vec_2.insert(vec_2_it, vec_it, vec_ite);
 
 }
-	// std::vector<TestClass> myvector (3, TestClass(100));
-	// std::vector<TestClass>::iterator it;
+	// ft::vector<TestClass> myvector (3, TestClass(100));
+	// ft::vector<TestClass>::iterator it;
 
 	// std::cout << "capacity = " << myvector.capacity() << " size = " << myvector.size() << std::endl;
 	// std::cout << "resize" << std::endl;
