@@ -6,7 +6,7 @@
 /*   By: llecoq <llecoq@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/27 18:01:12 by llecoq            #+#    #+#             */
-/*   Updated: 2022/03/14 11:47:32 by llecoq           ###   ########.fr       */
+/*   Updated: 2022/03/15 16:14:19 by llecoq           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ class random_access_iterator : virtual public iterator_traits< iterator<random_a
 		*/
 		random_access_iterator()
 		:
-			_pointer(0)
+			_pointer(NULL)
 		{}
 
 		random_access_iterator( random_access_iterator const &src )
@@ -43,9 +43,7 @@ class random_access_iterator : virtual public iterator_traits< iterator<random_a
 			*this = src;
 		}
 	
-		~random_access_iterator(){}
-
-		random_access_iterator( random_access_iterator::pointer pointer )
+		random_access_iterator( pointer pointer )
 		{
 			_pointer = pointer;
 		}
@@ -56,6 +54,7 @@ class random_access_iterator : virtual public iterator_traits< iterator<random_a
 			return *this;
 		}
 
+		~random_access_iterator(){}
 	
 		/*
 		** ------------------------------------------------------- MEMBER ACCESS

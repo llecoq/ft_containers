@@ -6,7 +6,7 @@
 /*   By: llecoq <llecoq@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/04 17:19:02 by llecoq            #+#    #+#             */
-/*   Updated: 2022/03/15 13:48:55 by llecoq           ###   ########.fr       */
+/*   Updated: 2022/03/15 16:40:46 by llecoq           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,8 @@
 
 void	tester_insert(void)
 {
-	std::vector<TestClass> myvector (3, TestClass(100));
-	std::vector<TestClass>::iterator it;
+	ft::vector<TestClass> myvector (3, TestClass(100));
+	ft::vector<TestClass>::iterator it;
 
 	ft::displayData(myvector);
 	std::cout << "resize 6" << std::endl;
@@ -48,7 +48,7 @@ void	tester_insert(void)
 	ft::displayVec(myvector);
 
 	it = myvector.begin();
-	std::vector<TestClass> anothervector (2, TestClass(400));
+	ft::vector<TestClass> anothervector (2, TestClass(400));
 		myvector.insert (it+2,anothervector.begin(),anothervector.end());
 
 	ft::displayData(myvector);

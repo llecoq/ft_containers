@@ -1,32 +1,33 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   tester_copy_assignment.cpp                         :+:      :+:    :+:   */
+/*   tester_resize.cpp                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: llecoq <llecoq@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/03/10 14:43:44 by llecoq            #+#    #+#             */
-/*   Updated: 2022/03/10 17:13:25 by llecoq           ###   ########.fr       */
+/*   Created: 2022/03/03 16:42:26 by llecoq            #+#    #+#             */
+/*   Updated: 2022/03/15 16:46:56 by llecoq           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../utils/tester.hpp"
 
-void	tester_copy_assignment()
+void	tester_resize()
 {
-	ft::vector<TestClass>	vec(5, 100);
-	ft::vector<TestClass>	vec_2;
+	ft::vector<TestClass>		vec;
 
-	ft::pushBackVec(vec_2);
-
-	ft::displayData(vec, "vec");
+	for (int i = 0; i < 3; i++)
+		vec.push_back(TestClass());
+	vec.reserve(4);
 	ft::displayVec(vec);
-	ft::displayData(vec_2, "vec_2");
-	ft::displayVec(vec_2);
-
-	vec_2 = vec;
-	ft::displayData(vec_2, "vec_2");
-	ft::displayVec(vec_2);
-
-	ft::vector<TestClass>	vec_3 = vec;
+	ft::displayData(vec);
+	vec.resize(15, TestClass());
+	ft::displayData(vec);
+	ft::displayVec(vec);
+	vec.resize(2, TestClass());
+	ft::displayData(vec);
+	ft::displayVec(vec);
+	vec.resize(20, 1);
+	ft::displayData(vec);
+	ft::displayVec(vec);
 }

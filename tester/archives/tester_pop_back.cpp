@@ -6,7 +6,7 @@
 /*   By: llecoq <llecoq@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/04 12:48:53 by llecoq            #+#    #+#             */
-/*   Updated: 2022/03/14 11:04:24 by llecoq           ###   ########.fr       */
+/*   Updated: 2022/03/15 16:43:28 by llecoq           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,5 +35,5 @@ void	tester_pop_back(void)
 		myvector.pop_back();
 	}
 
-	std::cout << "The elements of myvector add up to " << sum << '\n';
+	std::cout << "The elements of myvector add up to " << sum << std::endl;
 }

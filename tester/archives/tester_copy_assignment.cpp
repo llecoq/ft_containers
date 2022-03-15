@@ -1,44 +1,34 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   tester_swap.cpp                                    :+:      :+:    :+:   */
+/*   tester_copy_assignment.cpp                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: llecoq <llecoq@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/03/10 13:58:38 by llecoq            #+#    #+#             */
-/*   Updated: 2022/03/10 15:11:28 by llecoq           ###   ########.fr       */
+/*   Created: 2022/03/10 14:43:44 by llecoq            #+#    #+#             */
+/*   Updated: 2022/03/15 14:38:41 by llecoq           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../utils/tester.hpp"
 
-void	tester_swap(void)
+void	tester_copy_assignment()
 {
-	ft::vector<TestClass>	vec;
-	
-	ft::vector<TestClass>	vec_2(5, 100);
+	ft::vector<TestClass>	vec(5, 100);
+	ft::vector<TestClass>	vec_2;
 
-	ft::pushBackVec(vec);
-	ft::displayData(vec, "vec");
-	ft::displayVec(vec);
-
-	ft::displayData(vec_2, "vec_2");
-	ft::displayVec(vec_2);
-
-	std::cout << "SWAP MEMBER" << std::endl;
-	vec_2.swap(vec);
+	ft::pushBackVec(vec_2);
 
 	ft::displayData(vec, "vec");
 	ft::displayVec(vec);
-
 	ft::displayData(vec_2, "vec_2");
 	ft::displayVec(vec_2);
 
-	std::cout << "SWAP NON MEMBER" << std::endl;
-	swap(vec, vec_2);
-	ft::displayData(vec, "vec");
-	ft::displayVec(vec);
-
+	vec_2 = vec;
 	ft::displayData(vec_2, "vec_2");
 	ft::displayVec(vec_2);
+
+	ft::vector<TestClass>	vec_3 = vec;
+	ft::displayData(vec_3, "vec_3");
+	ft::displayVec(vec_3);
 }

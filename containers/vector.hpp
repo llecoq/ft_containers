@@ -6,7 +6,7 @@
 /*   By: llecoq <llecoq@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/16 15:57:56 by llecoq            #+#    #+#             */
-/*   Updated: 2022/03/15 14:34:23 by llecoq           ###   ########.fr       */
+/*   Updated: 2022/03/15 17:18:03 by llecoq           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,9 +57,9 @@ class vector
 		//-------------------------------------------------------------- default
 		explicit vector (const allocator_type& alloc = allocator_type())
 		:
-			_begin(0),
-			_end(0),
-			_end_capacity(0),
+			_begin(NULL),
+			_end(NULL),
+			_end_capacity(NULL),
 			_allocator(alloc)
 		{}
 		
@@ -67,9 +67,9 @@ class vector
 		explicit vector (size_type n, const value_type& val = value_type(),
 						const allocator_type& alloc = allocator_type())
 		:
-			_begin(0),
-			_end(0),
-			_end_capacity(0),
+			_begin(NULL),
+			_end(NULL),
+			_end_capacity(NULL),
 			_allocator(alloc)
 		{
 			if (n > 0)
@@ -86,9 +86,9 @@ class vector
 			typename enable_if<!is_integral<InputIterator>::value
 			&& !std::is_floating_point<InputIterator>::value, InputIterator>::type* = 0)
 		:
-			_begin(0),
-			_end(0),
-			_end_capacity(0),
+			_begin(NULL),
+			_end(NULL),
+			_end_capacity(NULL),
 			_allocator(alloc)
 		{
 			_vector_allocation(static_cast<size_type>(last - first));
@@ -98,9 +98,9 @@ class vector
 		//----------------------------------------------------------------- copy
 		vector (const vector& x)
 		:
-			_begin(0),
-			_end(0),
-			_end_capacity(0),
+			_begin(NULL),
+			_end(NULL),
+			_end_capacity(NULL),
 			_allocator(x._allocator)
 		{
 			_vector_allocation(x.size());
@@ -118,7 +118,7 @@ class vector
 	*/	
 		~vector()
 		{
-			if (_begin != 0)
+			if (_begin != NULL)
 			{
 				_destruct_backward(_end, size());
 				_allocator.deallocate(_begin, capacity());
@@ -128,12 +128,12 @@ class vector
 	/*
 	** --------------------------------------------------------------- ITERATORS
 	*/    
-		iterator begin() {return (_begin);}
-		const_iterator begin() const {return (_begin);}
+		iterator begin() {return (iterator(_begin));}
+		const_iterator begin() const {return (const_iterator(_begin));}
 		reverse_iterator rbegin() {return (reverse_iterator(_end));}
-		const_reverse_iterator rbegin() const {return (reverse_iterator(_end));}
-		iterator end() {return (_end);}	
-		const_iterator end() const {return (_end);}
+		const_reverse_iterator rbegin() const {return (const_reverse_iterator(_end));}
+		iterator end() {return (iterator(_end));}	
+		const_iterator end() const {return (const_iterator(_end));}
 		reverse_iterator rend() {return (reverse_iterator(_begin));}
 		reverse_iterator rend() const {return (reverse_iterator(_begin));}
 		
