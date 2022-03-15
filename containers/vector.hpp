@@ -6,7 +6,7 @@
 /*   By: llecoq <llecoq@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/16 15:57:56 by llecoq            #+#    #+#             */
-/*   Updated: 2022/03/15 13:01:47 by llecoq           ###   ########.fr       */
+/*   Updated: 2022/03/15 13:43:17 by llecoq           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -414,15 +414,44 @@ class vector
 			}
 			else 
 			{
-				_construct_at_end(_end - n - 1, _end - 1);
+				_construct_at_end(_end - n, _end);
 				_assign_backward(end(), position, n);
 				while (n-- > 0)
 					_begin[insert_position++] = val;
 			}
 		}
+		
 		// // range (3)	
-		// template <class InputIterator>
-		// 	void insert (iterator position, InputIterator first, InputIterator last);
+		template <class InputIterator>
+		void insert (iterator position, InputIterator first, InputIterator last,
+			typename enable_if<!is_integral<InputIterator>::value
+			&& !std::is_floating_point<InputIterator>::value, InputIterator>::type* = 0)
+		{
+			size_type	insert_position = static_cast<size_type>(position - begin());
+			size_type	n = static_cast<size_type>(last - first);
+
+			if (_end + n > _end_capacity)
+			{
+				pointer		insert_ptr = _iterator_to_pointer(position);
+
+				_update_data(_old_vector);
+				_vector_allocation(_new_capacity(size() + n));
+				_set_ptr(_begin + insert_position);
+				_construct_at_end(first, last);
+				_construct_backward(insert_ptr, insert_position);
+				_construct_at_end(insert_ptr, _old_vector._end);
+				_destruct_backward(_old_vector._end, _old_vector.size);
+				_allocator.deallocate(_old_vector._end, _old_vector.size);
+				position = iterator(_begin + insert_position);
+			}
+			else 
+			{
+				_construct_at_end(_end - n, _end);
+				_assign_backward(end(), position, n);
+				while (n-- > 0)
+					_begin[insert_position++] = *(first++);
+			}
+		}
 
 		iterator erase (iterator position)
 		{
