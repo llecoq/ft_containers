@@ -6,7 +6,7 @@
 /*   By: llecoq <llecoq@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/04 17:19:02 by llecoq            #+#    #+#             */
-/*   Updated: 2022/03/14 11:06:09 by llecoq           ###   ########.fr       */
+/*   Updated: 2022/03/15 10:40:41 by llecoq           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,34 +26,27 @@ void	tester_insert(void)
 	// ft::displayVec(vec);
 	// vec_2.insert(vec_2_it, vec_it, vec_ite);
 
-}
-	// ft::vector<TestClass> myvector (3, TestClass(100));
-	// ft::vector<TestClass>::iterator it;
+	ft::vector<TestClass> myvector (3, TestClass(100));
+	ft::vector<TestClass>::iterator it;
 
-	// std::cout << "capacity = " << myvector.capacity() << " size = " << myvector.size() << std::endl;
-	// std::cout << "resize" << std::endl;
-	// myvector.resize(6, TestClass());
-	// std::cout << "capacity = " << myvector.capacity() << " size = " << myvector.size() << std::endl;
-	// std::cout << "myvector contains:\n";
-	// for (it=myvector.begin(); it != myvector.end(); it++)
-	// 	std::cout << it->getI() << "(copy " << it->getNumber() << ")" << ' ';
-	// std::cout << '\n';
+	ft::displayData(myvector);
+	std::cout << "resize 6" << std::endl;
+	myvector.resize(6, TestClass());
+	ft::displayData(myvector);
+	ft::displayVec(myvector);
 
-	// it = myvector.begin();
-	// it = myvector.insert ( it + 1 , 200 );
+	it = myvector.begin();
+	std::cout << "insert ( it + 1 , 200 )" << std::endl;
+	it = myvector.insert ( it + 1 , 200 );
 
-	// std::cout << "myvector contains:\n";
-	// // for (it=myvector.begin(); it<myvector.end(); it++) NE MARCHE PAS ITERATOR OVERLOAD A REVOIR
-	// for (it=myvector.begin(); it != myvector.end(); it++)
-	// 	std::cout << it->getI() << "(copy " << it->getNumber() << ")" << ' ';
-	// std::cout << '\n';
+	ft::displayData(myvector);
+	ft::displayVec(myvector);
 
-	// myvector.insert (it - 3,2,300);
+	std::cout << "insert ( it,2,300 )" << std::endl;
+	myvector.insert (it,2,300);
 
-	// std::cout << "myvector contains:\n";
-	// for (it=myvector.begin(); it<myvector.end(); it++)
-	// 	std::cout <<  it->getI() << "(copy " << it->getNumber() << ")" << ' ';
-	// std::cout << '\n';
+	ft::displayData(myvector);
+	ft::displayVec(myvector);
 
 	// // "it" no longer valid, get a new one:
 	// it = myvector.begin();
@@ -68,3 +61,4 @@ void	tester_insert(void)
 	// for (it=myvector.begin(); it<myvector.end(); it++)
 	// 	std::cout <<  it->getI() << "(copy " << it->getNumber() << ")" << ' ';
 	// std::cout << '\n';
+}

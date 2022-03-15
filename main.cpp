@@ -6,7 +6,7 @@
 /*   By: llecoq <llecoq@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/18 11:21:24 by llecoq            #+#    #+#             */
-/*   Updated: 2022/03/14 18:18:12 by llecoq           ###   ########.fr       */
+/*   Updated: 2022/03/15 10:12:21 by llecoq           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ int	main(int argc, char **argv)
 	
 	if (argc == 1)
 	{
-		tester_copy_constructor();
+		tester_insert();
     {
         // ft::vector<TestClass> myvector(13, 10);
         // // for (size_t i = 500000; i > 0; i--)

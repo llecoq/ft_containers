@@ -6,7 +6,7 @@
 /*   By: llecoq <llecoq@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/16 15:57:56 by llecoq            #+#    #+#             */
-/*   Updated: 2022/03/14 18:35:45 by llecoq           ###   ########.fr       */
+/*   Updated: 2022/03/15 11:08:58 by llecoq           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,23 +89,20 @@ class vector
 		**	range, in the same order.
 		*/
 
-		// template <class InputIterator>
-		// vector(InputIterator first, InputIterator last,	const allocator_type& alloc = allocator_type(),
-		// 		typename enable_if<!is_integral<InputIterator>::value>::type* = 0) : _alloc(alloc)
-
-		// template <class InputIterator>
-		//         vector (InputIterator first, InputIterator last,
-		//                 const allocator_type& alloc = allocator_type())
-		// :
-		// 	_begin(0),
-		// 	_end(0),
-		// 	_end_capacity(0),
-		// 	_allocator(alloc)
-		// {
-		// 	_vector_allocation(static_cast<size_type>(last - first));
-		// 	while (first != last)
-		// 		_construct_at_end(*first++);
-		// };
+		template <class InputIterator>
+		vector (InputIterator first, InputIterator last,
+			const allocator_type& alloc = allocator_type(),
+			typename enable_if<!is_integral<InputIterator>::value
+			&& !std::is_floating_point<InputIterator>::value, InputIterator>::type* = 0)
+		:
+			_begin(0),
+			_end(0),
+			_end_capacity(0),
+			_allocator(alloc)
+		{
+			_vector_allocation(static_cast<size_type>(last - first));
+			_construct_at_end(first, last);
+		};
 		
 		/* 															    copy (4)
 		**	Constructs a container with a copy of each of the elements in x, in 
@@ -120,8 +117,6 @@ class vector
 		{
 			_vector_allocation(x.size());
 			_construct_at_end(x.begin(), x.end());
-			// for (size_type i = 0; i < x.size(); i++)
-				// _allocator.construct(_end++, x._begin[i]);
 		}
 
 		/* 															    copy (1)
@@ -131,7 +126,6 @@ class vector
 		vector& operator= (const vector& x)
 		{
 			assign(x._begin, x._end);
-			(void)x;
 			return (*this);
 		}
 
@@ -328,34 +322,6 @@ class vector
 			}
 		}
 
-		// template <class InputIterator>
-		// void assign (typename enable_if
-		// <
-		// 	!is_integral<InputIterator>::value
-		// 	&& !std::is_floating_point<InputIterator>::value, InputIterator
-		// >::type first, InputIterator last)
-		// // typename enable_if<!is_integral<InputIterator>::value, InputIterator>::type* = 0)
-		// {
-		// 	size_type	n = last - first;
-
-		// 	_update_data(_old_vector);
-		// 	if (n > capacity())
-		// 	{
-		// 		clear();
-		// 		_allocator.deallocate(_begin, _old_vector.capacity);
-		// 		_vector_allocation(n);
-		// 		_construct_at_end(first, last);
-		// 	}
-		// 	else
-		// 	{
-		// 		for (size_t i = 0; i < n && i < size(); i++)
-		// 			*(_old_vector._begin++) = *(first++);
-		// 		if (n > size())
-		// 			_construct_at_end(first, last);
-		// 		_destruct_backward(_old_vector._begin);
-		// 	}
-		// }
-
 		/*																 fill(2)
 		**	In the fill version (2), the new contents are n elements, each init-
 		**	-ialized to a copy of val.
@@ -414,21 +380,44 @@ class vector
 				_construct_at_end(insert_ptr, _old_vector._end);
 				_destruct_backward(_old_vector._end, _old_vector.size);
 				_allocator.deallocate(_old_vector._end, _old_vector.size);
+				position = iterator(_begin + insert_position);
 			}
 			else 
 			{
-				_construct_at_end(*(_end - 1));
+				_construct_at_end(1, *(_end - 1));
 				for (iterator it = end() - 2; it != position; it--)
 					*it = *(it - 1);
 				_begin[insert_position] = val;
 			}
 			return position;
 		}
+	
 		// fill (2)	
-		// void insert (iterator position, size_type n, const value_type& val)
-		// {
+		void insert (iterator position, size_type n, const value_type& val)
+		{
+			size_type	insert_position = static_cast<size_type>(position - begin());
 
-		// }
+			if (_end == _end_capacity)
+			{
+				pointer		insert_ptr = _iterator_to_pointer(position);
+
+				_update_data(_old_vector);
+				_vector_allocation(_new_capacity());
+				_construct_backward(insert_ptr, insert_position, val);
+				_construct_at_end(insert_ptr, _old_vector._end);
+				_destruct_backward(_old_vector._end, _old_vector.size);
+				_allocator.deallocate(_old_vector._end, _old_vector.size);
+				position = iterator(_begin + insert_position);
+			}
+			else 
+			{
+				_construct_at_end(_end - n - 1, _end - 1);
+				for (iterator it = end() - n - 1; it > position + n - 1; it--)
+					*it = *(it - n);
+				while (n-- > 0)
+					_begin[insert_position++] = val;
+			}
+		}
 		// // range (3)	
 		// template <class InputIterator>
 		// 	void insert (iterator position, InputIterator first, InputIterator last);
@@ -552,18 +541,6 @@ class vector
 				_allocator.construct(_end++, val);
 		}
 
-		// void	_construct_at_end(pointer begin, pointer end)
-		// {
-		// 	while (begin != end)
-		// 		_allocator.construct(_end++, *begin++);
-		// }
-
-		// void	_construct_at_end(iterator begin, iterator end)
-		// {
-		// 	while (begin != end)
-		// 		_allocator.construct(_end++, *begin++);
-		// }
-
 		template <typename Input>
 		void	_construct_at_end(Input begin, Input end)
 		{
@@ -607,26 +584,12 @@ class vector
 				return (new_capacity == 0 ? 1 : new_capacity * 2);
 		}
 
-		// void	_expand_vector(pointer old_end, size_type n, const value_type &val)
-		// {
-		// 	size_type	new_capacity = n;
-		
-		// 	if (capacity() * 2 > n)
-		// 		new_capacity = capacity() * 2;
-		// 	_vector_allocation(new_capacity);
-		// 	_set_ptr(_begin + _old_vector.size);
-		// 	_construct_at_end(n - _old_vector.size, val);
-		// 	_construct_backward(old_end, _old_vector.size);
-		// 	_destruct_backward(old_end, _old_vector.size);
-		// 	_allocator.deallocate(old_end, _old_vector.capacity);
-		// }
-
 		void	_set_ptr(pointer ptr)
 		{
 			_begin = _end = ptr;
 		}
 
-		pointer	_iterator_to_pointer(iterator position)
+		pointer	_iterator_to_pointer(iterator &position)
 		{
 			pointer			ptr;
 
