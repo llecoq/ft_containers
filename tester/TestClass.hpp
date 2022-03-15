@@ -37,6 +37,7 @@ class TestClass
 		{
 			_name = new std::string("Default");
     		_number = objectCount++;
+			_i = 0;
     		std::cout << CYAN << _number << " - Default Constructor called." << RESET << std::endl;
       	}
 

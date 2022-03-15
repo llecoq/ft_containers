@@ -6,7 +6,7 @@
 /*   By: llecoq <llecoq@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/27 14:26:55 by llecoq            #+#    #+#             */
-/*   Updated: 2022/03/15 17:06:30 by llecoq           ###   ########.fr       */
+/*   Updated: 2022/03/15 17:44:44 by llecoq           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -661,9 +661,12 @@ int	tester_vector_std(void)
 		ft::pushBackVec(bar);
 		ft::displayDataVec(bar, "bar");
 
+		std::cout << "foo reserve 1" << std::endl;
 		foo.reserve(1);
+		std::cout << "bar reserve 1" << std::endl;
 		bar.reserve(1);
 		ft::displayDataVec(bar, "bar");
+		std::cout << "foo reserve 103" << std::endl;
 		foo.reserve(103);
 		ft::displayDataVec(foo, "foo");
 	}

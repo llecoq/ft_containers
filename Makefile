@@ -6,7 +6,7 @@
 #    By: llecoq <llecoq@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/11/16 11:27:48 by llecoq            #+#    #+#              #
-#    Updated: 2022/03/15 16:50:06 by llecoq           ###   ########.fr        #
+#    Updated: 2022/03/15 17:39:34 by llecoq           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -66,7 +66,7 @@ $(NAME):	$(OBJS)
 			$(CXXC) $(CFLAGS) $(OBJS) -o $(NAME)
 
 clean:
-			$(RM) $(OBJSPATH) tester_results/*.test
+			$(RM) $(OBJSPATH) tester/tester_results/*.test
 
 fclean:		clean
 			$(RM) $(NAME)
