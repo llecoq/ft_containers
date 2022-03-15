@@ -6,7 +6,7 @@
 /*   By: llecoq <llecoq@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/04 17:19:02 by llecoq            #+#    #+#             */
-/*   Updated: 2022/03/15 10:40:41 by llecoq           ###   ########.fr       */
+/*   Updated: 2022/03/15 13:05:35 by llecoq           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,11 +39,16 @@ void	tester_insert(void)
 	std::cout << "insert ( it + 1 , 200 )" << std::endl;
 	it = myvector.insert ( it + 1 , 200 );
 
+	std::cout << "insert ( it + 1 , 200 )" << std::endl;
+	it = myvector.insert ( it + 1 , 200 );
+
 	ft::displayData(myvector);
 	ft::displayVec(myvector);
 
-	std::cout << "insert ( it,2,300 )" << std::endl;
-	myvector.insert (it,2,300);
+	std::cout << "insert ( it,5,300 )" << std::endl;
+	myvector.insert (it,5,300);
+	myvector.insert (myvector.begin() + 5,1,50);
+	myvector.insert (myvector.begin() + 12,20,1);
 
 	ft::displayData(myvector);
 	ft::displayVec(myvector);

@@ -6,7 +6,7 @@
 /*   By: llecoq <llecoq@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/16 15:57:56 by llecoq            #+#    #+#             */
-/*   Updated: 2022/03/15 11:08:58 by llecoq           ###   ########.fr       */
+/*   Updated: 2022/03/15 13:01:47 by llecoq           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -355,6 +355,7 @@ class vector
 			{
 				_update_data(_old_vector);
 				_vector_allocation(_new_capacity());
+				_set_ptr(_begin + _old_vector.size + 1);
 				_construct_backward(_old_vector._end, _old_vector.size, val);
 				_destruct_backward(_old_vector._end, _old_vector.size);
 				_allocator.deallocate(_old_vector._end, _old_vector.capacity);
@@ -376,6 +377,7 @@ class vector
 
 				_update_data(_old_vector);
 				_vector_allocation(_new_capacity());
+				_set_ptr(_begin + insert_position + 1);
 				_construct_backward(insert_ptr, insert_position, val);
 				_construct_at_end(insert_ptr, _old_vector._end);
 				_destruct_backward(_old_vector._end, _old_vector.size);
@@ -385,8 +387,7 @@ class vector
 			else 
 			{
 				_construct_at_end(1, *(_end - 1));
-				for (iterator it = end() - 2; it != position; it--)
-					*it = *(it - 1);
+				_assign_backward(end(), position);
 				_begin[insert_position] = val;
 			}
 			return position;
@@ -397,13 +398,15 @@ class vector
 		{
 			size_type	insert_position = static_cast<size_type>(position - begin());
 
-			if (_end == _end_capacity)
+			if (_end + n > _end_capacity)
 			{
 				pointer		insert_ptr = _iterator_to_pointer(position);
 
 				_update_data(_old_vector);
-				_vector_allocation(_new_capacity());
-				_construct_backward(insert_ptr, insert_position, val);
+				_vector_allocation(_new_capacity(size() + n));
+				_set_ptr(_begin + insert_position);
+				_construct_at_end(n, val);
+				_construct_backward(insert_ptr, insert_position);
 				_construct_at_end(insert_ptr, _old_vector._end);
 				_destruct_backward(_old_vector._end, _old_vector.size);
 				_allocator.deallocate(_old_vector._end, _old_vector.size);
@@ -412,8 +415,7 @@ class vector
 			else 
 			{
 				_construct_at_end(_end - n - 1, _end - 1);
-				for (iterator it = end() - n - 1; it > position + n - 1; it--)
-					*it = *(it - n);
+				_assign_backward(end(), position, n);
 				while (n-- > 0)
 					_begin[insert_position++] = val;
 			}
@@ -550,7 +552,7 @@ class vector
 
 		void	_construct_backward(pointer old_end, size_type number_of_elements, const value_type &val)
 		{
-			_set_ptr(_begin + number_of_elements + 1);
+			// _set_ptr(_begin + number_of_elements + 1);
 			_allocator.construct(--_begin, val);
 			while (number_of_elements-- > 0)
 				_allocator.construct(--_begin, *--old_end);
@@ -573,6 +575,18 @@ class vector
 			while (_end != new_end)
 				_allocator.destroy(--_end);
 		}
+
+		void	_assign_backward(iterator begin, iterator end, size_type n = 1)
+		{
+			begin -= (n + 1);
+			while (begin > end + n - 1)
+				*(begin--) = *(begin - n);
+		}
+
+		// void	_assign_forward()
+		// {
+			
+		// }
 
 		size_type	_new_capacity(size_type n = 0)
 		{
