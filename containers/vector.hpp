@@ -6,7 +6,7 @@
 /*   By: llecoq <llecoq@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/16 15:57:56 by llecoq            #+#    #+#             */
-/*   Updated: 2022/03/15 13:43:17 by llecoq           ###   ########.fr       */
+/*   Updated: 2022/03/15 14:34:23 by llecoq           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,8 +35,8 @@ class vector
 	/*
 	** ----------------------------------------------------- TEMPLATE PARAMETERS
 	*/
-		typedef	T												value_type;
-		typedef	Alloc											allocator_type;
+		typedef	T													value_type;
+		typedef	Alloc												allocator_type;
 	
 	/*
 	** ------------------------------------------------------------ MEMBER TYPES
@@ -53,10 +53,8 @@ class vector
 		
 	/*
 	** ------------------------------------------------------------ CONSTRUCTORS
-	**
-	** 																 default (1)
-	**							Constructs an empty container, with no elements.
 	*/
+		//-------------------------------------------------------------- default
 		explicit vector (const allocator_type& alloc = allocator_type())
 		:
 			_begin(0),
@@ -65,9 +63,7 @@ class vector
 			_allocator(alloc)
 		{}
 		
-		/* 															    fill (2)
-		**	Constructs a container with n elements. Each element is a copy of val.
-		*/
+		//----------------------------------------------------------------- fill
 		explicit vector (size_type n, const value_type& val = value_type(),
 						const allocator_type& alloc = allocator_type())
 		:
@@ -83,12 +79,7 @@ class vector
 			}					
 		}
 
-		/* 															   range (3)
-		**	Constructs a container with as many elements as the range [first,last),
-		**	with each element constructed from its corresponding element in that 
-		**	range, in the same order.
-		*/
-
+		//---------------------------------------------------------------- range
 		template <class InputIterator>
 		vector (InputIterator first, InputIterator last,
 			const allocator_type& alloc = allocator_type(),
@@ -103,11 +94,8 @@ class vector
 			_vector_allocation(static_cast<size_type>(last - first));
 			_construct_at_end(first, last);
 		};
-		
-		/* 															    copy (4)
-		**	Constructs a container with a copy of each of the elements in x, in 
-		**	the same order.
-		*/	
+
+		//----------------------------------------------------------------- copy
 		vector (const vector& x)
 		:
 			_begin(0),
@@ -118,21 +106,16 @@ class vector
 			_vector_allocation(x.size());
 			_construct_at_end(x.begin(), x.end());
 		}
-
-		/* 															    copy (1)
-		**															  assignment
-		**
-		*/
+		//------------------------------------------------------ copy assignment
 		vector& operator= (const vector& x)
 		{
 			assign(x._begin, x._end);
 			return (*this);
 		}
 
-		/*
-		** ---------------------------------------------------------- DESTRUCTOR
-		*/	
-
+	/*
+	** -------------------------------------------------------------- DESTRUCTOR
+	*/	
 		~vector()
 		{
 			if (_begin != 0)
@@ -144,52 +127,19 @@ class vector
 
 	/*
 	** --------------------------------------------------------------- ITERATORS
-	*/
-	    
-		iterator begin()
-		{
-			return (_begin);
-		}
-
-		const_iterator begin() const
-		{
-			return (_begin);
-		}
-
-		reverse_iterator rbegin()
-		{
-			return (reverse_iterator(_end));
-		}
-
-		const_reverse_iterator rbegin() const
-		{
-			return (reverse_iterator(_end));
-		}
-
-		iterator end()
-		{
-			return (_end);
-		}
-		
-		const_iterator end() const
-		{
-			return (_end);
-		}
-
-		reverse_iterator rend()
-		{
-			return (reverse_iterator(_begin));
-		}
-
-		reverse_iterator rend() const
-		{
-			return (reverse_iterator(_begin));
-		}
+	*/    
+		iterator begin() {return (_begin);}
+		const_iterator begin() const {return (_begin);}
+		reverse_iterator rbegin() {return (reverse_iterator(_end));}
+		const_reverse_iterator rbegin() const {return (reverse_iterator(_end));}
+		iterator end() {return (_end);}	
+		const_iterator end() const {return (_end);}
+		reverse_iterator rend() {return (reverse_iterator(_begin));}
+		reverse_iterator rend() const {return (reverse_iterator(_begin));}
 		
 	/*
 	** ---------------------------------------------------------------- CAPACITY
 	*/
-
 		size_type size() const
 		{
 			return static_cast<size_type>(_end - _begin);		
@@ -290,19 +240,14 @@ class vector
 
 	/*
 	** --------------------------------------------------------------- MODIFIERS
-	**
-	**																    range(1)
-	**		In the range version (1), the new contents are elements constructed 
-	**		from each of the elements in the range between first and last, in the
-	**		same order.
 	*/
-
+		//--------------------------------------------------------- assign range
 		template <class InputIterator>
 		void assign (InputIterator first, InputIterator last,
 			typename enable_if<!is_integral<InputIterator>::value
 			&& !std::is_floating_point<InputIterator>::value, InputIterator>::type* = 0)
 		{
-			size_type	n = last - first;
+			size_type	n = static_cast<size_type>(last - first);
 
 			_update_data(_old_vector);
 			if (n > capacity())
@@ -318,15 +263,12 @@ class vector
 					*(_old_vector._begin++) = *(first++);
 				if (n > size())
 					_construct_at_end(first, last);
-				_destruct_backward(_old_vector._begin);
+				else
+					_destruct_backward(_old_vector._begin);
 			}
 		}
 
-		/*																 fill(2)
-		**	In the fill version (2), the new contents are n elements, each init-
-		**	-ialized to a copy of val.
-		*/
-
+		//---------------------------------------------------------- assign fill
 		void assign (size_type n, const value_type &val)
 		{
 			_update_data(_old_vector);
@@ -343,10 +285,12 @@ class vector
 					*(_old_vector._begin++) = val;
 				if (n > size())
 					_construct_at_end(n - size(), val);
-				_destruct_backward(_old_vector._begin);
+				else
+					_destruct_backward(_old_vector._begin);
 			}
 		}
 
+		//------------------------------------------------------------ push back
 		void push_back (const value_type& val)
 		{
 			if (_end != _end_capacity)
@@ -362,11 +306,13 @@ class vector
 			}
 		}
 
+		//------------------------------------------------------------- pop back
 		void pop_back(void)
 		{
 			_destruct_backward(_end, 1);
 		}
 
+		//------------------------------------------------ insert single element
 		iterator insert (iterator position, const value_type& val)
 		{
 			size_type	insert_position = static_cast<size_type>(position - begin());
@@ -393,7 +339,7 @@ class vector
 			return position;
 		}
 	
-		// fill (2)	
+		//---------------------------------------------------------- insert fill
 		void insert (iterator position, size_type n, const value_type& val)
 		{
 			size_type	insert_position = static_cast<size_type>(position - begin());
@@ -421,7 +367,7 @@ class vector
 			}
 		}
 		
-		// // range (3)	
+		//--------------------------------------------------------- insert range
 		template <class InputIterator>
 		void insert (iterator position, InputIterator first, InputIterator last,
 			typename enable_if<!is_integral<InputIterator>::value
@@ -453,6 +399,7 @@ class vector
 			}
 		}
 
+		//------------------------------------------------- erase single element
 		iterator erase (iterator position)
 		{
 			if (position + 1 != end())
@@ -464,6 +411,7 @@ class vector
 			return position;
 		}
 
+		//---------------------------------------------------------- erase range
 		iterator erase (iterator first, iterator last)
 		{
 			if (first != last)
@@ -476,6 +424,7 @@ class vector
 			return last;
 		}
 
+		//----------------------------------------------------------------- swap
 		void swap (vector& x)
 		{
 			data<T>	tmp;
@@ -558,6 +507,10 @@ class vector
 		allocator_type									_allocator;
 		data<T, Alloc>									_old_vector;
 		
+	
+	/*
+	** -------------------------------------------------------------- ALLOCATION
+	*/
 		void	_vector_allocation(size_type n)
 		{
 			if (n > max_size())
@@ -566,6 +519,18 @@ class vector
 			_end_capacity = _begin + n;
 		}
 
+		size_type	_new_capacity(size_type n = 0)
+		{
+			size_type	new_capacity = capacity();
+
+			if (n > 0)
+				return (capacity() * 2 > n ? capacity() * 2 : n);
+			else
+				return (new_capacity == 0 ? 1 : new_capacity * 2);
+		}
+	/*
+	** -------------------------------------------------------- CONSTRUCT AT END
+	*/
 		void	_construct_at_end(size_type n, const value_type &val)
 		{
 			while (n-- > 0)
@@ -578,8 +543,11 @@ class vector
 			while (begin != end)
 				_allocator.construct(_end++, *begin++);
 		}
-
-		void	_construct_backward(pointer old_end, size_type number_of_elements, const value_type &val)
+	/*
+	** ------------------------------------------------------ CONSTRUCT BACKWARD
+	*/
+		void	_construct_backward(pointer old_end, size_type number_of_elements,
+				const value_type &val)
 		{
 			// _set_ptr(_begin + number_of_elements + 1);
 			_allocator.construct(--_begin, val);
@@ -592,7 +560,9 @@ class vector
 			while (number_of_elements-- > 0)
 				_allocator.construct(--_begin, *--old_end);
 		}
-		
+	/*
+	** ------------------------------------------------------- DESTRUCT BACKWARD
+	*/		
 		void	_destruct_backward(pointer &end, size_type size)
 		{
 			while (size-- > 0)
@@ -601,32 +571,21 @@ class vector
 
 		void	_destruct_backward(pointer new_end)
 		{
-			while (_end != new_end)
+			while (_end > new_end)
 				_allocator.destroy(--_end);
 		}
-
+	/*
+	** --------------------------------------------------------- ASSIGN BACKWARD
+	*/
 		void	_assign_backward(iterator begin, iterator end, size_type n = 1)
 		{
 			begin -= (n + 1);
 			while (begin > end + n - 1)
 				*(begin--) = *(begin - n);
 		}
-
-		// void	_assign_forward()
-		// {
-			
-		// }
-
-		size_type	_new_capacity(size_type n = 0)
-		{
-			size_type	new_capacity = capacity();
-
-			if (n > 0)
-				return (capacity() * 2 > n ? capacity() * 2 : n);
-			else
-				return (new_capacity == 0 ? 1 : new_capacity * 2);
-		}
-
+	/*
+	** ------------------------------------------------------------- SET POINTER
+	*/
 		void	_set_ptr(pointer ptr)
 		{
 			_begin = _end = ptr;
@@ -639,7 +598,9 @@ class vector
 			ptr = _begin + (position - begin());
 			return ptr;
 		}
-
+	/*
+	** -------------------------------------------------------- SWAP/UPDATE DATA
+	*/
 		void	_update_data(data<T, Alloc> &old_vector)
 		{
 			old_vector._begin = _begin;
