@@ -6,7 +6,7 @@
 /*   By: llecoq <llecoq@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/07 15:08:10 by llecoq            #+#    #+#             */
-/*   Updated: 2022/03/15 14:47:11 by llecoq           ###   ########.fr       */
+/*   Updated: 2022/03/16 09:40:52 by llecoq           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,10 +17,69 @@
 
 namespace ft
 {
-	/*
-	** ------------------------------------------------------------------- UTILS
-	*/
+/*
+** ----------------------------------------------------------------------- UTILS
+*/
+	// -------------------------- lexicographical compare
+	template <class InputIterator1, class InputIterator2>
+	bool	lexicographical_compare (InputIterator1 first1, InputIterator1 last1,
+			InputIterator2 first2, InputIterator2 last2)
+	{
+		while (first1 != last1)
+		{
+			if (first2 == last2 || *first2 < *first1)
+				return false;
+			else if (*first1 < *first2)
+				return true;
+			++first1;
+			++first2;
+		}
+		return (first2 != last2);
+	}
 
+	template <class InputIterator1, class InputIterator2, class Compare>
+	bool	lexicographical_compare (InputIterator1 first1, InputIterator1 last1,
+			InputIterator2 first2, InputIterator2 last2, Compare comp)
+	{
+		while (first1 != last1)
+		{
+			if (first2 == last2 || comp(*first2, *first1))
+				return false;
+			else if (comp(*first1, *first2))
+				return true;
+			++first1;
+			++first2;
+		}
+		return (comp(first1, last2));
+	}
+
+	// -------------------------------------------- equal
+	template <class InputIterator1, class InputIterator2>
+	bool	equal ( InputIterator1 first1, InputIterator1 last1, InputIterator2 first2 )
+	{
+		while (first1!=last1)
+		{
+			if (!(*first1 == *first2))
+				return false;
+			++first1; ++first2;
+		}
+		return true;
+	}
+
+	template <class InputIterator1, class InputIterator2, class BinaryPredicate>
+	bool	equal (InputIterator1 first1, InputIterator1 last1,
+			InputIterator2 first2, BinaryPredicate pred)
+	{
+		while (first1!=last1)
+		{
+			if (!pred(*first1, *first2))
+				return false;
+			++first1; ++first2;
+		}
+		return true;
+	}
+
+	// --------------------------------------------- data
 	template < class T, class Alloc = std::allocator<T> >
 	struct	data
 	{
@@ -36,6 +95,7 @@ namespace ft
 		size_type												size;
 	};
 
+	// ------------------------------------------ display
 	template < typename T >
 	void	displayVec(T &vec)
 	{
@@ -72,6 +132,7 @@ namespace ft
 		std::cout << "---------------------------" << std::endl;
 	}
 
+	// ---------------------------------------- push back
 	template < typename T >
 	void	pushBackVec(T &vec, int n = 10)
 	{

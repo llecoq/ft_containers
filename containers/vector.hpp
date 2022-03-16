@@ -6,7 +6,7 @@
 /*   By: llecoq <llecoq@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/16 15:57:56 by llecoq            #+#    #+#             */
-/*   Updated: 2022/03/15 17:18:03 by llecoq           ###   ########.fr       */
+/*   Updated: 2022/03/15 18:13:54 by llecoq           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -455,40 +455,6 @@ class vector
 
 
 	/*
-	** ---------------------------------------------------- RELATIONAL OPERATORS
-	*/
-		friend bool operator==(const vector<T,Alloc>& lhs, const vector<T,Alloc>& rhs)
-		{
-			return (lhs.size() == rhs.size());
-		}
-
-		friend bool operator!=(const vector<T,Alloc>& lhs, const vector<T,Alloc>& rhs)
-		{
-			return (lhs.size() != rhs.size());
-		}
-
-		friend bool operator<(const vector<T,Alloc>& lhs, const vector<T,Alloc>& rhs)
-		{
-			return (lhs.size() < rhs.size());
-		}
-
-		friend bool operator<=(const vector<T,Alloc>& lhs, const vector<T,Alloc>& rhs)
-		{
-			return (lhs.size() <= rhs.size());
-		}
-
-		friend bool operator>(const vector<T,Alloc>& lhs, const vector<T,Alloc>& rhs)
-		{
-			return (lhs.size() > rhs.size());
-		}
-
-		friend bool operator>=(const vector<T,Alloc>& lhs, const vector<T,Alloc>& rhs)
-		{
-			return (lhs.size() >= rhs.size());
-		}
-
-
-	/*
 	** -------------------------------------------------------------- EXCEPTIONS
 	*/
 		class	lengthErrorException : public std::exception
@@ -549,7 +515,6 @@ class vector
 		void	_construct_backward(pointer old_end, size_type number_of_elements,
 				const value_type &val)
 		{
-			// _set_ptr(_begin + number_of_elements + 1);
 			_allocator.construct(--_begin, val);
 			while (number_of_elements-- > 0)
 				_allocator.construct(--_begin, *--old_end);
@@ -617,6 +582,40 @@ class vector
 			data._end_capacity = tmp._end_capacity;
 			data._allocator = tmp._allocator;
 		}
+
+	/*
+	** ---------------------------------------------------- RELATIONAL OPERATORS
+	*/
+		bool operator==(const vector<T,Alloc>& lhs, const vector<T,Alloc>& rhs)
+		{
+			return (lhs.size() == rhs.size());
+		}
+
+		bool operator!=(const vector<T,Alloc>& lhs, const vector<T,Alloc>& rhs)
+		{
+			return (lhs.size() != rhs.size());
+		}
+
+		bool operator<(const vector<T,Alloc>& lhs, const vector<T,Alloc>& rhs)
+		{
+			return (lhs.size() < rhs.size());
+		}
+
+		bool operator<=(const vector<T,Alloc>& lhs, const vector<T,Alloc>& rhs)
+		{
+			return (lhs.size() <= rhs.size());
+		}
+
+		bool operator>(const vector<T,Alloc>& lhs, const vector<T,Alloc>& rhs)
+		{
+			return (lhs.size() > rhs.size());
+		}
+
+		bool operator>=(const vector<T,Alloc>& lhs, const vector<T,Alloc>& rhs)
+		{
+			return (lhs.size() >= rhs.size());
+		}
+
 };
 }
 
