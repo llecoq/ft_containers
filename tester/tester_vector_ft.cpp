@@ -6,7 +6,7 @@
 /*   By: llecoq <llecoq@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/27 14:26:55 by llecoq            #+#    #+#             */
-/*   Updated: 2022/03/16 10:59:47 by llecoq           ###   ########.fr       */
+/*   Updated: 2022/03/16 12:38:22 by llecoq           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,10 +55,16 @@ int	tester_vector_ft(void)
 			std::cout << "post incrementation OK" << std::endl;
 		else
 			std::cout << "post incrementation KO" << std::endl;
-		// ft::vector<int>::const_iterator	constit = vec.begin();
-		// constit = vec.begin();
-		// CONST DE MAAAAARDE !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-		
+		ft::vector<int>::const_iterator	constit = vec.begin();
+		constit = vec.begin();
+		std::cout << *constit << std::endl;
+		ft::vector<int>::const_reverse_iterator	constrevit;
+		constrevit = vec.rbegin();
+		std::cout << *constrevit << std::endl;
+		ft::vector<int>::reverse_iterator		revit;
+		revit = vec.rbegin();
+		std::cout << *revit << std::endl;
+
 		/*------------------------ DECREMENT */
 		std::cout << "-------------- DECREMENT ---------------" << std::endl;
 		it = vec.end();

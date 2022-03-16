@@ -6,7 +6,7 @@
 /*   By: llecoq <llecoq@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/27 14:26:55 by llecoq            #+#    #+#             */
-/*   Updated: 2022/03/16 11:00:22 by llecoq           ###   ########.fr       */
+/*   Updated: 2022/03/16 12:38:29 by llecoq           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,9 +55,15 @@ int	tester_vector_std(void)
 			std::cout << "post incrementation OK" << std::endl;
 		else
 			std::cout << "post incrementation KO" << std::endl;
-		// std::vector<int>::const_iterator	constit = vec.begin();
-		// constit = vec.begin();
-		// CONST DE MAAAAARDE !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+		std::vector<int>::const_iterator	constit = vec.begin();
+		constit = vec.begin();
+		std::cout << *constit << std::endl;
+		std::vector<int>::const_reverse_iterator	constrevit;
+		constrevit = vec.rbegin();
+		std::cout << *constrevit << std::endl;
+		std::vector<int>::reverse_iterator		revit;
+		revit = vec.rbegin();
+		std::cout << *revit << std::endl;
 		
 		/*------------------------ DECREMENT */
 		std::cout << "-------------- DECREMENT ---------------" << std::endl;
