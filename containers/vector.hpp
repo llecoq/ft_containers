@@ -6,7 +6,7 @@
 /*   By: llecoq <llecoq@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/16 15:57:56 by llecoq            #+#    #+#             */
-/*   Updated: 2022/03/15 18:13:54 by llecoq           ###   ########.fr       */
+/*   Updated: 2022/03/16 10:17:46 by llecoq           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -503,8 +503,10 @@ class vector
 				_allocator.construct(_end++, val);
 		}
 
-		template <typename Input>
-		void	_construct_at_end(Input begin, Input end)
+		template <typename InputIterator>
+		void	_construct_at_end(InputIterator begin, InputIterator end,
+				typename enable_if<!is_integral<InputIterator>::value
+				&& !std::is_floating_point<InputIterator>::value, InputIterator>::type* = 0)
 		{
 			while (begin != end)
 				_allocator.construct(_end++, *begin++);
@@ -583,40 +585,48 @@ class vector
 			data._allocator = tmp._allocator;
 		}
 
+};
+
 	/*
 	** ---------------------------------------------------- RELATIONAL OPERATORS
 	*/
+		template <class T, class Alloc>
 		bool operator==(const vector<T,Alloc>& lhs, const vector<T,Alloc>& rhs)
 		{
-			return (lhs.size() == rhs.size());
+			if (lhs.size() == rhs.size())
+				return (ft::equal(lhs.begin(), lhs.end(), rhs.begin()));
+			return false;
 		}
 
+		template <class T, class Alloc>
 		bool operator!=(const vector<T,Alloc>& lhs, const vector<T,Alloc>& rhs)
 		{
-			return (lhs.size() != rhs.size());
+			return !(lhs == rhs);
 		}
 
+		template <class T, class Alloc>
 		bool operator<(const vector<T,Alloc>& lhs, const vector<T,Alloc>& rhs)
 		{
-			return (lhs.size() < rhs.size());
+			return (ft::lexicographical_compare(lhs.begin(), lhs.end(), rhs.begin(), rhs.end()));
 		}
 
+		template <class T, class Alloc>
 		bool operator<=(const vector<T,Alloc>& lhs, const vector<T,Alloc>& rhs)
 		{
-			return (lhs.size() <= rhs.size());
+			return !(rhs < lhs);
 		}
 
+		template <class T, class Alloc>
 		bool operator>(const vector<T,Alloc>& lhs, const vector<T,Alloc>& rhs)
 		{
-			return (lhs.size() > rhs.size());
+			return rhs < lhs;
 		}
 
+		template <class T, class Alloc>
 		bool operator>=(const vector<T,Alloc>& lhs, const vector<T,Alloc>& rhs)
 		{
-			return (lhs.size() >= rhs.size());
+			return !(lhs < rhs);
 		}
-
-};
 }
 
 #endif

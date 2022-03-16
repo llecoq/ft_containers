@@ -6,7 +6,7 @@
 /*   By: llecoq <llecoq@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/27 14:26:55 by llecoq            #+#    #+#             */
-/*   Updated: 2022/03/15 17:44:44 by llecoq           ###   ########.fr       */
+/*   Updated: 2022/03/16 10:18:18 by llecoq           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -634,12 +634,43 @@ int	tester_vector_std(void)
 		std::vector<int> foo (3,100);   // three ints with a value of 100
 		std::vector<int> bar (2,200);   // two ints with a value of 200
 		
-		if (foo==bar) std::cout << "foo and bar are equal\n";
-		if (foo!=bar) std::cout << "foo and bar are not equal\n";
-		if (foo< bar) std::cout << "foo is less than bar\n";
-		if (foo> bar) std::cout << "foo is greater than bar\n";
-		if (foo<=bar) std::cout << "foo is less than or equal to bar\n";
-		if (foo>=bar) std::cout << "foo is greater than or equal to bar\n";
+		if (foo == bar) std::cout << "foo and bar are equal" << std::endl;
+		if (foo != bar) std::cout << "foo and bar are not equal" << std::endl;
+		if (foo < bar) std::cout << "foo is less than bar" << std::endl;
+		if (foo > bar) std::cout << "foo is greater than bar" << std::endl;
+		if (foo <= bar) std::cout << "foo is less than or equal to bar" << std::endl;
+		if (foo >= bar) std::cout << "foo is greater than or equal to bar" << std::endl;
+
+		std::vector<int>	vec;
+		std::vector<int>	vec_2;
+
+		ft::pushBackVec(vec);
+		ft::pushBackVec(vec_2);
+		if (vec == vec_2) std::cout << "vec == vec_2" << std::endl;
+		vec.insert(vec.begin() + 2, 3);
+		if (vec == vec_2) std::cout << "vec and vec_2 are equal" << std::endl;
+		if (vec != vec_2) std::cout << "vec and vec_2 are not equal" << std::endl;
+		if (vec < vec_2) std::cout << "vec is less than vec_2" << std::endl;
+		if (vec > vec_2) std::cout << "vec is greater than vec_2" << std::endl;
+		if (vec <= vec_2) std::cout << "vec is less than or equal to vec_2" << std::endl;
+		if (vec >= vec_2) std::cout << "vec is greater than or equal to vec_2" << std::endl;
+
+		vec_2.resize(3, 2);
+		if (vec == vec_2) std::cout << "vec and vec_2 are equal" << std::endl;
+		if (vec != vec_2) std::cout << "vec and vec_2 are not equal" << std::endl;
+		if (vec < vec_2) std::cout << "vec is less than vec_2" << std::endl;
+		if (vec > vec_2) std::cout << "vec is greater than vec_2" << std::endl;
+		if (vec <= vec_2) std::cout << "vec is less than or equal to vec_2" << std::endl;
+		if (vec >= vec_2) std::cout << "vec is greater than or equal to vec_2" << std::endl;
+	
+		std::vector<std::string> string(2, "AH");
+		std::vector<std::string> string_2(2, "MAIS");
+		if (string == string_2) std::cout << "string and string_2 are equal" << std::endl;
+		if (string != string_2) std::cout << "string and string_2 are not equal" << std::endl;
+		if (string < string_2) std::cout << "string is less than string_2" << std::endl;
+		if (string > string_2) std::cout << "string is greater than string_2" << std::endl;
+		if (string <= string_2) std::cout << "string is less than or equal to string_2" << std::endl;
+		if (string >= string_2) std::cout << "string is greater than or equal to string_2" << std::endl;
 	}
 		/*----------------------------- RESERVE ------------------------------*/
 		std::cout << "------------------- RESERVE -----------------" << std::endl;
