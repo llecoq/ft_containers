@@ -6,7 +6,7 @@
 /*   By: llecoq <llecoq@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/16 15:57:56 by llecoq            #+#    #+#             */
-/*   Updated: 2022/03/16 13:19:49 by llecoq           ###   ########.fr       */
+/*   Updated: 2022/03/16 15:21:14 by llecoq           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,11 +14,7 @@
 #define VECTOR_HPP
 
 #include <memory>
-#include <string>
-#include <iostream>
 #include <stdexcept>
-#include <exception>
-#include <cstddef>
 #include <limits>
 #include "../iterators/random_access_iterator.hpp"
 #include "../iterators/reverse_iterator.hpp"

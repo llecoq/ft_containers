@@ -6,7 +6,7 @@
 /*   By: llecoq <llecoq@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/07 15:08:10 by llecoq            #+#    #+#             */
-/*   Updated: 2022/03/16 14:44:34 by llecoq           ###   ########.fr       */
+/*   Updated: 2022/03/16 16:31:02 by llecoq           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,22 +23,19 @@ namespace ft
 	template <class T1, class T2>
 	struct	pair
 	{
-			typedef T1		first_type;
-			typedef T2		second_type;
+		typedef T1		first_type;
+		typedef T2		second_type;
 
-			first_type		first;
-			second_type		second;
+		first_type		first;
+		second_type		second;
 
-		// -------------------------------------------------------- constructors
-			// default
-			pair(): first(), second() {}
-			// copy
-			template<class U, class V>
-			pair (const pair<U,V>& pr) : first(pr.first), second(pr.second) {std::cout << "pair copy constructor" << std::endl;}
-			// initialization
-			pair (const first_type& a, const second_type& b) : first(a), second(b) {}
-		// ----------------------------------------------------------- operator=
-			pair& operator= (const pair& pr) {first = pr.first; second = pr.second; return *this;} 	
+	// ------------------------------------------------------------ constructors
+		pair(): first(), second() {}
+		template<class U, class V>
+		pair (const pair<U,V>& pr) : first(pr.first), second(pr.second) {}
+		pair (const first_type& a, const second_type& b) : first(a), second(b) {}
+	// --------------------------------------------------------------- operator=
+		pair& operator= (const pair& pr) {first = pr.first; second = pr.second; return *this;} 	
 	};
 	// ---------------------------------------------------- relational operators
 	template <class T1, class T2>

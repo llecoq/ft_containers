@@ -6,7 +6,7 @@
 /*   By: llecoq <llecoq@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/27 14:26:55 by llecoq            #+#    #+#             */
-/*   Updated: 2022/03/16 12:38:29 by llecoq           ###   ########.fr       */
+/*   Updated: 2022/03/16 16:25:38 by llecoq           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -801,5 +801,5 @@ int	tester_vector_std(void)
 		ft::displayData(vec_2, "vec_2");
 		ft::displayVec(vec_2);
 	}
-	return (0);
+	return (SUCCESS);
 }

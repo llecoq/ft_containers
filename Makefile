@@ -6,7 +6,7 @@
 #    By: llecoq <llecoq@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/11/16 11:27:48 by llecoq            #+#    #+#              #
-#    Updated: 2022/03/16 14:02:21 by llecoq           ###   ########.fr        #
+#    Updated: 2022/03/16 16:29:09 by llecoq           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -16,7 +16,8 @@ INCLUDES_UTILS_FILES =		utils.hpp\
 							tester.hpp\
 							metafunctions.hpp
 
-INCLUDES_FILES =  			vector.hpp
+INCLUDES_FILES =  			vector.hpp\
+							stack.hpp
 
 ITERATORS_FILES =  			iterator.hpp\
 							random_access_iterator.hpp\
@@ -25,6 +26,8 @@ ITERATORS_FILES =  			iterator.hpp\
 TESTER_FILES =				tester_vector_ft.cpp\
 							tester_vector_std.cpp\
 							tester_pair.cpp\
+							tester_stack_ft.cpp\
+							tester_stack_std.cpp\
 							TestClass.cpp
 
 INCLUDES_PATH = 			containers/
@@ -72,9 +75,15 @@ clean:
 fclean:		clean
 			$(RM) $(NAME)
 
+re:			fclean all
+
 vector:		$(NAME)
 			@sh tester/scripts/test_vector.sh
 
-re:			fclean all
+stack:		$(NAME)
+			@sh tester/scripts/test_stack.sh
 
-.PHONY:		all clean fclean re
+pair:		$(NAME)
+			@sh tester/scripts/test_pair.sh
+
+.PHONY:		all clean fclean re stack vector pair

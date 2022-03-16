@@ -6,7 +6,7 @@
 /*   By: llecoq <llecoq@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/27 14:26:55 by llecoq            #+#    #+#             */
-/*   Updated: 2022/03/16 12:38:22 by llecoq           ###   ########.fr       */
+/*   Updated: 2022/03/16 16:25:31 by llecoq           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -691,7 +691,7 @@ int	tester_vector_ft(void)
 		ft::pushBackVec(foo, 100);
 		ft::displayDataVec(foo, "foo");
 
-		std::vector<TestClass> bar;
+		ft::vector<TestClass> bar;
 		ft::pushBackVec(bar, 3);
 		ft::displayDataVec(bar, "bar");
 		
@@ -802,5 +802,5 @@ int	tester_vector_ft(void)
 		ft::displayData(vec_2, "vec_2");
 		ft::displayVec(vec_2);
 	}
-	return (0);
+	return (SUCCESS);
 }
