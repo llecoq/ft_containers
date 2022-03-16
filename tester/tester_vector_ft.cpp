@@ -6,7 +6,7 @@
 /*   By: llecoq <llecoq@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/27 14:26:55 by llecoq            #+#    #+#             */
-/*   Updated: 2022/03/16 10:17:59 by llecoq           ###   ########.fr       */
+/*   Updated: 2022/03/16 10:20:48 by llecoq           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,7 +73,6 @@ int	tester_vector_ft(void)
 			std::cout << "it != ite" << std::endl;
 		it = vec.begin();
 		std::cout << *it-- << std::endl;
-		std::cout << *it << std::endl;
 		
 		/*----------------------- ARITHMETIC */
 		std::cout << "-------------- ARITHMETIC --------------" << std::endl;
