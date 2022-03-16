@@ -6,7 +6,7 @@
 #    By: llecoq <llecoq@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/11/16 11:27:48 by llecoq            #+#    #+#              #
-#    Updated: 2022/03/15 17:39:34 by llecoq           ###   ########.fr        #
+#    Updated: 2022/03/16 10:49:11 by llecoq           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -70,6 +70,9 @@ clean:
 
 fclean:		clean
 			$(RM) $(NAME)
+
+vector:		$(NAME)
+			@sh tester/scripts/test_vector.sh
 
 re:			fclean all
 
