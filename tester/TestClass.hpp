@@ -76,7 +76,8 @@ class TestClass
 				<< " Destructor " << CYAN << "called" << RESET << std::endl;
 			else
       			std::cout << GREEN << _number << " - " << *_name << RED 
-				<< " Destructor " << GREEN << "called" << RESET << std::endl;
+				<< " Destructor " << GREEN << "called" << RESET;
+			std::cout << " - " << _i << std::endl;
 			if (_name)
 				delete _name;
 			_name = 0;

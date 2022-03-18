@@ -6,7 +6,7 @@
 #    By: llecoq <llecoq@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/11/16 11:27:48 by llecoq            #+#    #+#              #
-#    Updated: 2022/03/16 16:39:35 by llecoq           ###   ########.fr        #
+#    Updated: 2022/03/18 11:10:16 by llecoq           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -14,10 +14,12 @@ SRCS_FILES	=				main.cpp
 
 INCLUDES_UTILS_FILES =		utils.hpp\
 							tester.hpp\
+							Tree.hpp\
 							metafunctions.hpp
 
 INCLUDES_FILES =  			vector.hpp\
-							stack.hpp
+							stack.hpp\
+							map.hpp
 
 ITERATORS_FILES =  			iterator.hpp\
 							random_access_iterator.hpp\
@@ -28,6 +30,7 @@ TESTER_FILES =				tester_vector_ft.cpp\
 							tester_pair.cpp\
 							tester_stack_ft.cpp\
 							tester_stack_std.cpp\
+							tester_map_ft.cpp\
 							TestClass.cpp
 
 INCLUDES_PATH = 			containers/

@@ -6,7 +6,7 @@
 /*   By: llecoq <llecoq@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/18 11:21:24 by llecoq            #+#    #+#             */
-/*   Updated: 2022/03/16 16:26:20 by llecoq           ###   ########.fr       */
+/*   Updated: 2022/03/18 11:00:42 by llecoq           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,6 @@
 
 int	tester(std::string library, std::string container)
 {
-
 	if (container == "vector" && library == "ft")
 		return tester_vector_ft();
 	else if (container == "vector" && library == "std")
@@ -32,6 +31,8 @@ int	tester(std::string library, std::string container)
 
 int	main(int argc, char **argv)
 {
+	return tester_map_ft();
+
 	if (argc != 3)
 	{
 		std::cout << "Usage : [ft/std] <container>" << std::endl;

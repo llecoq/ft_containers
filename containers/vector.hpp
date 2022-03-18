@@ -6,7 +6,7 @@
 /*   By: llecoq <llecoq@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/16 15:57:56 by llecoq            #+#    #+#             */
-/*   Updated: 2022/03/16 15:21:14 by llecoq           ###   ########.fr       */
+/*   Updated: 2022/03/18 11:31:17 by llecoq           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,6 +47,16 @@ class vector
 		typedef typename iterator_traits<iterator>::difference_type	difference_type;
 		typedef typename allocator_type::size_type					size_type;
 		
+
+	private :
+
+		pointer														_begin;
+		pointer														_end;
+		pointer														_end_capacity;
+		allocator_type												_allocator;
+		data<value_type, allocator_type>							_old_vector;
+
+	public :
 	/*
 	** ------------------------------------------------------------ CONSTRUCTORS
 	*/
@@ -255,7 +265,7 @@ class vector
 			}
 			else
 			{
-				for (size_t i = 0; i < n && i < size(); i++)
+				for (size_type i = 0; i < n && i < size(); i++)
 					*(_old_vector._begin++) = *(first++);
 				if (n > size())
 					_construct_at_end(first, last);
@@ -461,14 +471,9 @@ class vector
 			}
 		} lenghtErrorException;
 
-	private :
-
-		pointer											_begin;
-		pointer											_end;
-		pointer											_end_capacity;
-		allocator_type									_allocator;
-		data<T, Alloc>									_old_vector;
-		
+	
+	
+	private :		
 	
 	/*
 	** -------------------------------------------------------------- ALLOCATION
