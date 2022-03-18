@@ -6,7 +6,7 @@
 /*   By: llecoq <llecoq@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/16 16:19:24 by llecoq            #+#    #+#             */
-/*   Updated: 2022/03/03 13:24:13 by llecoq           ###   ########.fr       */
+/*   Updated: 2022/03/18 13:41:17 by llecoq           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@ namespace ft
 {
 
 	struct random_access_iterator_tag {};
+	struct bidirectional_iterator_tag {};
 
 /*
 ** -------------------------------------------------------------------- ITERATOR

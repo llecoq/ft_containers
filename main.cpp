@@ -6,7 +6,7 @@
 /*   By: llecoq <llecoq@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/18 11:21:24 by llecoq            #+#    #+#             */
-/*   Updated: 2022/03/18 11:00:42 by llecoq           ###   ########.fr       */
+/*   Updated: 2022/03/18 16:21:53 by llecoq           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ int	tester(std::string library, std::string container)
 
 int	main(int argc, char **argv)
 {
-	return tester_map_ft();
+	// return tester_map_ft();
 
 	if (argc != 3)
 	{

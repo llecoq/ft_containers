@@ -6,7 +6,7 @@
 /*   By: llecoq <llecoq@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/27 18:01:12 by llecoq            #+#    #+#             */
-/*   Updated: 2022/03/16 12:12:12 by llecoq           ###   ########.fr       */
+/*   Updated: 2022/03/18 16:21:34 by llecoq           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,15 +19,20 @@ namespace ft
 {
 
 template <class T>
-class random_access_iterator : virtual public iterator_traits< iterator<random_access_iterator_tag, T> >
+class random_access_iterator
+	: virtual public iterator_traits< iterator<random_access_iterator_tag, T> >
 {
-	public:
+	private :
+	
+		typedef iterator<random_access_iterator_tag, T>						_iterator;
+	
+	public :
 
-		typedef typename iterator<random_access_iterator_tag, T>::difference_type		difference_type;
-		typedef typename iterator<random_access_iterator_tag, T>::value_type			value_type;
-		typedef typename iterator<random_access_iterator_tag, T>::pointer				pointer;
-		typedef typename iterator<random_access_iterator_tag, T>::reference				reference;
-		typedef typename iterator<random_access_iterator_tag, T>::iterator_category		iterator_category;
+		typedef typename iterator_traits<_iterator>::difference_type		difference_type;
+		typedef typename iterator_traits<_iterator>::value_type				value_type;
+		typedef typename iterator_traits<_iterator>::pointer				pointer;
+		typedef typename iterator_traits<_iterator>::reference				reference;
+		typedef typename iterator_traits<_iterator>::iterator_category		iterator_category;
 
 	
 		/*
@@ -209,7 +214,7 @@ class random_access_iterator : virtual public iterator_traits< iterator<random_a
 			return (_pointer[index]);
 		}
 
-	protected :
+	private :
 
 		pointer		_pointer;
 };

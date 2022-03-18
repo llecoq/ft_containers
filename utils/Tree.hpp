@@ -6,7 +6,7 @@
 /*   By: llecoq <llecoq@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/18 09:23:58 by llecoq            #+#    #+#             */
-/*   Updated: 2022/03/18 11:50:57 by llecoq           ###   ########.fr       */
+/*   Updated: 2022/03/18 15:28:08 by llecoq           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,16 +15,26 @@
 namespace ft
 {
 
-template <typename Pointer>
+template <class Pair>
 struct t_node
-{
-	t_node		*parent;
-	
+{	
 	bool		color;
-	Pointer		*data;
+	Pair		data;
 	
+	t_node		*parent;
 	t_node		*left;
 	t_node		*right;
+
+	explicit t_node(Pair &val)
+	:
+		color(0),
+		data(val),
+		parent(NULL),
+		left(NULL),
+		right(NULL)
+	{}
+
+	~t_node();
 };
 
 template < class Key,
@@ -97,13 +107,62 @@ class Tree
 			(void)last;
 		}
 
+		Tree& operator= (const Tree& x)
+		{
+			(void)x;
+		}
+
 		// destructor
 		~Tree ()
 		{
 			// destruct 
 			// deallocate
 		}
-	
+	/*
+	** ------------------------------------------------------------ ITERATORS
+	*/
+		node_pointer begin() {return _begin_node;}
+
+	/*
+	** ------------------------------------------------------------ CAPACITY
+	*/
+		bool empty() const
+		{
+			return (_size == 0);
+		}
+
+		size_type size() const
+		{
+			return (_size);
+		}
+
+		size_type max_size() const
+		{
+			return (_node_allocator.max_size());
+		}
+
+	/*
+	** ------------------------------------------------------------ ELEMENT ACCESS
+	*/
+
+	/*
+	** ------------------------------------------------------------ MODIFIERS
+	*/
+		pair<node_pointer, bool> insert (const value_type& val)
+		{
+			(void)val;
+		}
+
+	private :
+
+		node_pointer	_create_node(const value_type& val)
+		{
+			node_pointer	node = _node_allocator.allocate(1);
+
+			_node_allocator.construct(node, val);
+			return (node);
+		}
+
 };
 
 }
