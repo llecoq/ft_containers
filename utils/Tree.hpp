@@ -6,11 +6,14 @@
 /*   By: llecoq <llecoq@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/18 09:23:58 by llecoq            #+#    #+#             */
-/*   Updated: 2022/03/18 15:28:08 by llecoq           ###   ########.fr       */
+/*   Updated: 2022/03/19 14:01:54 by llecoq           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "utils.hpp"
+#ifndef TREE_HPP
+#define TREE_HPP
+
+#include "pair.hpp"
 
 namespace ft
 {
@@ -25,7 +28,7 @@ struct t_node
 	t_node		*left;
 	t_node		*right;
 
-	explicit t_node(Pair &val)
+	explicit t_node(Pair const &val)
 	:
 		color(0),
 		data(val),
@@ -34,7 +37,7 @@ struct t_node
 		right(NULL)
 	{}
 
-	~t_node();
+	~t_node(){}
 };
 
 template < class Key,
@@ -54,7 +57,7 @@ class Tree
 		typedef typename allocator_type::pointer				node_pointer;
 		typedef typename allocator_type::const_pointer			const_node_pointer;
 		typedef typename allocator_type::size_type				size_type;
-		typedef pair<key_type, mapped_type>						value_type;
+		typedef t_node < pair<key_type, mapped_type> >						value_type;
 
 	private:
 
@@ -150,7 +153,10 @@ class Tree
 	*/
 		pair<node_pointer, bool> insert (const value_type& val)
 		{
-			(void)val;
+			if (_root_node == NULL)
+				_root_node = _create_node(val);
+			_begin_node = _end_node = _root_node;
+			return pair<node_pointer, bool>(_root_node, 1);
 		}
 
 	private :
@@ -166,3 +172,5 @@ class Tree
 };
 
 }
+
+#endif

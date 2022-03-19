@@ -6,7 +6,7 @@
 /*   By: llecoq <llecoq@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/27 14:49:09 by llecoq            #+#    #+#             */
-/*   Updated: 2022/03/17 16:41:47 by llecoq           ###   ########.fr       */
+/*   Updated: 2022/03/19 12:38:58 by llecoq           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,11 +22,11 @@
 # include <stack>
 # include <map>
 
-#  include "TestClass.hpp"
-#  include "metafunctions.hpp"
 #  include "../containers/vector.hpp"
 #  include "../containers/stack.hpp"
 #  include "../containers/map.hpp"
+#  include "TestClass.hpp"
+#  include "metafunctions.hpp"
 
 int		tester_vector_ft();
 int		tester_vector_std();

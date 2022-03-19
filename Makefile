@@ -6,7 +6,7 @@
 #    By: llecoq <llecoq@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/11/16 11:27:48 by llecoq            #+#    #+#              #
-#    Updated: 2022/03/18 13:37:30 by llecoq           ###   ########.fr        #
+#    Updated: 2022/03/19 14:10:03 by llecoq           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -15,6 +15,7 @@ SRCS_FILES	=				main.cpp
 INCLUDES_UTILS_FILES =		utils.hpp\
 							tester.hpp\
 							Tree.hpp\
+							pair.hpp\
 							metafunctions.hpp
 
 INCLUDES_FILES =  			vector.hpp\
@@ -27,12 +28,12 @@ ITERATORS_FILES =  			iterator.hpp\
 							reverse_iterator.hpp
 
 TESTER_FILES =				tester_vector_ft.cpp\
-							tester_vector_std.cpp\
-							tester_pair.cpp\
-							tester_stack_ft.cpp\
-							tester_stack_std.cpp\
 							tester_map_ft.cpp\
 							TestClass.cpp
+							# tester_vector_std.cpp\
+							# tester_pair.cpp\
+							# tester_stack_ft.cpp\
+							# tester_stack_std.cpp\
 
 INCLUDES_PATH = 			containers/
 INCLUDES_UTILS_PATH = 		utils/
@@ -68,7 +69,7 @@ all		:	$(NAME)
 $(OBJSPATH)%.o:		$(SRCSPATH)%.cpp $(INCLUDES) $(INCLUDES_UTILS) $(INCLUDES_ITERATOR) Makefile tester/TestClass.hpp
 			@mkdir -p $(OBJSPATH) $(DIR)
 			@mkdir -p $(OBJSPATH) .objs/tester
-			$(CXXC) $(CFLAGS) -c $< -o $@ -I containers/ -I utils/ -I tester/
+			$(CXXC) $(CFLAGS) -c $< -o $@ -I containers/ -I utils/ -I tester/ -I iterators/
 
 $(NAME):	$(OBJS)
 			$(CXXC) $(CFLAGS) $(OBJS) -o $(NAME)

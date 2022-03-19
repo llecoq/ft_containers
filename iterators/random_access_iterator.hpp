@@ -6,7 +6,7 @@
 /*   By: llecoq <llecoq@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/27 18:01:12 by llecoq            #+#    #+#             */
-/*   Updated: 2022/03/18 16:21:34 by llecoq           ###   ########.fr       */
+/*   Updated: 2022/03/19 12:10:17 by llecoq           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,22 +22,23 @@ template <class T>
 class random_access_iterator
 	: virtual public iterator_traits< iterator<random_access_iterator_tag, T> >
 {
-	private :
-	
-		typedef iterator<random_access_iterator_tag, T>						_iterator;
-	
 	public :
 
-		typedef typename iterator_traits<_iterator>::difference_type		difference_type;
-		typedef typename iterator_traits<_iterator>::value_type				value_type;
-		typedef typename iterator_traits<_iterator>::pointer				pointer;
-		typedef typename iterator_traits<_iterator>::reference				reference;
-		typedef typename iterator_traits<_iterator>::iterator_category		iterator_category;
+		typedef typename random_access_iterator::difference_type	difference_type;
+		typedef typename random_access_iterator::value_type			value_type;
+		typedef typename random_access_iterator::pointer			pointer;
+		typedef typename random_access_iterator::reference			reference;
+		typedef typename random_access_iterator::iterator_category	iterator_category;
 
+	private :
+
+		pointer														_pointer;
+
+	public :
 	
-		/*
-		** -------------------------------------------------------- CONSTRUCTORS
-		*/
+	/*
+	** ------------------------------------------------------------ CONSTRUCTORS
+	*/
 		random_access_iterator()
 		:
 			_pointer(NULL)
@@ -61,9 +62,9 @@ class random_access_iterator
 
 		~random_access_iterator(){}
 	
-		/*
-		** ------------------------------------------------------- MEMBER ACCESS
-		*/
+	/*
+	** ----------------------------------------------------------- MEMBER ACCESS
+	*/
 		reference	operator*( void ) const
 		{
 			return (*_pointer);
@@ -80,9 +81,9 @@ class random_access_iterator
 		}
 		
 
-		/*
-		** --------------------------------------------- DE/IN-CREMENT OPERATORS
-		*/
+	/*
+	** ------------------------------------------------- DE/IN-CREMENT OPERATORS
+	*/
 		random_access_iterator	& operator++( void )
 		{
 			_pointer++;
@@ -112,9 +113,9 @@ class random_access_iterator
 		}
 
 
-		/*
-		** ------------------------------------------------ ARITHMETIC OPERATORS
-		*/
+	/*
+	** ---------------------------------------------------- ARITHMETIC OPERATORS
+	*/
 		random_access_iterator	operator+( difference_type n ) const
 		{
 			random_access_iterator	tmp(*this);
@@ -143,9 +144,9 @@ class random_access_iterator
 		}
 
 
-		/*
-		** --------------------------------------- COMPOUND ASSIGNMENT OPERATORS
-		*/
+	/*
+	** ------------------------------------------- COMPOUND ASSIGNMENT OPERATORS
+	*/
 		random_access_iterator	& operator+=( difference_type const n )
 		{
 			_pointer += n;
@@ -158,9 +159,9 @@ class random_access_iterator
 			return (*this);
 		}
 
-		/*
-		** ------------------------------------------------ COMPARISON OPERATORS
-		*/
+	/*
+	** ---------------------------------------------------- COMPARISON OPERATORS
+	*/
 		bool	operator==( random_access_iterator rhs ) const
 		{
 			return (_pointer == rhs._pointer);
@@ -172,9 +173,9 @@ class random_access_iterator
 		}
 
 
-		/*
-		** ------------------------------------- INEQUALITY RELATIONAL OPERATORS
-		*/
+	/*
+	** ----------------------------------------- INEQUALITY RELATIONAL OPERATORS
+	*/
 		bool	operator<(random_access_iterator const &rhs) const
 		{
 			return (_pointer < rhs._pointer);
@@ -196,9 +197,9 @@ class random_access_iterator
 		}
 
 
-		/*
-		** --------------------------------------------- OUTPUT STREAM OPERATORS
-		*/
+	/*
+	** ------------------------------------------------- OUTPUT STREAM OPERATORS
+	*/
 		friend std::ostream	&operator<<(std::ostream &output, random_access_iterator const &rhs)
 		{
 			output << rhs._pointer;
@@ -206,17 +207,13 @@ class random_access_iterator
 		}
 
 
-		/*
-		** ----------------------------------------------------------- SUBSCRIPT
-		*/
+	/*
+	** --------------------------------------------------------------- SUBSCRIPT
+	*/
 		reference	operator[]( difference_type index )
 		{
 			return (_pointer[index]);
 		}
-
-	private :
-
-		pointer		_pointer;
 };
 
 

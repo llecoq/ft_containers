@@ -6,7 +6,7 @@
 /*   By: llecoq <llecoq@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/17 10:54:16 by llecoq            #+#    #+#             */
-/*   Updated: 2022/03/18 15:35:50 by llecoq           ###   ########.fr       */
+/*   Updated: 2022/03/19 13:05:33 by llecoq           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,9 +16,10 @@
 #include <memory>
 #include <functional>
 
-# include "../utils/utils.hpp"
-# include "../utils/Tree.hpp"
+// # include "../utils/utils.hpp"
 # include "../iterators/bidirectional_iterator.hpp"
+# include "../utils/pair.hpp"
+# include "../utils/Tree.hpp"
 
 namespace ft
 {
@@ -122,8 +123,9 @@ class map
 		pair<iterator,bool> insert (const value_type& val)
 		{	
 			// pair<_t_node, bool>	element = _tree.insert(val);
+			_t_node	tmp(val);
 
-			return (_tree.insert(val));
+			return (_tree.insert(tmp));
 		}
 
 		// with hint (2)	
