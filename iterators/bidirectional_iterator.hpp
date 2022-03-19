@@ -6,7 +6,7 @@
 /*   By: llecoq <llecoq@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/18 13:37:15 by llecoq            #+#    #+#             */
-/*   Updated: 2022/03/19 14:24:04 by llecoq           ###   ########.fr       */
+/*   Updated: 2022/03/19 14:39:12 by llecoq           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,22 +26,23 @@ class bidirectional_iterator
 {
 	private :
 		
-		typedef	t_node< pair<Key, T> >									_node;
-		typedef	iterator<bidirectional_iterator_tag, _node> 			_iterator;
-		typedef typename iterator_traits< iterator < bidirectional_iterator_tag, pair<Key, T> > >::pointer							_data_pointer;
-		typedef typename iterator_traits< iterator < bidirectional_iterator_tag, pair<Key, T> > >::reference						_data_reference;
+		typedef	t_node< pair<Key, T> >										_node;
+		typedef	iterator< bidirectional_iterator_tag, _node > 				_node_iterator;
+		typedef iterator< bidirectional_iterator_tag, pair<Key, T> >		_iterator;
+		typedef typename iterator_traits<_iterator>::pointer				_data_pointer;
+		typedef typename iterator_traits<_iterator>::reference				_data_reference;
 	
 	public :
 
-		typedef typename iterator_traits<_iterator>::difference_type	difference_type;
-		typedef typename iterator_traits<_iterator>::value_type			value_type;
-		typedef typename iterator_traits<_iterator>::pointer			pointer;
-		typedef typename iterator_traits<_iterator>::reference			reference;
-		typedef typename iterator_traits<_iterator>::iterator_category	iterator_category;
+		typedef typename bidirectional_iterator::difference_type			difference_type;
+		typedef typename bidirectional_iterator::value_type					value_type;
+		typedef typename iterator_traits<_node_iterator>::pointer			pointer;
+		typedef typename iterator_traits<_node_iterator>::reference			reference;
+		typedef typename bidirectional_iterator::iterator_category			iterator_category;
 
 	private:
 
-		pointer															_node_pointer;
+		pointer																_node_pointer;
 
 	public :
 		// default
