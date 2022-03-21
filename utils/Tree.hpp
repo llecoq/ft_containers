@@ -6,7 +6,7 @@
 /*   By: llecoq <llecoq@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/18 09:23:58 by llecoq            #+#    #+#             */
-/*   Updated: 2022/03/19 16:47:20 by llecoq           ###   ########.fr       */
+/*   Updated: 2022/03/21 11:37:35 by llecoq           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 #define TREE_HPP
 
 #include "pair.hpp"
+// #include "../containers/map.hpp"
 
 namespace ft
 {
@@ -67,7 +68,7 @@ class Tree
 		node_pointer											_begin_node;
 		node_pointer											_end_node;
 		allocator_type											_node_allocator;
-		key_compare												_comparator;
+		key_compare												_comp;
 		size_type												_size;
 
 	public :
@@ -80,7 +81,7 @@ class Tree
 			_begin_node(root_node),
 			_end_node(root_node),
 			_node_allocator(alloc),
-			_comparator(comp),
+			_comp(comp),
 			_size(0)
 		{}
 
@@ -90,7 +91,7 @@ class Tree
 			_begin_node(root_node),
 			_end_node(root_node),
 			_node_allocator(x._node_allocator),
-			_comparator(x._comparator),
+			_comp(x._comp),
 			_size(0)	
 		{
 			// copy aaaaall
@@ -105,7 +106,7 @@ class Tree
 			_begin_node(root_node),
 			_end_node(root_node),
 			_node_allocator(alloc),
-			_comparator(comp),
+			_comp(comp),
 			_size(0)
 		{
 			(void)first;
@@ -134,7 +135,7 @@ class Tree
 	*/
 		bool empty() const
 		{
-			return (_size == 0);
+			return (root_node == NULL);
 		}
 
 		size_type size() const
@@ -156,28 +157,16 @@ class Tree
 	*/
 		pair<node_pointer, bool> insert (const t_node &new_node, node_pointer &current_node)
 		{
-			if (root_node == NULL)  // empty tree
-			{
-				root_node = _create_node(new_node);
-				_begin_node = _end_node = root_node;
-				return pair<node_pointer, bool>(root_node, true);
-			}
-			if (current_node == NULL)  // empty
-			{
-				current_node = _create_node(new_node);
-				if (new_node.data.first > _end_node->data.first)
-					_end_node = current_node;
-				else if (new_node.data.first < _begin_node->data.first)
-					_begin_node = current_node;
-				return pair<node_pointer, bool>(current_node, true);
-			}
-			if (new_node.data.first == current_node->data.first) // do nothing
+			if (_empty_tree()) // empty tree
+				return _set_new_node(new_node, current_node);
+			if (_empty_node(current_node))  // empty node
+				return _set_new_node(new_node, current_node);
+			if (_same_key(new_node.data.first, current_node->data.first))
 				return pair<node_pointer, bool>(current_node, false);
-			if (new_node.data.first < current_node->data.first) // insert left
-				return insert(new_node, current_node->left);
+			if (_comp(new_node.data.first, current_node->data.first)) 
+				return insert(new_node, current_node->left); // insert left
 			else
 				return insert(new_node, current_node->right); // insert right
-			return pair<node_pointer, bool>(root_node, false);
 		}
 
 	private :
@@ -188,6 +177,39 @@ class Tree
 
 			_node_allocator.construct(tmp, new_node);
 			return (tmp);
+		}
+
+		bool	_same_key(key_type const &current_key, key_type const &new_key)
+		{
+			return (!_comp(current_key, new_key) && !_comp(new_key, current_key));
+		}
+
+		bool	_empty_node(node_pointer const &node)
+		{
+			return (node == NULL);
+		}
+		
+		bool	_empty_tree()
+		{
+			return (empty());
+		}
+
+		pair<node_pointer, bool>	_set_new_node(const t_node &new_node, node_pointer &current_node)
+		{
+			current_node = _create_node(new_node);
+			_set_begin_or_end(current_node);
+			_size++;
+			return pair<node_pointer, bool>(current_node, true);
+		}
+
+		void	_set_begin_or_end(node_pointer const &new_node)
+		{
+			if (new_node == root_node)
+				_begin_node = _end_node = root_node;
+			else if (_comp(_end_node->data.first, new_node->data.first)) // new node is end
+				_end_node = new_node;
+			else if (_comp(new_node->data.first, _begin_node->data.first)) // new node is begin
+				_begin_node = new_node;
 		}
 
 };

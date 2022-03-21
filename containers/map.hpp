@@ -6,7 +6,7 @@
 /*   By: llecoq <llecoq@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/17 10:54:16 by llecoq            #+#    #+#             */
-/*   Updated: 2022/03/19 16:47:36 by llecoq           ###   ########.fr       */
+/*   Updated: 2022/03/19 16:55:03 by llecoq           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -125,12 +125,11 @@ class map
 		{
 			print2D(_tree.root_node);
 		}
+	
 		// single element (1)	
 		pair<iterator,bool> insert (const value_type& val)
 		{	
-			// pair<_t_node, bool>	element = _tree.insert(val);
 			_t_node	tmp(val);
-
 			return (_tree.insert(tmp, _tree.root_node));
 		}
 
