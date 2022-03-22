@@ -6,7 +6,7 @@
 /*   By: llecoq <llecoq@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/18 11:21:24 by llecoq            #+#    #+#             */
-/*   Updated: 2022/03/22 10:51:58 by llecoq           ###   ########.fr       */
+/*   Updated: 2022/03/22 17:26:50 by llecoq           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,3 +46,5 @@ int	main(int argc, char **argv)
 	// 	std::cout << "Usage : [ft/std] <container>" << std::endl;
 	return (EXIT_SUCCESS);
 }
+
+// HEAD is now at 4b8e73d Tree::insert redesigned
