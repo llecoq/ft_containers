@@ -6,7 +6,7 @@
 /*   By: llecoq <llecoq@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/07 15:08:10 by llecoq            #+#    #+#             */
-/*   Updated: 2022/03/19 16:34:49 by llecoq           ###   ########.fr       */
+/*   Updated: 2022/03/21 11:51:40 by llecoq           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -166,7 +166,6 @@ namespace ft
 		for (int i = COUNT; i < space; i++)
 			std::cout << " ";
 		std::cout << root->data.first << " - " << root->data.second << std::endl;
-		// std::cout << root->data.first << std::endl;
 	
 		// Process left child
 		print2DUtil(root->left, space);

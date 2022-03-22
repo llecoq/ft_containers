@@ -6,7 +6,7 @@
 /*   By: llecoq <llecoq@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/18 09:23:58 by llecoq            #+#    #+#             */
-/*   Updated: 2022/03/21 11:37:35 by llecoq           ###   ########.fr       */
+/*   Updated: 2022/03/22 11:53:24 by llecoq           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,6 +67,7 @@ class Tree
 
 		node_pointer											_begin_node;
 		node_pointer											_end_node;
+		node_pointer											_parent_node;
 		allocator_type											_node_allocator;
 		key_compare												_comp;
 		size_type												_size;
@@ -80,6 +81,7 @@ class Tree
 			root_node(NULL),
 			_begin_node(root_node),
 			_end_node(root_node),
+			_parent_node(NULL),
 			_node_allocator(alloc),
 			_comp(comp),
 			_size(0)
@@ -90,6 +92,7 @@ class Tree
 			root_node(NULL),
 			_begin_node(root_node),
 			_end_node(root_node),
+			_parent_node(NULL),
 			_node_allocator(x._node_allocator),
 			_comp(x._comp),
 			_size(0)	
@@ -105,6 +108,7 @@ class Tree
 			root_node(NULL),
 			_begin_node(root_node),
 			_end_node(root_node),
+			_parent_node(NULL),
 			_node_allocator(alloc),
 			_comp(comp),
 			_size(0)
@@ -121,6 +125,7 @@ class Tree
 		// destructor
 		~Tree ()
 		{
+			
 			// destruct 
 			// deallocate
 		}
@@ -163,7 +168,8 @@ class Tree
 				return _set_new_node(new_node, current_node);
 			if (_same_key(new_node.data.first, current_node->data.first))
 				return pair<node_pointer, bool>(current_node, false);
-			if (_comp(new_node.data.first, current_node->data.first)) 
+			_parent_node = current_node;
+			if (_comp(new_node.data.first, current_node->data.first))
 				return insert(new_node, current_node->left); // insert left
 			else
 				return insert(new_node, current_node->right); // insert right
@@ -197,6 +203,7 @@ class Tree
 		pair<node_pointer, bool>	_set_new_node(const t_node &new_node, node_pointer &current_node)
 		{
 			current_node = _create_node(new_node);
+			current_node->parent = _parent_node;
 			_set_begin_or_end(current_node);
 			_size++;
 			return pair<node_pointer, bool>(current_node, true);
@@ -205,9 +212,12 @@ class Tree
 		void	_set_begin_or_end(node_pointer const &new_node)
 		{
 			if (new_node == root_node)
+			{
 				_begin_node = _end_node = root_node;
+				_end_node = root_node->right; // a changer ? trouver moyen de revenir en arriere lorsque ite--
+			}
 			else if (_comp(_end_node->data.first, new_node->data.first)) // new node is end
-				_end_node = new_node;
+				_end_node = new_node->right;
 			else if (_comp(new_node->data.first, _begin_node->data.first)) // new node is begin
 				_begin_node = new_node;
 		}
