@@ -6,7 +6,7 @@
 /*   By: llecoq <llecoq@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/18 09:23:58 by llecoq            #+#    #+#             */
-/*   Updated: 2022/03/22 17:26:35 by llecoq           ###   ########.fr       */
+/*   Updated: 2022/03/22 17:29:36 by llecoq           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,12 +76,8 @@ class Tree
 		node_pointer											_begin_node;
 	public :
 		node_pointer											_end_node;
-<<<<<<< HEAD
-		node_pointer											_parent_node;
-=======
 	private :
 		// node_pointer											_parent_node;
->>>>>>> tmp
 		allocator_type											_node_allocator;
 		key_compare												_comp;
 		size_type												_size;
@@ -95,7 +91,6 @@ class Tree
 			root_node(NULL),
 			_begin_node(root_node),
 			_end_node(root_node),
-			_parent_node(NULL),
 			_node_allocator(alloc),
 			_comp(comp),
 			_size(0)
@@ -106,7 +101,6 @@ class Tree
 			root_node(NULL),
 			_begin_node(root_node),
 			_end_node(root_node),
-			_parent_node(NULL),
 			_node_allocator(x._node_allocator),
 			_comp(x._comp),
 			_size(0)	
@@ -122,7 +116,6 @@ class Tree
 			root_node(NULL),
 			_begin_node(root_node),
 			_end_node(root_node),
-			_parent_node(NULL),
 			_node_allocator(alloc),
 			_comp(comp),
 			_size(0)

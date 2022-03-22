@@ -6,7 +6,7 @@
 /*   By: llecoq <llecoq@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/18 13:37:15 by llecoq            #+#    #+#             */
-/*   Updated: 2022/03/22 11:06:25 by llecoq           ###   ########.fr       */
+/*   Updated: 2022/03/22 17:29:01 by llecoq           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,7 +98,7 @@ class bidirectional_iterator
 
 		bidirectional_iterator	operator++( int )
 		{
-			random_access_iterator	tmp(*this);
+			bidirectional_iterator	tmp(*this);
 			
 			// _pointer++;
 			return (tmp);
