@@ -6,7 +6,7 @@
 /*   By: llecoq <llecoq@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/18 09:23:58 by llecoq            #+#    #+#             */
-/*   Updated: 2022/03/21 11:37:35 by llecoq           ###   ########.fr       */
+/*   Updated: 2022/03/22 12:37:49 by llecoq           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,6 +67,7 @@ class Tree
 
 		node_pointer											_begin_node;
 		node_pointer											_end_node;
+		// node_pointer											_parent_node;
 		allocator_type											_node_allocator;
 		key_compare												_comp;
 		size_type												_size;
@@ -155,14 +156,16 @@ class Tree
 	/*
 	** ------------------------------------------------------------ MODIFIERS
 	*/
-		pair<node_pointer, bool> insert (const t_node &new_node, node_pointer &current_node)
+		pair<node_pointer, bool> insert (const t_node &new_node, node_pointer &current_node,
+											node_pointer parent_node = NULL)
 		{
 			if (_empty_tree()) // empty tree
-				return _set_new_node(new_node, current_node);
+				return _set_new_node(new_node, current_node, parent_node);
 			if (_empty_node(current_node))  // empty node
-				return _set_new_node(new_node, current_node);
+				return _set_new_node(new_node, current_node, parent_node);
 			if (_same_key(new_node.data.first, current_node->data.first))
 				return pair<node_pointer, bool>(current_node, false);
+			parent_node = current_node;
 			if (_comp(new_node.data.first, current_node->data.first)) 
 				return insert(new_node, current_node->left); // insert left
 			else
@@ -194,9 +197,11 @@ class Tree
 			return (empty());
 		}
 
-		pair<node_pointer, bool>	_set_new_node(const t_node &new_node, node_pointer &current_node)
+		pair<node_pointer, bool>	_set_new_node(const t_node &new_node, node_pointer &current_node,
+													node_pointer parent_node)
 		{
 			current_node = _create_node(new_node);
+			current_node->parent = parent_node;
 			_set_begin_or_end(current_node);
 			_size++;
 			return pair<node_pointer, bool>(current_node, true);
