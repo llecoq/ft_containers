@@ -6,7 +6,7 @@
 /*   By: llecoq <llecoq@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/17 16:42:25 by llecoq            #+#    #+#             */
-/*   Updated: 2022/03/22 17:31:00 by llecoq           ###   ########.fr       */
+/*   Updated: 2022/03/22 17:37:23 by llecoq           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,14 +25,14 @@ int	tester_map_ft()
 	test.insert(ft::pair<char, TestClass>('d', 4));
 	test.insert(ft::pair<char, TestClass>('b', 2));
 	test.insert(ft::pair<char, TestClass>('c', 3));
-	// test.insert(ft::pair<char, TestClass>('k', 11));
+	test.insert(ft::pair<char, TestClass>('k', 11));
 	test.insert(ft::pair<char, TestClass>('f', 6));
 	test.insert(ft::pair<char, TestClass>('a', 1));
 	test.insert(ft::pair<char, TestClass>('g', 7));
-	// test.insert(ft::pair<char, TestClass>('h', 8));
-	// test.insert(ft::pair<char, TestClass>('j', 10));
-	// test.insert(ft::pair<char, TestClass>('i', 9));
-	// test.insert(ft::pair<char, TestClass>('l', 12));
+	test.insert(ft::pair<char, TestClass>('h', 8));
+	test.insert(ft::pair<char, TestClass>('j', 10));
+	test.insert(ft::pair<char, TestClass>('i', 9));
+	test.insert(ft::pair<char, TestClass>('l', 12));
 	std::cout << std::endl;
 	test.print_tree();
 	ft::map<char, TestClass>::iterator	it = test.begin();

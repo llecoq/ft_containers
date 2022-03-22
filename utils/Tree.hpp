@@ -6,7 +6,7 @@
 /*   By: llecoq <llecoq@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/18 09:23:58 by llecoq            #+#    #+#             */
-/*   Updated: 2022/03/22 17:29:36 by llecoq           ###   ########.fr       */
+/*   Updated: 2022/03/22 17:43:13 by llecoq           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -207,7 +207,7 @@ class Tree
 		{
 			if (current_node == root_node)
 				_init_end_node();
-			else if (_comp(_end_node->data.first, current_node->data.first)) // new node is end
+			else if (_comp(_end_node->parent->data.first, current_node->data.first)) // new node is end
 				_set_end_node(current_node);
 			else if (_comp(current_node->data.first, _begin_node->data.first)) // new node is begin
 				_begin_node = current_node;
