@@ -6,7 +6,7 @@
 /*   By: llecoq <llecoq@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/07 15:08:10 by llecoq            #+#    #+#             */
-/*   Updated: 2022/03/19 16:34:49 by llecoq           ###   ########.fr       */
+/*   Updated: 2022/03/22 15:28:55 by llecoq           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -148,17 +148,17 @@ namespace ft
 
 	// --------------------------------------- print 2D BSC
 	template < typename Node >
-	void print2DUtil(Node *root, int space)
+	void print2DUtil(Node *root, int space, Node *end)
 	{
 		// Base case
-		if (root == NULL)
+		if (root == NULL || root == end)
 			return;
 	
 		// Increase distance between levels
 		space += COUNT;
 	
 		// Process right child first
-		print2DUtil(root->right, space);
+		print2DUtil(root->right, space, end);
 	
 		// Print current node after space
 		// count
@@ -169,14 +169,14 @@ namespace ft
 		// std::cout << root->data.first << std::endl;
 	
 		// Process left child
-		print2DUtil(root->left, space);
+		print2DUtil(root->left, space, end);
 	}
 
 	template < typename Node >
-	void print2D(Node *root)
+	void print2D(Node *root, Node *end)
 	{
 		// Pass initial space count as 0
-		print2DUtil(root, 0);
+		print2DUtil(root, 0, end);
 	}
 
 }

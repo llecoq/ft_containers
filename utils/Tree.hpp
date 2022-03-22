@@ -6,7 +6,7 @@
 /*   By: llecoq <llecoq@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/18 09:23:58 by llecoq            #+#    #+#             */
-/*   Updated: 2022/03/22 12:37:49 by llecoq           ###   ########.fr       */
+/*   Updated: 2022/03/22 16:17:31 by llecoq           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,14 @@ struct t_node
 	t_node		*parent;
 	t_node		*left;
 	t_node		*right;
+
+	explicit t_node()
+	:
+		color(0),
+		parent(NULL),
+		left(NULL),
+		right(NULL)
+	{}
 
 	explicit t_node(Pair const &val)
 	:
@@ -66,7 +74,9 @@ class Tree
 	private:
 
 		node_pointer											_begin_node;
+	public :
 		node_pointer											_end_node;
+	private :
 		// node_pointer											_parent_node;
 		allocator_type											_node_allocator;
 		key_compare												_comp;
@@ -182,23 +192,8 @@ class Tree
 			return (tmp);
 		}
 
-		bool	_same_key(key_type const &current_key, key_type const &new_key)
-		{
-			return (!_comp(current_key, new_key) && !_comp(new_key, current_key));
-		}
-
-		bool	_empty_node(node_pointer const &node)
-		{
-			return (node == NULL);
-		}
-		
-		bool	_empty_tree()
-		{
-			return (empty());
-		}
-
 		pair<node_pointer, bool>	_set_new_node(const t_node &new_node, node_pointer &current_node,
-													node_pointer parent_node)
+													node_pointer const &parent_node)
 		{
 			current_node = _create_node(new_node);
 			current_node->parent = parent_node;
@@ -207,16 +202,46 @@ class Tree
 			return pair<node_pointer, bool>(current_node, true);
 		}
 
-		void	_set_begin_or_end(node_pointer const &new_node)
+		void	_set_begin_or_end(node_pointer const &current_node)
 		{
-			if (new_node == root_node)
-				_begin_node = _end_node = root_node;
-			else if (_comp(_end_node->data.first, new_node->data.first)) // new node is end
-				_end_node = new_node;
-			else if (_comp(new_node->data.first, _begin_node->data.first)) // new node is begin
-				_begin_node = new_node;
+			if (current_node == root_node)
+				_init_end_node();
+			else if (_comp(_end_node->data.first, current_node->data.first)) // new node is end
+				_set_end_node(current_node);
+			else if (_comp(current_node->data.first, _begin_node->data.first)) // new node is begin
+				_begin_node = current_node;
 		}
 
+		bool	_same_key(key_type const &current_key, key_type const &new_key)
+		{
+			return (!_comp(current_key, new_key) && !_comp(new_key, current_key));
+		}
+
+		bool	_empty_node(node_pointer const &node)
+		{
+			return (node == NULL || node == _end_node);
+		}
+		
+		bool	_empty_tree()
+		{
+			return (empty());
+		}
+
+		void	_init_end_node()
+		{
+				_end_node = _node_allocator.allocate(1);
+				_end_node->right = NULL;
+				_end_node->left = NULL;
+				_end_node->parent = root_node;
+				_begin_node = root_node;
+				root_node->right = _end_node;
+		}
+
+		void	_set_end_node(node_pointer const &current_node)
+		{
+			current_node->right = _end_node;
+			_end_node->parent = current_node;
+		}
 };
 
 }
