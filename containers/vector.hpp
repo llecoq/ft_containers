@@ -6,7 +6,7 @@
 /*   By: llecoq <llecoq@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/16 15:57:56 by llecoq            #+#    #+#             */
-/*   Updated: 2022/03/23 10:23:37 by llecoq           ###   ########.fr       */
+/*   Updated: 2022/03/23 16:20:27 by llecoq           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,6 @@ class vector
 		typedef typename iterator_traits<iterator>::difference_type	difference_type;
 		typedef typename allocator_type::size_type					size_type;
 		
-
 	private :
 
 		pointer														_begin;

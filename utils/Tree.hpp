@@ -6,7 +6,7 @@
 /*   By: llecoq <llecoq@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/18 09:23:58 by llecoq            #+#    #+#             */
-/*   Updated: 2022/03/23 14:41:10 by llecoq           ###   ########.fr       */
+/*   Updated: 2022/03/23 16:18:31 by llecoq           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -143,6 +143,9 @@ class Tree
 	*/
 		node_pointer begin() {return _begin_node;}
 		node_pointer end() {return _end_node;}
+
+		node_pointer rbegin() {return _end_node;}
+		node_pointer rend() {return _begin_node;}
 
 	/*
 	** ------------------------------------------------------------ CAPACITY

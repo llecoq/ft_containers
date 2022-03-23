@@ -6,14 +6,12 @@
 /*   By: llecoq <llecoq@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/03 13:20:29 by llecoq            #+#    #+#             */
-/*   Updated: 2022/03/14 13:10:09 by llecoq           ###   ########.fr       */
+/*   Updated: 2022/03/23 16:11:10 by llecoq           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef REVERSE_ITERATOR_HPP
 #define REVERSE_ITERATOR_HPP
-
-#include "random_access_iterator.hpp"
 
 namespace ft
 {
@@ -69,7 +67,10 @@ class reverse_iterator
 
 	reference operator*() const
 	{
-		return (*(_base - 1));
+		iterator_type	tmp = _base;
+
+		tmp--;
+		return (*(tmp));
 	}
 
 	reverse_iterator operator+(difference_type n) const

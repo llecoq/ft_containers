@@ -6,7 +6,7 @@
 /*   By: llecoq <llecoq@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/17 10:54:16 by llecoq            #+#    #+#             */
-/*   Updated: 2022/03/23 13:50:30 by llecoq           ###   ########.fr       */
+/*   Updated: 2022/03/23 16:25:29 by llecoq           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@
 #include <functional>
 
 # include "../iterators/bidirectional_iterator.hpp"
+# include "../iterators/reverse_iterator.hpp"
 # include "../utils/pair.hpp"
 # include "../utils/Tree.hpp"
 
@@ -44,7 +45,7 @@ class map
 		typedef typename allocator_type::const_pointer					const_pointer;
 		typedef bidirectional_iterator<key_type, mapped_type>			iterator;
 		typedef bidirectional_iterator<key_type, mapped_type>			const_iterator;
-		// typedef reverse_iterator<iterator>								reverse_iterator;
+		typedef reverse_iterator<iterator>								reverse_iterator;
 		// typedef reverse_iterator<const_iterator>						const_reverse_iterator;
 		// typedef typename iterator_traits<iterator>::difference_type		difference_type;
 		typedef typename allocator_type::size_type						size_type;
@@ -102,6 +103,9 @@ class map
 		iterator end() {return iterator(_tree.end());}
 	
 		// const_iterator begin() const;
+
+		iterator rbegin() {return reverse_iterator(_tree.rbegin());}
+		iterator rend() {return reverse_iterator(_tree.rend());}
 
 	/*
 	** ------------------------------------------------------------ CAPACITY
