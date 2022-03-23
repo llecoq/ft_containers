@@ -6,7 +6,7 @@
 /*   By: llecoq <llecoq@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/18 09:23:58 by llecoq            #+#    #+#             */
-/*   Updated: 2022/03/23 11:18:03 by llecoq           ###   ########.fr       */
+/*   Updated: 2022/03/23 11:43:44 by llecoq           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,6 @@
 #define TREE_HPP
 
 #include "pair.hpp"
-// #include "../containers/map.hpp"
 
 namespace ft
 {
@@ -134,12 +133,8 @@ class Tree
 		~Tree ()
 		{
 			std::cout << "tree destructor" << std::endl;
-			// _destroy_from_begin(_begin_node);
-			// pourquoi segfault lorsqu'il destroy TestClass ?
 
-			_node_allocator.destroy(_begin_node);
-			// destruct 
-			// deallocate
+			_destroy_from_root(root_node);
 		}
 	/*
 	** ------------------------------------------------------------ ITERATORS
@@ -249,12 +244,15 @@ class Tree
 			_end_node->parent = current_node;
 		}
 
-		void	_destroy_from_begin(node_pointer &current_node)
+		void	_destroy_from_root(node_pointer &current_node)
 		{
-			// (void)current_node;
-			_node_allocator.destroy(current_node);
-			std::cout << "OH" << std::endl;
-			_node_allocator.deallocate(current_node, 1);
+			if (current_node != NULL)
+			{
+				_destroy_from_root(current_node->left);
+				_destroy_from_root(current_node->right);
+				_node_allocator.destroy(current_node);
+				_node_allocator.deallocate(current_node, 1);
+			}
 		}
 };
 
