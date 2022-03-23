@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   bidirectional_iterator_map.hpp                     :+:      :+:    :+:   */
+/*   bidirectional_iterator.hpp                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: llecoq <llecoq@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/18 13:37:15 by llecoq            #+#    #+#             */
-/*   Updated: 2022/03/23 13:49:05 by llecoq           ###   ########.fr       */
+/*   Updated: 2022/03/23 14:23:31 by llecoq           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,15 +91,52 @@ class bidirectional_iterator
 // ++a
 		bidirectional_iterator	& operator++( void )
 		{
-			// _pointer++;
+			// If the current node has a non-null right child,
+				// Take a step down to the right
+				// Then run down to the left as far as possible 
+			// If the current node has a null right child,
+				// move up the tree until we have moved over a left child link
+			if (_node_pointer->right != NULL)
+			{
+				_node_pointer = _node_pointer->right;
+				while (_node_pointer->left != NULL)
+					_node_pointer = _node_pointer->left;
+			}
+			else
+			{
+				pointer	parent = _node_pointer->parent;
+				
+				while (parent != NULL && _node_pointer == parent->right)
+				{
+					_node_pointer = parent;
+					parent = parent->parent;
+				}
+				_node_pointer = parent;
+			}
 			return (*this);
 		}
 
 		bidirectional_iterator	operator++( int )
 		{
 			bidirectional_iterator	tmp(*this);
-			
-			// _pointer++;
+
+			if (_node_pointer->right != NULL)
+			{
+				_node_pointer = _node_pointer->right;
+				while (_node_pointer->left != NULL)
+					_node_pointer = _node_pointer->left;
+			}
+			else
+			{
+				pointer	parent = _node_pointer->parent;
+				
+				while (parent != NULL && _node_pointer == parent->right)
+				{
+					_node_pointer = parent;
+					parent = parent->parent;
+				}
+				_node_pointer = parent;
+			}
 			return (tmp);
 		}
 // a++

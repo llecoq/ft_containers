@@ -6,7 +6,7 @@
 /*   By: llecoq <llecoq@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/18 09:23:58 by llecoq            #+#    #+#             */
-/*   Updated: 2022/03/23 13:37:07 by llecoq           ###   ########.fr       */
+/*   Updated: 2022/03/23 14:36:00 by llecoq           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -178,11 +178,10 @@ class Tree
 				return _set_new_node(new_node, current_node, parent_node);
 			if (_same_key(new_node.element.first, current_node->element.first))
 				return pair<node_pointer, bool>(current_node, false);
-			parent_node = current_node;
 			if (_comp(new_node.element.first, current_node->element.first)) 
-				return insert(new_node, current_node->left); // insert left
+				return insert(new_node, current_node->left, current_node); // insert left
 			else
-				return insert(new_node, current_node->right); // insert right
+				return insert(new_node, current_node->right, current_node); // insert right
 		}
 
 	private :

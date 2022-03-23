@@ -6,7 +6,7 @@
 /*   By: llecoq <llecoq@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/07 15:08:10 by llecoq            #+#    #+#             */
-/*   Updated: 2022/03/23 13:40:00 by llecoq           ###   ########.fr       */
+/*   Updated: 2022/03/23 14:25:49 by llecoq           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -159,7 +159,9 @@ namespace ft
 		std::cout << std::endl;
 		for (int i = COUNT; i < space; i++)
 			std::cout << " ";
-		std::cout << root->element.first << " - " << root->element.second << std::endl;
+		std::cout << root->element.first << " - " << root->element.second;
+		if (root->parent)
+			std::cout << " (parent = " << root->parent->element.first << ")" << std::endl;
 		print2D(root->left, space, end);
 	}
 
