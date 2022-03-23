@@ -6,7 +6,7 @@
 /*   By: llecoq <llecoq@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/18 09:23:58 by llecoq            #+#    #+#             */
-/*   Updated: 2022/03/23 11:43:44 by llecoq           ###   ########.fr       */
+/*   Updated: 2022/03/23 13:37:07 by llecoq           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,10 @@ struct t_node
 		right(NULL)
 	{}
 
-	~t_node() {std::cout << "t_node destructor" << std::endl;}
+	~t_node()
+	{
+		// std::cout << "t_node destructor" << std::endl;
+	}
 };
 
 template < class Key,
@@ -132,8 +135,7 @@ class Tree
 		// destructor
 		~Tree ()
 		{
-			std::cout << "tree destructor" << std::endl;
-
+			// std::cout << "tree destructor" << std::endl;
 			_destroy_from_root(root_node);
 		}
 	/*

@@ -6,7 +6,7 @@
 /*   By: llecoq <llecoq@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/17 10:54:16 by llecoq            #+#    #+#             */
-/*   Updated: 2022/03/22 17:27:25 by llecoq           ###   ########.fr       */
+/*   Updated: 2022/03/23 13:49:30 by llecoq           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -123,7 +123,7 @@ class map
 
 		void	print_tree()
 		{
-			print2D(_tree.root_node, _tree._end_node);
+			printTree(_tree.root_node, _tree._end_node);
 		}
 	
 		// single element (1)	

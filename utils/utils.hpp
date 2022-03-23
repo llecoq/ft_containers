@@ -6,7 +6,7 @@
 /*   By: llecoq <llecoq@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/07 15:08:10 by llecoq            #+#    #+#             */
-/*   Updated: 2022/03/23 10:36:58 by llecoq           ###   ########.fr       */
+/*   Updated: 2022/03/23 13:40:00 by llecoq           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,9 @@
 namespace ft
 {
 
-# define COUNT 10
+	# define COUNT 10
+	# define RANDOM 1
+	# define RANDOMIZED_QUEUE 2
 
 /*
 ** ----------------------------------------------------- LEXICOGRAPHICAL COMPARE
@@ -148,35 +150,57 @@ namespace ft
 
 	// --------------------------------------- print 2D BSC
 	template < typename Node >
-	void print2DUtil(Node *root, int space, Node *end)
+	void	print2D(Node *root, int space, Node *end)
 	{
-		// Base case
 		if (root == NULL || root == end)
 			return;
-	
-		// Increase distance between levels
 		space += COUNT;
-	
-		// Process right child first
-		print2DUtil(root->right, space, end);
-	
-		// Print current node after space
-		// count
+		print2D(root->right, space, end);
 		std::cout << std::endl;
 		for (int i = COUNT; i < space; i++)
 			std::cout << " ";
 		std::cout << root->element.first << " - " << root->element.second << std::endl;
-	
-		// Process left child
-		print2DUtil(root->left, space, end);
+		print2D(root->left, space, end);
 	}
 
 	template < typename Node >
-	void print2D(Node *root, Node *end)
+	void	printTree(Node *root, Node *end)
 	{
-		// Pass initial space count as 0
-		print2DUtil(root, 0, end);
+		print2D(root, 0, end);
 	}
+
+	template < class Map, class Pair >
+	void	fillMap(Map &map, int n, int option = 0)
+	{
+		if (option == RANDOM)
+		{
+			srand (time(NULL));
+			for (int i = 0; i < n; i++)
+				map.insert(Pair (rand() % 1561 , rand() % 154 ) );
+		}
+		else if (option == RANDOMIZED_QUEUE)
+		{
+			map.insert(Pair(5, 5));
+			map.insert(Pair(4, 4));
+			map.insert(Pair(2, 2));
+			map.insert(Pair(3, 3));
+			map.insert(Pair(11, 11));
+			map.insert(Pair(6, 6));
+			map.insert(Pair(1, 1));
+			map.insert(Pair(7, 7));
+			map.insert(Pair(8, 8));
+			map.insert(Pair(10, 10));
+			map.insert(Pair(9, 9));
+			map.insert(Pair(12, 12));
+		}
+		else
+		{
+			for (int i = 0; i < n; i++)
+				map.insert(Pair(i, i));
+		}
+	}
+
+
 
 }
 

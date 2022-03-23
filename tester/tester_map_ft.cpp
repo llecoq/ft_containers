@@ -6,33 +6,27 @@
 /*   By: llecoq <llecoq@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/17 16:42:25 by llecoq            #+#    #+#             */
-/*   Updated: 2022/03/23 11:42:33 by llecoq           ###   ########.fr       */
+/*   Updated: 2022/03/23 13:40:49 by llecoq           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../utils/tester.hpp"
 
+typedef ft::map<int, int> 		ft_map;
+typedef std::map<int, int> 		std_map;
+typedef ft::pair<int, int>		ft_pair;
+typedef std::pair<int, int>		std_pair;
+
+
 int	tester_map_ft()
 {
-	ft::map<char, TestClass>			test;
-	ft::map<char, TestClass>			test2;
-	// test2.insert(ft::pair<char, TestClass>('a', 1));
 
+	ft_map			test;
+	ft::fillMap<ft_map, ft_pair>(test, 10, RANDOMIZED_QUEUE);
 
-	// int i = 0;
-	// for (char c = 'a'; c < 'z'; c++)
-	test.insert(ft::pair<char, TestClass>('e', 5));
-	test.insert(ft::pair<char, TestClass>('d', 4));
-	test.insert(ft::pair<char, TestClass>('b', 2));
-	test.insert(ft::pair<char, TestClass>('c', 3));
-	test.insert(ft::pair<char, TestClass>('k', 11));
-	test.insert(ft::pair<char, TestClass>('f', 6));
-	test.insert(ft::pair<char, TestClass>('a', 1));
-	test.insert(ft::pair<char, TestClass>('g', 7));
-	test.insert(ft::pair<char, TestClass>('h', 8));
-	test.insert(ft::pair<char, TestClass>('j', 10));
-	test.insert(ft::pair<char, TestClass>('i', 9));
-	test.insert(ft::pair<char, TestClass>('l', 12));
+	// std_map			test_std;
+	// ft::fillMap<std_map, std_pair>(test_std, 10, RANDOM);
+
 	std::cout << std::endl;
 	test.print_tree();
 	// std::map<char, TestClass>::iterator	it = test.begin();
