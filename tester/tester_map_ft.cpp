@@ -6,7 +6,7 @@
 /*   By: llecoq <llecoq@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/17 16:42:25 by llecoq            #+#    #+#             */
-/*   Updated: 2022/03/23 14:26:52 by llecoq           ###   ########.fr       */
+/*   Updated: 2022/03/23 14:37:59 by llecoq           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,16 +29,19 @@ int	tester_map_ft()
 
 	std::cout << std::endl;
 	test.print_tree();
-	// ft_map::iterator	it = test.begin();
-	// ft_map::iterator	ite = test.end();
+	ft_map::iterator	it = test.begin();
+	ft_map::iterator	ite = test.end();
 	
 	// std::cout << it->first << std::endl;
 	// std::cout << ite->first << std::endl;
 
 	// it++;
 	// std::cout << it->first << std::endl;	
-	// while (++it != ite)
-	// 	std::cout << it->first << std::endl;
+	while (it != ite)
+	{
+		std::cout << it->first << std::endl;
+		it++;
+	}
 	// std::map<char, TestClass>::iterator	it = test.begin();
 	// std::map<char, TestClass>::iterator	it2 = test.begin();
 	// std::map<char, TestClass>::iterator	ite = test.end();
