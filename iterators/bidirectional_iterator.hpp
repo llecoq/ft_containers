@@ -6,7 +6,7 @@
 /*   By: llecoq <llecoq@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/18 13:37:15 by llecoq            #+#    #+#             */
-/*   Updated: 2022/03/23 14:50:39 by llecoq           ###   ########.fr       */
+/*   Updated: 2022/03/23 14:57:55 by llecoq           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,6 +88,40 @@ class bidirectional_iterator
 
 		bidirectional_iterator	& operator++( void )
 		{
+			_increment();
+			return (*this);
+		}
+
+		bidirectional_iterator	operator++( int )
+		{
+			bidirectional_iterator	tmp(*this);
+
+			_increment();
+			return (tmp);
+		}
+
+		bidirectional_iterator	& operator--( void )
+		{
+			_decrement();
+			return (*this);
+		}
+
+		bidirectional_iterator	operator--( int )
+		{
+			bidirectional_iterator	tmp(*this);
+
+			_decrement();
+			return (tmp);
+		}
+
+// *a++
+
+// *a--
+
+	private :
+
+		void	_increment()
+		{
 			// If the current node has a non-null right child,
 				// Take a step down to the right
 				// Then run down to the left as far as possible 
@@ -110,34 +144,9 @@ class bidirectional_iterator
 				}
 				_node_pointer = parent;
 			}
-			return (*this);
 		}
 
-		bidirectional_iterator	operator++( int )
-		{
-			bidirectional_iterator	tmp(*this);
-
-			if (_node_pointer->right != NULL)
-			{
-				_node_pointer = _node_pointer->right;
-				while (_node_pointer->left != NULL)
-					_node_pointer = _node_pointer->left;
-			}
-			else
-			{
-				pointer	parent = _node_pointer->parent;
-				
-				while (parent != NULL && _node_pointer == parent->right)
-				{
-					_node_pointer = parent;
-					parent = parent->parent;
-				}
-				_node_pointer = parent;
-			}
-			return (tmp);
-		}
-
-		bidirectional_iterator	& operator--( void )
+		void	_decrement()
 		{
 			if (_node_pointer->left != NULL)
 			{
@@ -156,40 +165,7 @@ class bidirectional_iterator
 				}
 				_node_pointer = parent;
 			}
-			return (*this);
 		}
-
-		bidirectional_iterator	operator--( int )
-		{
-			bidirectional_iterator	tmp(*this);
-
-			if (_node_pointer->left != NULL)
-			{
-				_node_pointer = _node_pointer->left;
-				while (_node_pointer->right != NULL)
-					_node_pointer = _node_pointer->right;
-			}
-			else
-			{
-				pointer	parent = _node_pointer->parent;
-				
-				while (parent != NULL && _node_pointer == parent->left)
-				{
-					_node_pointer = parent;
-					parent = parent->parent;
-				}
-				_node_pointer = parent;
-			}
-			return (tmp);
-		}
-
-// a++
-// *a++
-
-// --a
-// a--
-// *a--
-
 };
 
 }
