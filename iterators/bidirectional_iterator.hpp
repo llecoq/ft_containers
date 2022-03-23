@@ -6,7 +6,7 @@
 /*   By: llecoq <llecoq@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/18 13:37:15 by llecoq            #+#    #+#             */
-/*   Updated: 2022/03/23 14:23:31 by llecoq           ###   ########.fr       */
+/*   Updated: 2022/03/23 14:50:39 by llecoq           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,19 +76,16 @@ class bidirectional_iterator
 			return (*(_node_pointer->element));
 		}
 
-// a == b
 		bool	operator==( const bidirectional_iterator &rhs )
 		{
 			return (rhs._node_pointer == _node_pointer);
 		}
 
-// a != b
 		bool	operator!=( const bidirectional_iterator &rhs )
 		{
 			return (!(rhs._node_pointer == _node_pointer));
 		}
 
-// ++a
 		bidirectional_iterator	& operator++( void )
 		{
 			// If the current node has a non-null right child,
@@ -139,6 +136,53 @@ class bidirectional_iterator
 			}
 			return (tmp);
 		}
+
+		bidirectional_iterator	& operator--( void )
+		{
+			if (_node_pointer->left != NULL)
+			{
+				_node_pointer = _node_pointer->left;
+				while (_node_pointer->right != NULL)
+					_node_pointer = _node_pointer->right;
+			}
+			else
+			{
+				pointer	parent = _node_pointer->parent;
+				
+				while (parent != NULL && _node_pointer == parent->left)
+				{
+					_node_pointer = parent;
+					parent = parent->parent;
+				}
+				_node_pointer = parent;
+			}
+			return (*this);
+		}
+
+		bidirectional_iterator	operator--( int )
+		{
+			bidirectional_iterator	tmp(*this);
+
+			if (_node_pointer->left != NULL)
+			{
+				_node_pointer = _node_pointer->left;
+				while (_node_pointer->right != NULL)
+					_node_pointer = _node_pointer->right;
+			}
+			else
+			{
+				pointer	parent = _node_pointer->parent;
+				
+				while (parent != NULL && _node_pointer == parent->left)
+				{
+					_node_pointer = parent;
+					parent = parent->parent;
+				}
+				_node_pointer = parent;
+			}
+			return (tmp);
+		}
+
 // a++
 // *a++
 
