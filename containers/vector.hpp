@@ -6,7 +6,7 @@
 /*   By: llecoq <llecoq@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/16 15:57:56 by llecoq            #+#    #+#             */
-/*   Updated: 2022/03/18 15:40:59 by llecoq           ###   ########.fr       */
+/*   Updated: 2022/03/23 10:23:37 by llecoq           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -126,7 +126,7 @@ class vector
 		{
 			if (_begin != NULL)
 			{
-				_destruct_backward(_end, size());
+				_destroy_backward(_end, size());
 				_allocator.deallocate(_begin, capacity());
 			}
 		}
@@ -161,7 +161,7 @@ class vector
 		void resize (size_type n, value_type val = value_type())
 		{
 			if (n < size())
-				_destruct_backward(_end, size() - n);
+				_destroy_backward(_end, size() - n);
 			else if (n > capacity())
 			{
 				_update_data(_old_vector);
@@ -169,7 +169,7 @@ class vector
 				_set_ptr(_begin + _old_vector.size);
 				_construct_at_end(n - _old_vector.size, val);
 				_construct_backward(_old_vector._end, _old_vector.size);
-				_destruct_backward(_old_vector._end, _old_vector.size);
+				_destroy_backward(_old_vector._end, _old_vector.size);
 				_allocator.deallocate(_old_vector._end, _old_vector.capacity);
 			}
 		}
@@ -192,7 +192,7 @@ class vector
 				_vector_allocation(n);
 				_set_ptr(_begin + _old_vector.size);
 				_construct_backward(_old_vector._end, _old_vector.size);
-				_destruct_backward(_old_vector._end, _old_vector.size);
+				_destroy_backward(_old_vector._end, _old_vector.size);
 				_allocator.deallocate(_old_vector._end, _old_vector.capacity);
 			}
 		}
@@ -270,7 +270,7 @@ class vector
 				if (n > size())
 					_construct_at_end(first, last);
 				else
-					_destruct_backward(_old_vector._begin);
+					_destroy_backward(_old_vector._begin);
 			}
 		}
 
@@ -292,7 +292,7 @@ class vector
 				if (n > size())
 					_construct_at_end(n - size(), val);
 				else
-					_destruct_backward(_old_vector._begin);
+					_destroy_backward(_old_vector._begin);
 			}
 		}
 
@@ -307,7 +307,7 @@ class vector
 				_vector_allocation(_new_capacity());
 				_set_ptr(_begin + _old_vector.size + 1);
 				_construct_backward(_old_vector._end, _old_vector.size, val);
-				_destruct_backward(_old_vector._end, _old_vector.size);
+				_destroy_backward(_old_vector._end, _old_vector.size);
 				_allocator.deallocate(_old_vector._end, _old_vector.capacity);
 			}
 		}
@@ -315,7 +315,7 @@ class vector
 		//------------------------------------------------------------- pop back
 		void pop_back(void)
 		{
-			_destruct_backward(_end, 1);
+			_destroy_backward(_end, 1);
 		}
 
 		//------------------------------------------------ insert single element
@@ -332,7 +332,7 @@ class vector
 				_set_ptr(_begin + insert_position + 1);
 				_construct_backward(insert_ptr, insert_position, val);
 				_construct_at_end(insert_ptr, _old_vector._end);
-				_destruct_backward(_old_vector._end, _old_vector.size);
+				_destroy_backward(_old_vector._end, _old_vector.size);
 				_allocator.deallocate(_old_vector._end, _old_vector.size);
 				position = iterator(_begin + insert_position);
 			}
@@ -360,7 +360,7 @@ class vector
 				_construct_at_end(n, val);
 				_construct_backward(insert_ptr, insert_position);
 				_construct_at_end(insert_ptr, _old_vector._end);
-				_destruct_backward(_old_vector._end, _old_vector.size);
+				_destroy_backward(_old_vector._end, _old_vector.size);
 				_allocator.deallocate(_old_vector._end, _old_vector.size);
 				position = iterator(_begin + insert_position);
 			}
@@ -392,7 +392,7 @@ class vector
 				_construct_at_end(first, last);
 				_construct_backward(insert_ptr, insert_position);
 				_construct_at_end(insert_ptr, _old_vector._end);
-				_destruct_backward(_old_vector._end, _old_vector.size);
+				_destroy_backward(_old_vector._end, _old_vector.size);
 				_allocator.deallocate(_old_vector._end, _old_vector.size);
 				position = iterator(_begin + insert_position);
 			}
@@ -413,7 +413,7 @@ class vector
 				for (iterator it = position; it < (end() - 1); it++)
 					*it = *(it + 1);
 			}	
-			_destruct_backward(_end, 1);
+			_destroy_backward(_end, 1);
 			return position;
 		}
 
@@ -425,7 +425,7 @@ class vector
 				size_type	range_size = last - first;
 				for (iterator it = first; it != (end() - range_size); it++)
 					*it = *(it + range_size);
-				_destruct_backward(_end, range_size);
+				_destroy_backward(_end, range_size);
 			}
 			return last;
 		}
@@ -451,7 +451,7 @@ class vector
 
 		void clear()
 		{
-			_destruct_backward(_end, size());
+			_destroy_backward(_end, size());
 		}
 
 		allocator_type get_allocator() const
@@ -531,13 +531,13 @@ class vector
 	/*
 	** ------------------------------------------------------- DESTRUCT BACKWARD
 	*/		
-		void	_destruct_backward(pointer &end, size_type size)
+		void	_destroy_backward(pointer &end, size_type size)
 		{
 			while (size-- > 0)
 				_allocator.destroy(--end);
 		}
 
-		void	_destruct_backward(pointer new_end)
+		void	_destroy_backward(pointer new_end)
 		{
 			while (_end > new_end)
 				_allocator.destroy(--_end);

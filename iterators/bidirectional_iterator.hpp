@@ -6,7 +6,7 @@
 /*   By: llecoq <llecoq@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/18 13:37:15 by llecoq            #+#    #+#             */
-/*   Updated: 2022/03/22 17:29:01 by llecoq           ###   ########.fr       */
+/*   Updated: 2022/03/23 10:37:41 by llecoq           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,8 +29,8 @@ class bidirectional_iterator
 		typedef	t_node< pair<Key, T> >										_node;
 		typedef	iterator< bidirectional_iterator_tag, _node > 				_node_iterator;
 		typedef iterator< bidirectional_iterator_tag, pair<Key, T> >		_iterator;
-		typedef typename iterator_traits<_iterator>::pointer				_data_pointer;
-		typedef typename iterator_traits<_iterator>::reference				_data_reference;
+		typedef typename iterator_traits<_iterator>::pointer				_element_pointer;
+		typedef typename iterator_traits<_iterator>::reference				_element_reference;
 	
 	public :
 
@@ -58,23 +58,22 @@ class bidirectional_iterator
 		{}
 
 
-
 	/*
 	** ----------------------------------------------------------- MEMBER ACCESS
 	*/
 		reference	operator*( void ) const
 		{
-			return (*(_node_pointer->data));
+			return (*(_node_pointer->element));
 		}
 
-		_data_pointer	operator->( void ) const
+		_element_pointer	operator->( void ) const
 		{
-			return (&_node_pointer->data);
+			return (&_node_pointer->element);
 		}
 
 		reference	operator*( void )
 		{
-			return (*(_node_pointer->data));
+			return (*(_node_pointer->element));
 		}
 
 // a == b

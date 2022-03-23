@@ -6,7 +6,7 @@
 /*   By: llecoq <llecoq@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/17 16:42:25 by llecoq            #+#    #+#             */
-/*   Updated: 2022/03/22 17:37:23 by llecoq           ###   ########.fr       */
+/*   Updated: 2022/03/23 10:59:36 by llecoq           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,14 +34,14 @@ int	tester_map_ft()
 	test.insert(ft::pair<char, TestClass>('i', 9));
 	test.insert(ft::pair<char, TestClass>('l', 12));
 	std::cout << std::endl;
-	test.print_tree();
-	ft::map<char, TestClass>::iterator	it = test.begin();
+	// test.print_tree();
+	// std::map<char, TestClass>::iterator	it = test.begin();
 	// std::map<char, TestClass>::iterator	it2 = test.begin();
-	ft::map<char, TestClass>::iterator	ite = test.end();
+	// std::map<char, TestClass>::iterator	ite = test.end();
 	// ite--;
 
-	std::cout << it->first << std::endl;
-	std::cout << ite->first << std::endl;
+	// std::cout << it->first << std::endl;
+	// std::cout << ite->first << std::endl;
 
 	// std::cout << (it == it2) << std::endl;
 

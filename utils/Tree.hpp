@@ -6,7 +6,7 @@
 /*   By: llecoq <llecoq@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/18 09:23:58 by llecoq            #+#    #+#             */
-/*   Updated: 2022/03/22 17:43:13 by llecoq           ###   ########.fr       */
+/*   Updated: 2022/03/23 11:18:03 by llecoq           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ template <class Pair>
 struct t_node
 {	
 	bool		color;
-	Pair		data;
+	Pair		element;
 	
 	t_node		*parent;
 	t_node		*left;
@@ -40,13 +40,13 @@ struct t_node
 	explicit t_node(Pair const &val)
 	:
 		color(0),
-		data(val),
+		element(val),
 		parent(NULL),
 		left(NULL),
 		right(NULL)
 	{}
 
-	~t_node(){}
+	~t_node() {std::cout << "t_node destructor" << std::endl;}
 };
 
 template < class Key,
@@ -77,7 +77,6 @@ class Tree
 	public :
 		node_pointer											_end_node;
 	private :
-		// node_pointer											_parent_node;
 		allocator_type											_node_allocator;
 		key_compare												_comp;
 		size_type												_size;
@@ -94,7 +93,7 @@ class Tree
 			_node_allocator(alloc),
 			_comp(comp),
 			_size(0)
-		{}
+		{std::cout << "tree default constructor" << std::endl;}
 
 		Tree (const Tree& x)
 		:
@@ -105,6 +104,7 @@ class Tree
 			_comp(x._comp),
 			_size(0)	
 		{
+			std::cout << "tree copy constructor" << std::endl;
 			// copy aaaaall
 		}
 	
@@ -120,6 +120,7 @@ class Tree
 			_comp(comp),
 			_size(0)
 		{
+			std::cout << "tree range constructor" << std::endl;
 			(void)first;
 			(void)last;
 		}
@@ -132,7 +133,11 @@ class Tree
 		// destructor
 		~Tree ()
 		{
-			
+			std::cout << "tree destructor" << std::endl;
+			// _destroy_from_begin(_begin_node);
+			// pourquoi segfault lorsqu'il destroy TestClass ?
+
+			_node_allocator.destroy(_begin_node);
 			// destruct 
 			// deallocate
 		}
@@ -174,10 +179,10 @@ class Tree
 				return _set_new_node(new_node, current_node, parent_node);
 			if (_empty_node(current_node))  // empty node
 				return _set_new_node(new_node, current_node, parent_node);
-			if (_same_key(new_node.data.first, current_node->data.first))
+			if (_same_key(new_node.element.first, current_node->element.first))
 				return pair<node_pointer, bool>(current_node, false);
 			parent_node = current_node;
-			if (_comp(new_node.data.first, current_node->data.first)) 
+			if (_comp(new_node.element.first, current_node->element.first)) 
 				return insert(new_node, current_node->left); // insert left
 			else
 				return insert(new_node, current_node->right); // insert right
@@ -207,9 +212,9 @@ class Tree
 		{
 			if (current_node == root_node)
 				_init_end_node();
-			else if (_comp(_end_node->parent->data.first, current_node->data.first)) // new node is end
+			else if (_comp(_end_node->parent->element.first, current_node->element.first)) // new node is end
 				_set_end_node(current_node);
-			else if (_comp(current_node->data.first, _begin_node->data.first)) // new node is begin
+			else if (_comp(current_node->element.first, _begin_node->element.first)) // new node is begin
 				_begin_node = current_node;
 		}
 
@@ -242,6 +247,14 @@ class Tree
 		{
 			current_node->right = _end_node;
 			_end_node->parent = current_node;
+		}
+
+		void	_destroy_from_begin(node_pointer &current_node)
+		{
+			// (void)current_node;
+			_node_allocator.destroy(current_node);
+			std::cout << "OH" << std::endl;
+			_node_allocator.deallocate(current_node, 1);
 		}
 };
 
