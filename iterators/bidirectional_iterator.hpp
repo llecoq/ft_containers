@@ -6,7 +6,7 @@
 /*   By: llecoq <llecoq@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/18 13:37:15 by llecoq            #+#    #+#             */
-/*   Updated: 2022/03/24 11:14:51 by llecoq           ###   ########.fr       */
+/*   Updated: 2022/03/24 11:19:46 by llecoq           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,29 +29,30 @@ class bidirectional_iterator
 		typedef	t_node< pair<Key, T> >										_node;
 		typedef	iterator< bidirectional_iterator_tag, _node > 				_node_iterator;
 		typedef iterator< bidirectional_iterator_tag, pair<Key, T> >		_iterator;
-		typedef typename iterator_traits<_iterator>::pointer				_element_pointer;
+		// typedef typename iterator_traits<_iterator>::pointer				_element_pointer;
+		typedef typename iterator_traits<_node_iterator>::pointer			_node_pointer;
 		typedef typename iterator_traits<_iterator>::reference				_element_reference;
 	
 	public :
 
 		typedef typename bidirectional_iterator::difference_type			difference_type;
 		typedef typename bidirectional_iterator::value_type					value_type;
-		typedef typename iterator_traits<_node_iterator>::pointer			pointer;
+		typedef typename bidirectional_iterator::pointer					pointer;
 		typedef typename bidirectional_iterator::reference					reference;
 		typedef typename bidirectional_iterator::iterator_category			iterator_category;
 
 	private:
 
-		pointer																_node_pointer;
+		_node_pointer														_node_ptr;
 
 	public :
 		// default
 		bidirectional_iterator()
 		{}
 		
-		bidirectional_iterator(pointer node_pointer)
+		bidirectional_iterator(_node_pointer node_ptr)
 		:
-			_node_pointer(node_pointer)
+			_node_ptr(node_ptr)
 		{}
 
 		~bidirectional_iterator()
@@ -63,27 +64,27 @@ class bidirectional_iterator
 	*/
 		reference	operator*( void ) const
 		{
-			return (_node_pointer->element);
+			return (_node_ptr->element);
 		}
 
-		_element_pointer	operator->( void ) const
+		pointer	operator->( void ) const
 		{
-			return (&_node_pointer->element);
+			return (&_node_ptr->element);
 		}
 
 		reference	operator*( void )
 		{
-			return (_node_pointer->element);
+			return (_node_ptr->element);
 		}
 
 		bool	operator==( const bidirectional_iterator &rhs ) const
 		{
-			return (rhs._node_pointer == _node_pointer);
+			return (rhs._node_ptr == _node_ptr);
 		}
 
 		bool	operator!=( const bidirectional_iterator &rhs ) const
 		{
-			return (!(rhs._node_pointer == _node_pointer));
+			return (!(rhs._node_ptr == _node_ptr));
 		}
 
 		bidirectional_iterator	& operator++( void )
@@ -127,43 +128,43 @@ class bidirectional_iterator
 				// Then run down to the left as far as possible 
 			// If the current node has a null right child,
 				// move up the tree until we have moved over a left child link
-			if (_node_pointer->right != NULL)
+			if (_node_ptr->right != NULL)
 			{
-				_node_pointer = _node_pointer->right;
-				while (_node_pointer->left != NULL)
-					_node_pointer = _node_pointer->left;
+				_node_ptr = _node_ptr->right;
+				while (_node_ptr->left != NULL)
+					_node_ptr = _node_ptr->left;
 			}
 			else
 			{
-				pointer	parent = _node_pointer->parent;
+				_node_pointer	parent = _node_ptr->parent;
 				
-				while (parent != NULL && _node_pointer == parent->right)
+				while (parent != NULL && _node_ptr == parent->right)
 				{
-					_node_pointer = parent;
+					_node_ptr = parent;
 					parent = parent->parent;
 				}
-				_node_pointer = parent;
+				_node_ptr = parent;
 			}
 		}
 
 		void	_decrement()
 		{
-			if (_node_pointer->left != NULL)
+			if (_node_ptr->left != NULL)
 			{
-				_node_pointer = _node_pointer->left;
-				while (_node_pointer->right != NULL)
-					_node_pointer = _node_pointer->right;
+				_node_ptr = _node_ptr->left;
+				while (_node_ptr->right != NULL)
+					_node_ptr = _node_ptr->right;
 			}
 			else
 			{
-				pointer	parent = _node_pointer->parent;
+				_node_pointer	parent = _node_ptr->parent;
 				
-				while (parent != NULL && _node_pointer == parent->left)
+				while (parent != NULL && _node_ptr == parent->left)
 				{
-					_node_pointer = parent;
+					_node_ptr = parent;
 					parent = parent->parent;
 				}
-				_node_pointer = parent;
+				_node_ptr = parent;
 			}
 		}
 };

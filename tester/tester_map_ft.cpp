@@ -6,7 +6,7 @@
 /*   By: llecoq <llecoq@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/17 16:42:25 by llecoq            #+#    #+#             */
-/*   Updated: 2022/03/24 10:40:57 by llecoq           ###   ########.fr       */
+/*   Updated: 2022/03/24 11:20:59 by llecoq           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ int	tester_map_ft()
 {
 
 	ft_map			test;
-	ft::fillMap<ft_map, ft_pair>(test, 50, RANDOM);
+	ft::fillMap<ft_map, ft_pair>(test, 10, RANDOMIZED_QUEUE);
 
 	// ft::fillMap<std_map, std_pair>(test_std, 10, RANDOM);
 
@@ -51,9 +51,11 @@ int	tester_map_ft()
 	ft_map::reverse_iterator	revit = test.rbegin();
 	ft_map::reverse_iterator	revite = test.rend();
 
+	std::cout << "reverse increment" << std::endl;
 	while (revit != revite)
 	{
 		std::cout << revit->first << std::endl;
+		revit++;
 	}
 	
 	// std::map<char, TestClass>::iterator	it = test.begin();
