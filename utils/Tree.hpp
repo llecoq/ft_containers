@@ -6,7 +6,7 @@
 /*   By: llecoq <llecoq@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/18 09:23:58 by llecoq            #+#    #+#             */
-/*   Updated: 2022/03/24 13:08:16 by llecoq           ###   ########.fr       */
+/*   Updated: 2022/03/24 14:12:17 by llecoq           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 #define TREE_HPP
 
 #include "pair.hpp"
+#include "../containers/map.hpp"
 
 namespace ft
 {
@@ -76,9 +77,7 @@ class Tree
 	private:
 
 		node_pointer											_begin_node;
-	public :
 		node_pointer											_end_node;
-	private :
 		allocator_type											_node_allocator;
 		key_compare												_comp;
 		size_type												_size;

@@ -6,7 +6,7 @@
 /*   By: llecoq <llecoq@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/21 11:48:52 by llecoq            #+#    #+#             */
-/*   Updated: 2022/03/24 12:43:54 by llecoq           ###   ########.fr       */
+/*   Updated: 2022/03/24 13:49:25 by llecoq           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,7 @@ int		tester_bidirectional_it()
 		std::cout << it->first << std::endl;
 		it++;
 	}
+	std::cout << "it = " << it->first << std::endl;
 	std::cout << "decrement" << std::endl;
 	while (--it != test.begin())
 		std::cout << it->first << std::endl;
@@ -46,6 +47,8 @@ int		tester_bidirectional_it()
 	
 	ft_map::const_iterator constit = test.begin();
 	ft_map::const_reverse_iterator revconstit = test.rbegin();
+	(void)constit;
+	(void)revconstit;
 
 	return (SUCCESS);
 }

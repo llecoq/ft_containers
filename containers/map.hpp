@@ -6,7 +6,7 @@
 /*   By: llecoq <llecoq@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/17 10:54:16 by llecoq            #+#    #+#             */
-/*   Updated: 2022/03/24 13:02:38 by llecoq           ###   ########.fr       */
+/*   Updated: 2022/03/24 14:34:11 by llecoq           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,6 +55,7 @@ class map
 
 		typedef t_node<value_type>										_t_node;
 		typedef typename Alloc::template rebind<_t_node>::other			_node_allocator;
+		typedef typename _node_allocator::pointer						_node_pointer;
 		typedef	Tree<Key, T, Compare, _node_allocator>					_base;
 
 		_base															_tree;
@@ -121,12 +122,6 @@ class map
 	** ------------------------------------------------------------ ELEMENT ACCESS
 	*/
 
-		// If k matches the key of an element in the container, the function returns a 
-		// reference to its mapped value.
-		// If k does not match the key of any element in the container, the function 
-		// inserts a new element with that key and returns a reference to its mapped value. 
-		// Notice that this always increases the container size by one, even if no mapped 
-		// value is assigned to the element (the element is constructed using its default constructor).
 		mapped_type& operator[] (const key_type& k)
 		{
 			_t_node	tmp(value_type(k, mapped_type()));
@@ -147,12 +142,19 @@ class map
 		// single element (1)	
 		pair<iterator,bool> insert (const value_type& val)
 		{	
-			_t_node	tmp(val);
+			_t_node			tmp(val);
+
 			return (_tree.insert(tmp, _tree.root_node));
 		}
 
 		// with hint (2)	
-		iterator insert (iterator position, const value_type& val);
+		iterator insert (iterator position, const value_type& val)
+		{
+			_t_node	tmp(val);
+			_node_pointer	node_ptr = &position;
+
+			return (_tree.insert(tmp, node_ptr)).first;
+		}
 
 		// range (3)	
 		template <class InputIterator>

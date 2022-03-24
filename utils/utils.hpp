@@ -6,14 +6,12 @@
 /*   By: llecoq <llecoq@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/07 15:08:10 by llecoq            #+#    #+#             */
-/*   Updated: 2022/03/23 14:25:49 by llecoq           ###   ########.fr       */
+/*   Updated: 2022/03/24 14:08:48 by llecoq           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef UTILS_HPP
 #define UTILS_HPP
-
-#include "vector.hpp"
 
 namespace ft
 {
