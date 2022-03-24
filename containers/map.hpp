@@ -6,7 +6,7 @@
 /*   By: llecoq <llecoq@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/17 10:54:16 by llecoq            #+#    #+#             */
-/*   Updated: 2022/03/23 16:25:29 by llecoq           ###   ########.fr       */
+/*   Updated: 2022/03/24 10:39:48 by llecoq           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -104,8 +104,8 @@ class map
 	
 		// const_iterator begin() const;
 
-		iterator rbegin() {return reverse_iterator(_tree.rbegin());}
-		iterator rend() {return reverse_iterator(_tree.rend());}
+		reverse_iterator rbegin() {return reverse_iterator(_tree.rbegin());}
+		reverse_iterator rend() {return reverse_iterator(_tree.rend());}
 
 	/*
 	** ------------------------------------------------------------ CAPACITY

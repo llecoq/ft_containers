@@ -6,7 +6,7 @@
 /*   By: llecoq <llecoq@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/18 13:37:15 by llecoq            #+#    #+#             */
-/*   Updated: 2022/03/23 15:05:19 by llecoq           ###   ########.fr       */
+/*   Updated: 2022/03/24 11:14:51 by llecoq           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ class bidirectional_iterator
 		typedef typename bidirectional_iterator::difference_type			difference_type;
 		typedef typename bidirectional_iterator::value_type					value_type;
 		typedef typename iterator_traits<_node_iterator>::pointer			pointer;
-		typedef typename iterator_traits<_node_iterator>::reference			reference;
+		typedef typename bidirectional_iterator::reference					reference;
 		typedef typename bidirectional_iterator::iterator_category			iterator_category;
 
 	private:
@@ -63,7 +63,7 @@ class bidirectional_iterator
 	*/
 		reference	operator*( void ) const
 		{
-			return (*(_node_pointer->element));
+			return (_node_pointer->element);
 		}
 
 		_element_pointer	operator->( void ) const
@@ -73,15 +73,15 @@ class bidirectional_iterator
 
 		reference	operator*( void )
 		{
-			return (*(_node_pointer->element));
+			return (_node_pointer->element);
 		}
 
-		bool	operator==( const bidirectional_iterator &rhs )
+		bool	operator==( const bidirectional_iterator &rhs ) const
 		{
 			return (rhs._node_pointer == _node_pointer);
 		}
 
-		bool	operator!=( const bidirectional_iterator &rhs )
+		bool	operator!=( const bidirectional_iterator &rhs ) const
 		{
 			return (!(rhs._node_pointer == _node_pointer));
 		}
