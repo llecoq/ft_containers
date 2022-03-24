@@ -6,7 +6,7 @@
 /*   By: llecoq <llecoq@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/18 13:37:15 by llecoq            #+#    #+#             */
-/*   Updated: 2022/03/24 11:19:46 by llecoq           ###   ########.fr       */
+/*   Updated: 2022/03/24 11:24:28 by llecoq           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,16 +22,13 @@ namespace ft
 
 template < class Key, class T >
 class bidirectional_iterator 
-	: virtual public iterator< bidirectional_iterator_tag, pair<Key, T> >
+	: virtual public iterator_traits < iterator< bidirectional_iterator_tag, pair<Key, T> > >
 {
 	private :
 		
 		typedef	t_node< pair<Key, T> >										_node;
 		typedef	iterator< bidirectional_iterator_tag, _node > 				_node_iterator;
-		typedef iterator< bidirectional_iterator_tag, pair<Key, T> >		_iterator;
-		// typedef typename iterator_traits<_iterator>::pointer				_element_pointer;
 		typedef typename iterator_traits<_node_iterator>::pointer			_node_pointer;
-		typedef typename iterator_traits<_iterator>::reference				_element_reference;
 	
 	public :
 
