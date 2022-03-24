@@ -1,18 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   tester_map_ft.cpp                                  :+:      :+:    :+:   */
+/*   tester_map_operator[].cpp                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: llecoq <llecoq@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/03/17 16:42:25 by llecoq            #+#    #+#             */
-/*   Updated: 2022/03/24 13:09:17 by llecoq           ###   ########.fr       */
+/*   Created: 2022/03/24 13:09:33 by llecoq            #+#    #+#             */
+/*   Updated: 2022/03/24 13:10:08 by llecoq           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../utils/tester.hpp"
 
-int	tester_map_ft()
+int	tester_operator[]()
 {
 	std_map			test;
 	
@@ -28,7 +28,6 @@ int	tester_map_ft()
 	b = 6;
 	std::cout << test[15] << std::endl;
 	std::cout << "size = " << test.size() << std::endl;
-	
 
 	return (SUCCESS);
 }

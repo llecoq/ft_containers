@@ -6,7 +6,7 @@
 /*   By: llecoq <llecoq@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/18 09:23:58 by llecoq            #+#    #+#             */
-/*   Updated: 2022/03/23 16:18:31 by llecoq           ###   ########.fr       */
+/*   Updated: 2022/03/24 13:08:16 by llecoq           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,7 +95,9 @@ class Tree
 			_node_allocator(alloc),
 			_comp(comp),
 			_size(0)
-		{std::cout << "tree default constructor" << std::endl;}
+		{
+			// std::cout << "tree default constructor" << std::endl;
+		}
 
 		Tree (const Tree& x)
 		:
