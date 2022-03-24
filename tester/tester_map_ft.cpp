@@ -6,7 +6,7 @@
 /*   By: llecoq <llecoq@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/17 16:42:25 by llecoq            #+#    #+#             */
-/*   Updated: 2022/03/24 11:20:59 by llecoq           ###   ########.fr       */
+/*   Updated: 2022/03/24 11:32:37 by llecoq           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,11 +31,6 @@ int	tester_map_ft()
 	ft_map::iterator	it = test.begin();
 	ft_map::iterator	ite = test.end();
 	
-	// std::cout << it->first << std::endl;
-	// std::cout << ite->first << std::endl;
-
-	// it++;
-	// std::cout << it->first << std::endl;
 	std::cout << "increment" << std::endl;
 	while (it != ite)
 	{
@@ -44,9 +39,7 @@ int	tester_map_ft()
 	}
 	std::cout << "decrement" << std::endl;
 	while (--it != test.begin())
-	{
 		std::cout << it->first << std::endl;
-	}
 
 	ft_map::reverse_iterator	revit = test.rbegin();
 	ft_map::reverse_iterator	revite = test.rend();
@@ -57,28 +50,9 @@ int	tester_map_ft()
 		std::cout << revit->first << std::endl;
 		revit++;
 	}
+	std::cout << "reverse decrement" << std::endl;
+	while (--revit != test.rbegin())
+		std::cout << revit->first << std::endl;
 	
-	// std::map<char, TestClass>::iterator	it = test.begin();
-	// std::map<char, TestClass>::iterator	it2 = test.begin();
-	// std::map<char, TestClass>::iterator	ite = test.end();
-	// ite--;
-
-
-	// std::cout << (it == it2) << std::endl;
-
-	// ft::map<char, int>::iterator::
-
-	// int	i = 0;
-
-
-	// std::cout << "find" << std::endl;
-	// it = test.find('h');
-	// std::cout << "erase" << std::endl;
-	// test.erase('k');
-	// std::cout << "erase done" << std::endl;
-	// std::cout << "insert" << std::endl;
-	// test.insert(std::pair<char, TestClass>('k', 12));
-	// std::cout << "insert done" << std::endl;
-
 	return (SUCCESS);
 }

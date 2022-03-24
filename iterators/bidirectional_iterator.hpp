@@ -6,7 +6,7 @@
 /*   By: llecoq <llecoq@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/18 13:37:15 by llecoq            #+#    #+#             */
-/*   Updated: 2022/03/24 11:24:28 by llecoq           ###   ########.fr       */
+/*   Updated: 2022/03/24 11:26:57 by llecoq           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,24 +26,24 @@ class bidirectional_iterator
 {
 	private :
 		
-		typedef	t_node< pair<Key, T> >										_node;
-		typedef	iterator< bidirectional_iterator_tag, _node > 				_node_iterator;
-		typedef typename iterator_traits<_node_iterator>::pointer			_node_pointer;
+		typedef	t_node< pair<Key, T> >									_node;
+		typedef	iterator< bidirectional_iterator_tag, _node > 			_node_iterator;
+		typedef typename iterator_traits<_node_iterator>::pointer		_node_pointer;
 	
 	public :
 
-		typedef typename bidirectional_iterator::difference_type			difference_type;
-		typedef typename bidirectional_iterator::value_type					value_type;
-		typedef typename bidirectional_iterator::pointer					pointer;
-		typedef typename bidirectional_iterator::reference					reference;
-		typedef typename bidirectional_iterator::iterator_category			iterator_category;
+		typedef typename bidirectional_iterator::difference_type		difference_type;
+		typedef typename bidirectional_iterator::value_type				value_type;
+		typedef typename bidirectional_iterator::pointer				pointer;
+		typedef typename bidirectional_iterator::reference				reference;
+		typedef typename bidirectional_iterator::iterator_category		iterator_category;
 
 	private:
 
-		_node_pointer														_node_ptr;
+		_node_pointer													_node_ptr;
 
 	public :
-		// default
+
 		bidirectional_iterator()
 		{}
 		
