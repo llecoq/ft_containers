@@ -6,7 +6,7 @@
 /*   By: llecoq <llecoq@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/17 10:54:16 by llecoq            #+#    #+#             */
-/*   Updated: 2022/03/24 14:34:11 by llecoq           ###   ########.fr       */
+/*   Updated: 2022/03/25 17:02:18 by llecoq           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -137,6 +137,7 @@ class map
 		void	print_tree()
 		{
 			printTree(_tree.root_node, _tree._end_node);
+			std::cout << std::endl;
 		}
 	
 		// single element (1)	
@@ -148,17 +149,96 @@ class map
 		}
 
 		// with hint (2)	
+		// iterator insert (iterator position, const value_type& val)
+		// {
+		// 	_t_node			tmp(val);
+		// 	// iterator		upper_bound(position);
+			
+		// 	if (size() < 2)
+		// 		return _tree.insert(tmp, _tree.root_node).first;
+		// 	if (position == end())
+		// 	{
+		// 		iterator		lower_bound(position);
+		// 		_node_pointer	node_ptr = &(--lower_bound);
+				
+		// 		if (key_compare()(lower_bound->first, val.first)) // si val > --end()
+		// 			return _tree.insert(tmp, node_ptr).first;
+		// 		else
+		// 			return _tree.insert(tmp, _tree.root_node).first;
+		// 	}
+		// 	if (position == begin())
+		// 	{
+		// 		_node_pointer	node_ptr = &position;
+
+		// 		if (key_compare()(val.first, position->first)) // si val < begin()
+		// 			return _tree.insert(tmp, node_ptr).first;
+		// 		else
+		// 			return _tree.insert(tmp, _tree.root_node).first;
+		// 	}
+			
+		// 	return (_tree.insert(tmp, _tree.root_node)).first;
+		// }
+
 		iterator insert (iterator position, const value_type& val)
 		{
-			_t_node	tmp(val);
-			_node_pointer	node_ptr = &position;
+			if (size() < 2)
+				return _tree.insert(_t_node(val), _tree.root_node).first;
+			if (position == end() || key_compare()(val.first, position->first))
+			{
+				if (position == begin())
+				{
+					_node_pointer	insert_position = &position;
+					_node_pointer	parent = insert_position->parent;
 
-			return (_tree.insert(tmp, node_ptr)).first;
+					return _tree.insert(_t_node(val), insert_position->left, parent).first;
+				}
+				return _check_before_position(--position, val);
+			}
+			else if (key_compare()(position->first, val.first))
+				return _check_after_position(++position, val);
+			return (position);
 		}
+
 
 		// range (3)	
 		template <class InputIterator>
 		void insert (InputIterator first, InputIterator last);
+
+	/*
+	** -------------------------------------------------------------- OPERATIONS
+	*/
+		iterator find (const key_type& k)
+		{
+			return _tree.find(k);
+		}
+		
+		const_iterator find (const key_type& k) const;
+
+	private :
+
+		iterator	_check_before_position(iterator position, const value_type &val)
+		{
+			if (position == begin() || key_compare()(position->first, val.first))
+			{
+				_node_pointer	insert_position = &position;
+				_node_pointer	parent = insert_position->parent;
+				
+				return _tree.insert(_t_node(val), insert_position, parent).first;
+			}
+			return _check_before_position(--position, val);
+		}
+
+		iterator	_check_after_position(iterator position, const value_type &val)
+		{
+			if (position == --end() || key_compare()(val.first, position->first))
+			{
+				_node_pointer	insert_position = &position;
+				_node_pointer	parent = insert_position->parent;
+
+				return _tree.insert(_t_node(val), insert_position, parent).first;
+			}
+			return _check_after_position(++position, val);
+		}
 
 };
 

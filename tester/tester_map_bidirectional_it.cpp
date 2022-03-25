@@ -6,7 +6,7 @@
 /*   By: llecoq <llecoq@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/21 11:48:52 by llecoq            #+#    #+#             */
-/*   Updated: 2022/03/24 13:49:25 by llecoq           ###   ########.fr       */
+/*   Updated: 2022/03/25 12:34:21 by llecoq           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,11 +27,12 @@ int		tester_bidirectional_it()
 		std::cout << it->first << std::endl;
 		it++;
 	}
-	std::cout << "it = " << it->first << std::endl;
+	// std::cout << "it = " << it->first << std::endl;
+	// it++;  // segfault like the original
 	std::cout << "decrement" << std::endl;
 	while (--it != test.begin())
 		std::cout << it->first << std::endl;
-
+	it--;  // original segfault but mine doesnt at this stage but segfault if one more it--;
 	ft_map::reverse_iterator	revit = test.rbegin();
 	ft_map::reverse_iterator	revite = test.rend();
 

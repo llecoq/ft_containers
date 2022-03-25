@@ -6,7 +6,7 @@
 /*   By: llecoq <llecoq@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/18 09:23:58 by llecoq            #+#    #+#             */
-/*   Updated: 2022/03/24 14:12:17 by llecoq           ###   ########.fr       */
+/*   Updated: 2022/03/25 16:11:28 by llecoq           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,7 +77,9 @@ class Tree
 	private:
 
 		node_pointer											_begin_node;
-		node_pointer											_end_node;
+	public :
+		node_pointer											_end_node; // en public pour printTree
+	private :
 		allocator_type											_node_allocator;
 		key_compare												_comp;
 		size_type												_size;
@@ -188,7 +190,30 @@ class Tree
 				return insert(new_node, current_node->right, current_node); // insert right
 		}
 
+	/*
+	** -------------------------------------------------------------- OPERATIONS
+	*/
+
+		node_pointer	find(const key_type &k)
+		{
+			return _find_key(k, root_node);
+		}
+
+
 	private :
+
+		node_pointer	_find_key(const key_type &k, node_pointer &current_node)
+		{
+			if (current_node->left == NULL && current_node->right == NULL)
+				return _end_node;
+			if (_same_key(k, current_node->element.first))
+				return (current_node);
+			if (_comp(k, current_node->element.first) && current_node->left != NULL) 
+				return _find_key(k, current_node->left); // _find_key left
+			else if (current_node->right != NULL)
+				return _find_key(k, current_node->right); // _find_key right
+			return _end_node;
+		}
 
 		node_pointer	_create_node(const t_node& new_node)
 		{
