@@ -6,7 +6,7 @@
 /*   By: llecoq <llecoq@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/17 16:42:25 by llecoq            #+#    #+#             */
-/*   Updated: 2022/03/25 17:01:14 by llecoq           ###   ########.fr       */
+/*   Updated: 2022/03/25 17:04:31 by llecoq           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,6 +65,7 @@ int	tester_map_ft()
 	std::cout << "find 3 = " << mymap.find(3)->second << std::endl;
 	std::cout << "find 2 = " << mymap.find(2)->second << std::endl;
 	std::cout << "find 27 = " << mymap.find(27)->second << std::endl;
+	std::cout << "find 90 = " << mymap.find(90)->second << std::endl;
 	std::cout << "size = " << mymap.size() << std::endl;
 	// it = mymap.insert (mymap.begin(), ft_pair(50, 90));
 
