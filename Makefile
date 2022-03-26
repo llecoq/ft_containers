@@ -6,7 +6,7 @@
 #    By: llecoq <llecoq@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/11/16 11:27:48 by llecoq            #+#    #+#              #
-#    Updated: 2022/03/25 15:59:13 by llecoq           ###   ########.fr        #
+#    Updated: 2022/03/26 12:43:53 by llecoq           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -27,11 +27,11 @@ ITERATORS_FILES =  			iterator.hpp\
 							bidirectional_iterator.hpp\
 							reverse_iterator.hpp
 
-TESTER_FILES =				tester_vector_ft.cpp\
-							tester_map_ft.cpp\
+TESTER_FILES =				tester_map_ft.cpp\
 							tester_map_bidirectional_it.cpp\
 							TestClass.cpp
 							# tester_vector_std.cpp\
+							# tester_vector_ft.cpp\
 							# tester_pair.cpp\
 							# tester_stack_ft.cpp\
 							# tester_stack_std.cpp\
@@ -63,7 +63,7 @@ RM		= rm -rf
 
 # CFLAGS	= -Wall -Wextra -Werror -std=c++98
 
-CFLAGS	= -Wall -Wextra -Werror -std=c++98 -g3 -fsanitize=address
+CFLAGS	= -Wall -Wextra -Werror -std=c++98 -g3 -fsanitize=address 
 
 DIR		=	.objs/
 

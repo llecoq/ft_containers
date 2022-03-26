@@ -6,7 +6,7 @@
 /*   By: llecoq <llecoq@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/16 15:57:56 by llecoq            #+#    #+#             */
-/*   Updated: 2022/03/24 11:40:42 by llecoq           ###   ########.fr       */
+/*   Updated: 2022/03/26 12:13:54 by llecoq           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,7 +89,7 @@ class vector
 		vector (InputIterator first, InputIterator last,
 			const allocator_type& alloc = allocator_type(),
 			typename enable_if<!is_integral<InputIterator>::value
-			&& !std::is_floating_point<InputIterator>::value, InputIterator>::type* = 0)
+			&& !is_floating_point<InputIterator>::value, InputIterator>::type* = 0)
 		:
 			_begin(NULL),
 			_end(NULL),
@@ -250,7 +250,7 @@ class vector
 		template <class InputIterator>
 		void assign (InputIterator first, InputIterator last,
 			typename enable_if<!is_integral<InputIterator>::value
-			&& !std::is_floating_point<InputIterator>::value, InputIterator>::type* = 0)
+			&& !is_floating_point<InputIterator>::value, InputIterator>::type* = 0)
 		{
 			size_type	n = static_cast<size_type>(last - first);
 
@@ -376,7 +376,7 @@ class vector
 		template <class InputIterator>
 		void insert (iterator position, InputIterator first, InputIterator last,
 			typename enable_if<!is_integral<InputIterator>::value
-			&& !std::is_floating_point<InputIterator>::value, InputIterator>::type* = 0)
+			&& !is_floating_point<InputIterator>::value, InputIterator>::type* = 0)
 		{
 			size_type	insert_position = static_cast<size_type>(position - begin());
 			size_type	n = static_cast<size_type>(last - first);
@@ -506,7 +506,7 @@ class vector
 		template <typename InputIterator>
 		void	_construct_at_end(InputIterator begin, InputIterator end,
 				typename enable_if<!is_integral<InputIterator>::value
-				&& !std::is_floating_point<InputIterator>::value, InputIterator>::type* = 0)
+				&& !is_floating_point<InputIterator>::value, InputIterator>::type* = 0)
 		{
 			while (begin != end)
 				_allocator.construct(_end++, *begin++);

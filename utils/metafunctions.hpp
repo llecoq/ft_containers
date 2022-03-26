@@ -6,7 +6,7 @@
 /*   By: llecoq <llecoq@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/10 11:04:14 by llecoq            #+#    #+#             */
-/*   Updated: 2022/03/17 10:56:47 by llecoq           ###   ########.fr       */
+/*   Updated: 2022/03/26 12:13:18 by llecoq           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,14 +63,14 @@ namespace	ft
 	template<> struct is_integral_base<unsigned char> : true_type {};
 	template<> struct is_integral_base<const unsigned char> : true_type {};
 	template<> struct is_integral_base<volatile unsigned char> : true_type {};
-	// -------------------------- char16_t
-	template<> struct is_integral_base<char16_t> : true_type {};
-	template<> struct is_integral_base<const char16_t> : true_type {};
-	template<> struct is_integral_base<volatile char16_t> : true_type {};
-	// -------------------------- char32_t
-	template<> struct is_integral_base<char32_t> : true_type {};
-	template<> struct is_integral_base<const char32_t> : true_type {};
-	template<> struct is_integral_base<volatile char32_t> : true_type {};
+	// // -------------------------- char16_t
+	// template<> struct is_integral_base<char16_t> : true_type {};
+	// template<> struct is_integral_base<const char16_t> : true_type {};
+	// template<> struct is_integral_base<volatile char16_t> : true_type {};
+	// // -------------------------- char32_t
+	// template<> struct is_integral_base<char32_t> : true_type {};
+	// template<> struct is_integral_base<const char32_t> : true_type {};
+	// template<> struct is_integral_base<volatile char32_t> : true_type {};
 	// -------------------------- wchar_t
 	template<> struct is_integral_base<wchar_t> : true_type {};
 	template<> struct is_integral_base<const wchar_t> : true_type {};
@@ -106,6 +106,28 @@ namespace	ft
 
 	template <class T>
 	struct is_integral : is_integral_base<T> {};
+
+/*
+** ----------------------------------------------------------------- IS_FLOATING_POINT
+*/
+	template <typename>
+	struct	is_floating_point_base : false_type {};
+
+	// -------------------------- float
+	template<> struct is_floating_point_base<float> : true_type {};
+	template<> struct is_floating_point_base<const float> : true_type {};
+	template<> struct is_floating_point_base<volatile float> : true_type {};
+	// -------------------------- double
+	template<> struct is_floating_point_base<double> : true_type {};
+	template<> struct is_floating_point_base<const double> : true_type {};
+	template<> struct is_floating_point_base<volatile double> : true_type {};
+	// -------------------------- long double
+	template<> struct is_floating_point_base<long double> : true_type {};
+	template<> struct is_floating_point_base<const long double> : true_type {};
+	template<> struct is_floating_point_base<volatile long double> : true_type {};
+
+	template< class T >
+	struct is_floating_point : is_floating_point_base<T> {};
 
 }
 

@@ -6,7 +6,7 @@
 /*   By: llecoq <llecoq@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/18 09:23:58 by llecoq            #+#    #+#             */
-/*   Updated: 2022/03/25 17:05:59 by llecoq           ###   ########.fr       */
+/*   Updated: 2022/03/26 12:31:07 by llecoq           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,8 +69,8 @@ class Tree
 		typedef typename allocator_type::pointer				node_pointer;
 		typedef typename allocator_type::const_pointer			const_node_pointer;
 		typedef typename allocator_type::size_type				size_type;
-		typedef t_node < pair<key_type, mapped_type> >			t_node;
 		typedef pair<key_type, mapped_type>						value_type;
+		typedef t_node < value_type >							node;
 
 		node_pointer											root_node;
 
@@ -144,6 +144,19 @@ class Tree
 	/*
 	** ------------------------------------------------------------ ITERATORS
 	*/
+		key_type	get_root_key()
+		{
+			return root_node->element.first;
+		}
+
+		node_pointer	get_root_node()
+		{
+			return root_node;
+		}
+
+	/*
+	** ------------------------------------------------------------ ITERATORS
+	*/
 		node_pointer begin() {return _begin_node;}
 		node_pointer end() {return _end_node;}
 
@@ -175,7 +188,7 @@ class Tree
 	/*
 	** ------------------------------------------------------------ MODIFIERS
 	*/
-		pair<node_pointer, bool> insert (const t_node &new_node, node_pointer &current_node,
+		pair<node_pointer, bool> insert (const node &new_node, node_pointer &current_node,
 											node_pointer parent_node = NULL)
 		{
 			if (_empty_tree()) // empty tree
@@ -215,7 +228,7 @@ class Tree
 			return _end_node;
 		}
 
-		node_pointer	_create_node(const t_node& new_node)
+		node_pointer	_create_node(const node& new_node)
 		{
 			node_pointer	tmp = _node_allocator.allocate(1);
 
@@ -223,7 +236,7 @@ class Tree
 			return (tmp);
 		}
 
-		pair<node_pointer, bool>	_set_new_node(const t_node &new_node, node_pointer &current_node,
+		pair<node_pointer, bool>	_set_new_node(const node &new_node, node_pointer &current_node,
 													node_pointer const &parent_node)
 		{
 			current_node = _create_node(new_node);

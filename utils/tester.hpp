@@ -6,7 +6,7 @@
 /*   By: llecoq <llecoq@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/27 14:49:09 by llecoq            #+#    #+#             */
-/*   Updated: 2022/03/25 15:30:10 by llecoq           ###   ########.fr       */
+/*   Updated: 2022/03/26 12:38:17 by llecoq           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,8 @@
 #include <fstream>
 #include <string>
 #include <cstdlib>
+#include <memory>
+
 
 # include <vector>
 # include <stack>
