@@ -6,7 +6,7 @@
 /*   By: llecoq <llecoq@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/18 09:23:58 by llecoq            #+#    #+#             */
-/*   Updated: 2022/03/26 12:31:07 by llecoq           ###   ########.fr       */
+/*   Updated: 2022/03/26 13:23:24 by llecoq           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,6 +67,7 @@ class Tree
 		typedef Alloc											allocator_type;
 
 		typedef typename allocator_type::pointer				node_pointer;
+		typedef typename allocator_type::reference				node_reference;
 		typedef typename allocator_type::const_pointer			const_node_pointer;
 		typedef typename allocator_type::size_type				size_type;
 		typedef pair<key_type, mapped_type>						value_type;
@@ -144,7 +145,7 @@ class Tree
 	/*
 	** ------------------------------------------------------------ ITERATORS
 	*/
-		key_type	get_root_key()
+		key_type	get_root_key() const
 		{
 			return root_node->element.first;
 		}
