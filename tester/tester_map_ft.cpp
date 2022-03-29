@@ -6,7 +6,7 @@
 /*   By: llecoq <llecoq@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/17 16:42:25 by llecoq            #+#    #+#             */
-/*   Updated: 2022/03/29 16:14:26 by llecoq           ###   ########.fr       */
+/*   Updated: 2022/03/29 17:20:52 by llecoq           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,38 +38,36 @@ int	tester_map_ft()
 	
 	// first insert function version (single parameter):
 	mymap.insert ( ft_pair(6, 100) );
-	// mymap.insert ( ft_pair(26, 200) );
-	mymap.insert ( ft_pair(3, 200) );
-	mymap.insert ( ft_pair(4, 200) );
+	mymap.insert ( ft_pair(26, 200) );
 	
-	// ft::pair<ft_map::iterator,bool> ret;
-	// ret = mymap.insert ( ft_pair(26, 500) );
-	// if (ret.second==false)
-	// {
-	// 	std::cout << "element 26 already existed";
-	// 	std::cout << " with a value of " << ret.first->second << std::endl;
-	// }
+	ft::pair<ft_map::iterator,bool> ret;
+	ret = mymap.insert ( ft_pair(26, 500) );
+	if (ret.second==false)
+	{
+		std::cout << "element 26 already existed";
+		std::cout << " with a value of " << ret.first->second << std::endl;
+	}
 	
-	// // second insert function version (with hint position):
+	// second insert function version (with hint position):
 	ft_map::iterator it = mymap.end();
-	// std::cout << "size = " << mymap.size() << std::endl;
-	// mymap.insert (it, ft_pair(3, 300));  // max efficiency inserting
-	// std::cout << "size = " << mymap.size() << std::endl;
-	// it = mymap.insert (it, ft_pair(4, 400));
-	// std::cout << "it->second 4 = " << it->second << std::endl;
-	// it = mymap.insert (mymap.end(), ft_pair(27, 700));
-	// std::cout << "it->second 27 = " << it->second << std::endl;
-	// it = mymap.insert (mymap.begin(), ft_pair(2, 900));
-	// it = mymap.insert (mymap.end(), ft_pair(1, 30));
-	// mymap.insert(it, ft_pair(90, 1)); // insert problem
-	// std::cout << "it->second 1 = " << it->second << std::endl;
-	// std::cout << "find 4 = " << mymap.find(4)->second << std::endl;
-	// std::cout << "find 3 = " << mymap.find(3)->second << std::endl;
-	// std::cout << "find 2 = " << mymap.find(2)->second << std::endl;
-	// std::cout << "find 27 = " << mymap.find(27)->second << std::endl;
-	// std::cout << "find 90 = " << mymap.find(90)->second << std::endl;
-	// std::cout << "size = " << mymap.size() << std::endl;
-	// ft::fillMap<ft_map, ft_pair>(mymap, 20, RANDOMIZED_QUEUE);
+	std::cout << "size = " << mymap.size() << std::endl;
+	mymap.insert (it, ft_pair(3, 300));  // max efficiency inserting
+	std::cout << "size = " << mymap.size() << std::endl;
+	it = mymap.insert (it, ft_pair(4, 400));
+	std::cout << "it->second 4 = " << it->second << std::endl;
+	it = mymap.insert (mymap.end(), ft_pair(27, 700));
+	std::cout << "it->second 27 = " << it->second << std::endl;
+	it = mymap.insert (mymap.begin(), ft_pair(2, 900));
+	it = mymap.insert (mymap.end(), ft_pair(1, 30));
+	mymap.insert(it, ft_pair(90, 1)); // insert problem
+	std::cout << "it->second 1 = " << it->second << std::endl;
+	std::cout << "find 4 = " << mymap.find(4)->second << std::endl;
+	std::cout << "find 3 = " << mymap.find(3)->second << std::endl;
+	std::cout << "find 2 = " << mymap.find(2)->second << std::endl;
+	std::cout << "find 27 = " << mymap.find(27)->second << std::endl;
+	std::cout << "find 90 = " << mymap.find(90)->second << std::endl;
+	std::cout << "size = " << mymap.size() << std::endl;
+	ft::fillMap<ft_map, ft_pair>(mymap, 20, RANDOMIZED_QUEUE);
 	// it = mymap.find(1);
 	// mymap.erase(it);
 	// it = mymap.find(27);

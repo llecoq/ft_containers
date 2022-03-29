@@ -6,7 +6,7 @@
 /*   By: llecoq <llecoq@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/18 09:23:58 by llecoq            #+#    #+#             */
-/*   Updated: 2022/03/29 16:54:54 by llecoq           ###   ########.fr       */
+/*   Updated: 2022/03/29 17:19:51 by llecoq           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -247,7 +247,7 @@ class Tree
 	** -------------------------------------------------------------- OPERATIONS
 	*/
 
-		node_pointer	_find_successor(node_pointer &current_node)
+		node_pointer	_find_successor(node_pointer current_node)
 		{
 			while (current_node->right != NULL)
 				current_node = current_node->right;
