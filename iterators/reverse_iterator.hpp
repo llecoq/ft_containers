@@ -6,7 +6,7 @@
 /*   By: llecoq <llecoq@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/03 13:20:29 by llecoq            #+#    #+#             */
-/*   Updated: 2022/03/24 11:12:12 by llecoq           ###   ########.fr       */
+/*   Updated: 2022/03/29 10:29:02 by llecoq           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 
 namespace ft
 {
+
 template <class Iterator>
 class reverse_iterator 
 {
@@ -49,7 +50,7 @@ class reverse_iterator
 		return (_base);
 	}
 
-	iterator_type	&operator=( iterator_type const &rhs )
+	iterator_type	&operator=( iterator_type const &rhs ) const
 	{
 		_base = rhs;
 		return *this;

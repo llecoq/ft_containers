@@ -6,29 +6,27 @@
 /*   By: llecoq <llecoq@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/27 14:49:09 by llecoq            #+#    #+#             */
-/*   Updated: 2022/03/26 12:38:17 by llecoq           ###   ########.fr       */
+/*   Updated: 2022/03/29 09:32:39 by llecoq           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef TESTER_HPP
 #define TESTER_HPP
 
-#include <iostream>
-#include <fstream>
-#include <string>
-#include <cstdlib>
-#include <memory>
-
-
-# include <vector>
-# include <stack>
-# include <map>
-
 #  include "../containers/vector.hpp"
 #  include "../containers/stack.hpp"
 #  include "../containers/map.hpp"
 #  include "TestClass.hpp"
 #  include "metafunctions.hpp"
+
+// #include <iostream>
+#include <string>
+// #include <cstdlib>
+
+# include <vector>
+# include <stack>
+# include <map>
+# include <stdio.h>
 
 int		tester_vector_ft();
 int		tester_vector_std();

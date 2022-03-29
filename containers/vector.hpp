@@ -6,20 +6,21 @@
 /*   By: llecoq <llecoq@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/16 15:57:56 by llecoq            #+#    #+#             */
-/*   Updated: 2022/03/26 12:13:54 by llecoq           ###   ########.fr       */
+/*   Updated: 2022/03/29 11:41:50 by llecoq           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef VECTOR_HPP
 #define VECTOR_HPP
 
-#include <memory>
-#include <stdexcept>
-#include <limits>
 #include "../iterators/random_access_iterator.hpp"
 #include "../iterators/reverse_iterator.hpp"
 #include "../utils/utils.hpp"
 #include "../utils/metafunctions.hpp"
+
+#include <memory>
+#include <stdexcept>
+#include <limits>
 
 namespace	ft
 {
@@ -40,10 +41,11 @@ class vector
 		typedef typename allocator_type::reference					reference;
 		typedef typename allocator_type::const_reference			const_reference;
 		typedef typename allocator_type::pointer					pointer;
+		typedef typename allocator_type::const_pointer				const_pointer;
 		typedef random_access_iterator<value_type>					iterator;
-		typedef random_access_iterator<value_type>					const_iterator;
-		typedef ft::reverse_iterator<iterator>						reverse_iterator;
-		typedef ft::reverse_iterator<const_iterator>				const_reverse_iterator;
+		typedef random_access_iterator<const value_type>			const_iterator;
+		typedef ft::reverse_iterator<iterator>							reverse_iterator;
+		typedef ft::reverse_iterator<const_iterator>					const_reverse_iterator;
 		typedef typename iterator_traits<iterator>::difference_type	difference_type;
 		typedef typename allocator_type::size_type					size_type;
 		

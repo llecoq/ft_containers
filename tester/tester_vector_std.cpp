@@ -6,7 +6,7 @@
 /*   By: llecoq <llecoq@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/27 14:26:55 by llecoq            #+#    #+#             */
-/*   Updated: 2022/03/16 16:25:38 by llecoq           ###   ########.fr       */
+/*   Updated: 2022/03/29 09:15:45 by llecoq           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -487,16 +487,16 @@ int	tester_vector_std(void)
 		std::cout << ft::is_integral<unsigned char>::value << std::endl;
 		std::cout << ft::is_integral<const unsigned char>::value << std::endl;
 		std::cout << ft::is_integral<volatile unsigned char>::value << std::endl;
-		//	char16_t
-		std::cout << "char16_t :" << std::endl;
-		std::cout << ft::is_integral<char16_t>::value << std::endl;
-		std::cout << ft::is_integral<const char16_t>::value << std::endl;
-		std::cout << ft::is_integral<volatile char16_t>::value << std::endl;
-		//	char32_t
-		std::cout << "char32_t :" << std::endl;
-		std::cout << ft::is_integral<char32_t>::value << std::endl;
-		std::cout << ft::is_integral<const char32_t>::value << std::endl;
-		std::cout << ft::is_integral<volatile char32_t>::value << std::endl;
+		// //	char16_t
+		// std::cout << "char16_t :" << std::endl;
+		// std::cout << ft::is_integral<char16_t>::value << std::endl;
+		// std::cout << ft::is_integral<const char16_t>::value << std::endl;
+		// std::cout << ft::is_integral<volatile char16_t>::value << std::endl;
+		// //	char32_t
+		// std::cout << "char32_t :" << std::endl;
+		// std::cout << ft::is_integral<char32_t>::value << std::endl;
+		// std::cout << ft::is_integral<const char32_t>::value << std::endl;
+		// std::cout << ft::is_integral<volatile char32_t>::value << std::endl;
 		//	wchar_t
 		std::cout << "wchar_t :" << std::endl;
 		std::cout << ft::is_integral<wchar_t>::value << std::endl;

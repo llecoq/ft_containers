@@ -6,15 +6,14 @@
 /*   By: llecoq <llecoq@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/18 09:23:58 by llecoq            #+#    #+#             */
-/*   Updated: 2022/03/26 13:23:24 by llecoq           ###   ########.fr       */
+/*   Updated: 2022/03/29 09:26:07 by llecoq           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef TREE_HPP
 #define TREE_HPP
 
-#include "pair.hpp"
-#include "../containers/map.hpp"
+#include <iostream>
 
 namespace ft
 {

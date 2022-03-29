@@ -6,12 +6,14 @@
 /*   By: llecoq <llecoq@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/07 15:08:10 by llecoq            #+#    #+#             */
-/*   Updated: 2022/03/25 12:03:02 by llecoq           ###   ########.fr       */
+/*   Updated: 2022/03/29 09:28:46 by llecoq           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef UTILS_HPP
 #define UTILS_HPP
+
+#include <cstdlib>
 
 namespace ft
 {
