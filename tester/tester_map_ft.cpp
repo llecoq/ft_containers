@@ -6,7 +6,7 @@
 /*   By: llecoq <llecoq@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/17 16:42:25 by llecoq            #+#    #+#             */
-/*   Updated: 2022/03/29 17:28:28 by llecoq           ###   ########.fr       */
+/*   Updated: 2022/03/29 20:41:07 by llecoq           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,6 +59,7 @@ int	tester_map_ft()
 	std::cout << "it->second 27 = " << it->second << std::endl;
 	it = mymap.insert (mymap.begin(), ft_pair(2, 900));
 	it = mymap.insert (mymap.end(), ft_pair(1, 30));
+	it = mymap.insert (mymap.end(), ft_pair(, 30));
 	mymap.insert(it, ft_pair(90, 1)); // insert problem
 	std::cout << "it->second 1 = " << it->second << std::endl;
 	std::cout << "find 4 = " << mymap.find(4)->second << std::endl;
@@ -66,19 +67,24 @@ int	tester_map_ft()
 	std::cout << "find 2 = " << mymap.find(2)->second << std::endl;
 	std::cout << "find 27 = " << mymap.find(27)->second << std::endl;
 	std::cout << "find 90 = " << mymap.find(90)->second << std::endl;
+	mymap.insert(ft_pair(5, 5));
 	std::cout << "size = " << mymap.size() << std::endl;
 	ft::fillMap<ft_map, ft_pair>(mymap, 20, RANDOMIZED_QUEUE);
+	ft::fillMap<ft_map, ft_pair>(mymap, 20, RANDOM);
 	// it = mymap.find(1);
 	// mymap.erase(it);
 	// it = mymap.find(27);
 	// mymap.erase(it);
 	// it = mymap.find(11);
 	// mymap.erase(it);
-	it = mymap.find(6);
-	mymap.erase(it);
+	// it = mymap.find(6);
+	// mymap.erase(it);
 
 	mymap.erase(90);
-	// it = mymap.begin();
+	it = mymap.begin();
+	mymap.erase(mymap.begin(), it);
+	// ietartor a tester apres full erase
+	
 	// while (it != mymap.end())
 	// {
 	// 	std::cout << it->first << std::endl;

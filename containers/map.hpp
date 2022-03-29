@@ -6,7 +6,7 @@
 /*   By: llecoq <llecoq@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/17 10:54:16 by llecoq            #+#    #+#             */
-/*   Updated: 2022/03/29 17:27:27 by llecoq           ###   ########.fr       */
+/*   Updated: 2022/03/29 18:25:41 by llecoq           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -161,7 +161,7 @@ class map
 				|| _position_is_after_insert(current_position, val.first))
 			{
 				if (position == begin())
-					return _tree.insert(_t_node(val), current_position->left, parent).first;
+					return _tree.insert(_t_node(val), current_position->left, current_position).first;
 				return _check_before_position(parent, val);
 			}
 			else if (_position_is_before_insert(current_position, val.first))
@@ -194,6 +194,18 @@ class map
 				return	1;
 			}
 			return 0;
+		}
+
+		// enable if iterator and const_iterator are bidirectional iterator types that point to elements
+		void erase (iterator first, iterator last)
+		{
+			while (first != last)
+			{
+				_node_pointer	node_to_erase = &first;
+
+				erase(node_to_erase);
+				first++;
+			}
 		}
 
 	/*

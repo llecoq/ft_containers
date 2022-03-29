@@ -6,7 +6,7 @@
 /*   By: llecoq <llecoq@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/18 09:23:58 by llecoq            #+#    #+#             */
-/*   Updated: 2022/03/29 17:19:51 by llecoq           ###   ########.fr       */
+/*   Updated: 2022/03/29 20:36:23 by llecoq           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -244,8 +244,17 @@ class Tree
 		}
 
 	/*
+
 	** -------------------------------------------------------------- OPERATIONS
 	*/
+
+		node_pointer	find(const key_type &k)
+		{
+			return _find_key(k, root_node);
+		}
+
+
+	private :
 
 		node_pointer	_find_successor(node_pointer current_node)
 		{
@@ -277,23 +286,21 @@ class Tree
 					parent->right = child;
 				if (child != NULL)
 					child->parent = parent;
+				if (current_node == _begin_node)
+					_begin_node = current_node->parent;
 			}
 			else
 			{
-				root_node = child;
+				root_node = child; 
 				if (child != NULL)
 					child->parent = NULL;
+				else     // begin_node with no child
+				{
+					_node_allocator.deallocate(_end_node, 1);
+					_begin_node = _end_node = root_node = NULL;
+				}
 			}
 		}
-
-
-		node_pointer	find(const key_type &k)
-		{
-			return _find_key(k, root_node);
-		}
-
-
-	private :
 
 		size_type	_count_children(node_pointer node)
 		{
