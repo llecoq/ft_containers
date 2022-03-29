@@ -6,7 +6,7 @@
 /*   By: llecoq <llecoq@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/03 13:20:29 by llecoq            #+#    #+#             */
-/*   Updated: 2022/03/29 10:29:02 by llecoq           ###   ########.fr       */
+/*   Updated: 2022/03/29 12:09:18 by llecoq           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ class reverse_iterator
 	template <class Iter>
 	reverse_iterator (const reverse_iterator<Iter>& rev_it)
 	:
-		_base(rev_it)
+		_base(rev_it.base())
 	{}
 
 	iterator_type base() const

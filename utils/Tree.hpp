@@ -6,7 +6,7 @@
 /*   By: llecoq <llecoq@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/18 09:23:58 by llecoq            #+#    #+#             */
-/*   Updated: 2022/03/29 09:26:07 by llecoq           ###   ########.fr       */
+/*   Updated: 2022/03/29 16:54:54 by llecoq           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,13 @@
 
 namespace ft
 {
+
+enum	e_child
+{
+	NO_CHILD = 0,
+	ONE_CHILD = 1,
+	TWO_CHILDREN = 2
+};
 
 template <class Pair>
 struct t_node
@@ -203,9 +210,82 @@ class Tree
 				return insert(new_node, current_node->right, current_node); // insert right
 		}
 
+		void	erase(node_pointer &current_node)
+		{
+			size_type	number_of_children = _count_children(current_node);
+		
+			switch (number_of_children)
+			{
+				case NO_CHILD:
+				{
+					if (current_node == _end_node)
+						return ;
+					_set_predecessor_pointer(current_node, NULL);
+					_delete_node(current_node);
+					break;
+				}
+				case ONE_CHILD:
+				{
+					node_pointer	child = _get_child(current_node);
+
+					_set_predecessor_pointer(current_node, child);
+					_delete_node(current_node);
+					break;
+				}
+				case TWO_CHILDREN:
+				{
+					node_pointer	successor = _find_successor(current_node->left); // va a gauche car a droite peut etre end_node
+
+					current_node->element = successor->element;
+					erase(successor);
+					break;
+				}
+			}
+		}
+
 	/*
 	** -------------------------------------------------------------- OPERATIONS
 	*/
+
+		node_pointer	_find_successor(node_pointer &current_node)
+		{
+			while (current_node->right != NULL)
+				current_node = current_node->right;
+			return current_node;
+		}
+
+		void	_delete_node(node_pointer &node)
+		{
+			_node_allocator.destroy(node);
+			_node_allocator.deallocate(node, 1);
+		}
+
+		node_pointer	_get_child(node_pointer	const &node)
+		{
+			return node->left ? node->left : node->right;
+		}
+
+		void	_set_predecessor_pointer(node_pointer &current_node, node_pointer child)
+		{
+			node_pointer	parent = current_node->parent;
+
+			if (parent != NULL)
+			{
+				if (parent->left == current_node)
+					parent->left = child;
+				else
+					parent->right = child;
+				if (child != NULL)
+					child->parent = parent;
+			}
+			else
+			{
+				root_node = child;
+				if (child != NULL)
+					child->parent = NULL;
+			}
+		}
+
 
 		node_pointer	find(const key_type &k)
 		{
@@ -215,10 +295,17 @@ class Tree
 
 	private :
 
+		size_type	_count_children(node_pointer node)
+		{
+			if (node->left == NULL && node->right == NULL)
+				return 0;
+			else if (node->left != NULL && node->right != NULL)
+				return 2;
+			return 1;
+		}
+
 		node_pointer	_find_key(const key_type &k, node_pointer &current_node)
 		{
-			// if (current_node->left == NULL && current_node->right == NULL)
-			// 	return _end_node;
 			if (_same_key(k, current_node->element.first))
 				return (current_node);
 			if (_comp(k, current_node->element.first) && current_node->left != NULL) 

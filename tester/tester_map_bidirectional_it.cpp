@@ -6,7 +6,7 @@
 /*   By: llecoq <llecoq@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/21 11:48:52 by llecoq            #+#    #+#             */
-/*   Updated: 2022/03/25 12:34:21 by llecoq           ###   ########.fr       */
+/*   Updated: 2022/03/29 12:09:41 by llecoq           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,10 +46,10 @@ int		tester_bidirectional_it()
 	while (--revit != test.rbegin())
 		std::cout << revit->first << std::endl;
 	
-	ft_map::const_iterator constit = test.begin();
-	ft_map::const_reverse_iterator revconstit = test.rbegin();
-	(void)constit;
-	(void)revconstit;
+	// ft_map::const_iterator constit = test.begin();
+	// ft_map::const_reverse_iterator revconstit = test.rbegin();
+	// (void)constit;
+	// (void)revconstit;
 
 	return (SUCCESS);
 }
