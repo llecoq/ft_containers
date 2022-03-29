@@ -6,7 +6,7 @@
 /*   By: llecoq <llecoq@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/17 16:42:25 by llecoq            #+#    #+#             */
-/*   Updated: 2022/03/29 17:20:52 by llecoq           ###   ########.fr       */
+/*   Updated: 2022/03/29 17:28:28 by llecoq           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,6 +76,8 @@ int	tester_map_ft()
 	// mymap.erase(it);
 	it = mymap.find(6);
 	mymap.erase(it);
+
+	mymap.erase(90);
 	// it = mymap.begin();
 	// while (it != mymap.end())
 	// {

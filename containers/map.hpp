@@ -6,7 +6,7 @@
 /*   By: llecoq <llecoq@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/17 10:54:16 by llecoq            #+#    #+#             */
-/*   Updated: 2022/03/29 14:18:17 by llecoq           ###   ########.fr       */
+/*   Updated: 2022/03/29 17:27:27 by llecoq           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -179,6 +179,21 @@ class map
 			_node_pointer	node_to_erase = &position;
 			
 			_tree.erase(node_to_erase);
+		}
+
+			
+		size_type erase (const key_type& k)
+		{
+			iterator		position = find(k);
+			
+			if (position != end())
+			{
+				_node_pointer	node_to_erase = &position;
+				
+				_tree.erase(node_to_erase);
+				return	1;
+			}
+			return 0;
 		}
 
 	/*
