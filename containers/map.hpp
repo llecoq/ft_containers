@@ -6,7 +6,7 @@
 /*   By: llecoq <llecoq@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/17 10:54:16 by llecoq            #+#    #+#             */
-/*   Updated: 2022/03/30 12:54:20 by llecoq           ###   ########.fr       */
+/*   Updated: 2022/03/30 14:13:55 by llecoq           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,7 @@ class map
 		typedef t_node<value_type>										_t_node;
 		typedef typename Alloc::template rebind<_t_node>::other			_node_allocator;
 		typedef typename _node_allocator::pointer						_node_pointer;
-		typedef	Tree<Key, T, Compare, _node_allocator>					_base;
+		typedef	Tree<Key, T, Compare, _node_allocator, iterator>		_base;
 
 		_base															_tree;
 
@@ -139,7 +139,7 @@ class map
 			printTree(_tree.root_node, _tree._end_node);
 			std::cout << std::endl;
 		}
-	
+
 		// single element (1)	
 		pair<iterator,bool> insert (const value_type& val)
 		{	

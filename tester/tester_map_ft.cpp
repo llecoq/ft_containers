@@ -6,7 +6,7 @@
 /*   By: llecoq <llecoq@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/17 16:42:25 by llecoq            #+#    #+#             */
-/*   Updated: 2022/03/30 12:55:53 by llecoq           ###   ########.fr       */
+/*   Updated: 2022/03/30 14:14:06 by llecoq           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,6 +99,10 @@ int	tester_map_ft()
 	// mymap.erase(mymap.begin(), mymap.end());
 	
 	// std::cout << "size = " << mymap.size() << std::endl;
+	// std_map	map;
+
+
+	// map.insert
 
 	return (SUCCESS);
 }

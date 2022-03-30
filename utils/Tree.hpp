@@ -6,12 +6,14 @@
 /*   By: llecoq <llecoq@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/18 09:23:58 by llecoq            #+#    #+#             */
-/*   Updated: 2022/03/30 12:40:29 by llecoq           ###   ########.fr       */
+/*   Updated: 2022/03/30 14:14:15 by llecoq           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef TREE_HPP
 #define TREE_HPP
+
+#include "../iterators/RB_tree_iterator.hpp"
 
 #include <iostream>
 
@@ -61,7 +63,8 @@ struct t_node
 template < class Key,
            class T,        
            class Compare,                     
-           class Alloc
+           class Alloc,
+		   class Iter
            >
 class Tree
 {
@@ -71,6 +74,9 @@ class Tree
 		typedef T												mapped_type;
 		typedef Compare											key_compare;
 		typedef Alloc											allocator_type;
+
+		typedef	Iter			iterator;
+		typedef ft::RB_tree_iterator<iterator>					RB_tree_iterator;
 
 		typedef typename allocator_type::pointer				node_pointer;
 		typedef typename allocator_type::reference				node_reference;
@@ -90,6 +96,8 @@ class Tree
 		allocator_type											_node_allocator;
 		key_compare												_comp;
 		size_type												_size;
+
+		// RB_tree_iterator<Iter>									_iterator;
 
 	public :
 
@@ -148,6 +156,7 @@ class Tree
 			// std::cout << "tree destructor" << std::endl;
 			_destroy_from_root(root_node);
 		}
+
 	/*
 	** ------------------------------------------------------------ ITERATORS
 	*/

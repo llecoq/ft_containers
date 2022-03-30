@@ -6,7 +6,7 @@
 #    By: llecoq <llecoq@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/11/16 11:27:48 by llecoq            #+#    #+#              #
-#    Updated: 2022/03/30 12:45:18 by llecoq           ###   ########.fr        #
+#    Updated: 2022/03/30 13:39:18 by llecoq           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -25,6 +25,7 @@ INCLUDES_FILES =  			vector.hpp\
 ITERATORS_FILES =  			iterator.hpp\
 							random_access_iterator.hpp\
 							bidirectional_iterator.hpp\
+							RB_tree_iterator.hpp\
 							reverse_iterator.hpp
 
 TESTER_FILES =				tester_map_ft.cpp\
