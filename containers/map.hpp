@@ -6,7 +6,7 @@
 /*   By: llecoq <llecoq@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/17 10:54:16 by llecoq            #+#    #+#             */
-/*   Updated: 2022/03/30 19:12:12 by llecoq           ###   ########.fr       */
+/*   Updated: 2022/03/30 19:56:01 by llecoq           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -147,9 +147,7 @@ class map
 		// with hint (2)	
 		iterator insert (iterator position, const value_type& val)
 		{
-			if (position == end())
-				position--;
-			if (_faster_from_root(val.first, position->first))
+			if (_faster_from_root(val.first, position))
 				return _tree.insert(val).first;
 			return _tree.insert(position, val).first; // insert key = root key
 		}
@@ -198,9 +196,13 @@ class map
 
 	private :
 
-		bool	_faster_from_root(key_type insert_key, key_type position_key)
+		bool	_faster_from_root(key_type insert_key, iterator position)
 		{
-			return size() < 2 || _position_is_opposite_way(insert_key, position_key);
+			if (size() < 5) // arbitrary
+				return true;
+			if (position == end())
+				position--;
+			return size() < 2 || _position_is_opposite_way(insert_key, position->first);
 		}
 
 		bool	_position_is_opposite_way(key_type insert_key, key_type position_key)

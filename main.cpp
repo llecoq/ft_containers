@@ -6,7 +6,7 @@
 /*   By: llecoq <llecoq@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/18 11:21:24 by llecoq            #+#    #+#             */
-/*   Updated: 2022/03/29 11:41:21 by llecoq           ###   ########.fr       */
+/*   Updated: 2022/03/30 19:59:14 by llecoq           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@
 // 	return (ERROR);
 // }
 
-int	main(int argc, char **argv)
+int	main(int argc, char **argv)			
 {
 	return tester_map_ft();
 	// return tester_bidirectional_it();

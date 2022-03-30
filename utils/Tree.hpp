@@ -6,7 +6,7 @@
 /*   By: llecoq <llecoq@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/18 09:23:58 by llecoq            #+#    #+#             */
-/*   Updated: 2022/03/30 19:13:44 by llecoq           ###   ########.fr       */
+/*   Updated: 2022/03/30 19:58:33 by llecoq           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -207,13 +207,8 @@ class Tree
 			node_pointer		current_position = _iterator_to_pointer(position);
 			node_pointer		parent = current_position->parent;
 
-			if (position == end()
-				|| _position_is_after_insert(current_position, val.first))
-			{
-				if (position == begin())
-					return _insert_node(t_node(val), current_position->left, current_position);
+			if (_position_is_after_insert(current_position, val.first))
 				return _check_before_position(parent, val);
-			}
 			else if (_position_is_before_insert(current_position, val.first))
 				return _check_after_position(parent, val);
 			return _insert_node(t_node(val), _root_node);
