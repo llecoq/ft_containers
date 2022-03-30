@@ -6,7 +6,7 @@
 /*   By: llecoq <llecoq@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/18 13:37:15 by llecoq            #+#    #+#             */
-/*   Updated: 2022/03/30 14:18:04 by llecoq           ###   ########.fr       */
+/*   Updated: 2022/03/30 19:09:24 by llecoq           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,6 +46,8 @@ class bidirectional_iterator
 	public :
 	
 		bidirectional_iterator()
+		:
+			_node_ptr(NULL)
 		{}
 		
 		bidirectional_iterator(_node_pointer node_ptr)

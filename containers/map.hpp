@@ -6,7 +6,7 @@
 /*   By: llecoq <llecoq@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/17 10:54:16 by llecoq            #+#    #+#             */
-/*   Updated: 2022/03/30 16:31:12 by llecoq           ###   ########.fr       */
+/*   Updated: 2022/03/30 19:12:12 by llecoq           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -147,6 +147,8 @@ class map
 		// with hint (2)	
 		iterator insert (iterator position, const value_type& val)
 		{
+			if (position == end())
+				position--;
 			if (_faster_from_root(val.first, position->first))
 				return _tree.insert(val).first;
 			return _tree.insert(position, val).first; // insert key = root key

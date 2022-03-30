@@ -6,7 +6,7 @@
 /*   By: llecoq <llecoq@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/18 09:23:58 by llecoq            #+#    #+#             */
-/*   Updated: 2022/03/30 16:30:32 by llecoq           ###   ########.fr       */
+/*   Updated: 2022/03/30 19:13:44 by llecoq           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,13 +19,6 @@
 
 namespace ft
 {
-
-enum	e_child
-{
-	NO_CHILD = 0,
-	ONE_CHILD = 1,
-	TWO_CHILDREN = 2
-};
 
 template <class Pair>
 struct t_node
@@ -40,6 +33,7 @@ struct t_node
 	explicit t_node()
 	:
 		color(0),
+		element(Pair()),
 		parent(NULL),
 		left(NULL),
 		right(NULL)
@@ -58,6 +52,13 @@ struct t_node
 	{
 		// std::cout << "t_node destructor" << std::endl;
 	}
+};
+
+enum	e_child
+{
+	NO_CHILD = 0,
+	ONE_CHILD = 1,
+	TWO_CHILDREN = 2
 };
 
 template < class Key,
@@ -156,7 +157,10 @@ class Tree
 	*/
 		key_type	get_root_key() const
 		{
-			return _root_node->element.first;
+			if (_root_node)
+				return _root_node->element.first;
+			else
+				return 0;
 		}
 
 	/*
@@ -193,12 +197,12 @@ class Tree
 	/*
 	** ------------------------------------------------------------ MODIFIERS
 	*/
-		pair<node_pointer, bool> insert (const value_type& val)
+		pair<iterator, bool> insert (const value_type& val)
 		{
 			return _insert_node(t_node(val), _root_node);
 		}
 
-		pair<node_pointer, bool> insert (iterator position, const value_type& val)
+		pair<iterator, bool> insert (iterator position, const value_type& val)
 		{
 			node_pointer		current_position = _iterator_to_pointer(position);
 			node_pointer		parent = current_position->parent;
@@ -224,7 +228,6 @@ class Tree
 
 
 	/*
-
 	** -------------------------------------------------------------- OPERATIONS
 	*/
 		node_pointer	find(const key_type &k)
@@ -242,7 +245,7 @@ class Tree
 	/*
 	** ------------------------------------------------------------ INSERT
 	*/
-		pair<node_pointer, bool> _insert_node (const t_node &new_node, node_pointer &current_node,
+		pair<iterator, bool> _insert_node (const t_node &new_node, node_pointer &current_node,
 											node_pointer parent_node = NULL)
 		{
 			if (_empty_tree()) // empty tree
@@ -257,14 +260,15 @@ class Tree
 				return _insert_node(new_node, current_node->right, current_node); // insert right
 		}
 
-		pair<node_pointer, bool>	_set_new_node(const t_node &new_node, node_pointer &current_node,
+		pair<iterator, bool>	_set_new_node(const t_node &new_node, node_pointer &current_node,
 													node_pointer const &parent_node)
 		{
 			current_node = _create_node(new_node);
 			current_node->parent = parent_node;
 			_set_begin_or_end(current_node);
 			_size++;
-			return pair<node_pointer, bool>(current_node, true);
+			
+			return pair<iterator, bool>(iterator(current_node), true);
 		}
 
 		void	_set_begin_or_end(node_pointer const &current_node)
@@ -277,17 +281,17 @@ class Tree
 				_begin_node = current_node;
 		}
 
-		pair<node_pointer, bool>	_check_before_position(node_pointer current_position, const value_type &val)
+		pair<iterator, bool>	_check_before_position(node_pointer current_position, const value_type &val)
 		{
 			node_pointer	parent = current_position->parent;
-				
+		
 			if (current_position == _root_node
 				|| _position_is_before_insert(current_position, val.first))
 				return _insert_node(t_node(val), current_position, parent);
 			return _check_before_position(parent, val);
 		}
 
-		pair<node_pointer, bool>	_check_after_position(node_pointer current_position, const value_type &val)
+		pair<iterator, bool>	_check_after_position(node_pointer current_position, const value_type &val)
 		{
 			node_pointer	parent = current_position->parent;
 
@@ -381,7 +385,6 @@ class Tree
 	/*
 	** ------------------------------------------------------------ FIND
 	*/
-
 		node_pointer	_find_key(const key_type &k, node_pointer &current_node)
 		{
 			if (_same_key(k, current_node->element.first))
@@ -397,7 +400,6 @@ class Tree
 	/*
 	** ------------------------------------------------------------ UTILS
 	*/
-
 		bool	_position_is_before_insert(node_pointer current_position, key_type insert_key)
 		{
 			return key_compare()(current_position->element.first, insert_key);
