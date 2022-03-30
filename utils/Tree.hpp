@@ -6,7 +6,7 @@
 /*   By: llecoq <llecoq@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/18 09:23:58 by llecoq            #+#    #+#             */
-/*   Updated: 2022/03/29 20:36:23 by llecoq           ###   ########.fr       */
+/*   Updated: 2022/03/30 12:40:29 by llecoq           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -265,6 +265,8 @@ class Tree
 
 		void	_delete_node(node_pointer &node)
 		{
+			if (node != _end_node)
+				_size--;
 			_node_allocator.destroy(node);
 			_node_allocator.deallocate(node, 1);
 		}

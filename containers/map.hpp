@@ -6,7 +6,7 @@
 /*   By: llecoq <llecoq@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/17 10:54:16 by llecoq            #+#    #+#             */
-/*   Updated: 2022/03/29 18:25:41 by llecoq           ###   ########.fr       */
+/*   Updated: 2022/03/30 12:54:20 by llecoq           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -201,10 +201,9 @@ class map
 		{
 			while (first != last)
 			{
-				_node_pointer	node_to_erase = &first;
+				_node_pointer	node_to_erase = &(first++);
 
 				erase(node_to_erase);
-				first++;
 			}
 		}
 

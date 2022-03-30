@@ -6,7 +6,7 @@
 /*   By: llecoq <llecoq@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/17 16:42:25 by llecoq            #+#    #+#             */
-/*   Updated: 2022/03/29 20:41:07 by llecoq           ###   ########.fr       */
+/*   Updated: 2022/03/30 12:55:53 by llecoq           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,7 @@ int	tester_map_ft()
 	std::cout << "it->second 27 = " << it->second << std::endl;
 	it = mymap.insert (mymap.begin(), ft_pair(2, 900));
 	it = mymap.insert (mymap.end(), ft_pair(1, 30));
-	it = mymap.insert (mymap.end(), ft_pair(, 30));
+	it = mymap.insert (mymap.end(), ft_pair(90, 30));
 	mymap.insert(it, ft_pair(90, 1)); // insert problem
 	std::cout << "it->second 1 = " << it->second << std::endl;
 	std::cout << "find 4 = " << mymap.find(4)->second << std::endl;
@@ -80,17 +80,25 @@ int	tester_map_ft()
 	// it = mymap.find(6);
 	// mymap.erase(it);
 
-	mymap.erase(90);
-	it = mymap.begin();
-	mymap.erase(mymap.begin(), it);
-	// ietartor a tester apres full erase
-	
+	std::cout << "size = " << mymap.size() << std::endl;
+	std::cout << "erase" << std::endl;
+	// mymap.erase(90);
+	mymap.print_tree();
+	it = mymap.find(90);
+	std::cout << "erase" << std::endl;
+	mymap.erase(mymap.begin(), mymap.end());
+	mymap.print_tree();
 	// while (it != mymap.end())
 	// {
 	// 	std::cout << it->first << std::endl;
 	// 	it++;
 	// }
-	mymap.print_tree();
+	std::cout << "size = " << mymap.size() << std::endl;
+	// std::cout << "erase" << std::endl;
+	// // ietartor a tester apres full erase
+	// mymap.erase(mymap.begin(), mymap.end());
+	
+	// std::cout << "size = " << mymap.size() << std::endl;
 
 	return (SUCCESS);
 }
