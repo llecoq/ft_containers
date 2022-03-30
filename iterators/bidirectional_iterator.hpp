@@ -6,7 +6,7 @@
 /*   By: llecoq <llecoq@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/18 13:37:15 by llecoq            #+#    #+#             */
-/*   Updated: 2022/03/30 14:15:31 by llecoq           ###   ########.fr       */
+/*   Updated: 2022/03/30 14:18:04 by llecoq           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -119,7 +119,7 @@ class bidirectional_iterator
 			return (tmp);
 		}
 
-		_node_pointer	operator&() {return _node_ptr;}
+		// _node_pointer	operator&() {return _node_ptr;}
 // *a++
 
 // *a--

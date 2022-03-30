@@ -6,7 +6,7 @@
 /*   By: llecoq <llecoq@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/18 09:23:58 by llecoq            #+#    #+#             */
-/*   Updated: 2022/03/30 14:14:15 by llecoq           ###   ########.fr       */
+/*   Updated: 2022/03/30 15:16:49 by llecoq           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,7 +75,7 @@ class Tree
 		typedef Compare											key_compare;
 		typedef Alloc											allocator_type;
 
-		typedef	Iter			iterator;
+		typedef	Iter											iterator;
 		typedef ft::RB_tree_iterator<iterator>					RB_tree_iterator;
 
 		typedef typename allocator_type::pointer				node_pointer;
@@ -204,53 +204,62 @@ class Tree
 	/*
 	** ------------------------------------------------------------ MODIFIERS
 	*/
-		pair<node_pointer, bool> insert (const node &new_node, node_pointer &current_node,
-											node_pointer parent_node = NULL)
+
+		pair<node_pointer, bool> insert (const value_type& val)
 		{
-			if (_empty_tree()) // empty tree
-				return _set_new_node(new_node, current_node, parent_node);
-			if (_empty_node(current_node))  // empty node
-				return _set_new_node(new_node, current_node, parent_node);
-			if (_same_key(new_node.element.first, current_node->element.first))
-				return pair<node_pointer, bool>(current_node, false);
-			if (_comp(new_node.element.first, current_node->element.first)) 
-				return insert(new_node, current_node->left, current_node); // insert left
-			else
-				return insert(new_node, current_node->right, current_node); // insert right
+			return _insert_node(node(val), root_node);
 		}
 
-		void	erase(node_pointer &current_node)
+		pair<node_pointer, bool> insert (iterator position, const value_type& val)
 		{
-			size_type	number_of_children = _count_children(current_node);
-		
-			switch (number_of_children)
+			RB_tree_iterator	tree_iter(position);
+			node_pointer		current_position = tree_iter.base();
+			node_pointer		parent = current_position->parent;
+
+			if (position == end()
+				|| _position_is_after_insert(current_position, val.first))
 			{
-				case NO_CHILD:
-				{
-					if (current_node == _end_node)
-						return ;
-					_set_predecessor_pointer(current_node, NULL);
-					_delete_node(current_node);
-					break;
-				}
-				case ONE_CHILD:
-				{
-					node_pointer	child = _get_child(current_node);
-
-					_set_predecessor_pointer(current_node, child);
-					_delete_node(current_node);
-					break;
-				}
-				case TWO_CHILDREN:
-				{
-					node_pointer	successor = _find_successor(current_node->left); // va a gauche car a droite peut etre end_node
-
-					current_node->element = successor->element;
-					erase(successor);
-					break;
-				}
+				if (position == begin())
+					return _insert_node(node(val), current_position->left, current_position);
+				return _check_before_position(parent, val);
 			}
+			else if (_position_is_before_insert(current_position, val.first))
+				return _check_after_position(parent, val);
+			return _insert_node(node(val), root_node);
 		}
+
+		// void	erase(node_pointer &current_node)
+		// {
+		// 	size_type	number_of_children = _count_children(current_node);
+		
+		// 	switch (number_of_children)
+		// 	{
+		// 		case NO_CHILD:
+		// 		{
+		// 			if (current_node == _end_node)
+		// 				return ;
+		// 			_set_predecessor_pointer(current_node, NULL);
+		// 			_delete_node(current_node);
+		// 			break;
+		// 		}
+		// 		case ONE_CHILD:
+		// 		{
+		// 			node_pointer	child = _get_child(current_node);
+
+		// 			_set_predecessor_pointer(current_node, child);
+		// 			_delete_node(current_node);
+		// 			break;
+		// 		}
+		// 		case TWO_CHILDREN:
+		// 		{
+		// 			node_pointer	successor = _find_successor(current_node->left); // va a gauche car a droite peut etre end_node
+
+		// 			current_node->element = successor->element;
+		// 			erase(successor);
+		// 			break;
+		// 		}
+		// 	}
+		// }
 
 	/*
 
@@ -264,6 +273,56 @@ class Tree
 
 
 	private :
+
+		pair<node_pointer, bool> _insert_node (const node &new_node, node_pointer &current_node,
+											node_pointer parent_node = NULL)
+		{
+			if (_empty_tree()) // empty tree
+				return _set_new_node(new_node, current_node, parent_node);
+			if (_empty_node(current_node))  // empty node
+				return _set_new_node(new_node, current_node, parent_node);
+			if (_same_key(new_node.element.first, current_node->element.first))
+				return pair<node_pointer, bool>(current_node, false);
+			if (_comp(new_node.element.first, current_node->element.first)) 
+				return _insert_node(new_node, current_node->left, current_node); // insert left
+			else
+				return _insert_node(new_node, current_node->right, current_node); // insert right
+		}
+
+		pair<node_pointer, bool>	_check_before_position(node_pointer current_position, const value_type &val)
+		{
+			node_pointer	parent = current_position->parent;
+				
+			if (_position_is_root(current_position)
+				|| _position_is_before_insert(current_position, val.first))
+				return _insert_node(node(val), current_position, parent);
+			return _check_before_position(parent, val);
+		}
+
+		pair<node_pointer, bool>	_check_after_position(node_pointer current_position, const value_type &val)
+		{
+			node_pointer	parent = current_position->parent;
+
+			if (_position_is_root(current_position)
+				|| _position_is_after_insert(current_position, val.first))
+				return _insert_node(node(val), current_position, parent);
+			return _check_after_position(parent, val);
+		}
+
+		bool	_position_is_root(node_pointer position)
+		{
+			return (position == root_node);
+		}
+
+		bool	_position_is_before_insert(node_pointer current_position, key_type insert_key)
+		{
+			return key_compare()(current_position->element.first, insert_key);
+		}
+
+		bool	_position_is_after_insert(node_pointer current_position, key_type insert_key)
+		{
+			return key_compare()(insert_key, current_position->element.first);
+		}
 
 		node_pointer	_find_successor(node_pointer current_node)
 		{

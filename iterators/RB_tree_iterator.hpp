@@ -6,7 +6,7 @@
 /*   By: llecoq <llecoq@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/30 13:28:48 by llecoq            #+#    #+#             */
-/*   Updated: 2022/03/30 14:08:41 by llecoq           ###   ########.fr       */
+/*   Updated: 2022/03/30 14:43:54 by llecoq           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ class RB_tree_iterator : virtual private Iter
 			_node_ptr(NULL)
 		{}
 	
-		RB_tree_iterator(bidirectional_iterator iter)
+		RB_tree_iterator(_bidirectional_iterator iter)
 		:
 			_node_ptr(iter._node_ptr)
 		{}

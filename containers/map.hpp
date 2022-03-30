@@ -6,7 +6,7 @@
 /*   By: llecoq <llecoq@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/17 10:54:16 by llecoq            #+#    #+#             */
-/*   Updated: 2022/03/30 14:13:55 by llecoq           ###   ########.fr       */
+/*   Updated: 2022/03/30 15:07:53 by llecoq           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -124,10 +124,10 @@ class map
 
 		mapped_type& operator[] (const key_type& k)
 		{
-			_t_node	tmp(value_type(k, mapped_type()));
-			pair<iterator, bool>	ret = _tree.insert(tmp, _tree.root_node);
+			value_type				tmp(k, mapped_type());
+			// pair<iterator, bool>	ret = _tree.insert(tmp);
 			
-			return ret.first->second;
+			return _tree.insert(tmp).first->second;
 		}
 
 	/*
@@ -143,69 +143,54 @@ class map
 		// single element (1)	
 		pair<iterator,bool> insert (const value_type& val)
 		{	
-			_t_node			tmp(val);
-
-			return (_tree.insert(tmp, _tree.root_node));
+			return _tree.insert(val);
 		}
 
 		// with hint (2)	
 		iterator insert (iterator position, const value_type& val)
 		{
 			if (_faster_from_root(val.first, position->first))
-				return _tree.insert(_t_node(val), _tree.root_node).first;
-		
-			_node_pointer	current_position = &position;
-			_node_pointer	parent = current_position->parent;
-
-			if (position == end()
-				|| _position_is_after_insert(current_position, val.first))
-			{
-				if (position == begin())
-					return _tree.insert(_t_node(val), current_position->left, current_position).first;
-				return _check_before_position(parent, val);
-			}
-			else if (_position_is_before_insert(current_position, val.first))
-				return _check_after_position(parent, val);
-			return position; // insert key = root key
+				return _tree.insert(val).first;
+			return _tree.insert(position, val).first; // insert key = root key
 		}
 
 		
 		// range (3)	
-		template <class InputIterator>
-		void insert (InputIterator first, InputIterator last);
+		// template <class InputIterator>
+		// void insert (InputIterator first, InputIterator last);
 
-		void erase (iterator position)
-		{
-			_node_pointer	node_to_erase = &position;
+		// void erase (iterator position)
+		// {
+		// 	_node_pointer	node_to_erase = &position;
 			
-			_tree.erase(node_to_erase);
-		}
+		// 	_tree.erase(node_to_erase);
+		// }
 
 			
-		size_type erase (const key_type& k)
-		{
-			iterator		position = find(k);
+		// size_type erase (const key_type& k)
+		// {
+		// 	iterator		position = find(k);
 			
-			if (position != end())
-			{
-				_node_pointer	node_to_erase = &position;
+		// 	if (position != end())
+		// 	{
+		// 		_node_pointer	node_to_erase = &position;
 				
-				_tree.erase(node_to_erase);
-				return	1;
-			}
-			return 0;
-		}
+		// 		_tree.erase(node_to_erase);
+		// 		return	1;
+		// 	}
+		// 	return 0;
+		// }
 
-		// enable if iterator and const_iterator are bidirectional iterator types that point to elements
-		void erase (iterator first, iterator last)
-		{
-			while (first != last)
-			{
-				_node_pointer	node_to_erase = &(first++);
+		// // enable if iterator and const_iterator are bidirectional iterator types that point to elements
+		// void erase (iterator first, iterator last)
+		// {
+		// 	while (first != last)
+		// 	{
+		// 		_node_pointer	node_to_erase = &(first++);
 
-				erase(node_to_erase);
-			}
-		}
+		// 		erase(node_to_erase);
+		// 	}
+		// }
 
 	/*
 	** -------------------------------------------------------------- OPERATIONS
@@ -218,41 +203,6 @@ class map
 		const_iterator find (const key_type& k) const;
 
 	private :
-
-		iterator	_check_before_position(_node_pointer current_position, const value_type &val)
-		{
-			_node_pointer	parent = current_position->parent;
-				
-			if (_position_is_root(current_position)
-				|| _position_is_before_insert(current_position, val.first))
-				return _tree.insert(_t_node(val), current_position, parent).first;
-			return _check_before_position(parent, val);
-		}
-
-		iterator	_check_after_position(_node_pointer current_position, const value_type &val)
-		{
-			_node_pointer	parent = current_position->parent;
-
-			if (_position_is_root(current_position)
-				|| _position_is_after_insert(current_position, val.first))
-				return _tree.insert(_t_node(val), current_position, parent).first;
-			return _check_after_position(parent, val);
-		}
-
-		bool	_position_is_root(_node_pointer position)
-		{
-			return (position == _tree.get_root_node());
-		}
-
-		bool	_position_is_before_insert(_node_pointer current_position, key_type insert_key)
-		{
-			return key_compare()(current_position->element.first, insert_key);
-		}
-
-		bool	_position_is_after_insert(_node_pointer current_position, key_type insert_key)
-		{
-			return key_compare()(insert_key, current_position->element.first);
-		}
 
 		bool	_faster_from_root(key_type insert_key, key_type position_key)
 		{
