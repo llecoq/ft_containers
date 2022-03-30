@@ -6,7 +6,7 @@
 /*   By: llecoq <llecoq@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/18 09:23:58 by llecoq            #+#    #+#             */
-/*   Updated: 2022/03/30 15:27:04 by llecoq           ###   ########.fr       */
+/*   Updated: 2022/03/30 16:02:23 by llecoq           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,10 +83,10 @@ class Tree
 		typedef typename allocator_type::const_pointer			const_node_pointer;
 		typedef typename allocator_type::size_type				size_type;
 		typedef pair<key_type, mapped_type>						value_type;
-		typedef t_node < value_type >							node;
+		typedef ft::t_node < value_type >						t_node;
 
-		node_pointer											root_node;
 
+		node_pointer											_root_node; // en public pour printTree
 	private:
 
 		node_pointer											_begin_node;
@@ -105,9 +105,9 @@ class Tree
 		explicit Tree (const key_compare & comp = key_compare(),
 					const allocator_type& alloc = allocator_type())
 		:
-			root_node(NULL),
-			_begin_node(root_node),
-			_end_node(root_node),
+			_root_node(NULL),
+			_begin_node(_root_node),
+			_end_node(_root_node),
 			_node_allocator(alloc),
 			_comp(comp),
 			_size(0)
@@ -117,9 +117,9 @@ class Tree
 
 		Tree (const Tree& x)
 		:
-			root_node(NULL),
-			_begin_node(root_node),
-			_end_node(root_node),
+			_root_node(NULL),
+			_begin_node(_root_node),
+			_end_node(_root_node),
 			_node_allocator(x._node_allocator),
 			_comp(x._comp),
 			_size(0)	
@@ -133,9 +133,9 @@ class Tree
 			const key_compare & comp = key_compare(),
 			const allocator_type& alloc = allocator_type())
 		:
-			root_node(NULL),
-			_begin_node(root_node),
-			_end_node(root_node),
+			_root_node(NULL),
+			_begin_node(_root_node),
+			_end_node(_root_node),
 			_node_allocator(alloc),
 			_comp(comp),
 			_size(0)
@@ -154,7 +154,7 @@ class Tree
 		~Tree ()
 		{
 			// std::cout << "tree destructor" << std::endl;
-			_destroy_from_root(root_node);
+			_destroy_from_root(_root_node);
 		}
 
 	/*
@@ -162,12 +162,7 @@ class Tree
 	*/
 		key_type	get_root_key() const
 		{
-			return root_node->element.first;
-		}
-
-		node_pointer	get_root_node()
-		{
-			return root_node;
+			return _root_node->element.first;
 		}
 
 	/*
@@ -184,7 +179,7 @@ class Tree
 	*/
 		bool empty() const
 		{
-			return (root_node == NULL);
+			return (_root_node == NULL);
 		}
 
 		size_type size() const
@@ -204,10 +199,9 @@ class Tree
 	/*
 	** ------------------------------------------------------------ MODIFIERS
 	*/
-
 		pair<node_pointer, bool> insert (const value_type& val)
 		{
-			return _insert_node(node(val), root_node);
+			return _insert_node(t_node(val), _root_node);
 		}
 
 		pair<node_pointer, bool> insert (iterator position, const value_type& val)
@@ -219,12 +213,12 @@ class Tree
 				|| _position_is_after_insert(current_position, val.first))
 			{
 				if (position == begin())
-					return _insert_node(node(val), current_position->left, current_position);
+					return _insert_node(t_node(val), current_position->left, current_position);
 				return _check_before_position(parent, val);
 			}
 			else if (_position_is_before_insert(current_position, val.first))
 				return _check_after_position(parent, val);
-			return _insert_node(node(val), root_node);
+			return _insert_node(t_node(val), _root_node);
 		}
 
 		void	erase(iterator position)
@@ -234,6 +228,81 @@ class Tree
 			_erase_node(node_to_erase);
 		}
 
+
+	/*
+
+	** -------------------------------------------------------------- OPERATIONS
+	*/
+		node_pointer	find(const key_type &k)
+		{
+			return _find_key(k, _root_node);
+		}
+
+
+	private :
+
+	/*
+	** ------------------------------------------------------------ INSERT
+	*/
+		pair<node_pointer, bool> _insert_node (const t_node &new_node, node_pointer &current_node,
+											node_pointer parent_node = NULL)
+		{
+			if (_empty_tree()) // empty tree
+				return _set_new_node(new_node, current_node, parent_node);
+			if (_empty_node(current_node))  // empty node
+				return _set_new_node(new_node, current_node, parent_node);
+			if (_same_key(new_node.element.first, current_node->element.first))
+				return pair<node_pointer, bool>(current_node, false);
+			if (_comp(new_node.element.first, current_node->element.first)) 
+				return _insert_node(new_node, current_node->left, current_node); // insert left
+			else
+				return _insert_node(new_node, current_node->right, current_node); // insert right
+		}
+
+		pair<node_pointer, bool>	_set_new_node(const t_node &new_node, node_pointer &current_node,
+													node_pointer const &parent_node)
+		{
+			current_node = _create_node(new_node);
+			current_node->parent = parent_node;
+			_set_begin_or_end(current_node);
+			_size++;
+			return pair<node_pointer, bool>(current_node, true);
+		}
+
+		void	_set_begin_or_end(node_pointer const &current_node)
+		{
+			if (current_node == _root_node)
+				_init_end_node();
+			else if (_comp(_end_node->parent->element.first, current_node->element.first)) // new node is end
+				_set_end_node(current_node);
+			else if (_comp(current_node->element.first, _begin_node->element.first)) // new node is begin
+				_begin_node = current_node;
+		}
+
+		pair<node_pointer, bool>	_check_before_position(node_pointer current_position, const value_type &val)
+		{
+			node_pointer	parent = current_position->parent;
+				
+			if (current_position == _root_node
+				|| _position_is_before_insert(current_position, val.first))
+				return _insert_node(t_node(val), current_position, parent);
+			return _check_before_position(parent, val);
+		}
+
+		pair<node_pointer, bool>	_check_after_position(node_pointer current_position, const value_type &val)
+		{
+			node_pointer	parent = current_position->parent;
+
+			if (current_position == _root_node
+				|| _position_is_after_insert(current_position, val.first))
+				return _insert_node(t_node(val), current_position, parent);
+			return _check_after_position(parent, val);
+		}
+
+		
+	/*
+	** ------------------------------------------------------------ ERASE
+	*/
 		void	_erase_node(node_pointer &current_node)
 		{
 			size_type	number_of_children = _count_children(current_node);
@@ -267,92 +336,11 @@ class Tree
 			}
 		}
 
-	/*
-
-	** -------------------------------------------------------------- OPERATIONS
-	*/
-
-		node_pointer	find(const key_type &k)
-		{
-			return _find_key(k, root_node);
-		}
-
-
-	private :
-
-		node_pointer	_iterator_to_pointer(iterator iter)
-		{
-			return RB_tree_iterator(iter).base();
-		}
-
-		pair<node_pointer, bool> _insert_node (const node &new_node, node_pointer &current_node,
-											node_pointer parent_node = NULL)
-		{
-			if (_empty_tree()) // empty tree
-				return _set_new_node(new_node, current_node, parent_node);
-			if (_empty_node(current_node))  // empty node
-				return _set_new_node(new_node, current_node, parent_node);
-			if (_same_key(new_node.element.first, current_node->element.first))
-				return pair<node_pointer, bool>(current_node, false);
-			if (_comp(new_node.element.first, current_node->element.first)) 
-				return _insert_node(new_node, current_node->left, current_node); // insert left
-			else
-				return _insert_node(new_node, current_node->right, current_node); // insert right
-		}
-
-		pair<node_pointer, bool>	_check_before_position(node_pointer current_position, const value_type &val)
-		{
-			node_pointer	parent = current_position->parent;
-				
-			if (_position_is_root(current_position)
-				|| _position_is_before_insert(current_position, val.first))
-				return _insert_node(node(val), current_position, parent);
-			return _check_before_position(parent, val);
-		}
-
-		pair<node_pointer, bool>	_check_after_position(node_pointer current_position, const value_type &val)
-		{
-			node_pointer	parent = current_position->parent;
-
-			if (_position_is_root(current_position)
-				|| _position_is_after_insert(current_position, val.first))
-				return _insert_node(node(val), current_position, parent);
-			return _check_after_position(parent, val);
-		}
-
-		bool	_position_is_root(node_pointer position)
-		{
-			return (position == root_node);
-		}
-
-		bool	_position_is_before_insert(node_pointer current_position, key_type insert_key)
-		{
-			return key_compare()(current_position->element.first, insert_key);
-		}
-
-		bool	_position_is_after_insert(node_pointer current_position, key_type insert_key)
-		{
-			return key_compare()(insert_key, current_position->element.first);
-		}
-
 		node_pointer	_find_successor(node_pointer current_node)
 		{
 			while (current_node->right != NULL)
 				current_node = current_node->right;
 			return current_node;
-		}
-
-		void	_delete_node(node_pointer &node)
-		{
-			if (node != _end_node)
-				_size--;
-			_node_allocator.destroy(node);
-			_node_allocator.deallocate(node, 1);
-		}
-
-		node_pointer	_get_child(node_pointer	const &node)
-		{
-			return node->left ? node->left : node->right;
 		}
 
 		void	_set_predecessor_pointer(node_pointer &current_node, node_pointer child)
@@ -372,13 +360,13 @@ class Tree
 			}
 			else
 			{
-				root_node = child; 
+				_root_node = child; 
 				if (child != NULL)
 					child->parent = NULL;
 				else     // begin_node with no child
 				{
 					_node_allocator.deallocate(_end_node, 1);
-					_begin_node = _end_node = root_node = NULL;
+					_begin_node = _end_node = _root_node = NULL;
 				}
 			}
 		}
@@ -392,6 +380,10 @@ class Tree
 			return 1;
 		}
 
+	/*
+	** ------------------------------------------------------------ FIND
+	*/
+
 		node_pointer	_find_key(const key_type &k, node_pointer &current_node)
 		{
 			if (_same_key(k, current_node->element.first))
@@ -403,32 +395,23 @@ class Tree
 			return _end_node;
 		}
 
-		node_pointer	_create_node(const node& new_node)
-		{
-			node_pointer	tmp = _node_allocator.allocate(1);
 
-			_node_allocator.construct(tmp, new_node);
-			return (tmp);
+	/*
+	** ------------------------------------------------------------ UTILS
+	*/
+		bool	_position_is_before_insert(node_pointer current_position, key_type insert_key)
+		{
+			return key_compare()(current_position->element.first, insert_key);
 		}
 
-		pair<node_pointer, bool>	_set_new_node(const node &new_node, node_pointer &current_node,
-													node_pointer const &parent_node)
+		bool	_position_is_after_insert(node_pointer current_position, key_type insert_key)
 		{
-			current_node = _create_node(new_node);
-			current_node->parent = parent_node;
-			_set_begin_or_end(current_node);
-			_size++;
-			return pair<node_pointer, bool>(current_node, true);
+			return key_compare()(insert_key, current_position->element.first);
 		}
 
-		void	_set_begin_or_end(node_pointer const &current_node)
+		node_pointer	_iterator_to_pointer(iterator iter)
 		{
-			if (current_node == root_node)
-				_init_end_node();
-			else if (_comp(_end_node->parent->element.first, current_node->element.first)) // new node is end
-				_set_end_node(current_node);
-			else if (_comp(current_node->element.first, _begin_node->element.first)) // new node is begin
-				_begin_node = current_node;
+			return RB_tree_iterator(iter).base();
 		}
 
 		bool	_same_key(key_type const &current_key, key_type const &new_key)
@@ -440,6 +423,11 @@ class Tree
 		{
 			return (node == NULL || node == _end_node);
 		}
+
+		node_pointer	_get_child(node_pointer	const &node)
+		{
+			return node->left ? node->left : node->right;
+		}
 		
 		bool	_empty_tree()
 		{
@@ -448,12 +436,12 @@ class Tree
 
 		void	_init_end_node()
 		{
-				_end_node = _node_allocator.allocate(1);
-				_end_node->right = NULL;
-				_end_node->left = NULL;
-				_end_node->parent = root_node;
-				_begin_node = root_node;
-				root_node->right = _end_node;
+			_end_node = _node_allocator.allocate(1);
+			_end_node->right = NULL;
+			_end_node->left = NULL;
+			_end_node->parent = _root_node;
+			_begin_node = _root_node;
+			_root_node->right = _end_node;
 		}
 
 		void	_set_end_node(node_pointer const &current_node)
@@ -462,6 +450,22 @@ class Tree
 			_end_node->parent = current_node;
 		}
 
+		node_pointer	_create_node(const t_node& new_node)
+		{
+			node_pointer	tmp = _node_allocator.allocate(1);
+
+			_node_allocator.construct(tmp, new_node);
+			return (tmp);
+		}
+
+		void	_delete_node(node_pointer &node)
+		{
+			if (node != _end_node)
+				_size--;
+			_node_allocator.destroy(node);
+			_node_allocator.deallocate(node, 1);
+		}
+		
 		void	_destroy_from_root(node_pointer &current_node)
 		{
 			if (current_node != NULL)
