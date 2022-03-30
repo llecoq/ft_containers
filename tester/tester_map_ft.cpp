@@ -6,7 +6,7 @@
 /*   By: llecoq <llecoq@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/17 16:42:25 by llecoq            #+#    #+#             */
-/*   Updated: 2022/03/30 15:21:47 by llecoq           ###   ########.fr       */
+/*   Updated: 2022/03/30 16:27:48 by llecoq           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,21 +84,21 @@ int	tester_map_ft()
 	// std::cout << "erase" << std::endl;
 	// // mymap.erase(90);
 	mymap.print_tree();
-	// it = mymap.find(90);
-	// std::cout << "erase" << std::endl;
-	// mymap.erase(mymap.begin(), mymap.end());
-	// mymap.print_tree();
-	// // while (it != mymap.end())
-	// // {
-	// // 	std::cout << it->first << std::endl;
-	// // 	it++;
-	// // }
-	// std::cout << "size = " << mymap.size() << std::endl;
-	// std::cout << "erase" << std::endl;
-	// // ietartor a tester apres full erase
-	// mymap.erase(mymap.begin(), mymap.end());
+	it = mymap.find(90);
+	std::cout << "erase" << std::endl;
+	mymap.erase(mymap.begin(), mymap.end());
+	mymap.print_tree();
+	// while (it != mymap.end())
+	// {
+	// 	std::cout << it->first << std::endl;
+	// 	it++;
+	// }
+	std::cout << "size = " << mymap.size() << std::endl;
+	std::cout << "erase" << std::endl;
+	// ietartor a tester apres full erase
+	mymap.erase(mymap.begin(), mymap.end());
 	
-	// std::cout << "size = " << mymap.size() << std::endl;
+	std::cout << "size = " << mymap.size() << std::endl;
 	// std_map	map;
 
 

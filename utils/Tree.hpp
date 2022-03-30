@@ -6,7 +6,7 @@
 /*   By: llecoq <llecoq@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/18 09:23:58 by llecoq            #+#    #+#             */
-/*   Updated: 2022/03/30 16:02:23 by llecoq           ###   ########.fr       */
+/*   Updated: 2022/03/30 16:30:32 by llecoq           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,33 +74,27 @@ class Tree
 		typedef T												mapped_type;
 		typedef Compare											key_compare;
 		typedef Alloc											allocator_type;
-
 		typedef	Iter											iterator;
-		typedef ft::RB_tree_iterator<iterator>					RB_tree_iterator;
-
 		typedef typename allocator_type::pointer				node_pointer;
-		typedef typename allocator_type::reference				node_reference;
-		typedef typename allocator_type::const_pointer			const_node_pointer;
 		typedef typename allocator_type::size_type				size_type;
 		typedef pair<key_type, mapped_type>						value_type;
 		typedef ft::t_node < value_type >						t_node;
 
-
-		node_pointer											_root_node; // en public pour printTree
 	private:
 
+		typedef ft::RB_tree_iterator<iterator>					_RB_tree_iterator;
+
+		node_pointer											_root_node;
 		node_pointer											_begin_node;
-	public :
-		node_pointer											_end_node; // en public pour printTree
-	private :
+		node_pointer											_end_node;
 		allocator_type											_node_allocator;
 		key_compare												_comp;
 		size_type												_size;
 
-		// RB_tree_iterator<Iter>									_iterator;
+		friend void	printTree<t_node>(t_node *root, t_node *end);
+		friend void	print2D<t_node>(t_node *root, int space, t_node *end);
 
 	public :
-
 		// default
 		explicit Tree (const key_compare & comp = key_compare(),
 					const allocator_type& alloc = allocator_type())
@@ -179,7 +173,7 @@ class Tree
 	*/
 		bool empty() const
 		{
-			return (_root_node == NULL);
+			return (_size == 0);
 		}
 
 		size_type size() const
@@ -238,6 +232,10 @@ class Tree
 			return _find_key(k, _root_node);
 		}
 
+		void	print_tree()
+		{
+			printTree(_root_node, end());
+		}
 
 	private :
 
@@ -399,6 +397,7 @@ class Tree
 	/*
 	** ------------------------------------------------------------ UTILS
 	*/
+
 		bool	_position_is_before_insert(node_pointer current_position, key_type insert_key)
 		{
 			return key_compare()(current_position->element.first, insert_key);
@@ -411,7 +410,7 @@ class Tree
 
 		node_pointer	_iterator_to_pointer(iterator iter)
 		{
-			return RB_tree_iterator(iter).base();
+			return _RB_tree_iterator(iter).base();
 		}
 
 		bool	_same_key(key_type const &current_key, key_type const &new_key)

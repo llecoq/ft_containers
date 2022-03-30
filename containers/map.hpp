@@ -6,7 +6,7 @@
 /*   By: llecoq <llecoq@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/17 10:54:16 by llecoq            #+#    #+#             */
-/*   Updated: 2022/03/30 15:39:31 by llecoq           ###   ########.fr       */
+/*   Updated: 2022/03/30 16:31:12 by llecoq           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,8 +37,8 @@ class map
 		typedef T														mapped_type;
 		typedef Compare													key_compare;
 		typedef Alloc													allocator_type;
-		typedef pair<key_type, mapped_type>								value_type;
 				
+		typedef pair<key_type, mapped_type>								value_type;
 		typedef typename allocator_type::reference						reference;
 		typedef typename allocator_type::const_reference				const_reference;
 		typedef typename allocator_type::pointer						pointer;
@@ -125,7 +125,6 @@ class map
 		mapped_type& operator[] (const key_type& k)
 		{
 			value_type				tmp(k, mapped_type());
-			// pair<iterator, bool>	ret = _tree.insert(tmp);
 			
 			return _tree.insert(tmp).first->second;
 		}
@@ -136,8 +135,7 @@ class map
 
 		void	print_tree()
 		{
-			printTree(_tree._root_node, _tree._end_node);
-			std::cout << std::endl;
+			_tree.print_tree();
 		}
 
 		// single element (1)	
@@ -165,30 +163,26 @@ class map
 		}
 
 			
-		// size_type erase (const key_type& k)
-		// {
-		// 	iterator		position = find(k);
+		size_type erase (const key_type& k)
+		{
+			iterator		position = find(k);
 			
-		// 	if (position != end())
-		// 	{
-		// 		_node_pointer	node_to_erase = &position;
-				
-		// 		_tree.erase(node_to_erase);
-		// 		return	1;
-		// 	}
-		// 	return 0;
-		// }
+			if (position != end())
+			{
+				_tree.erase(position);
+				return	1;
+			}
+			return 0;
+		}
 
-		// // enable if iterator and const_iterator are bidirectional iterator types that point to elements
-		// void erase (iterator first, iterator last)
-		// {
-		// 	while (first != last)
-		// 	{
-		// 		_node_pointer	node_to_erase = &(first++);
-
-		// 		erase(node_to_erase);
-		// 	}
-		// }
+		// enable if iterator and const_iterator are bidirectional iterator types that point to elements
+		void erase (iterator first, iterator last)
+		{
+			if (empty())
+				return ;
+			while (first != last)
+				erase(first++);
+		}
 
 	/*
 	** -------------------------------------------------------------- OPERATIONS
