@@ -6,7 +6,7 @@
 /*   By: llecoq <llecoq@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/18 09:23:58 by llecoq            #+#    #+#             */
-/*   Updated: 2022/03/30 15:16:49 by llecoq           ###   ########.fr       */
+/*   Updated: 2022/03/30 15:27:04 by llecoq           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -212,8 +212,7 @@ class Tree
 
 		pair<node_pointer, bool> insert (iterator position, const value_type& val)
 		{
-			RB_tree_iterator	tree_iter(position);
-			node_pointer		current_position = tree_iter.base();
+			node_pointer		current_position = _iterator_to_pointer(position);
 			node_pointer		parent = current_position->parent;
 
 			if (position == end()
@@ -228,38 +227,45 @@ class Tree
 			return _insert_node(node(val), root_node);
 		}
 
-		// void	erase(node_pointer &current_node)
-		// {
-		// 	size_type	number_of_children = _count_children(current_node);
+		void	erase(iterator position)
+		{
+			node_pointer	node_to_erase = _iterator_to_pointer(position);
+
+			_erase_node(node_to_erase);
+		}
+
+		void	_erase_node(node_pointer &current_node)
+		{
+			size_type	number_of_children = _count_children(current_node);
 		
-		// 	switch (number_of_children)
-		// 	{
-		// 		case NO_CHILD:
-		// 		{
-		// 			if (current_node == _end_node)
-		// 				return ;
-		// 			_set_predecessor_pointer(current_node, NULL);
-		// 			_delete_node(current_node);
-		// 			break;
-		// 		}
-		// 		case ONE_CHILD:
-		// 		{
-		// 			node_pointer	child = _get_child(current_node);
+			switch (number_of_children)
+			{
+				case NO_CHILD:
+				{
+					if (current_node == _end_node)
+						return ;
+					_set_predecessor_pointer(current_node, NULL);
+					_delete_node(current_node);
+					break;
+				}
+				case ONE_CHILD:
+				{
+					node_pointer	child = _get_child(current_node);
 
-		// 			_set_predecessor_pointer(current_node, child);
-		// 			_delete_node(current_node);
-		// 			break;
-		// 		}
-		// 		case TWO_CHILDREN:
-		// 		{
-		// 			node_pointer	successor = _find_successor(current_node->left); // va a gauche car a droite peut etre end_node
+					_set_predecessor_pointer(current_node, child);
+					_delete_node(current_node);
+					break;
+				}
+				case TWO_CHILDREN:
+				{
+					node_pointer	successor = _find_successor(current_node->left); // va a gauche car a droite peut etre end_node
 
-		// 			current_node->element = successor->element;
-		// 			erase(successor);
-		// 			break;
-		// 		}
-		// 	}
-		// }
+					current_node->element = successor->element;
+					erase(successor);
+					break;
+				}
+			}
+		}
 
 	/*
 
@@ -273,6 +279,11 @@ class Tree
 
 
 	private :
+
+		node_pointer	_iterator_to_pointer(iterator iter)
+		{
+			return RB_tree_iterator(iter).base();
+		}
 
 		pair<node_pointer, bool> _insert_node (const node &new_node, node_pointer &current_node,
 											node_pointer parent_node = NULL)

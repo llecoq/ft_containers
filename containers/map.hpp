@@ -6,7 +6,7 @@
 /*   By: llecoq <llecoq@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/17 10:54:16 by llecoq            #+#    #+#             */
-/*   Updated: 2022/03/30 15:07:53 by llecoq           ###   ########.fr       */
+/*   Updated: 2022/03/30 15:20:44 by llecoq           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -159,12 +159,10 @@ class map
 		// template <class InputIterator>
 		// void insert (InputIterator first, InputIterator last);
 
-		// void erase (iterator position)
-		// {
-		// 	_node_pointer	node_to_erase = &position;
-			
-		// 	_tree.erase(node_to_erase);
-		// }
+		void erase (iterator position)
+		{
+			_tree.erase(position);
+		}
 
 			
 		// size_type erase (const key_type& k)
