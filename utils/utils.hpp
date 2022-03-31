@@ -6,7 +6,7 @@
 /*   By: llecoq <llecoq@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/07 15:08:10 by llecoq            #+#    #+#             */
-/*   Updated: 2022/03/31 10:38:51 by llecoq           ###   ########.fr       */
+/*   Updated: 2022/03/31 13:18:08 by llecoq           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -150,6 +150,31 @@ namespace ft
 		std::cout << "-----------VECTOR----------" << std::endl;
 		while (it != vec.end())
 			std::cout << *it++ << std::endl;
+		std::cout << "---------------------------" << std::endl;
+	}
+
+	template < typename T >
+	void	displayMap(T &map)
+	{
+		typename T::iterator	it = map.begin();
+
+		std::cout << "------------MAP------------" << std::endl;
+		while (it != map.end())
+			std::cout << (it++)->first << std::endl;
+		std::cout << "---------------------------" << std::endl;
+	}
+
+	template < typename T >
+	void	displayDataMap(T &map, std::string name = "map")
+	{
+		std::cout << "------------DATA-----------" << std::endl;
+		std::cout << "name = " << name << std::endl;
+		std::cout << "size = " << map.size() << std::endl;
+		typename T::iterator	it = map.begin();
+
+		std::cout << "------------MAP------------" << std::endl;
+		while (it != map.end())
+			std::cout << (it++)->first << std::endl;
 		std::cout << "---------------------------" << std::endl;
 	}
 

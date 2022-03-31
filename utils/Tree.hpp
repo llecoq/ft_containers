@@ -6,7 +6,7 @@
 /*   By: llecoq <llecoq@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/18 09:23:58 by llecoq            #+#    #+#             */
-/*   Updated: 2022/03/31 13:00:23 by llecoq           ###   ########.fr       */
+/*   Updated: 2022/03/31 13:12:57 by llecoq           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -229,6 +229,12 @@ class Tree
 			_swap_data(tmp, *this);
 			_swap_data(*this, x);
 			_swap_data(x, tmp);
+		}
+
+		void clear()
+		{
+			_destroy_from_root(_root_node);
+			_root_node = _end_node = _begin_node = NULL;		
 		}
 
 
@@ -490,6 +496,7 @@ class Tree
 				_destroy_from_root(current_node->right);
 				_node_allocator.destroy(current_node);
 				_node_allocator.deallocate(current_node, 1);
+				_size--;
 			}
 			current_node = NULL;
 		}
