@@ -6,7 +6,7 @@
 /*   By: llecoq <llecoq@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/17 10:54:16 by llecoq            #+#    #+#             */
-/*   Updated: 2022/03/31 12:39:43 by llecoq           ###   ########.fr       */
+/*   Updated: 2022/03/31 13:03:17 by llecoq           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -190,6 +190,11 @@ class map
 		void swap (map& x)
 		{
 			_tree.swap(x._tree);
+		}
+
+		friend void swap (map<Key,T,Compare,Alloc>& x, map<Key,T,Compare,Alloc>& y)
+		{
+			y._tree.swap(x._tree);
 		}
 
 	/*

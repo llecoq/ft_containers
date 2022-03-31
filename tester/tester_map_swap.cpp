@@ -6,7 +6,7 @@
 /*   By: llecoq <llecoq@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/31 12:43:17 by llecoq            #+#    #+#             */
-/*   Updated: 2022/03/31 12:43:32 by llecoq           ###   ########.fr       */
+/*   Updated: 2022/03/31 13:05:02 by llecoq           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,12 +24,24 @@ int	tester_map_swap_ft()
 	foo.swap(bar);
 	
 	std::cout << "foo contains:" << std::endl;
-	for (std::map<char, TestClass>::iterator it=foo.begin(); it!=foo.end(); ++it)
+	for (ft::map<char, TestClass>::iterator it=foo.begin(); it!=foo.end(); ++it)
 		std::cout << it->first << " => " << it->second << std::endl;
 	
 	std::cout << "bar contains:" << std::endl;
-	for (std::map<char, TestClass>::iterator it=bar.begin(); it!=bar.end(); ++it)
+	for (ft::map<char, TestClass>::iterator it=bar.begin(); it!=bar.end(); ++it)
 		std::cout << it->first << " => " << it->second << std::endl;
 	
-	return (SUCCESS);
+	std::cout << "swap friend" << std::endl;
+
+	swap(foo, bar);
+
+	std::cout << "foo contains:" << std::endl;
+	for (ft::map<char, TestClass>::iterator it=foo.begin(); it!=foo.end(); ++it)
+		std::cout << it->first << " => " << it->second << std::endl;
+	
+	std::cout << "bar contains:" << std::endl;
+	for (ft::map<char, TestClass>::iterator it=bar.begin(); it!=bar.end(); ++it)
+		std::cout << it->first << " => " << it->second << std::endl;
+	
+	return SUCCES;
 }

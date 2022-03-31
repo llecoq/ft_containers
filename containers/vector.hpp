@@ -6,7 +6,7 @@
 /*   By: llecoq <llecoq@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/16 15:57:56 by llecoq            #+#    #+#             */
-/*   Updated: 2022/03/31 10:38:40 by llecoq           ###   ########.fr       */
+/*   Updated: 2022/03/31 13:04:02 by llecoq           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -443,11 +443,7 @@ class vector
 
 		friend void swap (vector<T,Alloc>& x, vector<T,Alloc>& y)
 		{
-			t_vector_data<Alloc>	tmp;
-
-			x._swap_data(tmp, x);
-			x._swap_data(x, y);
-			x._swap_data(y, tmp);
+			x.swap(y);
 		}
 
 		void clear()
