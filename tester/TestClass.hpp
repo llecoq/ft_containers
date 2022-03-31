@@ -71,17 +71,16 @@ class TestClass
 
 		~TestClass()
 		{
-			std::cout << "TestClass destructor called" << std::endl;
-			// if (*_name == "Default")
-      		// 	std::cout << CYAN << _number << " - " << *_name << RED 
-			// 	<< " Destructor " << CYAN << "called" << RESET << std::endl;
-			// else
-      		// 	std::cout << GREEN << _number << " - " << *_name << RED 
-			// 	<< " Destructor " << GREEN << "called" << RESET;
-			// std::cout << " - " << _i << std::endl;
-			// if (_name)
-			// 	delete _name;
-			// _name = 0;
+			if (*_name == "Default")
+      			std::cout << CYAN << _number << " - " << *_name << RED 
+				<< " Destructor " << CYAN << "called" << RESET << std::endl;
+			else
+      			std::cout << GREEN << _number << " - " << *_name << RED 
+				<< " Destructor " << GREEN << "called" << RESET;
+			std::cout << " - " << _i << std::endl;
+			if (_name)
+				delete _name;
+			_name = 0;
 		}
 
 		std::string	getName() const

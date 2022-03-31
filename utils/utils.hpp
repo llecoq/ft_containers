@@ -6,7 +6,7 @@
 /*   By: llecoq <llecoq@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/07 15:08:10 by llecoq            #+#    #+#             */
-/*   Updated: 2022/03/30 14:53:37 by llecoq           ###   ########.fr       */
+/*   Updated: 2022/03/31 10:38:51 by llecoq           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,8 +88,8 @@ namespace ft
 ** ----------------------------------------------------------------------- UTILS
 */
 	// --------------------------------------------- data
-	template < class T, class Alloc = std::allocator<T> >
-	struct	data
+	template < class Alloc >
+	struct	t_vector_data
 	{
 		typedef	Alloc											allocator_type;
 		typedef typename allocator_type::pointer				pointer;
@@ -101,6 +101,19 @@ namespace ft
 		allocator_type											_allocator;
 		size_type												capacity;
 		size_type												size;
+	};
+
+	template < class Alloc >
+	struct	t_tree_data
+	{
+		typedef	Alloc											allocator_type;
+		typedef typename allocator_type::pointer				node_pointer;
+		typedef typename allocator_type::size_type				size_type;
+
+		node_pointer											_root_node;
+		node_pointer											_begin_node;
+		node_pointer											_end_node;
+		size_type												_size;
 	};
 
 	// ------------------------------------------ display

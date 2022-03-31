@@ -1,18 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   tester_map_ft.cpp                                  :+:      :+:    :+:   */
+/*   tester_map_swap.cpp                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: llecoq <llecoq@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/03/17 16:42:25 by llecoq            #+#    #+#             */
-/*   Updated: 2022/03/31 12:42:49 by llecoq           ###   ########.fr       */
+/*   Created: 2022/03/31 12:43:17 by llecoq            #+#    #+#             */
+/*   Updated: 2022/03/31 12:43:32 by llecoq           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../utils/tester.hpp"
-
-int	tester_map_ft()
+int	tester_map_swap_ft()
 {
 	ft::map<char, TestClass> foo,bar;
 

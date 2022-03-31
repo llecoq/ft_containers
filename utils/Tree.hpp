@@ -6,7 +6,7 @@
 /*   By: llecoq <llecoq@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/18 09:23:58 by llecoq            #+#    #+#             */
-/*   Updated: 2022/03/30 19:58:33 by llecoq           ###   ########.fr       */
+/*   Updated: 2022/03/31 12:40:22 by llecoq           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 #define TREE_HPP
 
 #include "../iterators/RB_tree_iterator.hpp"
+#include "../utils/utils.hpp"
 
 #include <iostream>
 
@@ -221,6 +222,14 @@ class Tree
 			_erase_node(node_to_erase);
 		}
 
+		void	swap (Tree &x)
+		{
+			t_tree_data<allocator_type>	tmp;
+
+			_swap_data(tmp, *this);
+			_swap_data(*this, x);
+			_swap_data(x, tmp);
+		}
 
 	/*
 	** -------------------------------------------------------------- OPERATIONS
@@ -262,7 +271,6 @@ class Tree
 			current_node->parent = parent_node;
 			_set_begin_or_end(current_node);
 			_size++;
-			
 			return pair<iterator, bool>(iterator(current_node), true);
 		}
 
@@ -324,7 +332,7 @@ class Tree
 				}
 				case TWO_CHILDREN:
 				{
-					node_pointer	successor = _find_successor(current_node->left); // va a gauche car a droite peut etre end_node
+					node_pointer	successor = _find_successor(current_node->left); // va à gauche car droite peut être end_node
 
 					current_node->element = successor->element;
 					erase(successor);
@@ -395,6 +403,15 @@ class Tree
 	/*
 	** ------------------------------------------------------------ UTILS
 	*/
+		template <typename D, typename U>
+		void	_swap_data(D &data, U &tmp)
+		{
+			data._root_node = tmp._root_node;
+			data._end_node = tmp._end_node;
+			data._begin_node = tmp._begin_node;
+			data._size = tmp._size;
+		}
+
 		bool	_position_is_before_insert(node_pointer current_position, key_type insert_key)
 		{
 			return key_compare()(current_position->element.first, insert_key);
@@ -464,13 +481,16 @@ class Tree
 		
 		void	_destroy_from_root(node_pointer &current_node)
 		{
-			if (current_node != NULL)
+			if (current_node == _end_node)
+				_node_allocator.deallocate(current_node, 1);
+			else if (current_node != NULL)
 			{
 				_destroy_from_root(current_node->left);
 				_destroy_from_root(current_node->right);
 				_node_allocator.destroy(current_node);
 				_node_allocator.deallocate(current_node, 1);
 			}
+			current_node = NULL;
 		}
 };
 

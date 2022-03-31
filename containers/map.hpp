@@ -6,7 +6,7 @@
 /*   By: llecoq <llecoq@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/17 10:54:16 by llecoq            #+#    #+#             */
-/*   Updated: 2022/03/30 19:56:01 by llecoq           ###   ########.fr       */
+/*   Updated: 2022/03/31 12:39:43 by llecoq           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,6 +59,7 @@ class map
 		typedef	Tree<Key, T, Compare, _node_allocator, iterator>		_base;
 
 		_base															_tree;
+		key_compare														_comp;
 
 	public :
 	/*
@@ -68,7 +69,8 @@ class map
 		explicit map (const key_compare& comp = key_compare(),
 					const allocator_type& alloc = allocator_type())
 		:
-			_tree(_base(comp, alloc))
+			_tree(_base(comp, alloc)),
+			_comp(comp)
 		{}
 
 		//-------------------------------------------------------------- range
@@ -79,19 +81,22 @@ class map
 			typename enable_if<!is_integral<InputIterator>::value
 			&& !is_floating_point<InputIterator>::value, InputIterator>::type* = 0)
 		:
-			_tree(_base(first, last, comp, alloc))
+			_tree(_base(first, last, comp, alloc)),
+			_comp(comp)
 		{}
 
 		//-------------------------------------------------------------- copy
 		map	(const map& x)
 		:
-			_tree(_base(x._tree))
+			_tree(_base(x._tree)),
+			_comp(_comp)
 		{}
 
 		//-------------------------------------------------------------- assign
 		map& operator= (const map& x)
 		{
 			_tree = x._tree;
+			_comp = x._comp;
 		}
 	
 		//-------------------------------------------------------------- destructor
@@ -124,9 +129,7 @@ class map
 
 		mapped_type& operator[] (const key_type& k)
 		{
-			value_type				tmp(k, mapped_type());
-			
-			return _tree.insert(tmp).first->second;
+			return _tree.insert(value_type(k, mapped_type())).first->second;
 		}
 
 	/*
@@ -184,6 +187,11 @@ class map
 				erase(first++);
 		}
 
+		void swap (map& x)
+		{
+			_tree.swap(x._tree);
+		}
+
 	/*
 	** -------------------------------------------------------------- OPERATIONS
 	*/
@@ -208,10 +216,10 @@ class map
 		bool	_position_is_opposite_way(key_type insert_key, key_type position_key)
 		{
 			key_type	root_key = _tree.get_root_key();
-			bool		position_is_before_root = key_compare()(position_key, root_key);
-			bool		position_is_after_root = key_compare()(root_key, position_key);
-			bool		root_is_before_insert = key_compare()(root_key, insert_key);
-			bool		root_is_after_insert = key_compare()(insert_key, root_key);
+			bool		position_is_before_root = _comp(position_key, root_key);
+			bool		position_is_after_root = _comp(root_key, position_key);
+			bool		root_is_before_insert = _comp(root_key, insert_key);
+			bool		root_is_after_insert = _comp(insert_key, root_key);
 
 			if ((position_is_before_root && root_is_before_insert)
 				|| (position_is_after_root && root_is_after_insert))

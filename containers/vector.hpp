@@ -6,7 +6,7 @@
 /*   By: llecoq <llecoq@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/16 15:57:56 by llecoq            #+#    #+#             */
-/*   Updated: 2022/03/29 11:41:50 by llecoq           ###   ########.fr       */
+/*   Updated: 2022/03/31 10:38:40 by llecoq           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,7 @@ class vector
 		pointer														_end;
 		pointer														_end_capacity;
 		allocator_type												_allocator;
-		data<value_type, allocator_type>							_old_vector;
+		t_vector_data<allocator_type>								_old_vector;
 
 	public :
 	/*
@@ -434,7 +434,7 @@ class vector
 		//----------------------------------------------------------------- swap
 		void swap (vector& x)
 		{
-			data<T>	tmp;
+			t_vector_data<allocator_type>	tmp;
 
 			_swap_data(tmp, *this);
 			_swap_data(*this, x);
@@ -443,7 +443,7 @@ class vector
 
 		friend void swap (vector<T,Alloc>& x, vector<T,Alloc>& y)
 		{
-			data<T>	tmp;
+			t_vector_data<Alloc>	tmp;
 
 			x._swap_data(tmp, x);
 			x._swap_data(x, y);
@@ -570,7 +570,7 @@ class vector
 	/*
 	** -------------------------------------------------------- SWAP/UPDATE DATA
 	*/
-		void	_update_data(data<T, Alloc> &old_vector)
+		void	_update_data(t_vector_data<allocator_type> &old_vector)
 		{
 			old_vector._begin = _begin;
 			old_vector._end = _end;
