@@ -6,7 +6,7 @@
 /*   By: llecoq <llecoq@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/07 15:08:10 by llecoq            #+#    #+#             */
-/*   Updated: 2022/03/31 13:18:08 by llecoq           ###   ########.fr       */
+/*   Updated: 2022/03/31 13:22:07 by llecoq           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -116,7 +116,7 @@ namespace ft
 		size_type												_size;
 	};
 
-	// ------------------------------------------ display
+	// ------------------------------------------ display vector
 	template < typename T >
 	void	displayVec(T &vec)
 	{
@@ -153,6 +153,7 @@ namespace ft
 		std::cout << "---------------------------" << std::endl;
 	}
 
+	// ------------------------------------------ display map
 	template < typename T >
 	void	displayMap(T &map)
 	{
