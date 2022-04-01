@@ -6,7 +6,7 @@
 /*   By: llecoq <llecoq@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/17 10:54:16 by llecoq            #+#    #+#             */
-/*   Updated: 2022/04/01 15:04:22 by llecoq           ###   ########.fr       */
+/*   Updated: 2022/04/01 15:19:57 by llecoq           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,6 @@ class map
 		typedef	Tree<Key, T, Compare, _node_allocator, iterator>		_base;
 
 		_base															_tree;
-		key_compare														_comp;
 
 	public :
 	/*
@@ -70,8 +69,7 @@ class map
 		explicit map (const key_compare& comp = key_compare(),
 					const allocator_type& alloc = allocator_type())
 		:
-			_tree(_base(comp, alloc)),
-			_comp(comp)
+			_tree(_base(comp, alloc))
 		{}
 
 		//-------------------------------------------------------------- range
@@ -82,22 +80,19 @@ class map
 			typename enable_if<!is_integral<InputIterator>::value
 			&& !is_floating_point<InputIterator>::value, InputIterator>::type* = 0)
 		:
-			_tree(_base(first, last, comp, alloc)),
-			_comp(comp)
+			_tree(_base(first, last, comp, alloc))
 		{}
 
 		//-------------------------------------------------------------- copy
 		map	(const map& x)
 		:
-			_tree(_base(x._tree)),
-			_comp(_comp)
+			_tree(_base(x._tree))
 		{}
 
 		//-------------------------------------------------------------- assign
 		map& operator= (const map& x)
 		{
 			_tree = x._tree;
-			_comp = x._comp;
 		}
 	
 		//-------------------------------------------------------------- destructor
@@ -207,7 +202,7 @@ class map
 	*/
 		key_compare key_comp() const
 		{
-			return _comp;
+			return key_compare();
 		}
 		
 		class value_compare : std::binary_function<value_type, value_type, bool>
@@ -255,10 +250,10 @@ class map
 		bool	_position_is_opposite_way(key_type insert_key, key_type position_key)
 		{
 			key_type	root_key = _tree.get_root_key();
-			bool		position_is_before_root = _comp(position_key, root_key);
-			bool		position_is_after_root = _comp(root_key, position_key);
-			bool		root_is_before_insert = _comp(root_key, insert_key);
-			bool		root_is_after_insert = _comp(insert_key, root_key);
+			bool		position_is_before_root = key_compare()(position_key, root_key);
+			bool		position_is_after_root = key_compare()(root_key, position_key);
+			bool		root_is_before_insert = key_compare()(root_key, insert_key);
+			bool		root_is_after_insert = key_compare()(insert_key, root_key);
 
 			if ((position_is_before_root && root_is_before_insert)
 				|| (position_is_after_root && root_is_after_insert))

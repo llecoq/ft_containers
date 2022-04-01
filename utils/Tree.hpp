@@ -6,7 +6,7 @@
 /*   By: llecoq <llecoq@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/18 09:23:58 by llecoq            #+#    #+#             */
-/*   Updated: 2022/03/31 13:12:57 by llecoq           ###   ########.fr       */
+/*   Updated: 2022/04/01 15:58:17 by llecoq           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,6 +49,17 @@ struct t_node
 		right(NULL)
 	{}
 
+	t_node	&operator=(t_node const &rhs)
+	{
+		color = rhs.color;
+		element = rhs.element;
+	
+		// reset pointers
+		parent = NULL;
+		right = NULL;
+		left = NULL;
+	}
+
 	~t_node()
 	{
 		// std::cout << "t_node destructor" << std::endl;
@@ -90,7 +101,6 @@ class Tree
 		node_pointer											_begin_node;
 		node_pointer											_end_node;
 		allocator_type											_node_allocator;
-		key_compare												_comp;
 		size_type												_size;
 
 		friend void	printTree<t_node>(t_node *root, t_node *end);
@@ -105,7 +115,6 @@ class Tree
 			_begin_node(_root_node),
 			_end_node(_root_node),
 			_node_allocator(alloc),
-			_comp(comp),
 			_size(0)
 		{
 			// std::cout << "tree default constructor" << std::endl;
@@ -117,7 +126,6 @@ class Tree
 			_begin_node(_root_node),
 			_end_node(_root_node),
 			_node_allocator(x._node_allocator),
-			_comp(x._comp),
 			_size(0)	
 		{
 			std::cout << "tree copy constructor" << std::endl;
@@ -133,7 +141,6 @@ class Tree
 			_begin_node(_root_node),
 			_end_node(_root_node),
 			_node_allocator(alloc),
-			_comp(comp),
 			_size(0)
 		{
 			std::cout << "tree range constructor" << std::endl;
@@ -143,7 +150,19 @@ class Tree
 
 		Tree& operator= (const Tree& x)
 		{
-			(void)x;
+			clear();
+			_pre_order_insert(_root_node, x._root_node);
+		}
+
+		void	_pre_order_insert(node_pointer current_node, node_pointer copy_node,
+									node_pointer parent_node = NULL)
+		{
+			if (copy_node != NULL)
+			{
+				_set_new_node(*copy_node, current_node, parent_node);
+				_pre_order_insert(current_node->left, copy_node->left, current_node);
+				_pre_order_insert(current_node->right, copy_node->right, current_node);
+			}
 		}
 
 		// destructor
@@ -265,7 +284,7 @@ class Tree
 				return _set_new_node(new_node, current_node, parent_node);
 			if (_same_key(new_node.element.first, current_node->element.first))
 				return pair<node_pointer, bool>(current_node, false);
-			if (_comp(new_node.element.first, current_node->element.first)) 
+			if (key_compare()(new_node.element.first, current_node->element.first)) 
 				return _insert_node(new_node, current_node->left, current_node); // insert left
 			else
 				return _insert_node(new_node, current_node->right, current_node); // insert right
@@ -285,9 +304,9 @@ class Tree
 		{
 			if (current_node == _root_node)
 				_init_end_node();
-			else if (_comp(_end_node->parent->element.first, current_node->element.first)) // new node is end
+			else if (key_compare()(_end_node->parent->element.first, current_node->element.first)) // new node is end
 				_set_end_node(current_node);
-			else if (_comp(current_node->element.first, _begin_node->element.first)) // new node is begin
+			else if (key_compare()(current_node->element.first, _begin_node->element.first)) // new node is begin
 				_begin_node = current_node;
 		}
 
@@ -399,7 +418,7 @@ class Tree
 		{
 			if (_same_key(k, current_node->element.first))
 				return (current_node);
-			if (_comp(k, current_node->element.first) && current_node->left != NULL) 
+			if (key_compare()(k, current_node->element.first) && current_node->left != NULL) 
 				return _find_key(k, current_node->left); // _find_key left
 			else if (current_node->right != NULL)
 				return _find_key(k, current_node->right); // _find_key right
@@ -436,7 +455,7 @@ class Tree
 
 		bool	_same_key(key_type const &current_key, key_type const &new_key)
 		{
-			return (!_comp(current_key, new_key) && !_comp(new_key, current_key));
+			return (!key_compare()(current_key, new_key) && !key_compare()(new_key, current_key));
 		}
 
 		bool	_empty_node(node_pointer const &node)
