@@ -6,7 +6,7 @@
 /*   By: llecoq <llecoq@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/17 10:54:16 by llecoq            #+#    #+#             */
-/*   Updated: 2022/03/31 13:23:54 by llecoq           ###   ########.fr       */
+/*   Updated: 2022/04/01 13:35:39 by llecoq           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,7 @@ class map
 		typedef Key														key_type;
 		typedef T														mapped_type;
 		typedef Compare													key_compare;
+		// typedef value_compare::													value_compare;
 		typedef Alloc													allocator_type;
 				
 		typedef pair<key_type, mapped_type>								value_type;
@@ -208,7 +209,28 @@ class map
 		{
 			return _comp;
 		}
+		
+		// class value_compare
+		// {   // in C++98, it is required to inherit binary_function<value_type,value_type,bool>
+		// 	friend class map;
+		// 	protected:
+		// 	Compare comp;
+		// 	value_compare (Compare c) : comp(c) {}  // constructed with map's comparison object
+		// 	public:
+		// 	typedef bool result_type;
+		// 	typedef value_type first_argument_type;
+		// 	typedef value_type second_argument_type;
+		// 	bool operator() (const value_type& x, const value_type& y) const
+		// 	{
+		// 	return comp(x.first, y.first);
+		// 	}
+		// }
 
+		// value_compare value_comp() const
+		// {
+			
+		// }
+		
 	/*
 	** -------------------------------------------------------------- OPERATIONS
 	*/

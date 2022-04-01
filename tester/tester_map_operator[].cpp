@@ -6,7 +6,7 @@
 /*   By: llecoq <llecoq@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/24 13:09:33 by llecoq            #+#    #+#             */
-/*   Updated: 2022/03/24 13:10:08 by llecoq           ###   ########.fr       */
+/*   Updated: 2022/04/01 14:21:55 by llecoq           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ int	tester_operator[]()
 {
 	std_map			test;
 	
-	ft::fillMap<std_map, std_pair>(test, 10, RANDOMIZED_QUEUE);
+	ut::fillMap<std_map, std_pair>(test, 10, RANDOMIZED_QUEUE);
 
 	std::cout << "size = " << test.size() << std::endl;
 	int		&a = test[1];

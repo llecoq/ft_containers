@@ -6,7 +6,7 @@
 /*   By: llecoq <llecoq@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/03 13:19:12 by llecoq            #+#    #+#             */
-/*   Updated: 2022/03/15 15:03:40 by llecoq           ###   ########.fr       */
+/*   Updated: 2022/04/01 14:23:02 by llecoq           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ void	tester_reverse_iterator(void)
 	ft::vector<TestClass>					myvector;
 	for (int i=0; i<10; i++) myvector.push_back(i);
 
-	ft::displayVec(myvector);
+	ut::displayVec(myvector);
 
 	ft::vector<TestClass>::reverse_iterator	rev_it = myvector.rbegin();
 	ft::vector<TestClass>::reverse_iterator	rev_ite (myvector.rend());

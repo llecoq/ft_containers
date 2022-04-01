@@ -2,7 +2,7 @@
 	// ft::map<int, TestClass> map;
 
 	// map.insert(ft::pair<int, TestClass>(1, 1));
-	// ft::fillMap<ft::map<int, TestClass>,ft::pair<int, TestClass> > (map, 20, RANDOM);
+	// ut::fillMap<ft::map<int, TestClass>,ft::pair<int, TestClass> > (map, 20, RANDOM);
 	// ft_map mymap;
 	
 	// first insert function version (single parameter):
@@ -38,8 +38,8 @@
 	// std::cout << "find 90 = " << mymap.find(90)->second << std::endl;
 	// mymap.insert(ft_pair(5, 5));
 	// std::cout << "size = " << mymap.size() << std::endl;
-	// ft::fillMap<ft_map, ft_pair>(mymap, 20, RANDOMIZED_QUEUE);
-	// // ft::fillMap<ft_map, ft_pair>(mymap, 20, RANDOM);
+	// ut::fillMap<ft_map, ft_pair>(mymap, 20, RANDOMIZED_QUEUE);
+	// // ut::fillMap<ft_map, ft_pair>(mymap, 20, RANDOM);
 	// it = mymap.find(1);
 	// mymap.erase(it);
 	// // // it = mymap.find(27);

@@ -6,21 +6,17 @@
 /*   By: llecoq <llecoq@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/07 15:08:10 by llecoq            #+#    #+#             */
-/*   Updated: 2022/03/31 13:22:07 by llecoq           ###   ########.fr       */
+/*   Updated: 2022/04/01 14:32:44 by llecoq           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef UTILS_HPP
 #define UTILS_HPP
 
-#include <cstdlib>
-
 namespace ft
 {
 
 	# define COUNT 10
-	# define RANDOM 1
-	# define RANDOMIZED_QUEUE 2
 
 /*
 ** ----------------------------------------------------- LEXICOGRAPHICAL COMPARE
@@ -116,76 +112,6 @@ namespace ft
 		size_type												_size;
 	};
 
-	// ------------------------------------------ display vector
-	template < typename T >
-	void	displayVec(T &vec)
-	{
-		typename T::iterator	it = vec.begin();
-
-		std::cout << "-----------VECTOR----------" << std::endl;
-		while (it != vec.end())
-			std::cout << *it++ << std::endl;
-		std::cout << "---------------------------" << std::endl;
-	}
-
-	template < typename T >
-	void	displayData(T &vec, std::string name = "vec")
-	{
-		std::cout << "------------DATA-----------" << std::endl;
-		std::cout << "name = " << name << std::endl;
-		std::cout << "size = " << vec.size() << std::endl;
-		std::cout << "capacity = " << vec.capacity() << std::endl;
-		std::cout << "---------------------------" << std::endl;
-	}
-
-	template < typename T >
-	void	displayDataVec(T &vec, std::string name = "vec")
-	{
-		std::cout << "------------DATA-----------" << std::endl;
-		std::cout << "name = " << name << std::endl;
-		std::cout << "size = " << vec.size() << std::endl;
-		std::cout << "capacity = " << vec.capacity() << std::endl;
-		typename T::iterator	it = vec.begin();
-
-		std::cout << "-----------VECTOR----------" << std::endl;
-		while (it != vec.end())
-			std::cout << *it++ << std::endl;
-		std::cout << "---------------------------" << std::endl;
-	}
-
-	// ------------------------------------------ display map
-	template < typename T >
-	void	displayMap(T &map)
-	{
-		typename T::iterator	it = map.begin();
-
-		std::cout << "------------MAP------------" << std::endl;
-		while (it != map.end())
-			std::cout << (it++)->first << std::endl;
-		std::cout << "---------------------------" << std::endl;
-	}
-
-	template < typename T >
-	void	displayDataMap(T &map, std::string name = "map")
-	{
-		std::cout << "------------DATA-----------" << std::endl;
-		std::cout << "name = " << name << std::endl;
-		std::cout << "size = " << map.size() << std::endl;
-		typename T::iterator	it = map.begin();
-
-		std::cout << "------------MAP------------" << std::endl;
-		while (it != map.end())
-			std::cout << (it++)->first << std::endl;
-		std::cout << "---------------------------" << std::endl;
-	}
-
-	// ---------------------------------------- push back
-	template < typename T >
-	void	pushBackVec(T &vec, int n = 10)
-	{
-		for (int i = 0; i < n; ++i)
-			vec.push_back(i);
-	}
 
 	// --------------------------------------- print 2D BSC
 	template < typename Node >
@@ -209,39 +135,6 @@ namespace ft
 	{
 		print2D(root, 0, end);
 	}
-
-	template < class Map, class Pair >
-	void	fillMap(Map &map, int n, int option = 0)
-	{
-		if (option == RANDOM)
-		{
-			srand (time(NULL));
-			for (int i = 0; i < n; i++)
-				map.insert(Pair (rand() % 1561 , rand() % 154 ) );
-		}
-		else if (option == RANDOMIZED_QUEUE)
-		{
-			map.insert(Pair(5, 5));
-			map.insert(Pair(4, 4));
-			map.insert(Pair(2, 2));
-			map.insert(Pair(3, 3));
-			map.insert(Pair(11, 11));
-			map.insert(Pair(6, 6));
-			map.insert(Pair(1, 1));
-			map.insert(Pair(7, 7));
-			map.insert(Pair(8, 8));
-			map.insert(Pair(10, 10));
-			map.insert(Pair(9, 9));
-			map.insert(Pair(12, 12));
-		}
-		else
-		{
-			for (int i = 0; i < n; i++)
-				map.insert(Pair(i, i));
-		}
-	}
-
-
 
 }
 

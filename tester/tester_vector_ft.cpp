@@ -6,7 +6,7 @@
 /*   By: llecoq <llecoq@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/27 14:26:55 by llecoq            #+#    #+#             */
-/*   Updated: 2022/03/29 09:37:33 by llecoq           ###   ########.fr       */
+/*   Updated: 2022/04/01 14:23:02 by llecoq           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ int	tester_vector_ft(void)
 	/*---------------------------- SPEED TEST ----------------------------*/
 	{
 		ft::vector<int>	IamSpeed;
-		ft::pushBackVec(IamSpeed, 50000000);
+		ut::pushBackVec(IamSpeed, 50000000);
 	}
 	/*----------------------------- ITERATOR -----------------------------*/
 	{
@@ -198,45 +198,45 @@ int	tester_vector_ft(void)
 		// ft::vector<TestClass> fourth;
 
 		first.assign (7,100);             // 7 ints with a value of 100
-		ft::displayData(first);
-		ft::displayVec(first);
+		ut::displayData(first);
+		ut::displayVec(first);
 
 		first.assign (10,100);             // 7 ints with a value of 100
-		ft::displayData(first);
-		ft::displayVec(first);
+		ut::displayData(first);
+		ut::displayVec(first);
 
 		ft::vector<TestClass>::iterator it;
 		it=first.begin()+1;
 
 		second.assign (it,first.end()-1); // the 5 central values of first
-		ft::displayData(second);
-		ft::displayVec(second);
+		ut::displayData(second);
+		ut::displayVec(second);
 
 		int myints[] = {1776,7,4};
 		float myfloat[] = {12.1, 15.3, 42.9};
 		third.assign (myfloat,myfloat+3);   // assigning from array.
 		third.assign (myints,myints+3);   // assigning from array.
-		ft::displayData(third);
-		ft::displayVec(third);
+		ut::displayData(third);
+		ut::displayVec(third);
 
 		// fourth.assign(10.5, 5.5);
 
-		ft::displayVec(first);
+		ut::displayVec(first);
 		first.assign(1, 10);
-		ft::displayData(first);
-		ft::displayVec(first);
+		ut::displayData(first);
+		ut::displayVec(first);
 
 		first.assign(second.begin(), second.end());
-		ft::displayData(first);
-		ft::displayVec(first);
+		ut::displayData(first);
+		ut::displayVec(first);
 		
 		first.assign(20, 10);
-		ft::displayData(first);
-		ft::displayVec(first);
+		ut::displayData(first);
+		ut::displayVec(first);
 		
 		first.assign(5, 10);
-		ft::displayData(first);
-		ft::displayVec(first);
+		ut::displayData(first);
+		ut::displayVec(first);
 
 		std::cout << "Size of first: " << int (first.size()) << '\n';
 		std::cout << "Size of second: " << int (second.size()) << '\n';
@@ -247,32 +247,32 @@ int	tester_vector_ft(void)
 	{
 		ft::vector<TestClass> myvector;
 		myvector.clear();
-		ft::displayData(myvector);
+		ut::displayData(myvector);
 		
 		myvector.push_back (100);
 		myvector.push_back (200);
 		myvector.push_back (300);
 		
-		ft::displayVec(myvector);
+		ut::displayVec(myvector);
 	
-		ft::displayData(myvector);
+		ut::displayData(myvector);
 		std::cout << "clear :" << std::endl;
 		myvector.clear();
-		ft::displayData(myvector);
-		ft::displayVec(myvector);
+		ut::displayData(myvector);
+		ut::displayVec(myvector);
 	
 	
 		std::cout << "resize" << std::endl;
 		myvector.resize(12, TestClass(1));
-		ft::displayData(myvector);
+		ut::displayData(myvector);
 		std::cout << "clear :" << std::endl;
 		myvector.clear();
-		ft::displayData(myvector);
+		ut::displayData(myvector);
 	
 		myvector.push_back (1101);
 		myvector.push_back (2202);
 		
-		ft::displayVec(myvector);
+		ut::displayVec(myvector);
 	}
 		/*-------------------- COPY ASSIGNMENT ------------------------*/
 		std::cout << "---------- COPY ASSIGNMENT -----------" << std::endl;
@@ -280,54 +280,54 @@ int	tester_vector_ft(void)
 		ft::vector<TestClass>	vec(5, 100);
 		ft::vector<TestClass>	vec_2;
 	
-		ft::pushBackVec(vec_2);
+		ut::pushBackVec(vec_2);
 	
-		ft::displayData(vec, "vec");
-		ft::displayVec(vec);
-		ft::displayData(vec_2, "vec_2");
-		ft::displayVec(vec_2);
+		ut::displayData(vec, "vec");
+		ut::displayVec(vec);
+		ut::displayData(vec_2, "vec_2");
+		ut::displayVec(vec_2);
 	
 		vec_2 = vec;
-		ft::displayData(vec_2, "vec_2");
-		ft::displayVec(vec_2);
+		ut::displayData(vec_2, "vec_2");
+		ut::displayVec(vec_2);
 	
 		ft::vector<TestClass>	vec_3 = vec;
-		ft::displayData(vec_3, "vec_3");
-		ft::displayVec(vec_3);
+		ut::displayData(vec_3, "vec_3");
+		ut::displayVec(vec_3);
 	}
 		/*-------------------- COPY CONSTRUCTOR ------------------------*/
 		std::cout << "---------- COPY CONSTRUCTOR -----------" << std::endl;
 	{	/* COPY CONSTRUCTOR */
 		ft::vector<TestClass>		vec;
 	
-		ft::pushBackVec(vec, 5);
-		ft::displayData(vec);
-		ft::displayVec(vec);
+		ut::pushBackVec(vec, 5);
+		ut::displayData(vec);
+		ut::displayVec(vec);
 
 		ft::vector<TestClass>		copy(vec);
-		ft::displayData(copy, "copy");
-		ft::displayVec(copy);
+		ut::displayData(copy, "copy");
+		ut::displayVec(copy);
 
 		// /* RANGE */
 		ft::vector<TestClass>	range(vec.begin() + 1, vec.end());
-		ft::displayData(range, "range");
-		ft::displayVec(range);
+		ut::displayData(range, "range");
+		ut::displayVec(range);
 	}
 	{	/* OPERATOR= */
 		ft::vector<TestClass>		vec;
 		ft::vector<TestClass>		copy;
 	
-		ft::pushBackVec(vec, 5);
+		ut::pushBackVec(vec, 5);
 		for (int i = 10; i > 0; i--)
 			copy.push_back(TestClass(i));
-		ft::displayData(vec);
-		ft::displayVec(vec);
-		ft::displayData(copy, "copy");
-		ft::displayVec(copy);
+		ut::displayData(vec);
+		ut::displayVec(vec);
+		ut::displayData(copy, "copy");
+		ut::displayVec(copy);
 
 		copy = vec;
-		ft::displayData(copy, "copy");
-		ft::displayVec(copy);
+		ut::displayData(copy, "copy");
+		ut::displayVec(copy);
 	}	
 		/*--------------------- ELEMENT ACCESS -------------------------*/
 		std::cout << "----------- ELEMENT ACCESS ------------" << std::endl;
@@ -407,18 +407,18 @@ int	tester_vector_ft(void)
 		ft::vector<TestClass> myvector;
 
 		// set some values (from 1 to 10)
-		ft::pushBackVec(myvector);
-		ft::displayDataVec(myvector);
+		ut::pushBackVec(myvector);
+		ut::displayDataVec(myvector);
 
 		// erase the 6th element
 		std::cout << std::endl << "erase 6th element" << std::endl;
 		myvector.erase (myvector.begin()+5);
-		ft::displayDataVec(myvector);
+		ut::displayDataVec(myvector);
 
 		// erase the first 3 elements:
 		std::cout << "erase 3 first elements" << std::endl;
 		myvector.erase (myvector.begin(),myvector.begin()+3);
-		ft::displayDataVec(myvector);
+		ut::displayDataVec(myvector);
 	}
 		/*------------------------- INSERT -----------------------------*/
 		std::cout << "--------------- INSERT ----------------" << std::endl;
@@ -426,11 +426,11 @@ int	tester_vector_ft(void)
 		ft::vector<TestClass> myvector (3, TestClass(100));
 		ft::vector<TestClass>::iterator it;
 
-		ft::displayData(myvector);
+		ut::displayData(myvector);
 		std::cout << "resize 6" << std::endl;
 		myvector.resize(6, TestClass());
-		ft::displayData(myvector);
-		ft::displayVec(myvector);
+		ut::displayData(myvector);
+		ut::displayVec(myvector);
 
 		it = myvector.begin();
 		std::cout << "insert ( it + 1 , 200 )" << std::endl;
@@ -439,35 +439,35 @@ int	tester_vector_ft(void)
 		std::cout << "insert ( it + 1 , 200 )" << std::endl;
 		it = myvector.insert ( it + 1 , 200 );
 
-		ft::displayData(myvector);
-		ft::displayVec(myvector);
+		ut::displayData(myvector);
+		ut::displayVec(myvector);
 
 		std::cout << "insert ( it,5,300 )" << std::endl;
 		myvector.insert (it,5,300);
 		std::cout << "(myvector.begin() + 5,1,50)" << std::endl;
 		myvector.insert (myvector.begin() + 5,1,50);
 
-		ft::displayData(myvector);
-		ft::displayVec(myvector);
+		ut::displayData(myvector);
+		ut::displayVec(myvector);
 
 		std::cout << "insert (myvector.begin() + 12,20,1)" << std::endl;
 		myvector.insert (myvector.begin() + 12,20,1);
 
-		ft::displayData(myvector);
-		ft::displayVec(myvector);
+		ut::displayData(myvector);
+		ut::displayVec(myvector);
 
 		it = myvector.begin();
 		ft::vector<TestClass> anothervector (2, TestClass(400));
 			myvector.insert (it+2,anothervector.begin(),anothervector.end());
 
-		ft::displayData(myvector);
-		ft::displayVec(myvector);
+		ut::displayData(myvector);
+		ut::displayVec(myvector);
 
 		int myarray [] = { 501,502,503,504,505,506,507,508 };
 		myvector.insert (myvector.begin(), myarray, myarray+3);
 
-		ft::displayData(myvector);
-		ft::displayVec(myvector);
+		ut::displayData(myvector);
+		ut::displayVec(myvector);
 	}
 		/*------------------------ IS INTEGRAL ---------------------------*/
 		std::cout << "-------------- IS INTEGRAL --------------" << std::endl;
@@ -654,8 +654,8 @@ int	tester_vector_ft(void)
 		ft::vector<int>	vec;
 		ft::vector<int>	vec_2;
 
-		ft::pushBackVec(vec);
-		ft::pushBackVec(vec_2);
+		ut::pushBackVec(vec);
+		ut::pushBackVec(vec_2);
 		if (vec == vec_2) std::cout << "vec == vec_2" << std::endl;
 		vec.insert(vec.begin() + 2, 3);
 		if (vec == vec_2) std::cout << "vec and vec_2 are equal" << std::endl;
@@ -688,29 +688,29 @@ int	tester_vector_ft(void)
 	{
 		ft::vector<int> foo;
 		std::cout << "making foo grow:\n";
-		ft::pushBackVec(foo, 100);
-		ft::displayDataVec(foo, "foo");
+		ut::pushBackVec(foo, 100);
+		ut::displayDataVec(foo, "foo");
 
 		ft::vector<TestClass> bar;
-		ft::pushBackVec(bar, 3);
-		ft::displayDataVec(bar, "bar");
+		ut::pushBackVec(bar, 3);
+		ut::displayDataVec(bar, "bar");
 		
 		std::cout << "reserve 100" << std::endl;
 		bar.reserve(100);   // this is the only difference with foo above
-		ft::displayDataVec(bar, "bar");
+		ut::displayDataVec(bar, "bar");
 
 		std::cout << "making bar grow:\n";
-		ft::pushBackVec(bar);
-		ft::displayDataVec(bar, "bar");
+		ut::pushBackVec(bar);
+		ut::displayDataVec(bar, "bar");
 
 		std::cout << "foo reserve 1" << std::endl;
 		foo.reserve(1);
 		std::cout << "bar reserve 1" << std::endl;
 		bar.reserve(1);
-		ft::displayDataVec(bar, "bar");
+		ut::displayDataVec(bar, "bar");
 		std::cout << "foo reserve 103" << std::endl;
 		foo.reserve(103);
-		ft::displayDataVec(foo, "foo");
+		ut::displayDataVec(foo, "foo");
 	}
 		/*----------------------------- RESIZE ------------------------------*/
 		std::cout << "------------------- RESIZE -----------------" << std::endl;
@@ -720,17 +720,17 @@ int	tester_vector_ft(void)
 		for (int i = 0; i < 3; i++)
 			vec.push_back(TestClass());
 		vec.reserve(4);
-		ft::displayVec(vec);
-		ft::displayData(vec);
+		ut::displayVec(vec);
+		ut::displayData(vec);
 		vec.resize(15, TestClass());
-		ft::displayData(vec);
-		ft::displayVec(vec);
+		ut::displayData(vec);
+		ut::displayVec(vec);
 		vec.resize(2, TestClass());
-		ft::displayData(vec);
-		ft::displayVec(vec);
+		ut::displayData(vec);
+		ut::displayVec(vec);
 		vec.resize(20, 1);
-		ft::displayData(vec);
-		ft::displayVec(vec);
+		ut::displayData(vec);
+		ut::displayVec(vec);
 	}
 		/*------------------------- REVERSE ITERATOR -------------------------*/
 		std::cout << "--------------- REVERSE ITERATOR ------------" << std::endl;
@@ -738,7 +738,7 @@ int	tester_vector_ft(void)
 		ft::vector<TestClass>					myvector;
 		for (int i=0; i<10; i++) myvector.push_back(i);
 
-		ft::displayVec(myvector);
+		ut::displayVec(myvector);
 
 		ft::vector<TestClass>::reverse_iterator	rev_it = myvector.rbegin();
 		ft::vector<TestClass>::reverse_iterator	rev_ite (myvector.rend());
@@ -778,29 +778,29 @@ int	tester_vector_ft(void)
 		
 		ft::vector<TestClass>	vec_2(5, 100);
 
-		ft::pushBackVec(vec);
-		ft::displayData(vec, "vec");
-		ft::displayVec(vec);
+		ut::pushBackVec(vec);
+		ut::displayData(vec, "vec");
+		ut::displayVec(vec);
 
-		ft::displayData(vec_2, "vec_2");
-		ft::displayVec(vec_2);
+		ut::displayData(vec_2, "vec_2");
+		ut::displayVec(vec_2);
 
 		std::cout << "SWAP MEMBER" << std::endl;
 		vec_2.swap(vec);
 
-		ft::displayData(vec, "vec");
-		ft::displayVec(vec);
+		ut::displayData(vec, "vec");
+		ut::displayVec(vec);
 
-		ft::displayData(vec_2, "vec_2");
-		ft::displayVec(vec_2);
+		ut::displayData(vec_2, "vec_2");
+		ut::displayVec(vec_2);
 
 		std::cout << "SWAP NON MEMBER" << std::endl;
 		swap(vec, vec_2);
-		ft::displayData(vec, "vec");
-		ft::displayVec(vec);
+		ut::displayData(vec, "vec");
+		ut::displayVec(vec);
 
-		ft::displayData(vec_2, "vec_2");
-		ft::displayVec(vec_2);
+		ut::displayData(vec_2, "vec_2");
+		ut::displayVec(vec_2);
 	}
 	return (SUCCESS);
 }

@@ -6,7 +6,7 @@
 /*   By: llecoq <llecoq@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/04 10:56:21 by llecoq            #+#    #+#             */
-/*   Updated: 2022/03/15 14:44:07 by llecoq           ###   ########.fr       */
+/*   Updated: 2022/04/01 14:23:02 by llecoq           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,33 +17,33 @@ void	tester_copy_constructor()
 	{	/* COPY CONSTRUCTOR */
 		ft::vector<TestClass>		vec;
 	
-		ft::pushBackVec(vec, 5);
-		ft::displayData(vec);
-		ft::displayVec(vec);
+		ut::pushBackVec(vec, 5);
+		ut::displayData(vec);
+		ut::displayVec(vec);
 
 		ft::vector<TestClass>		copy(vec);
-		ft::displayData(copy, "copy");
-		ft::displayVec(copy);
+		ut::displayData(copy, "copy");
+		ut::displayVec(copy);
 
 		// /* RANGE */
 		ft::vector<TestClass>	range(vec.begin() + 1, vec.end());
-		ft::displayData(range, "range");
-		ft::displayVec(range);
+		ut::displayData(range, "range");
+		ut::displayVec(range);
 	}
 	{	/* OPERATOR= */
 		ft::vector<TestClass>		vec;
 		ft::vector<TestClass>		copy;
 	
-		ft::pushBackVec(vec, 5);
+		ut::pushBackVec(vec, 5);
 		for (int i = 10; i > 0; i--)
 			copy.push_back(TestClass(i));
-		ft::displayData(vec);
-		ft::displayVec(vec);
-		ft::displayData(copy, "copy");
-		ft::displayVec(copy);
+		ut::displayData(vec);
+		ut::displayVec(vec);
+		ut::displayData(copy, "copy");
+		ut::displayVec(copy);
 
 		copy = vec;
-		ft::displayData(copy, "copy");
-		ft::displayVec(copy);
+		ut::displayData(copy, "copy");
+		ut::displayVec(copy);
 	}	
 }

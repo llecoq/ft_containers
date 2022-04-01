@@ -6,18 +6,32 @@
 /*   By: llecoq <llecoq@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/27 14:49:09 by llecoq            #+#    #+#             */
-/*   Updated: 2022/03/30 20:05:57 by llecoq           ###   ########.fr       */
+/*   Updated: 2022/04/01 14:31:35 by llecoq           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef TESTER_HPP
 #define TESTER_HPP
 
-#  include "../containers/vector.hpp"
-#  include "../containers/stack.hpp"
-#  include "../containers/map.hpp"
+#if std_lib
+	#define TESTING "Testing with std library"
+	#include <map>
+	#include <stack>
+	#include <limits>
+	#include <iterator>
+	#include <vector>
+	namespace ft = std;
+#else
+	# define TESTING "Testing with ft library"
+	# include "metafunctions.hpp"
+	# include "../containers/vector.hpp"
+	# include "../containers/stack.hpp"
+	# include "../containers/map.hpp"
+	# include "utils.hpp"
+#endif
+
 #  include "TestClass.hpp"
-#  include "metafunctions.hpp"
+#  include "tester_utils.hpp"
 
 // #include <iostream>
 #include <string>

@@ -6,7 +6,7 @@
 /*   By: llecoq <llecoq@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/07 15:40:17 by llecoq            #+#    #+#             */
-/*   Updated: 2022/03/15 16:35:10 by llecoq           ###   ########.fr       */
+/*   Updated: 2022/04/01 14:23:02 by llecoq           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,45 +20,45 @@ void	tester_assign(void)
 	// ft::vector<TestClass> fourth;
 
 	first.assign (7,100);             // 7 ints with a value of 100
-	ft::displayData(first);
-	ft::displayVec(first);
+	ut::displayData(first);
+	ut::displayVec(first);
 
 	first.assign (10,100);             // 7 ints with a value of 100
-	ft::displayData(first);
-	ft::displayVec(first);
+	ut::displayData(first);
+	ut::displayVec(first);
 
 	ft::vector<TestClass>::iterator it;
 	it=first.begin()+1;
 
 	second.assign (it,first.end()-1); // the 5 central values of first
-	ft::displayData(second);
-	ft::displayVec(second);
+	ut::displayData(second);
+	ut::displayVec(second);
 
 	int myints[] = {1776,7,4};
 	float myfloat[] = {12.1, 15.3, 42.9};
 	third.assign (myfloat,myfloat+3);   // assigning from array.
 	third.assign (myints,myints+3);   // assigning from array.
-	ft::displayData(third);
-	ft::displayVec(third);
+	ut::displayData(third);
+	ut::displayVec(third);
 
 	// fourth.assign(10.5, 5.5);
 
-	ft::displayVec(first);
+	ut::displayVec(first);
 	first.assign(1, 10);
-	ft::displayData(first);
-	ft::displayVec(first);
+	ut::displayData(first);
+	ut::displayVec(first);
 
 	first.assign(second.begin(), second.end());
-	ft::displayData(first);
-	ft::displayVec(first);
+	ut::displayData(first);
+	ut::displayVec(first);
 	
 	first.assign(20, 10);
-	ft::displayData(first);
-	ft::displayVec(first);
+	ut::displayData(first);
+	ut::displayVec(first);
 	
 	first.assign(5, 10);
-	ft::displayData(first);
-	ft::displayVec(first);
+	ut::displayData(first);
+	ut::displayVec(first);
 
 	std::cout << "Size of first: " << int (first.size()) << '\n';
 	std::cout << "Size of second: " << int (second.size()) << '\n';

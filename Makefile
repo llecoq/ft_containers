@@ -6,7 +6,7 @@
 #    By: llecoq <llecoq@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/11/16 11:27:48 by llecoq            #+#    #+#              #
-#    Updated: 2022/03/30 20:12:56 by llecoq           ###   ########.fr        #
+#    Updated: 2022/04/01 14:32:18 by llecoq           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -14,6 +14,7 @@ SRCS_FILES	=				main.cpp
 
 INCLUDES_UTILS_FILES =		utils.hpp\
 							tester.hpp\
+							tester_utils.hpp\
 							Tree.hpp\
 							pair.hpp\
 							metafunctions.hpp
@@ -62,9 +63,9 @@ CXXC	= c++
 
 RM		= rm -rf
 
-CFLAGS	= -Wall -Wextra -Werror -std=c++98 -g3
+CFLAGS	= -Wall -Wextra -Werror -std=c++98 -g3 $(DFLAGS)
 
-# CFLAGS	= -Wall -Wextra -Werror -std=c++98 -g3 -fsanitize=address 
+# CFLAGS	= -Wall -Wextra -Werror -std=c++98 -g3 -fsanitize=address $(DFLAGS)
 
 DIR		=	.objs/
 
@@ -78,6 +79,8 @@ $(OBJSPATH)%.o:		$(SRCSPATH)%.cpp $(INCLUDES) $(INCLUDES_UTILS) $(INCLUDES_ITERA
 $(NAME):	$(OBJS)
 			$(CXXC) $(CFLAGS) $(OBJS) -o $(NAME)
 
+$(TEST):	@
+
 clean:
 			$(RM) $(OBJSPATH) tester/tester_results/*.test
 
@@ -85,6 +88,12 @@ fclean:		clean
 			$(RM) $(NAME)
 
 re:			fclean all
+
+std:		$(TEST)
+			@sh tester/scripts/test_std.sh
+
+ft:			$(TEST)
+			@sh tester/scripts/test_ft.sh
 
 vector:		$(NAME)
 			@sh tester/scripts/test_vector.sh
@@ -100,4 +109,4 @@ full:		$(NAME)
 			@sh tester/scripts/test_stack.sh
 			@sh tester/scripts/test_pair.sh
 
-.PHONY:		all clean fclean re stack vector pair full
+.PHONY:		all clean fclean re stack vector pair full ft std
