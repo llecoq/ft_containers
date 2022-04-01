@@ -6,7 +6,7 @@
 #    By: llecoq <llecoq@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/11/16 11:27:48 by llecoq            #+#    #+#              #
-#    Updated: 2022/04/01 14:32:18 by llecoq           ###   ########.fr        #
+#    Updated: 2022/04/01 15:13:50 by llecoq           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -82,7 +82,8 @@ $(NAME):	$(OBJS)
 $(TEST):	@
 
 clean:
-			$(RM) $(OBJSPATH) tester/tester_results/*.test
+			$(RM) $(OBJSPATH) 
+			# tester/tester_results/*.test
 
 fclean:		clean
 			$(RM) $(NAME)
@@ -94,6 +95,9 @@ std:		$(TEST)
 
 ft:			$(TEST)
 			@sh tester/scripts/test_ft.sh
+
+diff:		$(TEST)
+			@sh tester/scripts/test_diff.sh
 
 vector:		$(NAME)
 			@sh tester/scripts/test_vector.sh
