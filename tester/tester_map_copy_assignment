@@ -1,0 +1,15 @@
+	ft_map	map;
+	ft_map	copy;
+	ft_map	empty;
+
+	ut::fillMap<ft_map, ft_pair>(map, 20, RANDOM);
+	ut::fillMap<ft_map, ft_pair>(copy, 10, RANDOM);
+	ut::displayDataMap(copy, "copy");
+	ut::displayDataMap(map, "map");
+	std::cout << "copy assignment" << std::endl;
+	copy = map;
+	ut::displayDataMap(copy, "copy");
+	map = empty;
+	ut::displayDataMap(map, "map");
+	empty = copy;
+	ut::displayDataMap(empty, "empty");

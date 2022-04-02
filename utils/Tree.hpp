@@ -6,7 +6,7 @@
 /*   By: llecoq <llecoq@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/18 09:23:58 by llecoq            #+#    #+#             */
-/*   Updated: 2022/04/01 15:58:17 by llecoq           ###   ########.fr       */
+/*   Updated: 2022/04/02 14:01:39 by llecoq           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,8 +49,21 @@ struct t_node
 		right(NULL)
 	{}
 
+	explicit t_node(t_node const &x)
+	:
+		color(x.color),
+		element(x.element),
+		parent(NULL),
+		left(NULL),
+		right(NULL)
+	{
+		std::cout << "t_node copy constructor" << std::endl;
+	}
+
 	t_node	&operator=(t_node const &rhs)
 	{
+		std::cout << "t_node copy assignment constructor" << std::endl;
+
 		color = rhs.color;
 		element = rhs.element;
 	
@@ -58,6 +71,7 @@ struct t_node
 		parent = NULL;
 		right = NULL;
 		left = NULL;
+		return *this;
 	}
 
 	~t_node()
@@ -117,6 +131,7 @@ class Tree
 			_node_allocator(alloc),
 			_size(0)
 		{
+			(void)comp;
 			// std::cout << "tree default constructor" << std::endl;
 		}
 
@@ -146,22 +161,24 @@ class Tree
 			std::cout << "tree range constructor" << std::endl;
 			(void)first;
 			(void)last;
+			(void)comp;
 		}
 
 		Tree& operator= (const Tree& x)
 		{
 			clear();
-			_pre_order_insert(_root_node, x._root_node);
+			_pre_order_insert(_root_node, x._root_node, x._end_node);
+			return *this;
 		}
 
-		void	_pre_order_insert(node_pointer current_node, node_pointer copy_node,
-									node_pointer parent_node = NULL)
+		void	_pre_order_insert(node_pointer &current_node, node_pointer node_to_copy,
+									node_pointer copy_end_node, node_pointer parent_node = NULL)
 		{
-			if (copy_node != NULL)
+			if (node_to_copy != NULL && node_to_copy != copy_end_node)
 			{
-				_set_new_node(*copy_node, current_node, parent_node);
-				_pre_order_insert(current_node->left, copy_node->left, current_node);
-				_pre_order_insert(current_node->right, copy_node->right, current_node);
+				_set_new_node(*node_to_copy, current_node, parent_node);
+				_pre_order_insert(current_node->left, node_to_copy->left, copy_end_node, current_node);
+				_pre_order_insert(current_node->right, node_to_copy->right, copy_end_node, current_node);
 			}
 		}
 
