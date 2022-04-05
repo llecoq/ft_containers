@@ -6,7 +6,7 @@
 /*   By: llecoq <llecoq@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/27 18:01:12 by llecoq            #+#    #+#             */
-/*   Updated: 2022/04/05 11:41:22 by llecoq           ###   ########.fr       */
+/*   Updated: 2022/04/05 20:53:18 by llecoq           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -215,6 +215,11 @@ class random_access_iterator
 		reference	operator[]( difference_type index )
 		{
 			return (_pointer[index]);
+		}
+
+		operator random_access_iterator<const value_type> () const
+		{ 	
+			return (random_access_iterator<const value_type>(_pointer));
 		}
 };
 
