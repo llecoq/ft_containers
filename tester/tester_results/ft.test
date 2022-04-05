@@ -1,3 +1,4 @@
+lower and upper bounds
 5
 1 => 20
 5 => 100
@@ -16,3 +17,6 @@ OK
 5
 5
 5
+equal range
+lower bound points to: b => 20
+upper bound points to: c => 30

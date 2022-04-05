@@ -6,7 +6,7 @@
 /*   By: llecoq <llecoq@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/17 10:54:16 by llecoq            #+#    #+#             */
-/*   Updated: 2022/04/05 14:01:12 by llecoq           ###   ########.fr       */
+/*   Updated: 2022/04/05 14:36:35 by llecoq           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -266,6 +266,16 @@ class map
 			return _tree.upper_bound(k);
 		}
 
+		pair<const_iterator,const_iterator> equal_range (const key_type& k) const
+		{
+			return pair<const_iterator, const_iterator>(_tree.lower_bound(k), _tree.upper_bound(k));
+		}
+
+		pair<iterator,iterator>             equal_range (const key_type& k)
+		{
+			return pair<iterator, iterator>(_tree.lower_bound(k), _tree.upper_bound(k));
+		}
+		
 	private :
 
 		bool	_faster_from_root(key_type insert_key, iterator position)
