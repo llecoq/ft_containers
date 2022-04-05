@@ -6,7 +6,7 @@
 /*   By: llecoq <llecoq@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/17 10:54:16 by llecoq            #+#    #+#             */
-/*   Updated: 2022/04/05 12:36:45 by llecoq           ###   ########.fr       */
+/*   Updated: 2022/04/05 14:01:12 by llecoq           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -243,9 +243,27 @@ class map
 		size_type count (const key_type& k) const
 		{
 			return _tree.count(k);
-			// if (_tree.find(k) == _tree.end())
-			// 	return 0;
-			// return 1;
+		}
+
+		iterator lower_bound (const key_type& k)
+		{
+			return _tree.lower_bound(k);
+		}
+
+		const_iterator lower_bound (const key_type& k) const
+		{
+			return _tree.lower_bound(k);
+		}
+
+
+		iterator upper_bound (const key_type& k)
+		{
+			return _tree.upper_bound(k);
+		}
+
+		const_iterator upper_bound (const key_type& k) const
+		{
+			return _tree.upper_bound(k);
 		}
 
 	private :

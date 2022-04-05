@@ -6,7 +6,7 @@
 /*   By: llecoq <llecoq@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/18 09:23:58 by llecoq            #+#    #+#             */
-/*   Updated: 2022/04/05 12:43:50 by llecoq           ###   ########.fr       */
+/*   Updated: 2022/04/05 14:28:23 by llecoq           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,12 +57,12 @@ struct t_node
 		left(NULL),
 		right(NULL)
 	{
-		std::cout << "t_node copy constructor" << std::endl;
+		// std::cout << "t_node copy constructor" << std::endl;
 	}
 
 	t_node	&operator=(t_node const &rhs)
 	{
-		std::cout << "t_node copy assignment constructor" << std::endl;
+		// std::cout << "t_node copy assignment constructor" << std::endl;
 
 		color = rhs.color;
 		element = rhs.element;
@@ -85,6 +85,12 @@ enum	e_child
 	NO_CHILD = 0,
 	ONE_CHILD = 1,
 	TWO_CHILDREN = 2
+};
+
+enum	e_bound
+{
+	LOWER = 0,
+	UPPER = 1
 };
 
 template < class Key,
@@ -143,7 +149,7 @@ class Tree
 			_node_allocator(x._node_allocator),
 			_size(0)	
 		{
-			std::cout << "tree copy constructor" << std::endl;
+			// std::cout << "tree copy constructor" << std::endl;
 			// copy aaaaall
 		}
 	
@@ -158,7 +164,7 @@ class Tree
 			_node_allocator(alloc),
 			_size(0)
 		{
-			std::cout << "tree range constructor" << std::endl;
+			// std::cout << "tree range constructor" << std::endl;
 			(void)first;
 			(void)last;
 			(void)comp;
@@ -295,6 +301,46 @@ class Tree
 			return 1;
 		}
 
+		iterator lower_bound (const key_type& k)
+		{
+			return _find_bound(k, _root_node, LOWER);
+		}
+
+		// const_iterator lower_bound (const key_type& k) const
+		// {
+		// }
+
+		iterator upper_bound (const key_type& k)
+		{
+			return _find_bound(k, _root_node, UPPER);
+		}
+
+		iterator	_find_bound(const key_type &k, node_pointer current_node, bool bound) const
+		{
+			if (current_node == _end_node)
+				return _end_node;
+			if (_same_key(k, current_node->element.first))
+			{
+				if (bound == LOWER)
+					return current_node;
+				else if (current_node->right != NULL)
+					return _find_successor(current_node);
+			}
+			else if (key_compare()(k, current_node->element.first)) // key plus petite
+			{
+				if (current_node->left != NULL)
+					return _find_bound(k, current_node->left, bound); // _find_bound left
+				return current_node;
+			} 
+			else if (key_compare()(current_node->element.first, k)) // key plus grande
+			{
+				if (current_node->right != NULL)
+					return _find_bound(k, current_node->right, bound); // _find_bound right
+				return ++iterator(current_node);
+			}  
+			return _end_node;
+		}
+
 		void	print_tree()
 		{
 			printTree(_root_node, end());
@@ -388,17 +434,28 @@ class Tree
 				}
 				case TWO_CHILDREN:
 				{
-					node_pointer	successor = _find_successor(current_node->left); // va à gauche car droite peut être end_node
+					node_pointer	predecessor = _find_predecessor(current_node); // va à gauche car droite peut être end_node
 
-					current_node->element = successor->element;
-					erase(successor);
+					current_node->element = predecessor->element;
+					erase(predecessor);
 					break;
 				}
 			}
 		}
 
-		node_pointer	_find_successor(node_pointer current_node)
+		node_pointer	_find_successor(node_pointer current_node) const
 		{
+			current_node = current_node->right;
+			
+			while (current_node->left != NULL)
+				current_node = current_node->left;
+			return current_node;
+		}
+
+		node_pointer	_find_predecessor(node_pointer current_node) const
+		{
+			current_node = current_node->left;
+
 			while (current_node->right != NULL)
 				current_node = current_node->right;
 			return current_node;
