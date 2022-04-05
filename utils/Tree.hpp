@@ -6,7 +6,7 @@
 /*   By: llecoq <llecoq@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/18 09:23:58 by llecoq            #+#    #+#             */
-/*   Updated: 2022/04/05 15:28:29 by llecoq           ###   ########.fr       */
+/*   Updated: 2022/04/05 22:02:57 by llecoq           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -112,7 +112,7 @@ class Tree
 		typedef	Iter											iterator;
 		typedef typename allocator_type::pointer				node_pointer;
 		typedef typename allocator_type::size_type				size_type;
-		typedef pair<key_type, mapped_type>						value_type;
+		typedef pair<const key_type, mapped_type>				value_type;
 		typedef ft::t_node < value_type >						t_node;
 
 	private:
@@ -211,15 +211,15 @@ class Tree
 	/*
 	** ------------------------------------------------------------ ITERATORS
 	*/
-		// iterator begin() {return _begin_node;}
-		iterator begin() const {return _begin_node;}
-		// iterator end() {return _end_node;}
-		iterator end() const {return _end_node;}
+		node_pointer begin() {return _begin_node;}
+		// node_pointer begin() const {return _begin_node;}
+		node_pointer end() {return _end_node;}
+		// node_pointer end() const {return _end_node;}
 
-		iterator rbegin() {return _end_node;}
-		iterator rbegin() const {return _end_node;}
-		iterator rend() {return _begin_node;}
-		iterator rend() const {return _begin_node;}
+		node_pointer rbegin() {return _end_node;}
+		// node_pointer rbegin() const {return _end_node;}
+		node_pointer rend() {return _begin_node;}
+		// node_pointer rend() const {return _begin_node;}
 
 	/*
 	** ------------------------------------------------------------ CAPACITY

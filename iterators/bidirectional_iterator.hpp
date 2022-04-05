@@ -6,7 +6,7 @@
 /*   By: llecoq <llecoq@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/18 13:37:15 by llecoq            #+#    #+#             */
-/*   Updated: 2022/03/30 19:09:24 by llecoq           ###   ########.fr       */
+/*   Updated: 2022/04/05 21:56:36 by llecoq           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,6 +50,11 @@ class bidirectional_iterator
 			_node_ptr(NULL)
 		{}
 		
+		bidirectional_iterator( bidirectional_iterator const &src )
+		:
+			_node_ptr(src._node_ptr)
+		{}
+
 		bidirectional_iterator(_node_pointer node_ptr)
 		:
 			_node_ptr(node_ptr)
@@ -119,6 +124,11 @@ class bidirectional_iterator
 
 			_decrement();
 			return (tmp);
+		}
+			
+		operator bidirectional_iterator<const value_type> () const
+		{ 	
+			return (bidirectional_iterator<const value_type>(_node_ptr));
 		}
 
 		// _node_pointer	operator&() {return _node_ptr;}

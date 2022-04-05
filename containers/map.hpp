@@ -6,7 +6,7 @@
 /*   By: llecoq <llecoq@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/17 10:54:16 by llecoq            #+#    #+#             */
-/*   Updated: 2022/04/05 15:28:01 by llecoq           ###   ########.fr       */
+/*   Updated: 2022/04/05 21:42:08 by llecoq           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,10 +36,9 @@ class map
 		typedef Key														key_type;
 		typedef T														mapped_type;
 		typedef Compare													key_compare;
-		// typedef value_compare::													value_compare;
 		typedef Alloc													allocator_type;
 				
-		typedef pair<key_type, mapped_type>								value_type;
+		typedef pair<const key_type, mapped_type>						value_type;
 		typedef typename allocator_type::reference						reference;
 		typedef typename allocator_type::const_reference				const_reference;
 		typedef typename allocator_type::pointer						pointer;
@@ -102,9 +101,9 @@ class map
 	/*
 	** ------------------------------------------------------------ ITERATORS
 	*/
-		// iterator begin() {return iterator(_tree.begin());}
+		iterator begin() {return iterator(_tree.begin());}
 		const_iterator begin() const {return const_iterator(_tree.begin());}
-		// iterator end() {return iterator(_tree.end());}
+		iterator end() {return iterator(_tree.end());}
 		const_iterator end() const {return const_iterator(_tree.end());}
 		reverse_iterator rbegin() {return reverse_iterator(_tree.rbegin());}
 		const_reverse_iterator rbegin() const {return const_reverse_iterator(_tree.rbegin());}
