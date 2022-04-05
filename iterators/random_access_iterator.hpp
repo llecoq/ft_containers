@@ -6,7 +6,7 @@
 /*   By: llecoq <llecoq@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/27 18:01:12 by llecoq            #+#    #+#             */
-/*   Updated: 2022/03/29 12:03:43 by llecoq           ###   ########.fr       */
+/*   Updated: 2022/04/05 11:41:22 by llecoq           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,14 +47,14 @@ class random_access_iterator
 		{}
 
 		random_access_iterator( random_access_iterator const &src )
-		{
-			*this = src;
-		}
+		:
+			_pointer(src._pointer)
+		{}
 	
 		random_access_iterator( pointer pointer )
-		{
-			_pointer = pointer;
-		}
+		:
+			_pointer(pointer)
+		{}
 
 		random_access_iterator &	operator=( random_access_iterator const &rhs )
 		{

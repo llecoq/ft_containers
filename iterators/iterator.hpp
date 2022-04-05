@@ -6,7 +6,7 @@
 /*   By: llecoq <llecoq@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/16 16:19:24 by llecoq            #+#    #+#             */
-/*   Updated: 2022/03/26 11:55:01 by llecoq           ###   ########.fr       */
+/*   Updated: 2022/04/05 11:01:58 by llecoq           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,16 +24,17 @@ namespace ft
 /*
 ** -------------------------------------------------------------------- ITERATOR
 */
-	template < class Category, class T, class Distance = ptrdiff_t,
-			class Pointer = T*, class Reference = T& >
-	struct iterator
-	{
-		typedef T         									value_type;
-		typedef Distance  									difference_type;
-		typedef Pointer   									pointer;
-		typedef Reference 									reference;
-		typedef Category  									iterator_category;
-	};
+    template <class Category, class T, class Distance = ptrdiff_t,
+        class Pointer = T*, class Reference = T&>
+        class iterator
+        {
+            public:
+                typedef T           value_type;
+                typedef Distance    difference_type;
+                typedef Pointer     pointer;
+                typedef Reference   reference;
+                typedef Category    iterator_category;
+        };
 
 
 /*

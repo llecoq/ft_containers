@@ -6,7 +6,7 @@
 /*   By: llecoq <llecoq@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/18 11:21:24 by llecoq            #+#    #+#             */
-/*   Updated: 2022/04/01 14:15:00 by llecoq           ###   ########.fr       */
+/*   Updated: 2022/04/04 19:11:47 by llecoq           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,7 @@ int	main(int argc, char **argv)
 {
 	return tester_map_ft();
 	// return tester_bidirectional_it();
+	// return tester_vector_ft();
 
 	(void)argv;
 	if (argc != 3)

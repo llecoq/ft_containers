@@ -6,7 +6,7 @@
 /*   By: llecoq <llecoq@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/17 10:54:16 by llecoq            #+#    #+#             */
-/*   Updated: 2022/04/02 13:46:16 by llecoq           ###   ########.fr       */
+/*   Updated: 2022/04/05 12:36:45 by llecoq           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,8 +44,8 @@ class map
 		typedef typename allocator_type::const_reference				const_reference;
 		typedef typename allocator_type::pointer						pointer;
 		typedef typename allocator_type::const_pointer					const_pointer;
-		typedef bidirectional_iterator<value_type>						iterator;
-		typedef bidirectional_iterator<const value_type>				const_iterator;
+		typedef ft::bidirectional_iterator<value_type>					iterator;
+		typedef ft::bidirectional_iterator<const value_type>			const_iterator;
 		typedef ft::reverse_iterator<iterator>							reverse_iterator;
 		typedef ft::reverse_iterator<const_iterator>					const_reverse_iterator;
 		typedef typename iterator_traits<iterator>::difference_type		difference_type;
@@ -207,7 +207,7 @@ class map
 		}
 		
 		class value_compare : std::binary_function<value_type, value_type, bool>
-		{   // in C++98, it is required to inherit binary_function<value_type,value_type,bool>
+		{   // in C++98, it; is required to inherit binary_function<value_type,value_type,bool>
 			friend class map;
 			protected:
 			Compare comp;
@@ -235,7 +235,18 @@ class map
 			return _tree.find(k);
 		}
 		
-		const_iterator find (const key_type& k) const;
+		const_iterator find (const key_type& k) const
+		{
+			return const_iterator(_tree.find(k));
+		}
+
+		size_type count (const key_type& k) const
+		{
+			return _tree.count(k);
+			// if (_tree.find(k) == _tree.end())
+			// 	return 0;
+			// return 1;
+		}
 
 	private :
 

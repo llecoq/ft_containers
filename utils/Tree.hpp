@@ -6,7 +6,7 @@
 /*   By: llecoq <llecoq@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/18 09:23:58 by llecoq            #+#    #+#             */
-/*   Updated: 2022/04/02 14:01:39 by llecoq           ###   ########.fr       */
+/*   Updated: 2022/04/05 12:43:50 by llecoq           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -270,16 +270,29 @@ class Tree
 		void clear()
 		{
 			_destroy_from_root(_root_node);
-			_root_node = _end_node = _begin_node = NULL;		
+			_root_node = _end_node = _begin_node = NULL;
 		}
 
 
 	/*
 	** -------------------------------------------------------------- OPERATIONS
 	*/
-		node_pointer	find(const key_type &k)
+		node_pointer	find (const key_type &k)
 		{
 			return _find_key(k, _root_node);
+		}
+
+		node_pointer	find (const key_type& k) const
+		{
+			return _find_key(k, _root_node);
+		}
+
+
+		size_type count (const key_type& k) const
+		{
+			if (find(k) == _end_node)
+				return 0;
+			return 1;
 		}
 
 		void	print_tree()
@@ -431,7 +444,7 @@ class Tree
 	/*
 	** ------------------------------------------------------------ FIND
 	*/
-		node_pointer	_find_key(const key_type &k, node_pointer &current_node)
+		node_pointer	_find_key(const key_type &k, node_pointer current_node) const
 		{
 			if (_same_key(k, current_node->element.first))
 				return (current_node);
@@ -470,7 +483,7 @@ class Tree
 			return _RB_tree_iterator(iter).base();
 		}
 
-		bool	_same_key(key_type const &current_key, key_type const &new_key)
+		bool	_same_key(key_type const &current_key, key_type const &new_key) const
 		{
 			return (!key_compare()(current_key, new_key) && !key_compare()(new_key, current_key));
 		}
