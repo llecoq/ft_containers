@@ -6,7 +6,7 @@
 /*   By: llecoq <llecoq@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/18 13:37:15 by llecoq            #+#    #+#             */
-/*   Updated: 2022/04/05 21:56:36 by llecoq           ###   ########.fr       */
+/*   Updated: 2022/04/06 11:26:40 by llecoq           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,8 @@
 #define BIDIRECTIONAL_ITERATOR_HPP
 
 #include "iterator.hpp"
-#include "../utils/pair.hpp"
-#include "../utils/Tree.hpp"
+#include "pair.hpp"
+#include "Tree.hpp"
 
 namespace ft
 {
@@ -126,10 +126,10 @@ class bidirectional_iterator
 			return (tmp);
 		}
 			
-		operator bidirectional_iterator<const value_type> () const
-		{ 	
-			return (bidirectional_iterator<const value_type>(_node_ptr));
-		}
+		// operator bidirectional_iterator<const value_type> () const
+		// { 	
+		// 	return (bidirectional_iterator<const value_type>(this));
+		// }
 
 		// _node_pointer	operator&() {return _node_ptr;}
 // *a++

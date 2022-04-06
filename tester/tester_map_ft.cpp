@@ -6,7 +6,7 @@
 /*   By: llecoq <llecoq@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/17 16:42:25 by llecoq            #+#    #+#             */
-/*   Updated: 2022/04/05 18:26:33 by llecoq           ###   ########.fr       */
+/*   Updated: 2022/04/06 13:05:31 by llecoq           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ int	tester_map_ft()
 	ut::pushBackVec(vec, 10);
 
 	ft::vector<int>::iterator			it = vec.begin();
-	ft::vector<int>::const_iterator		constit = vec.begin();
+	ft::vector<int>::const_iterator		constit = it;
 	
 	constit++;
 	

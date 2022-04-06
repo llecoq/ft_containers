@@ -6,17 +6,17 @@
 /*   By: llecoq <llecoq@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/17 10:54:16 by llecoq            #+#    #+#             */
-/*   Updated: 2022/04/05 21:42:08 by llecoq           ###   ########.fr       */
+/*   Updated: 2022/04/06 11:26:57 by llecoq           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef MAP_HPP
 #define MAP_HPP
 
-# include "../iterators/bidirectional_iterator.hpp"
-# include "../iterators/reverse_iterator.hpp"
-# include "../utils/pair.hpp"
-# include "../utils/Tree.hpp"
+# include "bidirectional_iterator.hpp"
+# include "reverse_iterator.hpp"
+# include "pair.hpp"
+# include "Tree.hpp"
 
 #include <memory>
 #include <functional>
@@ -206,7 +206,7 @@ class map
 		}
 		
 		class value_compare : std::binary_function<value_type, value_type, bool>
-		{   // in C++98, it; is required to inherit binary_function<value_type,value_type,bool>
+		{
 			friend class map;
 			protected:
 			Compare comp;

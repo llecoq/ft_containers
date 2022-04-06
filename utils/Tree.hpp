@@ -6,17 +6,17 @@
 /*   By: llecoq <llecoq@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/18 09:23:58 by llecoq            #+#    #+#             */
-/*   Updated: 2022/04/05 22:02:57 by llecoq           ###   ########.fr       */
+/*   Updated: 2022/04/06 11:27:23 by llecoq           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef TREE_HPP
 #define TREE_HPP
 
-# include "../iterators/bidirectional_iterator.hpp"
+# include "bidirectional_iterator.hpp"
 
-#include "../iterators/RB_tree_iterator.hpp"
-#include "../utils/utils.hpp"
+#include "RB_tree_iterator.hpp"
+#include "utils.hpp"
 
 #include <iostream>
 

@@ -6,11 +6,11 @@
 /*   By: llecoq <llecoq@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/18 11:21:24 by llecoq            #+#    #+#             */
-/*   Updated: 2022/04/05 20:55:45 by llecoq           ###   ########.fr       */
+/*   Updated: 2022/04/06 12:53:24 by llecoq           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "utils/tester.hpp"
+#include "tester.hpp"
 
 // int	tester(std::string library, std::string container)
 // {
@@ -31,8 +31,8 @@
 
 int	main(int argc, char **argv)			
 {
-	// return tester_map_ft();
-	return tester_bidirectional_it();
+	return tester_map_ft();
+	// return tester_bidirectional_it();
 	// return tester_vector_ft();
 
 	(void)argv;

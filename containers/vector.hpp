@@ -6,7 +6,7 @@
 /*   By: llecoq <llecoq@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/16 15:57:56 by llecoq            #+#    #+#             */
-/*   Updated: 2022/04/05 12:26:44 by llecoq           ###   ########.fr       */
+/*   Updated: 2022/04/06 13:06:05 by llecoq           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -136,7 +136,7 @@ class vector
 	/*
 	** --------------------------------------------------------------- ITERATORS
 	*/    
-		iterator begin() {return (iterator(_begin));}
+		iterator begin(){return (iterator(_begin));}
 		const_iterator begin() const {return const_iterator(_begin);}
 		reverse_iterator rbegin() {return (reverse_iterator(_end));}
 		const_reverse_iterator rbegin() const {return (const_reverse_iterator(_end));}

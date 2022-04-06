@@ -6,22 +6,29 @@
 /*   By: llecoq <llecoq@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/21 11:48:52 by llecoq            #+#    #+#             */
-/*   Updated: 2022/04/05 22:03:17 by llecoq           ###   ########.fr       */
+/*   Updated: 2022/04/06 12:50:02 by llecoq           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../utils/tester.hpp"
+#include "tester.hpp"
 
 int		tester_bidirectional_it()
 {
-	ft_map			test;
+	// ft_map			test;
 
-	ut::fillMap<ft_map, ft_pair>(test, 10, RANDOMIZED_QUEUE);
-	// test.insert(ft::pair<int, int>(1, 1));
-	ft_map::iterator		it = test.begin();
+	// ut::fillMap<ft_map, ft_pair>(test, 10, RANDOMIZED_QUEUE);
+	// // test.insert(ft::pair<int, int>(1, 1));
+	// ft_map::iterator		it = test.begin();
 	// ft_map::const_iterator	constit = test.begin();
 
-	it->second = 1;
+	// it->second = 1;
+
+	// std::vector<int>	vec;
+
+	// std::vector<int>::iterator			it = vec.begin();
+	// // std::vector<int>::const_iterator		constit = it;
+	
+	// it.base();
 	// it->first = 1;
 	// ft_map::iterator	ite = test.end();
 	
