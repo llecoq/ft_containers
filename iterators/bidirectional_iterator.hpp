@@ -6,7 +6,7 @@
 /*   By: llecoq <llecoq@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/18 13:37:15 by llecoq            #+#    #+#             */
-/*   Updated: 2022/04/06 13:47:35 by llecoq           ###   ########.fr       */
+/*   Updated: 2022/04/06 15:00:01 by llecoq           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,7 +63,7 @@ class bidirectional_iterator
 		template <typename Iter>
 		bidirectional_iterator(const bidirectional_iterator<Iter> &src)
 		:
-			_base(reinterpret_cast<Iter>(src.base()))
+			_base(reinterpret_cast<typename bidirectional_iterator<const Iter>::_node_pointer >(src.base()))
 		{}
 
 		~bidirectional_iterator()
@@ -132,7 +132,7 @@ class bidirectional_iterator
 			return (tmp);
 		}
 
-		pointer base() const
+		_node_pointer base() const
 		{
 			return (_base);
 		}
