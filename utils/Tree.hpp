@@ -6,81 +6,21 @@
 /*   By: llecoq <llecoq@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/18 09:23:58 by llecoq            #+#    #+#             */
-/*   Updated: 2022/04/06 15:10:33 by llecoq           ###   ########.fr       */
+/*   Updated: 2022/04/06 15:49:22 by llecoq           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef TREE_HPP
 #define TREE_HPP
 
-# include "bidirectional_iterator.hpp"
-
-#include "RB_tree_iterator.hpp"
+#include "bidirectional_iterator.hpp"
 #include "utils.hpp"
+#include "node.hpp"
 
-#include <iostream>
+# include <iostream>
 
 namespace ft
 {
-
-template <class Pair>
-struct t_node
-{	
-	bool		color;
-	Pair		element;
-	
-	t_node		*parent;
-	t_node		*left;
-	t_node		*right;
-
-	explicit t_node()
-	:
-		color(0),
-		element(Pair()),
-		parent(NULL),
-		left(NULL),
-		right(NULL)
-	{}
-
-	explicit t_node(Pair const &val)
-	:
-		color(0),
-		element(val),
-		parent(NULL),
-		left(NULL),
-		right(NULL)
-	{}
-
-	explicit t_node(t_node const &x)
-	:
-		color(x.color),
-		element(x.element),
-		parent(NULL),
-		left(NULL),
-		right(NULL)
-	{
-		// std::cout << "t_node copy constructor" << std::endl;
-	}
-
-	t_node	&operator=(t_node const &rhs)
-	{
-		// std::cout << "t_node copy assignment constructor" << std::endl;
-
-		color = rhs.color;
-		element = rhs.element;
-	
-		// reset pointers
-		parent = NULL;
-		right = NULL;
-		left = NULL;
-		return *this;
-	}
-
-	~t_node()
-	{
-		// std::cout << "t_node destructor" << std::endl;
-	}
-};
 
 enum	e_child
 {
@@ -117,8 +57,6 @@ class Tree
 
 	private:
 
-		// typedef ft::RB_tree_iterator<iterator>					_RB_tree_iterator;
-
 		node_pointer											_root_node;
 		node_pointer											_begin_node;
 		node_pointer											_end_node;
@@ -129,6 +67,7 @@ class Tree
 		friend void	print2D<t_node>(t_node *root, int space, t_node *end);
 
 	public :
+	
 		// default
 		explicit Tree (const key_compare & comp = key_compare(),
 					const allocator_type& alloc = allocator_type())
@@ -215,7 +154,6 @@ class Tree
 		node_pointer begin() const {return _begin_node;}
 		node_pointer end() {return _end_node;}
 		node_pointer end() const {return _end_node;}
-
 		node_pointer rbegin() {return _end_node;}
 		node_pointer rbegin() const {return _end_node;}
 		node_pointer rend() {return _begin_node;}
@@ -238,10 +176,6 @@ class Tree
 		{
 			return (_node_allocator.max_size());
 		}
-
-	/*
-	** ------------------------------------------------------------ ELEMENT ACCESS
-	*/
 
 	/*
 	** ------------------------------------------------------------ MODIFIERS
@@ -312,10 +246,6 @@ class Tree
 			return _find_bound(k, _root_node, LOWER);
 		}
 
-		// const_iterator lower_bound (const key_type& k) const
-		// {
-		// }
-
 		iterator upper_bound (const key_type& k)
 		{
 			return _find_bound(k, _root_node, UPPER);
@@ -337,7 +267,7 @@ class Tree
 				if (current_node->left != NULL)
 					return _find_bound(k, current_node->left, bound); // _find_bound left
 				return current_node;
-			} 
+			}
 			else if (key_compare()(current_node->element.first, k)) // key plus grande
 			{
 				if (current_node->right != NULL)
@@ -614,6 +544,6 @@ class Tree
 		}
 };
 
-}
+}	// namespace ft
 
 #endif

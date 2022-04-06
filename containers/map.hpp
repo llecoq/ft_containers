@@ -6,7 +6,7 @@
 /*   By: llecoq <llecoq@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/17 10:54:16 by llecoq            #+#    #+#             */
-/*   Updated: 2022/04/06 15:11:33 by llecoq           ###   ########.fr       */
+/*   Updated: 2022/04/06 15:53:04 by llecoq           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -254,7 +254,6 @@ class map
 			return _tree.lower_bound(k);
 		}
 
-
 		iterator upper_bound (const key_type& k)
 		{
 			return _tree.upper_bound(k);
@@ -303,55 +302,54 @@ class map
 
 };
 
-	/*
-	** ---------------------------------------------------- RELATIONAL OPERATORS
-	*/
-
-		template <class Key, class T, class Compare, class Alloc>
-		bool operator== ( const map<Key,T,Compare,Alloc>& lhs,
-						const map<Key,T,Compare,Alloc>& rhs )
-		{
-			if (lhs.size() == rhs.size())
-				return (ft::equal(lhs.begin(), lhs.end(), rhs.begin()));
-			return false;
-		}
-
-
-		template <class Key, class T, class Compare, class Alloc>
-		bool operator!= ( const map<Key,T,Compare,Alloc>& lhs,
-						const map<Key,T,Compare,Alloc>& rhs )
-		{
-			return !(lhs == rhs);
-		}
-	
-		template <class Key, class T, class Compare, class Alloc>
-		bool operator<  ( const map<Key,T,Compare,Alloc>& lhs,
-						const map<Key,T,Compare,Alloc>& rhs )
-		{
-			return (ft::lexicographical_compare(lhs.begin(), lhs.end(), rhs.begin(), rhs.end()));
-		}				
-	
-		template <class Key, class T, class Compare, class Alloc>
-		bool operator<= ( const map<Key,T,Compare,Alloc>& lhs,
-						const map<Key,T,Compare,Alloc>& rhs )
-		{
-			return !(rhs < lhs);
-		}
-	
-		template <class Key, class T, class Compare, class Alloc>
-		bool operator>  ( const map<Key,T,Compare,Alloc>& lhs,
-						const map<Key,T,Compare,Alloc>& rhs )
-		{
-			return rhs < lhs;
-		}						
-	
-		template <class Key, class T, class Compare, class Alloc>
-		bool operator>= ( const map<Key,T,Compare,Alloc>& lhs,
-						const map<Key,T,Compare,Alloc>& rhs )
-		{
-			return !(lhs < rhs);
-		}
-			
+/*
+** -------------------------------------------------------- RELATIONAL OPERATORS
+*/
+template <class Key, class T, class Compare, class Alloc>
+bool operator== ( const map<Key,T,Compare,Alloc>& lhs,
+				const map<Key,T,Compare,Alloc>& rhs )
+{
+	if (lhs.size() == rhs.size())
+		return (ft::equal(lhs.begin(), lhs.end(), rhs.begin()));
+	return false;
 }
+
+
+template <class Key, class T, class Compare, class Alloc>
+bool operator!= ( const map<Key,T,Compare,Alloc>& lhs,
+				const map<Key,T,Compare,Alloc>& rhs )
+{
+	return !(lhs == rhs);
+}
+
+template <class Key, class T, class Compare, class Alloc>
+bool operator<  ( const map<Key,T,Compare,Alloc>& lhs,
+				const map<Key,T,Compare,Alloc>& rhs )
+{
+	return (ft::lexicographical_compare(lhs.begin(), lhs.end(), rhs.begin(), rhs.end()));
+}				
+
+template <class Key, class T, class Compare, class Alloc>
+bool operator<= ( const map<Key,T,Compare,Alloc>& lhs,
+				const map<Key,T,Compare,Alloc>& rhs )
+{
+	return !(rhs < lhs);
+}
+
+template <class Key, class T, class Compare, class Alloc>
+bool operator>  ( const map<Key,T,Compare,Alloc>& lhs,
+				const map<Key,T,Compare,Alloc>& rhs )
+{
+	return rhs < lhs;
+}						
+
+template <class Key, class T, class Compare, class Alloc>
+bool operator>= ( const map<Key,T,Compare,Alloc>& lhs,
+				const map<Key,T,Compare,Alloc>& rhs )
+{
+	return !(lhs < rhs);
+}
+		
+}	// namespace ft
 
 #endif

@@ -6,7 +6,7 @@
 /*   By: llecoq <llecoq@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/17 16:42:25 by llecoq            #+#    #+#             */
-/*   Updated: 2022/04/06 15:16:04 by llecoq           ###   ########.fr       */
+/*   Updated: 2022/04/06 15:25:29 by llecoq           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,6 +48,8 @@ int	tester_map_ft()
 	if (foo<=zob) std::cout << "foo is less than or equal to zob" << std::endl;
 	if (foo>=zob) std::cout << "foo is greater than or equal to zob" << std::endl;
 
+	ft::map<char, int>::iterator	it = bah.begin();
+	it->second = 7;
 	if (bah==zob) std::cout << "bah and zob are equal" << std::endl;
 	if (bah!=zob) std::cout << "bah and zob are not equal" << std::endl;
 	if (bah< zob) std::cout << "bah is less than zob" << std::endl;

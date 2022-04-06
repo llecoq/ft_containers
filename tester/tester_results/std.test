@@ -4,6 +4,6 @@ foo is greater than or equal to bar
 foo and zob are not equal
 foo is greater than zob
 foo is greater than or equal to zob
-bah and zob are equal
-bah is less than or equal to zob
+bah and zob are not equal
+bah is greater than zob
 bah is greater than or equal to zob

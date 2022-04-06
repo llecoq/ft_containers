@@ -6,7 +6,7 @@
 /*   By: llecoq <llecoq@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/27 18:01:12 by llecoq            #+#    #+#             */
-/*   Updated: 2022/04/06 13:59:27 by llecoq           ###   ########.fr       */
+/*   Updated: 2022/04/06 15:36:10 by llecoq           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -235,6 +235,6 @@ class random_access_iterator
 };
 
 
-}
+}	// namespace ft
 
 #endif

@@ -6,7 +6,7 @@
 /*   By: llecoq <llecoq@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/18 13:37:15 by llecoq            #+#    #+#             */
-/*   Updated: 2022/04/06 15:06:08 by llecoq           ###   ########.fr       */
+/*   Updated: 2022/04/06 15:46:55 by llecoq           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -131,16 +131,6 @@ class bidirectional_iterator
 			return (tmp);
 		}
 
-		// _node_pointer base() const
-		// {
-		// 	return (_base);
-		// }
-		// operator bidirectional_iterator<const value_type> () const
-		// { 	
-		// 	return (bidirectional_iterator<const value_type>(this));
-		// }
-
-		// _node_pointer	operator&() {return _base;}
 // *a++
 
 // *a--
@@ -195,6 +185,6 @@ class bidirectional_iterator
 		}
 };
 
-}
+}	// namespace ft
 
 #endif
