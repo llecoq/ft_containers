@@ -6,7 +6,7 @@
 /*   By: llecoq <llecoq@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/18 13:37:15 by llecoq            #+#    #+#             */
-/*   Updated: 2022/04/06 15:00:01 by llecoq           ###   ########.fr       */
+/*   Updated: 2022/04/06 15:01:52 by llecoq           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,15 +35,14 @@ class bidirectional_iterator
 
 	private :
 		
-		friend class RB_tree_iterator<bidirectional_iterator>;
-	
 		typedef	t_node< Pair >											_node;
 		typedef	iterator< bidirectional_iterator_tag, _node > 			_node_iterator;
 		typedef typename iterator_traits<_node_iterator>::pointer		_node_pointer;
 
-		_node_pointer													_base;
-		
 	public :
+		
+		_node_pointer													_base;
+	
 	
 		bidirectional_iterator()
 		:
@@ -63,7 +62,7 @@ class bidirectional_iterator
 		template <typename Iter>
 		bidirectional_iterator(const bidirectional_iterator<Iter> &src)
 		:
-			_base(reinterpret_cast<typename bidirectional_iterator<const Iter>::_node_pointer >(src.base()))
+			_base(reinterpret_cast<typename bidirectional_iterator<const Iter>::_node_pointer >(src._base))
 		{}
 
 		~bidirectional_iterator()
@@ -132,10 +131,10 @@ class bidirectional_iterator
 			return (tmp);
 		}
 
-		_node_pointer base() const
-		{
-			return (_base);
-		}
+		// _node_pointer base() const
+		// {
+		// 	return (_base);
+		// }
 		// operator bidirectional_iterator<const value_type> () const
 		// { 	
 		// 	return (bidirectional_iterator<const value_type>(this));

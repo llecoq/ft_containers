@@ -6,7 +6,7 @@
 /*   By: llecoq <llecoq@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/18 09:23:58 by llecoq            #+#    #+#             */
-/*   Updated: 2022/04/06 11:27:23 by llecoq           ###   ########.fr       */
+/*   Updated: 2022/04/06 15:04:10 by llecoq           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -117,7 +117,7 @@ class Tree
 
 	private:
 
-		typedef ft::RB_tree_iterator<iterator>					_RB_tree_iterator;
+		// typedef ft::RB_tree_iterator<iterator>					_RB_tree_iterator;
 
 		node_pointer											_root_node;
 		node_pointer											_begin_node;
@@ -151,8 +151,8 @@ class Tree
 			_node_allocator(x._node_allocator),
 			_size(0)	
 		{
+			_pre_order_insert(_root_node, x._root_node, x._end_node);
 			// std::cout << "tree copy constructor" << std::endl;
-			// copy aaaaall
 		}
 	
 		template <class InputIterator>
@@ -543,7 +543,7 @@ class Tree
 
 		node_pointer	_iterator_to_pointer(iterator iter)
 		{
-			return _RB_tree_iterator(iter).base();
+			return iter._base;
 		}
 
 		bool	_same_key(key_type const &current_key, key_type const &new_key) const
