@@ -6,7 +6,7 @@
 /*   By: llecoq <llecoq@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/18 09:23:58 by llecoq            #+#    #+#             */
-/*   Updated: 2022/04/08 15:29:42 by llecoq           ###   ########.fr       */
+/*   Updated: 2022/04/08 16:23:02 by llecoq           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,6 +54,7 @@ class Tree
 		typedef typename allocator_type::size_type				size_type;
 		typedef pair<const key_type, mapped_type>				value_type;
 		typedef ft::t_node < value_type >						t_node;
+		typedef typename Alloc::template rebind<value_type>::other			pair_allocator;
 
 	private:
 
@@ -369,7 +370,10 @@ class Tree
 				{
 					node_pointer	predecessor = _find_predecessor(current_node); // va à gauche car droite peut être end_node
 
-					current_node->element = predecessor->element;
+					// current_node->element = value_type(predecessor->element);
+					pair_allocator().destroy(&current_node->element);
+					pair_allocator().construct(&current_node->element, predecessor->element);
+
 					erase(predecessor);
 					break;
 				}

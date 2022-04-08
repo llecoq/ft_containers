@@ -1,8 +1,181 @@
-empty size = 0
-map begin = 5
-map2 begin = 5
-map size = 4
-map2 size = 4
-vect size = 4
-copy begin = 5
-copy size = 4
+0 - I Constructor called.
+[32m1 - Copy Constructor called.[0m
+[32m2 - Copy Constructor called.[0m
+[32m3 - Copy Constructor called.[0m
+[32m2 - Copy[31m Destructor [32mcalled[0m - 1
+[32m1 - Copy[31m Destructor [32mcalled[0m - 1
+[32m0 - I[31m Destructor [32mcalled[0m - 1
+4 - I Constructor called.
+[32m5 - Copy Constructor called.[0m
+[32m6 - Copy Constructor called.[0m
+[32m7 - Copy Constructor called.[0m
+[32m6 - Copy[31m Destructor [32mcalled[0m - 20
+[32m5 - Copy[31m Destructor [32mcalled[0m - 20
+[32m4 - I[31m Destructor [32mcalled[0m - 20
+8 - I Constructor called.
+[32m9 - Copy Constructor called.[0m
+[32m10 - Copy Constructor called.[0m
+[32m11 - Copy Constructor called.[0m
+[32m10 - Copy[31m Destructor [32mcalled[0m - 104
+[32m9 - Copy[31m Destructor [32mcalled[0m - 104
+[32m8 - I[31m Destructor [32mcalled[0m - 104
+12 - I Constructor called.
+[32m13 - Copy Constructor called.[0m
+[32m14 - Copy Constructor called.[0m
+[32m15 - Copy Constructor called.[0m
+[32m14 - Copy[31m Destructor [32mcalled[0m - 107
+[32m13 - Copy[31m Destructor [32mcalled[0m - 107
+[32m12 - I[31m Destructor [32mcalled[0m - 107
+16 - I Constructor called.
+[32m17 - Copy Constructor called.[0m
+[32m18 - Copy Constructor called.[0m
+[32m19 - Copy Constructor called.[0m
+[32m18 - Copy[31m Destructor [32mcalled[0m - 138
+[32m17 - Copy[31m Destructor [32mcalled[0m - 138
+[32m16 - I[31m Destructor [32mcalled[0m - 138
+20 - I Constructor called.
+[32m21 - Copy Constructor called.[0m
+[32m22 - Copy Constructor called.[0m
+[32m23 - Copy Constructor called.[0m
+[32m22 - Copy[31m Destructor [32mcalled[0m - 56
+[32m21 - Copy[31m Destructor [32mcalled[0m - 56
+[32m20 - I[31m Destructor [32mcalled[0m - 56
+24 - I Constructor called.
+[32m25 - Copy Constructor called.[0m
+[32m26 - Copy Constructor called.[0m
+[32m27 - Copy Constructor called.[0m
+[32m26 - Copy[31m Destructor [32mcalled[0m - 49
+[32m25 - Copy[31m Destructor [32mcalled[0m - 49
+[32m24 - I[31m Destructor [32mcalled[0m - 49
+28 - I Constructor called.
+[32m29 - Copy Constructor called.[0m
+[32m30 - Copy Constructor called.[0m
+[32m31 - Copy Constructor called.[0m
+[32m30 - Copy[31m Destructor [32mcalled[0m - 117
+[32m29 - Copy[31m Destructor [32mcalled[0m - 117
+[32m28 - I[31m Destructor [32mcalled[0m - 117
+32 - I Constructor called.
+[32m33 - Copy Constructor called.[0m
+[32m34 - Copy Constructor called.[0m
+[32m35 - Copy Constructor called.[0m
+[32m34 - Copy[31m Destructor [32mcalled[0m - 19
+[32m33 - Copy[31m Destructor [32mcalled[0m - 19
+[32m32 - I[31m Destructor [32mcalled[0m - 19
+36 - I Constructor called.
+[32m37 - Copy Constructor called.[0m
+[32m38 - Copy Constructor called.[0m
+[32m39 - Copy Constructor called.[0m
+[32m38 - Copy[31m Destructor [32mcalled[0m - 76
+[32m37 - Copy[31m Destructor [32mcalled[0m - 76
+[32m36 - I[31m Destructor [32mcalled[0m - 76
+40 - I Constructor called.
+[32m41 - Copy Constructor called.[0m
+[32m42 - Copy Constructor called.[0m
+[32m43 - Copy Constructor called.[0m
+[32m42 - Copy[31m Destructor [32mcalled[0m - 64
+[32m41 - Copy[31m Destructor [32mcalled[0m - 64
+[32m40 - I[31m Destructor [32mcalled[0m - 64
+44 - I Constructor called.
+[32m45 - Copy Constructor called.[0m
+[32m46 - Copy Constructor called.[0m
+[32m47 - Copy Constructor called.[0m
+[32m46 - Copy[31m Destructor [32mcalled[0m - 116
+[32m45 - Copy[31m Destructor [32mcalled[0m - 116
+[32m44 - I[31m Destructor [32mcalled[0m - 116
+48 - I Constructor called.
+[32m49 - Copy Constructor called.[0m
+[32m50 - Copy Constructor called.[0m
+[32m51 - Copy Constructor called.[0m
+[32m50 - Copy[31m Destructor [32mcalled[0m - 151
+[32m49 - Copy[31m Destructor [32mcalled[0m - 151
+[32m48 - I[31m Destructor [32mcalled[0m - 151
+52 - I Constructor called.
+[32m53 - Copy Constructor called.[0m
+[32m54 - Copy Constructor called.[0m
+[32m55 - Copy Constructor called.[0m
+[32m54 - Copy[31m Destructor [32mcalled[0m - 12
+[32m53 - Copy[31m Destructor [32mcalled[0m - 12
+[32m52 - I[31m Destructor [32mcalled[0m - 12
+56 - I Constructor called.
+[32m57 - Copy Constructor called.[0m
+[32m58 - Copy Constructor called.[0m
+[32m59 - Copy Constructor called.[0m
+[32m58 - Copy[31m Destructor [32mcalled[0m - 33
+[32m57 - Copy[31m Destructor [32mcalled[0m - 33
+[32m56 - I[31m Destructor [32mcalled[0m - 33
+60 - I Constructor called.
+[32m61 - Copy Constructor called.[0m
+[32m62 - Copy Constructor called.[0m
+[32m63 - Copy Constructor called.[0m
+[32m62 - Copy[31m Destructor [32mcalled[0m - 43
+[32m61 - Copy[31m Destructor [32mcalled[0m - 43
+[32m60 - I[31m Destructor [32mcalled[0m - 43
+64 - I Constructor called.
+[32m65 - Copy Constructor called.[0m
+[32m66 - Copy Constructor called.[0m
+[32m67 - Copy Constructor called.[0m
+[32m66 - Copy[31m Destructor [32mcalled[0m - 131
+[32m65 - Copy[31m Destructor [32mcalled[0m - 131
+[32m64 - I[31m Destructor [32mcalled[0m - 131
+68 - I Constructor called.
+[32m69 - Copy Constructor called.[0m
+[32m70 - Copy Constructor called.[0m
+[32m71 - Copy Constructor called.[0m
+[32m70 - Copy[31m Destructor [32mcalled[0m - 87
+[32m69 - Copy[31m Destructor [32mcalled[0m - 87
+[32m68 - I[31m Destructor [32mcalled[0m - 87
+72 - I Constructor called.
+[32m73 - Copy Constructor called.[0m
+[32m74 - Copy Constructor called.[0m
+[32m75 - Copy Constructor called.[0m
+[32m74 - Copy[31m Destructor [32mcalled[0m - 100
+[32m73 - Copy[31m Destructor [32mcalled[0m - 100
+[32m72 - I[31m Destructor [32mcalled[0m - 100
+76 - I Constructor called.
+[32m77 - Copy Constructor called.[0m
+[32m78 - Copy Constructor called.[0m
+[32m79 - Copy Constructor called.[0m
+[32m78 - Copy[31m Destructor [32mcalled[0m - 92
+[32m77 - Copy[31m Destructor [32mcalled[0m - 92
+[32m76 - I[31m Destructor [32mcalled[0m - 92
+80 - I Constructor called.
+[32m81 - Copy Constructor called.[0m
+[32m82 - Copy Constructor called.[0m
+[32m83 - Copy Constructor called.[0m
+[32m82 - Copy[31m Destructor [32mcalled[0m - 66
+[32m81 - Copy[31m Destructor [32mcalled[0m - 66
+[32m80 - I[31m Destructor [32mcalled[0m - 66
+it->second 4 = 400
+it->second 27 = 700
+it->second 1 = 30
+find 4 = 400
+find 3 = 300
+find 2 = 900
+find 27 = 700
+find 90 = 30
+size = 9
+erase
+size = 0
+erase
+size = 0
+[32m3 - Copy[31m Destructor [32mcalled[0m - 1
+[32m79 - Copy[31m Destructor [32mcalled[0m - 92
+[32m63 - Copy[31m Destructor [32mcalled[0m - 43
+[32m39 - Copy[31m Destructor [32mcalled[0m - 76
+[32m83 - Copy[31m Destructor [32mcalled[0m - 66
+[32m43 - Copy[31m Destructor [32mcalled[0m - 64
+[32m19 - Copy[31m Destructor [32mcalled[0m - 138
+[32m11 - Copy[31m Destructor [32mcalled[0m - 104
+[32m67 - Copy[31m Destructor [32mcalled[0m - 131
+[32m35 - Copy[31m Destructor [32mcalled[0m - 19
+[32m47 - Copy[31m Destructor [32mcalled[0m - 116
+[32m7 - Copy[31m Destructor [32mcalled[0m - 20
+[32m75 - Copy[31m Destructor [32mcalled[0m - 100
+[32m59 - Copy[31m Destructor [32mcalled[0m - 33
+[32m71 - Copy[31m Destructor [32mcalled[0m - 87
+[32m51 - Copy[31m Destructor [32mcalled[0m - 151
+[32m55 - Copy[31m Destructor [32mcalled[0m - 12
+[32m31 - Copy[31m Destructor [32mcalled[0m - 117
+[32m27 - Copy[31m Destructor [32mcalled[0m - 49
+[32m23 - Copy[31m Destructor [32mcalled[0m - 56
+[32m15 - Copy[31m Destructor [32mcalled[0m - 107
