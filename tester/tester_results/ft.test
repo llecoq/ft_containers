@@ -1,9 +1,8 @@
-foo and bar are not equal
-foo is greater than bar
-foo is greater than or equal to bar
-foo and zob are not equal
-foo is greater than zob
-foo is greater than or equal to zob
-bah and zob are not equal
-bah is greater than zob
-bah is greater than or equal to zob
+empty size = 0
+map begin = 5
+map2 begin = 5
+map size = 4
+map2 size = 4
+vect size = 4
+copy begin = 5
+copy size = 4

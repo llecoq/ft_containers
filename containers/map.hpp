@@ -6,7 +6,7 @@
 /*   By: llecoq <llecoq@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/17 10:54:16 by llecoq            #+#    #+#             */
-/*   Updated: 2022/04/06 15:53:04 by llecoq           ###   ########.fr       */
+/*   Updated: 2022/04/08 15:30:14 by llecoq           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,12 +75,14 @@ class map
 		template <class InputIterator>
 		map	(InputIterator first, InputIterator last,
 			const key_compare& comp = key_compare(),
-			const allocator_type& alloc = allocator_type(),
-			typename enable_if<!is_integral<InputIterator>::value
-			&& !is_floating_point<InputIterator>::value, InputIterator>::type* = 0)
+			const allocator_type& alloc = allocator_type())
+			// typename enable_if<!is_integral<InputIterator>::value
+			// && !is_floating_point<InputIterator>::value, InputIterator>::type* = 0)
 		:
-			_tree(_base(first, last, comp, alloc))
-		{}
+			_tree(_base(comp, alloc))
+		{
+			insert(first, last);
+		}
 
 		//-------------------------------------------------------------- copy
 		map	(const map& x)
@@ -139,7 +141,7 @@ class map
 
 		// single element (1)	
 		pair<iterator,bool> insert (const value_type& val)
-		{	
+		{
 			return _tree.insert(val);
 		}
 
@@ -150,11 +152,15 @@ class map
 				return _tree.insert(val).first;
 			return _tree.insert(position, val).first; // insert key = root key
 		}
-
-		
+	
 		// range (3)	
-		// template <class InputIterator>
-		// void insert (InputIterator first, InputIterator last);
+		template <class InputIterator>
+		void insert (InputIterator first, InputIterator last)
+		{
+			while (first != last)
+				insert(*(first++));
+			// insert(last);
+		}
 
 		void erase (iterator position)
 		{

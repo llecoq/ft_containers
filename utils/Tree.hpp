@@ -6,7 +6,7 @@
 /*   By: llecoq <llecoq@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/18 09:23:58 by llecoq            #+#    #+#             */
-/*   Updated: 2022/04/06 15:49:22 by llecoq           ###   ########.fr       */
+/*   Updated: 2022/04/08 15:29:42 by llecoq           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,22 +94,19 @@ class Tree
 			// std::cout << "tree copy constructor" << std::endl;
 		}
 	
-		template <class InputIterator>
-		Tree (InputIterator first, InputIterator last,
-			const key_compare & comp = key_compare(),
-			const allocator_type& alloc = allocator_type())
-		:
-			_root_node(NULL),
-			_begin_node(_root_node),
-			_end_node(_root_node),
-			_node_allocator(alloc),
-			_size(0)
-		{
-			// std::cout << "tree range constructor" << std::endl;
-			(void)first;
-			(void)last;
-			(void)comp;
-		}
+		// template <class InputIterator>
+		// Tree (InputIterator first, InputIterator last,
+		// 	const key_compare & comp = key_compare(),
+		// 	const allocator_type& alloc = allocator_type())
+		// :
+		// 	_root_node(NULL),
+		// 	_begin_node(_root_node),
+		// 	_end_node(_root_node),
+		// 	_node_allocator(alloc),
+		// 	_size(0)
+		// {
+		// 	// std::cout << "tree range constructor" << std::endl;
+		// }
 
 		Tree& operator= (const Tree& x)
 		{
