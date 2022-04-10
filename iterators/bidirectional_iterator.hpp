@@ -6,7 +6,7 @@
 /*   By: llecoq <llecoq@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/18 13:37:15 by llecoq            #+#    #+#             */
-/*   Updated: 2022/04/08 16:23:21 by llecoq           ###   ########.fr       */
+/*   Updated: 2022/04/10 10:48:23 by llecoq           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,12 +85,12 @@ class bidirectional_iterator
 
 		pointer	operator->( void ) const
 		{
-			return (&_base->element);
+			return (_base->element);
 		}
 
 		reference	operator*( void )
 		{
-			return (_base->element);
+			return (*_base->element);
 		}
 
 		bool	operator==( const bidirectional_iterator &rhs ) const

@@ -6,7 +6,7 @@
 /*   By: llecoq <llecoq@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/18 09:23:58 by llecoq            #+#    #+#             */
-/*   Updated: 2022/04/08 16:23:02 by llecoq           ###   ########.fr       */
+/*   Updated: 2022/04/10 13:54:22 by llecoq           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,6 +53,7 @@ class Tree
 		typedef typename allocator_type::pointer				node_pointer;
 		typedef typename allocator_type::size_type				size_type;
 		typedef pair<const key_type, mapped_type>				value_type;
+		typedef value_type*										element_pointer;
 		typedef ft::t_node < value_type >						t_node;
 		typedef typename Alloc::template rebind<value_type>::other			pair_allocator;
 
@@ -121,7 +122,7 @@ class Tree
 		{
 			if (node_to_copy != NULL && node_to_copy != copy_end_node)
 			{
-				_set_new_node(*node_to_copy, current_node, parent_node);
+				_set_new_node(*node_to_copy->element, current_node, parent_node);
 				_pre_order_insert(current_node->left, node_to_copy->left, copy_end_node, current_node);
 				_pre_order_insert(current_node->right, node_to_copy->right, copy_end_node, current_node);
 			}
@@ -140,7 +141,7 @@ class Tree
 		key_type	get_root_key() const
 		{
 			if (_root_node)
-				return _root_node->element.first;
+				return _root_node->element->first;
 			else
 				return 0;
 		}
@@ -180,7 +181,7 @@ class Tree
 	*/
 		pair<iterator, bool> insert (const value_type& val)
 		{
-			return _insert_node(t_node(val), _root_node);
+			return _insert_node(val, _root_node);
 		}
 
 		pair<iterator, bool> insert (iterator position, const value_type& val)
@@ -192,7 +193,7 @@ class Tree
 				return _check_before_position(parent, val);
 			else if (_position_is_before_insert(current_position, val.first))
 				return _check_after_position(parent, val);
-			return _insert_node(t_node(val), _root_node);
+			return _insert_node(val, _root_node);
 		}
 
 		void	erase(iterator position)
@@ -253,20 +254,20 @@ class Tree
 		{
 			if (current_node == _end_node)
 				return _end_node;
-			if (_same_key(k, current_node->element.first))
+			if (_same_key(k, current_node->element->first))
 			{
 				if (bound == LOWER)
 					return current_node;
 				else if (current_node->right != NULL)
 					return _find_successor(current_node);
 			}
-			else if (key_compare()(k, current_node->element.first)) // key plus petite
+			else if (key_compare()(k, current_node->element->first)) // key plus petite
 			{
 				if (current_node->left != NULL)
 					return _find_bound(k, current_node->left, bound); // _find_bound left
 				return current_node;
 			}
-			else if (key_compare()(current_node->element.first, k)) // key plus grande
+			else if (key_compare()(current_node->element->first, k)) // key plus grande
 			{
 				if (current_node->right != NULL)
 					return _find_bound(k, current_node->right, bound); // _find_bound right
@@ -285,25 +286,25 @@ class Tree
 	/*
 	** ------------------------------------------------------------ INSERT
 	*/
-		pair<iterator, bool> _insert_node (const t_node &new_node, node_pointer &current_node,
+		pair<iterator, bool> _insert_node (const value_type &val, node_pointer &current_node,
 											node_pointer parent_node = NULL)
 		{
 			if (_empty_tree()) // empty tree
-				return _set_new_node(new_node, current_node, parent_node);
+				return _set_new_node(val, current_node, parent_node);
 			if (_empty_node(current_node))  // empty node
-				return _set_new_node(new_node, current_node, parent_node);
-			if (_same_key(new_node.element.first, current_node->element.first))
+				return _set_new_node(val, current_node, parent_node);
+			if (_same_key(val.first, current_node->element->first))
 				return pair<node_pointer, bool>(current_node, false);
-			if (key_compare()(new_node.element.first, current_node->element.first)) 
-				return _insert_node(new_node, current_node->left, current_node); // insert left
+			if (key_compare()(val.first, current_node->element->first)) 
+				return _insert_node(val, current_node->left, current_node); // insert left
 			else
-				return _insert_node(new_node, current_node->right, current_node); // insert right
+				return _insert_node(val, current_node->right, current_node); // insert right
 		}
 
-		pair<iterator, bool>	_set_new_node(const t_node &new_node, node_pointer &current_node,
+		pair<iterator, bool>	_set_new_node(const value_type &val, node_pointer &current_node,
 													node_pointer const &parent_node)
 		{
-			current_node = _create_node(new_node);
+			current_node = _create_node(val);
 			current_node->parent = parent_node;
 			_set_begin_or_end(current_node);
 			_size++;
@@ -314,9 +315,9 @@ class Tree
 		{
 			if (current_node == _root_node)
 				_init_end_node();
-			else if (key_compare()(_end_node->parent->element.first, current_node->element.first)) // new node is end
+			else if (key_compare()(_end_node->parent->element->first, current_node->element->first)) // new node is end
 				_set_end_node(current_node);
-			else if (key_compare()(current_node->element.first, _begin_node->element.first)) // new node is begin
+			else if (key_compare()(current_node->element->first, _begin_node->element->first)) // new node is begin
 				_begin_node = current_node;
 		}
 
@@ -326,7 +327,7 @@ class Tree
 		
 			if (current_position == _root_node
 				|| _position_is_before_insert(current_position, val.first))
-				return _insert_node(t_node(val), current_position, parent);
+				return _insert_node(val, current_position, parent);
 			return _check_before_position(parent, val);
 		}
 
@@ -336,7 +337,7 @@ class Tree
 
 			if (current_position == _root_node
 				|| _position_is_after_insert(current_position, val.first))
-				return _insert_node(t_node(val), current_position, parent);
+				return _insert_node(val, current_position, parent);
 			return _check_after_position(parent, val);
 		}
 
@@ -369,11 +370,11 @@ class Tree
 				case TWO_CHILDREN:
 				{
 					node_pointer	predecessor = _find_predecessor(current_node); // va à gauche car droite peut être end_node
+					element_pointer	tmp = current_node->element;
 
-					// current_node->element = value_type(predecessor->element);
-					pair_allocator().destroy(&current_node->element);
-					pair_allocator().construct(&current_node->element, predecessor->element);
 
+					current_node->element = predecessor->element;
+					predecessor->element = tmp;
 					erase(predecessor);
 					break;
 				}
@@ -440,9 +441,9 @@ class Tree
 	*/
 		node_pointer	_find_key(const key_type &k, node_pointer current_node) const
 		{
-			if (_same_key(k, current_node->element.first))
+			if (_same_key(k, current_node->element->first))
 				return (current_node);
-			if (key_compare()(k, current_node->element.first) && current_node->left != NULL) 
+			if (key_compare()(k, current_node->element->first) && current_node->left != NULL) 
 				return _find_key(k, current_node->left); // _find_key left
 			else if (current_node->right != NULL)
 				return _find_key(k, current_node->right); // _find_key right
@@ -464,12 +465,12 @@ class Tree
 
 		bool	_position_is_before_insert(node_pointer current_position, key_type insert_key)
 		{
-			return key_compare()(current_position->element.first, insert_key);
+			return key_compare()(current_position->element->first, insert_key);
 		}
 
 		bool	_position_is_after_insert(node_pointer current_position, key_type insert_key)
 		{
-			return key_compare()(insert_key, current_position->element.first);
+			return key_compare()(insert_key, current_position->element->first);
 		}
 
 		node_pointer	_iterator_to_pointer(iterator iter)
@@ -500,6 +501,7 @@ class Tree
 		void	_init_end_node()
 		{
 			_end_node = _node_allocator.allocate(1);
+			_end_node->element = pair_allocator().allocate(1);
 			_end_node->right = NULL;
 			_end_node->left = NULL;
 			_end_node->parent = _root_node;
@@ -513,11 +515,13 @@ class Tree
 			_end_node->parent = current_node;
 		}
 
-		node_pointer	_create_node(const t_node& new_node)
+		node_pointer	_create_node(const value_type &val)
 		{
 			node_pointer	tmp = _node_allocator.allocate(1);
 
-			_node_allocator.construct(tmp, new_node);
+			_node_allocator.construct(tmp, t_node());
+			tmp->element = pair_allocator().allocate(1);
+			pair_allocator().construct(tmp->element, val);
 			return (tmp);
 		}
 
