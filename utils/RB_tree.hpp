@@ -6,7 +6,7 @@
 /*   By: llecoq <llecoq@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/18 09:23:58 by llecoq            #+#    #+#             */
-/*   Updated: 2022/04/11 14:15:59 by llecoq           ###   ########.fr       */
+/*   Updated: 2022/04/11 14:28:54 by llecoq           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -215,7 +215,8 @@ class RB_tree
 		void clear()
 		{
 			_destroy_from_root(_root_node);
-			_root_node = _end_node = _begin_node = NULL;
+			_init_end_node();
+			_root_node = NULL;
 		}
 
 
