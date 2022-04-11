@@ -6,7 +6,7 @@
 /*   By: llecoq <llecoq@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/17 16:42:25 by llecoq            #+#    #+#             */
-/*   Updated: 2022/04/11 15:14:00 by llecoq           ###   ########.fr       */
+/*   Updated: 2022/04/11 15:23:44 by llecoq           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -275,7 +275,43 @@ int	tester_map_ft()
 	/*------------------------------ OBSERVERS ----------------------------*/
 	{
 		std::cout << "-------------- OBSERVERS ---------------" << std::endl;
-	
+		//-------------------------- KEY_COMPARE
+		{
+			ft::map<char,int> mymap;
+			ft::map<char,int>::key_compare mycomp = mymap.key_comp();
+			
+			mymap['a']=100;
+			mymap['b']=200;
+			mymap['c']=300;
+			
+			std::cout << "mymap contains:\n";
+			
+			char highest = mymap.rbegin()->first;     // key value of last element
+			
+			ft::map<char,int>::iterator it = mymap.begin();
+			do {
+				std::cout << it->first << " => " << it->second << std::endl;
+			} while ( mycomp((*it++).first, highest) );
+		} // KEY_COMPARE
+
+		//-------------------------- VALUE_COMP
+		{
+			ft::map<char,int> mymap;
+			
+			mymap['x']=1001;
+			mymap['y']=2002;
+			mymap['z']=3003;
+			
+			std::cout << "mymap contains:\n";
+			
+			ft::pair<char,int> highest = *mymap.rbegin();          // last element
+			
+			ft::map<char,int>::iterator it = mymap.begin();
+			do{
+			std::cout << it->first << " => " << it->second << std::endl;
+			} while ( mymap.value_comp()(*it++, highest) );
+		} // VALUE_COMP
+		
 		std::cout << std::endl;
 	}
 
