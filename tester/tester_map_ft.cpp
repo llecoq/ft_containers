@@ -6,7 +6,7 @@
 /*   By: llecoq <llecoq@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/17 16:42:25 by llecoq            #+#    #+#             */
-/*   Updated: 2022/04/11 15:23:44 by llecoq           ###   ########.fr       */
+/*   Updated: 2022/04/11 15:31:56 by llecoq           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -318,7 +318,112 @@ int	tester_map_ft()
 	/*------------------------------ OPERATIONS ----------------------------*/
 	{
 		std::cout << "-------------- OPERATIONS ---------------" << std::endl;
+		
+		//-------------------------- FIND
+		{
+			ft::map<char,int> mymap;
+			ft::map<char,int>::iterator it;
+
+			mymap['a']=50;
+			mymap['b']=100;
+			mymap['c']=150;
+			mymap['d']=200;
+
+			it = mymap.find('b');
+			if (it != mymap.end())
+				mymap.erase (it);
+
+			// print content:
+			std::cout << "elements in mymap:" << std::endl;
+			std::cout << "a => " << mymap.find('a')->second << std::endl;
+			std::cout << "c => " << mymap.find('c')->second << std::endl;
+			std::cout << "d => " << mymap.find('d')->second << std::endl;
+		} // FIND
+
+		//-------------------------- COUNT
+		{
+			std::map<char,int> mymap;
+			char c;
+
+			mymap ['a']=101;
+			mymap ['c']=202;
+			mymap ['f']=303;
+
+			for (c = 'a'; c < 'h'; c++)
+			{
+				std::cout << c;
+				if (mymap.count(c) > 0)
+				std::cout << " is an element of mymap." << std::endl;
+			else 
+				std::cout << " is not an element of mymap." << std::endl;
+			}
+
+		} // COUNT
+			
+		//-------------------------- LOWER / UPPER_BOUND
+		{
+			std::cout << "lower and upper bounds" << std::endl;
+
+			ft::map<int,int> mymap;
+			ft::map<int,int>::iterator itlow,itup;
+
+			mymap[1]=20;
+			mymap[2]=40;
+			mymap[3]=60;
+			mymap[4]=80;
+			mymap[5]=100;
+			
+			ut::fillMap<ft::map<int, int>, ft::pair<int, int> >(mymap, 10, RANDOMIZED_QUEUE);
+
+			itlow=mymap.lower_bound (2);  // itlow points to b
+			itup=mymap.upper_bound (4);   // itup points to e (not d!)
+			std::cout << itup->first << std::endl;
+
+			mymap.erase(itlow,itup);        // erases [itlow,itup)
+
+			// print content:
+			for (ft::map<int,int>::iterator it=mymap.begin(); it!=mymap.end(); ++it)
+			std::cout << it->first << " => " << it->second << std::endl;
+
+			
+			// mymap.print_tree();
+			itlow = mymap.lower_bound(0);
+			std::cout << itlow->first << std::endl;
+			itup = mymap.upper_bound(13);
+			if (itup == mymap.end())
+				std::cout << "OK" << std::endl;
+			else
+				std::cout << "KO" << std::endl;
+			std::cout << mymap.upper_bound(5)->first << std::endl;
+			std::cout << mymap.lower_bound(5)->first << std::endl;
+			std::cout << mymap.upper_bound(3)->first << std::endl;
+			std::cout << mymap.lower_bound(3)->first << std::endl;
+			std::cout << mymap.upper_bound(2)->first << std::endl;
+			std::cout << mymap.lower_bound(2)->first << std::endl;
+
+		} // LOWER / UPPER_BOUND
+
+		//-------------------------- EQUAL_RANGE
+		{
+			std::cout << "equal range" << std::endl;
 	
+			std::map<char,int> mymap;
+
+			mymap['a']=10;
+			mymap['b']=20;
+			mymap['c']=30;
+
+			std::pair<std::map<char,int>::iterator,std::map<char,int>::iterator> ret;
+			ret = mymap.equal_range('b');
+
+			std::cout << "lower bound points to: ";
+			std::cout << ret.first->first << " => " << ret.first->second << std::endl;;
+
+			std::cout << "upper bound points to: ";
+			std::cout << ret.second->first << " => " << ret.second->second << std::endl;;
+
+		} // EQUAL_RANGE
+
 		std::cout << std::endl;
 	}
 
