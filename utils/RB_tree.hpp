@@ -6,7 +6,7 @@
 /*   By: llecoq <llecoq@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/18 09:23:58 by llecoq            #+#    #+#             */
-/*   Updated: 2022/04/11 15:03:58 by llecoq           ###   ########.fr       */
+/*   Updated: 2022/04/11 15:17:46 by llecoq           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -207,7 +207,7 @@ class RB_tree
 
 		void	swap (RB_tree &x)
 		{
-			t_tree_data<allocator_type>	tmp;
+			t_tree_data<node_allocator>	tmp;
 
 			_swap_data(tmp, *this);
 			_swap_data(*this, x);
