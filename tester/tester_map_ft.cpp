@@ -6,7 +6,7 @@
 /*   By: llecoq <llecoq@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/17 16:42:25 by llecoq            #+#    #+#             */
-/*   Updated: 2022/04/11 15:34:53 by llecoq           ###   ########.fr       */
+/*   Updated: 2022/04/11 15:43:40 by llecoq           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,8 +21,6 @@ int	tester_map_ft()
 		ft_map	empty;
 
 		std::cout << "empty size = " << empty.size() << std::endl;
-		// std::cout << "empty end =  " << empty.end()->first << std::endl;
-		// std::cout << "empty begin =  " << empty.begin()->first << std::endl;
 
 		// range constructor
 		ft::vector< ft::pair <int,int> > vect;
@@ -284,7 +282,7 @@ int	tester_map_ft()
 			mymap['b']=200;
 			mymap['c']=300;
 			
-			std::cout << "mymap contains:\n";
+			std::cout << "mymap contains:" << std::endl;
 			
 			char highest = mymap.rbegin()->first;     // key value of last element
 			
@@ -302,7 +300,7 @@ int	tester_map_ft()
 			mymap['y']=2002;
 			mymap['z']=3003;
 			
-			std::cout << "mymap contains:\n";
+			std::cout << "mymap contains:" << std::endl;
 			
 			ft::pair<char,int> highest = *mymap.rbegin();          // last element
 			
