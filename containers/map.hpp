@@ -6,7 +6,7 @@
 /*   By: llecoq <llecoq@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/17 10:54:16 by llecoq            #+#    #+#             */
-/*   Updated: 2022/04/11 13:26:08 by llecoq           ###   ########.fr       */
+/*   Updated: 2022/04/11 15:36:01 by llecoq           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -279,6 +279,13 @@ class map
 			return ft::make_pair(_tree.lower_bound(k), _tree.upper_bound(k));
 		}
 		
+	/*
+	** -------------------------------------------------------------- ALLOCATOR
+	*/
+		allocator_type get_allocator() const
+		{
+			return allocator_type();
+		}
 
 	private :
 

@@ -6,7 +6,7 @@
 /*   By: llecoq <llecoq@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/18 09:23:58 by llecoq            #+#    #+#             */
-/*   Updated: 2022/04/11 15:17:46 by llecoq           ###   ########.fr       */
+/*   Updated: 2022/04/11 15:41:04 by llecoq           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -451,6 +451,8 @@ class RB_tree
 	*/
 		node_pointer	_find_key(const key_type &k, node_pointer current_node) const
 		{
+			if (current_node == _end_node)
+				return _end_node;
 			if (_same_key(k, current_node->element->first))
 				return (current_node);
 			if (key_compare()(k, current_node->element->first) && current_node->left != NULL) 

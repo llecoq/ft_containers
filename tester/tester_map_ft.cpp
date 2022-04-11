@@ -6,7 +6,7 @@
 /*   By: llecoq <llecoq@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/17 16:42:25 by llecoq            #+#    #+#             */
-/*   Updated: 2022/04/11 15:31:56 by llecoq           ###   ########.fr       */
+/*   Updated: 2022/04/11 15:34:53 by llecoq           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -342,7 +342,7 @@ int	tester_map_ft()
 
 		//-------------------------- COUNT
 		{
-			std::map<char,int> mymap;
+			ft::map<char,int> mymap;
 			char c;
 
 			mymap ['a']=101;
@@ -407,13 +407,13 @@ int	tester_map_ft()
 		{
 			std::cout << "equal range" << std::endl;
 	
-			std::map<char,int> mymap;
+			ft::map<char,int> mymap;
 
 			mymap['a']=10;
 			mymap['b']=20;
 			mymap['c']=30;
 
-			std::pair<std::map<char,int>::iterator,std::map<char,int>::iterator> ret;
+			ft::pair<ft::map<char,int>::iterator,ft::map<char,int>::iterator> ret;
 			ret = mymap.equal_range('b');
 
 			std::cout << "lower bound points to: ";
@@ -431,6 +431,20 @@ int	tester_map_ft()
 	{
 		std::cout << "-------------- ALLOCATOR ---------------" << std::endl;
 	
+		int psize;
+		ft::map<char,int> mymap;
+		ft::pair<const char,int>* p;
+
+		// allocate an array of 5 elements using mymap's allocator:
+		p=mymap.get_allocator().allocate(5);
+
+		// assign some values to array
+		psize = sizeof(std::map<char,int>::value_type)*5;
+
+		std::cout << "The allocated array has a size of " << psize << " bytes." << std::endl;
+
+		mymap.get_allocator().deallocate(p,5);
+
 		std::cout << std::endl;
 	}
 
