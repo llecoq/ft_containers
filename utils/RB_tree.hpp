@@ -1,17 +1,17 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   Tree.hpp                                           :+:      :+:    :+:   */
+/*   RB_tree.hpp                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: llecoq <llecoq@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/18 09:23:58 by llecoq            #+#    #+#             */
-/*   Updated: 2022/04/10 13:54:22 by llecoq           ###   ########.fr       */
+/*   Updated: 2022/04/11 14:15:59 by llecoq           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef TREE_HPP
-#define TREE_HPP
+#ifndef RB_TREE_HPP
+#define RB_TREE_HPP
 
 #include "bidirectional_iterator.hpp"
 #include "utils.hpp"
@@ -41,7 +41,7 @@ template < class Key,
            class Alloc,
 		   class Iter
            >
-class Tree
+class RB_tree
 {
 	public:
 
@@ -50,19 +50,19 @@ class Tree
 		typedef Compare											key_compare;
 		typedef Alloc											allocator_type;
 		typedef	Iter											iterator;
-		typedef typename allocator_type::pointer				node_pointer;
-		typedef typename allocator_type::size_type				size_type;
-		typedef pair<const key_type, mapped_type>				value_type;
-		typedef value_type*										element_pointer;
+		typedef ft::pair<const key_type, mapped_type>			value_type;
 		typedef ft::t_node < value_type >						t_node;
-		typedef typename Alloc::template rebind<value_type>::other			pair_allocator;
+		typedef typename Alloc::template rebind<t_node>::other	node_allocator;
+		typedef typename node_allocator::pointer				node_pointer;
+		typedef size_t											size_type;
+		typedef value_type*										element_pointer;
 
 	private:
 
 		node_pointer											_root_node;
 		node_pointer											_begin_node;
 		node_pointer											_end_node;
-		allocator_type											_node_allocator;
+		allocator_type											_pair_allocator;
 		size_type												_size;
 
 		friend void	printTree<t_node>(t_node *root, t_node *end);
@@ -71,46 +71,46 @@ class Tree
 	public :
 	
 		// default
-		explicit Tree (const key_compare & comp = key_compare(),
+		explicit RB_tree (const key_compare & comp = key_compare(),
 					const allocator_type& alloc = allocator_type())
 		:
 			_root_node(NULL),
-			_begin_node(_root_node),
-			_end_node(_root_node),
-			_node_allocator(alloc),
+			_begin_node(NULL),
+			_end_node(_init_end_node()),
+			_pair_allocator(alloc),
 			_size(0)
 		{
 			(void)comp;
-			// std::cout << "tree default constructor" << std::endl;
+			// std::cout << "RB_tree default constructor" << std::endl;
 		}
 
-		Tree (const Tree& x)
+		RB_tree (const RB_tree& x)
 		:
 			_root_node(NULL),
-			_begin_node(_root_node),
-			_end_node(_root_node),
-			_node_allocator(x._node_allocator),
+			_begin_node(NULL),
+			_end_node(_init_end_node()),
+			_pair_allocator(x._pair_allocator),
 			_size(0)	
 		{
 			_pre_order_insert(_root_node, x._root_node, x._end_node);
-			// std::cout << "tree copy constructor" << std::endl;
+			// std::cout << "RB_tree copy constructor" << std::endl;
 		}
 	
 		// template <class InputIterator>
-		// Tree (InputIterator first, InputIterator last,
+		// RB_tree (InputIterator first, InputIterator last,
 		// 	const key_compare & comp = key_compare(),
 		// 	const allocator_type& alloc = allocator_type())
 		// :
 		// 	_root_node(NULL),
 		// 	_begin_node(_root_node),
 		// 	_end_node(_root_node),
-		// 	_node_allocator(alloc),
+		// 	node_allocator()(alloc),
 		// 	_size(0)
 		// {
-		// 	// std::cout << "tree range constructor" << std::endl;
+		// 	// std::cout << "RB_tree range constructor" << std::endl;
 		// }
 
-		Tree& operator= (const Tree& x)
+		RB_tree& operator= (const RB_tree& x)
 		{
 			clear();
 			_pre_order_insert(_root_node, x._root_node, x._end_node);
@@ -129,9 +129,9 @@ class Tree
 		}
 
 		// destructor
-		~Tree ()
+		~RB_tree ()
 		{
-			// std::cout << "tree destructor" << std::endl;
+			// std::cout << "RB_tree destructor" << std::endl;
 			_destroy_from_root(_root_node);
 		}
 
@@ -173,7 +173,7 @@ class Tree
 
 		size_type max_size() const
 		{
-			return (_node_allocator.max_size());
+			return (node_allocator().max_size());
 		}
 
 	/*
@@ -203,7 +203,7 @@ class Tree
 			_erase_node(node_to_erase);
 		}
 
-		void	swap (Tree &x)
+		void	swap (RB_tree &x)
 		{
 			t_tree_data<allocator_type>	tmp;
 
@@ -314,11 +314,18 @@ class Tree
 		void	_set_begin_or_end(node_pointer const &current_node)
 		{
 			if (current_node == _root_node)
-				_init_end_node();
+				_init_begin_and_root_node(current_node);
 			else if (key_compare()(_end_node->parent->element->first, current_node->element->first)) // new node is end
 				_set_end_node(current_node);
 			else if (key_compare()(current_node->element->first, _begin_node->element->first)) // new node is begin
 				_begin_node = current_node;
+		}
+
+		void	_init_begin_and_root_node(node_pointer const &current_node)
+		{
+				_begin_node = current_node;
+				_begin_node->right = _end_node;
+				_end_node->parent = _root_node;
 		}
 
 		pair<iterator, bool>	_check_before_position(node_pointer current_position, const value_type &val)
@@ -421,7 +428,7 @@ class Tree
 					child->parent = NULL;
 				else     // begin_node with no child
 				{
-					_node_allocator.deallocate(_end_node, 1);
+					node_allocator().deallocate(_end_node, 1);
 					_begin_node = _end_node = _root_node = NULL;
 				}
 			}
@@ -498,15 +505,17 @@ class Tree
 			return (empty());
 		}
 
-		void	_init_end_node()
+		node_pointer	_init_end_node()
 		{
-			_end_node = _node_allocator.allocate(1);
-			_end_node->element = pair_allocator().allocate(1);
+			_end_node = node_allocator().allocate(1);
+			node_allocator().construct(_end_node, t_node());
+			_end_node->element = _pair_allocator.allocate(1);
 			_end_node->right = NULL;
 			_end_node->left = NULL;
-			_end_node->parent = _root_node;
-			_begin_node = _root_node;
-			_root_node->right = _end_node;
+			// _end_node->parent = _root_node;
+			_begin_node = _end_node;
+			// _root_node->right = _end_node;
+			return _end_node;
 		}
 
 		void	_set_end_node(node_pointer const &current_node)
@@ -517,35 +526,39 @@ class Tree
 
 		node_pointer	_create_node(const value_type &val)
 		{
-			node_pointer	tmp = _node_allocator.allocate(1);
+			node_pointer	tmp = node_allocator().allocate(1);
 
-			_node_allocator.construct(tmp, t_node());
-			tmp->element = pair_allocator().allocate(1);
-			pair_allocator().construct(tmp->element, val);
+			node_allocator().construct(tmp, t_node());
+			tmp->element = _pair_allocator.allocate(1);
+			_pair_allocator.construct(tmp->element, val);
 			return (tmp);
 		}
 
 		void	_delete_node(node_pointer &node)
 		{
 			if (node != _end_node)
+			{
 				_size--;
-			_node_allocator.destroy(node);
-			_node_allocator.deallocate(node, 1);
+				_pair_allocator.destroy(node->element);
+			}
+			_pair_allocator.deallocate(node->element, 1);
+			node_allocator().destroy(node);
+			node_allocator().deallocate(node, 1);
+			node = NULL;
 		}
 		
 		void	_destroy_from_root(node_pointer &current_node)
 		{
-			if (current_node == _end_node)
-				_node_allocator.deallocate(current_node, 1);
+			if (_empty_tree())
+				_delete_node(_end_node);
+			else if (current_node == _end_node)
+				_delete_node(current_node);
 			else if (current_node != NULL)
 			{
 				_destroy_from_root(current_node->left);
 				_destroy_from_root(current_node->right);
-				_node_allocator.destroy(current_node);
-				_node_allocator.deallocate(current_node, 1);
-				_size--;
+				_delete_node(current_node);
 			}
-			current_node = NULL;
 		}
 };
 

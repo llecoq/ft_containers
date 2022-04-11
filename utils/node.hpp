@@ -6,7 +6,7 @@
 /*   By: llecoq <llecoq@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/06 15:34:54 by llecoq            #+#    #+#             */
-/*   Updated: 2022/04/10 13:49:33 by llecoq           ###   ########.fr       */
+/*   Updated: 2022/04/10 14:21:34 by llecoq           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,24 +63,7 @@ struct t_node
 		return *this;
 	}
 
-	~t_node()
-	{
-		if (element)
-		{
-			Alloc().destroy(element);
-			Alloc().deallocate(element, 1);
-		}
-	}
-
-	private :
-
-		Pair*	_allocate_and_construct(Pair const &val = Pair())
-		{
-			element = Alloc().allocate(1);
-			// *element = val;
-			Alloc().construct(element, Pair(val));
-			return (element);
-		}
+	~t_node(){}
 
 };
 

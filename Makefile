@@ -6,7 +6,7 @@
 #    By: llecoq <llecoq@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/11/16 11:27:48 by llecoq            #+#    #+#              #
-#    Updated: 2022/04/08 16:06:26 by llecoq           ###   ########.fr        #
+#    Updated: 2022/04/11 14:07:18 by llecoq           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -15,7 +15,7 @@ SRCS_FILES	=				main.cpp
 INCLUDES_UTILS_FILES =		utils.hpp\
 							tester.hpp\
 							tester_utils.hpp\
-							Tree.hpp\
+							RB_tree.hpp\
 							node.hpp\
 							pair.hpp\
 							metafunctions.hpp

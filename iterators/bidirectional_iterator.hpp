@@ -6,7 +6,7 @@
 /*   By: llecoq <llecoq@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/18 13:37:15 by llecoq            #+#    #+#             */
-/*   Updated: 2022/04/10 10:48:23 by llecoq           ###   ########.fr       */
+/*   Updated: 2022/04/11 13:29:00 by llecoq           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 
 #include "iterator.hpp"
 #include "pair.hpp"
-#include "Tree.hpp"
+#include "RB_tree.hpp"
 
 namespace ft
 {

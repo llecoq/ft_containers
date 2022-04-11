@@ -6,7 +6,7 @@
 /*   By: llecoq <llecoq@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/17 10:54:16 by llecoq            #+#    #+#             */
-/*   Updated: 2022/04/10 13:48:34 by llecoq           ###   ########.fr       */
+/*   Updated: 2022/04/11 13:26:08 by llecoq           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@
 # include "bidirectional_iterator.hpp"
 # include "reverse_iterator.hpp"
 # include "pair.hpp"
-# include "Tree.hpp"
+# include "RB_tree.hpp"
 
 #include <memory>
 #include <functional>
@@ -27,7 +27,7 @@ namespace ft
 template < class Key,                                  
            class T,        
            class Compare = std::less<Key>,                     
-           class Alloc = std::allocator<pair<const Key,T> > 
+           class Alloc = std::allocator<ft::pair<const Key,T> > 
            >
 class map
 {
@@ -38,7 +38,7 @@ class map
 		typedef Compare													key_compare;
 		typedef Alloc													allocator_type;
 				
-		typedef pair<const key_type, mapped_type>						value_type;
+		typedef ft::pair<const key_type, mapped_type>					value_type;
 		typedef typename allocator_type::reference						reference;
 		typedef typename allocator_type::const_reference				const_reference;
 		typedef typename allocator_type::pointer						pointer;
@@ -53,12 +53,9 @@ class map
 
 	private :
 
-		typedef t_node<value_type>										_t_node;
-		typedef typename Alloc::template rebind<_t_node>::other			_node_allocator;
-		typedef typename _node_allocator::pointer						_node_pointer;
-		typedef	Tree<Key, T, Compare, _node_allocator, iterator>		_base;
+		typedef	RB_tree<Key, T, Compare, allocator_type, iterator>			_RB_tree_base;
 
-		_base															_tree;
+		_RB_tree_base													_tree;
 
 	public :
 	/*
@@ -68,7 +65,7 @@ class map
 		explicit map (const key_compare& comp = key_compare(),
 					const allocator_type& alloc = allocator_type())
 		:
-			_tree(_base(comp, alloc))
+			_tree(_RB_tree_base(comp, alloc))
 		{}
 
 		//-------------------------------------------------------------- range
@@ -79,7 +76,7 @@ class map
 			// typename enable_if<!is_integral<InputIterator>::value
 			// && !is_floating_point<InputIterator>::value, InputIterator>::type* = 0)
 		:
-			_tree(_base(comp, alloc))
+			_tree(_RB_tree_base(comp, alloc))
 		{
 			insert(first, last);
 		}
@@ -87,7 +84,7 @@ class map
 		//-------------------------------------------------------------- copy
 		map	(const map& x)
 		:
-			_tree(_base(x._tree))
+			_tree(_RB_tree_base(x._tree))
 		{}
 
 		//-------------------------------------------------------------- assign
@@ -212,18 +209,21 @@ class map
 		
 		class value_compare : std::binary_function<value_type, value_type, bool>
 		{
-			friend class map;
+			friend class	map;
+			
 			protected:
-			Compare comp;
-			value_compare (Compare c) : comp(c) {}  // constructed with map's comparison object
+		
+				Compare comp;
+				value_compare (Compare c) : comp(c) {}  // constructed with map's comparison object
+		
 			public:
-			typedef bool result_type;
-			typedef value_type first_argument_type;
-			typedef value_type second_argument_type;
-			bool operator() (const value_type& x, const value_type& y) const
-			{
-			return comp(x.first, y.first);
-			}
+				typedef bool result_type;
+				typedef value_type first_argument_type;
+				typedef value_type second_argument_type;
+				bool operator() (const value_type& x, const value_type& y) const
+				{
+					return comp(x.first, y.first);
+				}
 		};
 
 		value_compare value_comp() const
