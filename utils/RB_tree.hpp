@@ -6,7 +6,7 @@
 /*   By: llecoq <llecoq@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/18 09:23:58 by llecoq            #+#    #+#             */
-/*   Updated: 2022/04/11 15:41:04 by llecoq           ###   ########.fr       */
+/*   Updated: 2022/04/11 16:15:16 by llecoq           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,20 +95,6 @@ class RB_tree
 			_pre_order_insert(_root_node, x._root_node, x._end_node);
 			// std::cout << "RB_tree copy constructor" << std::endl;
 		}
-	
-		// template <class InputIterator>
-		// RB_tree (InputIterator first, InputIterator last,
-		// 	const key_compare & comp = key_compare(),
-		// 	const allocator_type& alloc = allocator_type())
-		// :
-		// 	_root_node(NULL),
-		// 	_begin_node(_root_node),
-		// 	_end_node(_root_node),
-		// 	node_allocator()(alloc),
-		// 	_size(0)
-		// {
-		// 	// std::cout << "RB_tree range constructor" << std::endl;
-		// }
 
 		RB_tree& operator= (const RB_tree& x)
 		{
@@ -235,7 +221,6 @@ class RB_tree
 			return _find_key(k, _root_node);
 		}
 
-
 		size_type count (const key_type& k) const
 		{
 			if (find(k) == _end_node)
@@ -251,32 +236,6 @@ class RB_tree
 		iterator upper_bound (const key_type& k)
 		{
 			return _find_bound(k, _root_node, UPPER);
-		}
-
-		iterator	_find_bound(const key_type &k, node_pointer current_node, bool bound) const
-		{
-			if (current_node == _end_node)
-				return _end_node;
-			if (_same_key(k, current_node->element->first))
-			{
-				if (bound == LOWER)
-					return current_node;
-				else if (current_node->right != NULL)
-					return _find_successor(current_node);
-			}
-			else if (key_compare()(k, current_node->element->first)) // key plus petite
-			{
-				if (current_node->left != NULL)
-					return _find_bound(k, current_node->left, bound); // _find_bound left
-				return current_node;
-			}
-			else if (key_compare()(current_node->element->first, k)) // key plus grande
-			{
-				if (current_node->right != NULL)
-					return _find_bound(k, current_node->right, bound); // _find_bound right
-				return ++iterator(current_node);
-			}  
-			return _end_node;
 		}
 
 		void	print_tree()
@@ -329,6 +288,7 @@ class RB_tree
 				_begin_node = current_node;
 				_begin_node->right = _end_node;
 				_end_node->parent = _root_node;
+				_root_node->color = BLACK;
 		}
 
 		pair<iterator, bool>	_check_before_position(node_pointer current_position, const value_type &val)
@@ -380,15 +340,19 @@ class RB_tree
 				case TWO_CHILDREN:
 				{
 					node_pointer	predecessor = _find_predecessor(current_node); // va à gauche car droite peut être end_node
-					element_pointer	tmp = current_node->element;
-
-
-					current_node->element = predecessor->element;
-					predecessor->element = tmp;
+					
+					_swap_elements(current_node->element, predecessor->element);
 					erase(predecessor);
 					break;
 				}
 			}
+		}
+
+		void	_swap_elements(element_pointer &current, element_pointer &predecessor)
+		{
+			element_pointer	tmp = current;
+			current = predecessor;
+			predecessor = tmp;
 		}
 
 		node_pointer	_find_successor(node_pointer current_node) const
@@ -462,6 +426,31 @@ class RB_tree
 			return _end_node;
 		}
 
+		iterator	_find_bound(const key_type &k, node_pointer current_node, bool bound) const
+		{
+			if (current_node == _end_node)
+				return _end_node;
+			if (_same_key(k, current_node->element->first))
+			{
+				if (bound == LOWER)
+					return current_node;
+				else if (current_node->right != NULL)
+					return _find_successor(current_node);
+			}
+			else if (key_compare()(k, current_node->element->first)) // key plus petite
+			{
+				if (current_node->left != NULL)
+					return _find_bound(k, current_node->left, bound); // _find_bound left
+				return current_node;
+			}
+			else if (key_compare()(current_node->element->first, k)) // key plus grande
+			{
+				if (current_node->right != NULL)
+					return _find_bound(k, current_node->right, bound); // _find_bound right
+				return ++iterator(current_node);
+			}  
+			return _end_node;
+		}
 
 	/*
 	** ------------------------------------------------------------ UTILS
@@ -517,9 +506,7 @@ class RB_tree
 			_end_node->element = _pair_allocator.allocate(1);
 			_end_node->right = NULL;
 			_end_node->left = NULL;
-			// _end_node->parent = _root_node;
 			_begin_node = _end_node;
-			// _root_node->right = _end_node;
 			return _end_node;
 		}
 
