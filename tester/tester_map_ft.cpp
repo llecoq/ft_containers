@@ -6,7 +6,7 @@
 /*   By: llecoq <llecoq@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/17 16:42:25 by llecoq            #+#    #+#             */
-/*   Updated: 2022/04/11 14:52:53 by llecoq           ###   ########.fr       */
+/*   Updated: 2022/04/11 14:59:54 by llecoq           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -205,9 +205,9 @@ int	tester_map_ft()
 		std::cout << "size = " << mymap.size() << std::endl;
 		std::cout << "erase" << std::endl;
 		mymap.erase(90);
-		it = mymap.find(90);
 		std::cout << "erase" << std::endl;
 		mymap.erase(mymap.begin(), mymap.end());
+		it = mymap.begin();
 		while (it != mymap.end())
 		{
 			std::cout << it->first << std::endl;

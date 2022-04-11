@@ -6,7 +6,7 @@
 /*   By: llecoq <llecoq@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/18 09:23:58 by llecoq            #+#    #+#             */
-/*   Updated: 2022/04/11 14:28:54 by llecoq           ###   ########.fr       */
+/*   Updated: 2022/04/11 15:03:58 by llecoq           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -201,6 +201,8 @@ class RB_tree
 			node_pointer	node_to_erase = _iterator_to_pointer(position);
 
 			_erase_node(node_to_erase);
+			if (_empty_tree())
+				clear();
 		}
 
 		void	swap (RB_tree &x)
