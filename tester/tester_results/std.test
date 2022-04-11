@@ -7,6 +7,8 @@ map2 size = 4
 vect size = 4
 copy begin = 5
 copy size = 4
+copy constructor OK
+
 -------------- COPY ASSIGNMENT ---------------
 map is not yet assigned to copy
 copy assignment : copy = map
@@ -19,3 +21,55 @@ size = 0
 ---------------------------
 copy assignment : empty  = copy
 copy assignment successful
+
+-------------- ITERATORS ---------------
+increment
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+decrement
+12
+11
+10
+9
+8
+7
+6
+5
+4
+3
+2
+reverse increment
+12
+11
+10
+9
+8
+7
+6
+5
+4
+3
+2
+1
+reverse decrement
+1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+11

@@ -6,7 +6,7 @@
 /*   By: llecoq <llecoq@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/17 16:42:25 by llecoq            #+#    #+#             */
-/*   Updated: 2022/04/11 14:34:12 by llecoq           ###   ########.fr       */
+/*   Updated: 2022/04/11 14:41:45 by llecoq           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,6 +47,9 @@ int	tester_map_ft()
 		ft_map	copy(map);
 		std::cout << "copy begin = " << copy.begin()->first << std::endl;
 		std::cout << "copy size = " << copy.size() << std::endl;
+		if (map == copy)
+			std::cout << "copy constructor OK" << std::endl;
+		std::cout << std::endl;
 	}
 
 	/*------------------------------ COPY ASSIGNMENT ----------------------------*/
@@ -71,6 +74,51 @@ int	tester_map_ft()
 		empty = copy;
 		if (empty == copy)
 			std::cout << "copy assignment successful" << std::endl;
+		std::cout << std::endl;
+	}
+
+	/*------------------------------ ITERATORS ----------------------------*/
+	{
+		std::cout << "-------------- ITERATORS ---------------" << std::endl;
+		ft_map			test;
+
+		ut::fillMap<ft_map, ft_pair>(test, 10, RANDOMIZED_QUEUE);
+		ft_map::iterator		it = test.begin();
+		ft_map::const_iterator	constit = test.begin();
+
+		it++;
+		constit++;
+
+		ft_map::iterator	ite = test.end();
+		
+		std::cout << "increment" << std::endl;
+		while (it != ite)
+		{
+			std::cout << it->first << std::endl;
+			it++;
+		}
+		// it++;  // segfault like the original
+		std::cout << "decrement" << std::endl;
+		while (--it != test.begin())
+			std::cout << it->first << std::endl;
+		it--;
+		ft_map::reverse_iterator	revit = test.rbegin();
+		ft_map::reverse_iterator	revite = test.rend();
+
+		std::cout << "reverse increment" << std::endl;
+		while (revit != revite)
+		{
+			std::cout << revit->first << std::endl;
+			revit++;
+		}
+		std::cout << "reverse decrement" << std::endl;
+		while (--revit != test.rbegin())
+			std::cout << revit->first << std::endl;
+		
+		ft_map::const_reverse_iterator revconstit = test.rbegin();
+		revconstit++;
+		std::cout << revconstit->first << std::endl;
+
 	}
 	return (SUCCESS);
 }
