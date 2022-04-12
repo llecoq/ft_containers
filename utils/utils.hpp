@@ -6,7 +6,7 @@
 /*   By: llecoq <llecoq@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/07 15:08:10 by llecoq            #+#    #+#             */
-/*   Updated: 2022/04/12 13:28:42 by llecoq           ###   ########.fr       */
+/*   Updated: 2022/04/12 15:22:35 by llecoq           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,8 +15,10 @@
 
 namespace ft
 {
-
-	# define COUNT 10
+	#define RESET 		  "\033[0m"
+	#define BLACK_COLOR   "\033[30m"      /* Black */
+	#define RED_COLOR     "\033[31m"      /* Red */
+	// # define COUNT 10
 
 /*
 ** ----------------------------------------------------- LEXICOGRAPHICAL COMPARE
@@ -114,26 +116,89 @@ namespace ft
 
 
 	// --------------------------------------- print 2D BSC
-	template < typename Node >
-	void	print2D(Node *root, int space, Node *end)
-	{
-		if (root == NULL || root == end)
-			return;
-		space += COUNT;
-		print2D(root->right, space, end);
-		std::cout << std::endl;
-		for (int i = COUNT; i < space; i++)
-			std::cout << " ";
-		std::cout << root->value->first << " - " << root->value->second;
-		if (root->parent)
-			std::cout << " (parent = " << root->parent->value->first << ")" << std::endl;
-		print2D(root->left, space, end);
-	}
+	// template < typename Node >
+	// void	print2D(Node *root, int space, Node *end)
+	// {
+	// 	if (root == NULL || root == end)
+	// 		return;
+	// 	space += COUNT;
+	// 	print2D(root->right, space, end);
+	// 	std::cout << std::endl;
+	// 	for (int i = COUNT; i < space; i++)
+	// 		std::cout << " ";
+	// 	std::cout << root->value->first << " - " << root->value->second;
+	// 	if (root->parent)
+	// 		std::cout << " (parent = " << root->parent->value->first << ")" << std::endl;
+	// 	print2D(root->left, space, end);
+	// }
 
-	template < typename Node >
-	void	printTree(Node *root, Node *end)
+	// template < typename Node >
+	// void	printTree(Node *root, Node *end)
+	// {
+	// 	print2D(root, 0, end);
+	// }
+
+	struct Trunk
 	{
-		print2D(root, 0, end);
+		Trunk *prev;
+		std::string str;
+	
+		Trunk(Trunk *prev, std::string str)
+		{
+			this->prev = prev;
+			this->str = str;
+		}
+	};
+	
+	// Helper function to print branches of the binary tree
+	template < typename Node >
+	void showTrunks(Trunk *p)
+	{
+		if (p == NULL) {
+			return;
+		}
+	
+		showTrunks<Node>(p->prev);
+		std::cout << p->str;
+	}
+	
+	template < typename Node >
+	void printTree(Node* root, Trunk *prev, bool isLeft, Node* end)
+	{
+		if (root == NULL || root == end) {
+			return;
+		}
+	
+		std::string prev_str = "    ";
+		Trunk *trunk = new Trunk(prev, prev_str);
+	
+		printTree(root->right, trunk, true, end);
+	
+		if (!prev) {
+			trunk->str = "———";
+		}
+		else if (isLeft)
+		{
+			trunk->str = ".———";
+			prev_str = "   |";
+		}
+		else {
+			trunk->str = "`———";
+			prev->str = prev_str;
+		}
+	
+		showTrunks<Node>(trunk);
+		if (root->color == 0)
+			std::cout << " " << RED_COLOR << root->value->first << RESET << std::endl;
+		else
+			std::cout << " " << root->value->first << std::endl;
+	
+		if (prev) {
+			prev->str = prev_str;
+		}
+		trunk->str = "   |";
+	
+		printTree(root->left, trunk, false, end);
 	}
 
 }

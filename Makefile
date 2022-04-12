@@ -6,7 +6,7 @@
 #    By: llecoq <llecoq@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/11/16 11:27:48 by llecoq            #+#    #+#              #
-#    Updated: 2022/04/11 14:47:46 by llecoq           ###   ########.fr        #
+#    Updated: 2022/04/12 15:16:17 by llecoq           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -31,6 +31,7 @@ ITERATORS_FILES =  			iterator.hpp\
 							reverse_iterator.hpp
 
 TESTER_FILES =				tester_map_ft.cpp\
+							test.cpp\
 							TestClass.cpp
 							# tester_vector_ft.cpp\
 							# tester_vector_std.cpp\

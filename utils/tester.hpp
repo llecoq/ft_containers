@@ -6,7 +6,7 @@
 /*   By: llecoq <llecoq@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/27 14:49:09 by llecoq            #+#    #+#             */
-/*   Updated: 2022/04/11 13:34:06 by llecoq           ###   ########.fr       */
+/*   Updated: 2022/04/12 15:16:31 by llecoq           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,6 +49,7 @@ int		tester_pair_std();
 int		tester_stack_ft();
 int		tester_stack_std();
 int		tester_map_ft();
+int		test();
 
 int		tester_bidirectional_it();
 

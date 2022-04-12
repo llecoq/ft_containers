@@ -6,7 +6,7 @@
 /*   By: llecoq <llecoq@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/18 09:23:58 by llecoq            #+#    #+#             */
-/*   Updated: 2022/04/12 13:29:33 by llecoq           ###   ########.fr       */
+/*   Updated: 2022/04/12 15:07:18 by llecoq           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,13 +64,13 @@ class RB_tree
 		node_pointer											_end_node;
 		size_type												_size;
 
-		friend void	printTree<t_node>(t_node *root, t_node *end);
-		friend void	print2D<t_node>(t_node *root, int space, t_node *end);
+		friend void	printTree<t_node>(t_node* root, Trunk *prev, bool isLeft, t_node* end);
+		// friend void	print2D<t_node>(t_node *root, int space, t_node *end);
 
 	public :
 	
 		// default
-		explicit RB_tree (const key_compare & comp = key_compare(),
+		explicit RB_tree(const key_compare & comp = key_compare(),
 					const value_allocator& alloc = value_allocator())
 		:
 			_root_node(NULL),
@@ -83,7 +83,7 @@ class RB_tree
 			// std::cout << "RB_tree default constructor" << std::endl;
 		}
 
-		RB_tree (const RB_tree& x)
+		RB_tree(const RB_tree& x)
 		:
 			_root_node(NULL),
 			_begin_node(NULL),
@@ -94,7 +94,7 @@ class RB_tree
 			// std::cout << "RB_tree copy constructor" << std::endl;
 		}
 
-		RB_tree& operator= (const RB_tree& x)
+		RB_tree& operator=(const RB_tree& x)
 		{
 			clear();
 			_pre_order_insert(_root_node, x._root_node, x._end_node);
@@ -163,12 +163,12 @@ class RB_tree
 	/*
 	** ------------------------------------------------------------ MODIFIERS
 	*/
-		pair<iterator, bool> insert (const value_type& val)
+		pair<iterator, bool> insert(const value_type& val)
 		{
 			return _insert_node(val, _root_node);
 		}
 
-		pair<iterator, bool> insert (iterator position, const value_type& val)
+		pair<iterator, bool> insert(iterator position, const value_type& val)
 		{
 			node_pointer		current_position = _iterator_to_pointer(position);
 			node_pointer		parent = current_position->parent;
@@ -189,7 +189,7 @@ class RB_tree
 				clear();
 		}
 
-		void	swap (RB_tree &x)
+		void	swap(RB_tree &x)
 		{
 			t_tree_data<node_allocator>	tmp;
 
@@ -209,36 +209,36 @@ class RB_tree
 	/*
 	** -------------------------------------------------------------- OPERATIONS
 	*/
-		node_pointer	find (const key_type &k)
+		node_pointer	find(const key_type &k)
 		{
 			return _find_key(k, _root_node);
 		}
 
-		node_pointer	find (const key_type& k) const
+		node_pointer	find(const key_type& k) const
 		{
 			return _find_key(k, _root_node);
 		}
 
-		size_type count (const key_type& k) const
+		size_type count(const key_type& k) const
 		{
 			if (find(k) == _end_node)
 				return 0;
 			return 1;
 		}
 
-		iterator lower_bound (const key_type& k)
+		iterator lower_bound(const key_type& k)
 		{
 			return _find_bound(k, _root_node, LOWER);
 		}
 
-		iterator upper_bound (const key_type& k)
+		iterator upper_bound(const key_type& k)
 		{
 			return _find_bound(k, _root_node, UPPER);
 		}
 
 		void	print_tree()
 		{
-			printTree(_root_node, end());
+			printTree(_root_node, NULL, false, end());
 		}
 
 	private :
@@ -246,7 +246,7 @@ class RB_tree
 	/*
 	** ------------------------------------------------------------ INSERT
 	*/
-		pair<iterator, bool> _insert_node (const value_type &val, node_pointer &current_node,
+		pair<iterator, bool> _insert_node(const value_type &val, node_pointer &current_node,
 											node_pointer parent_node = NULL)
 		{
 			if (_empty_tree()) // empty tree
