@@ -6,7 +6,7 @@
 /*   By: llecoq <llecoq@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/06 15:34:54 by llecoq            #+#    #+#             */
-/*   Updated: 2022/04/11 16:17:17 by llecoq           ###   ########.fr       */
+/*   Updated: 2022/04/12 13:28:42 by llecoq           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ template <class Pair>
 struct t_node
 {	
 	bool		color;
-	Pair		*element;
+	Pair		*value;
 	
 	t_node		*parent;
 	t_node		*left;
@@ -32,7 +32,7 @@ struct t_node
 	explicit t_node()
 	:
 		color(RED),
-		element(NULL),
+		value(NULL),
 		parent(NULL),
 		left(NULL),
 		right(NULL)
@@ -41,7 +41,7 @@ struct t_node
 	// explicit t_node(Pair const &val)
 	// :
 	// 	color(0),
-	// 	element(NULL),
+	// 	value(NULL),
 	// 	parent(NULL),
 	// 	left(NULL),
 	// 	right(NULL)
@@ -52,7 +52,7 @@ struct t_node
 	explicit t_node(t_node const &x)
 	:
 		color(x.color),
-		element(NULL),
+		value(NULL),
 		parent(NULL),
 		left(NULL),
 		right(NULL)
@@ -61,7 +61,7 @@ struct t_node
 	// t_node	&operator=(t_node const &rhs)
 	// {
 	// 	color = rhs.color;
-	// 	element = _allocate_and_construct(*rhs.element);
+	// 	value = _allocate_and_construct(*rhs.value);
 	// 	// reset pointers
 	// 	parent = NULL;
 	// 	right = NULL;

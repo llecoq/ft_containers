@@ -6,7 +6,7 @@
 /*   By: llecoq <llecoq@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/18 09:23:58 by llecoq            #+#    #+#             */
-/*   Updated: 2022/04/11 16:15:16 by llecoq           ###   ########.fr       */
+/*   Updated: 2022/04/12 13:29:33 by llecoq           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,21 +48,20 @@ class RB_tree
 		typedef Key												key_type;
 		typedef T												mapped_type;
 		typedef Compare											key_compare;
-		typedef Alloc											allocator_type;
+		typedef Alloc											value_allocator;
 		typedef	Iter											iterator;
 		typedef ft::pair<const key_type, mapped_type>			value_type;
+		typedef value_type*										value_pointer;
 		typedef ft::t_node < value_type >						t_node;
 		typedef typename Alloc::template rebind<t_node>::other	node_allocator;
 		typedef typename node_allocator::pointer				node_pointer;
 		typedef size_t											size_type;
-		typedef value_type*										element_pointer;
 
 	private:
 
 		node_pointer											_root_node;
 		node_pointer											_begin_node;
 		node_pointer											_end_node;
-		allocator_type											_pair_allocator;
 		size_type												_size;
 
 		friend void	printTree<t_node>(t_node *root, t_node *end);
@@ -72,15 +71,15 @@ class RB_tree
 	
 		// default
 		explicit RB_tree (const key_compare & comp = key_compare(),
-					const allocator_type& alloc = allocator_type())
+					const value_allocator& alloc = value_allocator())
 		:
 			_root_node(NULL),
 			_begin_node(NULL),
 			_end_node(_init_end_node()),
-			_pair_allocator(alloc),
 			_size(0)
 		{
 			(void)comp;
+			(void)alloc;
 			// std::cout << "RB_tree default constructor" << std::endl;
 		}
 
@@ -89,7 +88,6 @@ class RB_tree
 			_root_node(NULL),
 			_begin_node(NULL),
 			_end_node(_init_end_node()),
-			_pair_allocator(x._pair_allocator),
 			_size(0)	
 		{
 			_pre_order_insert(_root_node, x._root_node, x._end_node);
@@ -108,7 +106,7 @@ class RB_tree
 		{
 			if (node_to_copy != NULL && node_to_copy != copy_end_node)
 			{
-				_set_new_node(*node_to_copy->element, current_node, parent_node);
+				_set_new_node(*node_to_copy->value, current_node, parent_node);
 				_pre_order_insert(current_node->left, node_to_copy->left, copy_end_node, current_node);
 				_pre_order_insert(current_node->right, node_to_copy->right, copy_end_node, current_node);
 			}
@@ -127,7 +125,7 @@ class RB_tree
 		key_type	get_root_key() const
 		{
 			if (_root_node)
-				return _root_node->element->first;
+				return _root_node->value->first;
 			else
 				return 0;
 		}
@@ -255,9 +253,9 @@ class RB_tree
 				return _set_new_node(val, current_node, parent_node);
 			if (_empty_node(current_node))  // empty node
 				return _set_new_node(val, current_node, parent_node);
-			if (_same_key(val.first, current_node->element->first))
+			if (_same_key(val.first, current_node->value->first))
 				return pair<node_pointer, bool>(current_node, false);
-			if (key_compare()(val.first, current_node->element->first)) 
+			if (key_compare()(val.first, current_node->value->first)) 
 				return _insert_node(val, current_node->left, current_node); // insert left
 			else
 				return _insert_node(val, current_node->right, current_node); // insert right
@@ -277,9 +275,9 @@ class RB_tree
 		{
 			if (current_node == _root_node)
 				_init_begin_and_root_node(current_node);
-			else if (key_compare()(_end_node->parent->element->first, current_node->element->first)) // new node is end
+			else if (key_compare()(_end_node->parent->value->first, current_node->value->first)) // new node is end
 				_set_end_node(current_node);
-			else if (key_compare()(current_node->element->first, _begin_node->element->first)) // new node is begin
+			else if (key_compare()(current_node->value->first, _begin_node->value->first)) // new node is begin
 				_begin_node = current_node;
 		}
 
@@ -341,16 +339,16 @@ class RB_tree
 				{
 					node_pointer	predecessor = _find_predecessor(current_node); // va à gauche car droite peut être end_node
 					
-					_swap_elements(current_node->element, predecessor->element);
+					_swap_values(current_node->value, predecessor->value);
 					erase(predecessor);
 					break;
 				}
 			}
 		}
 
-		void	_swap_elements(element_pointer &current, element_pointer &predecessor)
+		void	_swap_values(value_pointer &current, value_pointer &predecessor)
 		{
-			element_pointer	tmp = current;
+			value_pointer	tmp = current;
 			current = predecessor;
 			predecessor = tmp;
 		}
@@ -417,9 +415,9 @@ class RB_tree
 		{
 			if (current_node == _end_node)
 				return _end_node;
-			if (_same_key(k, current_node->element->first))
+			if (_same_key(k, current_node->value->first))
 				return (current_node);
-			if (key_compare()(k, current_node->element->first) && current_node->left != NULL) 
+			if (key_compare()(k, current_node->value->first) && current_node->left != NULL) 
 				return _find_key(k, current_node->left); // _find_key left
 			else if (current_node->right != NULL)
 				return _find_key(k, current_node->right); // _find_key right
@@ -430,20 +428,20 @@ class RB_tree
 		{
 			if (current_node == _end_node)
 				return _end_node;
-			if (_same_key(k, current_node->element->first))
+			if (_same_key(k, current_node->value->first))
 			{
 				if (bound == LOWER)
 					return current_node;
 				else if (current_node->right != NULL)
 					return _find_successor(current_node);
 			}
-			else if (key_compare()(k, current_node->element->first)) // key plus petite
+			else if (key_compare()(k, current_node->value->first)) // key plus petite
 			{
 				if (current_node->left != NULL)
 					return _find_bound(k, current_node->left, bound); // _find_bound left
 				return current_node;
 			}
-			else if (key_compare()(current_node->element->first, k)) // key plus grande
+			else if (key_compare()(current_node->value->first, k)) // key plus grande
 			{
 				if (current_node->right != NULL)
 					return _find_bound(k, current_node->right, bound); // _find_bound right
@@ -466,12 +464,12 @@ class RB_tree
 
 		bool	_position_is_before_insert(node_pointer current_position, key_type insert_key)
 		{
-			return key_compare()(current_position->element->first, insert_key);
+			return key_compare()(current_position->value->first, insert_key);
 		}
 
 		bool	_position_is_after_insert(node_pointer current_position, key_type insert_key)
 		{
-			return key_compare()(insert_key, current_position->element->first);
+			return key_compare()(insert_key, current_position->value->first);
 		}
 
 		node_pointer	_iterator_to_pointer(iterator iter)
@@ -503,7 +501,7 @@ class RB_tree
 		{
 			_end_node = node_allocator().allocate(1);
 			node_allocator().construct(_end_node, t_node());
-			_end_node->element = _pair_allocator.allocate(1);
+			_end_node->value = value_allocator().allocate(1);
 			_end_node->right = NULL;
 			_end_node->left = NULL;
 			_begin_node = _end_node;
@@ -521,8 +519,8 @@ class RB_tree
 			node_pointer	tmp = node_allocator().allocate(1);
 
 			node_allocator().construct(tmp, t_node());
-			tmp->element = _pair_allocator.allocate(1);
-			_pair_allocator.construct(tmp->element, val);
+			tmp->value = value_allocator().allocate(1);
+			value_allocator().construct(tmp->value, val);
 			return (tmp);
 		}
 
@@ -531,9 +529,9 @@ class RB_tree
 			if (node != _end_node)
 			{
 				_size--;
-				_pair_allocator.destroy(node->element);
+				value_allocator().destroy(node->value);
 			}
-			_pair_allocator.deallocate(node->element, 1);
+			value_allocator().deallocate(node->value, 1);
 			node_allocator().destroy(node);
 			node_allocator().deallocate(node, 1);
 			node = NULL;
