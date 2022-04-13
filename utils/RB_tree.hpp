@@ -6,7 +6,7 @@
 /*   By: llecoq <llecoq@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/18 09:23:58 by llecoq            #+#    #+#             */
-/*   Updated: 2022/04/13 17:53:10 by llecoq           ###   ########.fr       */
+/*   Updated: 2022/04/13 19:13:05 by llecoq           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -461,6 +461,7 @@ class RB_tree
 			// parent->color is red
 			
 			int	insert_case = _find_insert_case(current_node, parent_node);
+			// std::cout << "case = " << insert_case << std::endl;
 			switch (insert_case)
 			{
 				case LEFT_UNCLE_RED:
@@ -481,9 +482,9 @@ class RB_tree
 				case OUTER_RIGHT_CHILD: 
 				{
 					_rotate_left(current_node);
-					current_node->color = RED;
-					current_node->right->color = BLACK;
-					current_node->left->color = BLACK;
+					current_node->parent->color = RED;
+					current_node->parent->right->color = BLACK;
+					current_node->parent->left->color = BLACK;
 					break;
 				}
 				case INNER_RIGHT_CHILD:
@@ -519,12 +520,12 @@ class RB_tree
 
 		enum	e_insert_case
 		{
-			LEFT_UNCLE_RED,
-			RIGHT_UNCLE_RED,
-			INNER_RIGHT_CHILD,
-			INNER_LEFT_CHILD,
-			OUTER_RIGHT_CHILD,
-			OUTER_LEFT_CHILD
+			LEFT_UNCLE_RED = 1,
+			RIGHT_UNCLE_RED = 2,
+			INNER_LEFT_CHILD = 3,
+			OUTER_RIGHT_CHILD = 4,
+			INNER_RIGHT_CHILD = 5,
+			OUTER_LEFT_CHILD = 6
 		};
 
 		int	_find_insert_case(node_pointer current_node, node_pointer parent_node)
@@ -558,53 +559,62 @@ class RB_tree
 
 		void	_rotate_left(node_pointer current_node)
 		{
-			node_pointer	grand_parent_node = current_node->parent->parent; // parent cannot be NULL but GP can
-			node_pointer	left_child_node = current_node->left;
+			node_pointer	grand_parent_node = current_node->parent->parent;
+			node_pointer	grand_parent_parent_node = current_node->parent->parent->parent;
+			node_pointer	parent_node = current_node->parent;
+			node_pointer	left_child_node = parent_node->left;
 
-			// left child of current node
-			current_node->left = current_node->parent;
-			current_node->left->parent = current_node;
+			if (grand_parent_node == _root_node)
+				_root_node = parent_node;
 
-			// right child of left child of current node
-			current_node->left->right = left_child_node;
+			// left child of parent node
+			parent_node->left = grand_parent_node;
+			parent_node->left->parent = parent_node;
+
+			// right child of left child of parent node
+			parent_node->left->right = left_child_node;
 			if (left_child_node)
-				current_node->left->right->parent = current_node->left;
-
+				parent_node->left->right->parent = parent_node->left;
 			// parent of current node
-			current_node->parent = grand_parent_node;
-			if (current_node->parent != NULL)
+			parent_node->parent = grand_parent_parent_node;
+			if (parent_node->parent != NULL)
 			{
-				if (current_node->parent->left != NULL
-					&& current_node->parent->left == current_node->left)
-					current_node->parent->left = current_node;
+				if (parent_node->parent->left != NULL
+					&& parent_node->parent->left == parent_node->left)
+					parent_node->parent->left = parent_node;
 				else
-					current_node->parent->right = current_node;
+					parent_node->parent->right = parent_node;
 			}
 		}
 
 		void	_rotate_right(node_pointer current_node)
 		{
-			node_pointer	grand_parent_node = current_node->parent->parent; // GP can be NULL
-			node_pointer	right_child_node = current_node->right;
+			node_pointer	grand_parent_node = current_node->parent->parent;
+			node_pointer	grand_parent_parent_node = current_node->parent->parent->parent;
+			node_pointer	parent_node = current_node->parent;
+			node_pointer	right_child_node = parent_node->right;
 
+			if (grand_parent_node == _root_node)
+				_root_node = parent_node;
+		
 			// right child of current node
-			current_node->right = current_node->parent;						  // parent cannot be NULL
-			current_node->right->parent = current_node;
+			parent_node->right = grand_parent_node->parent;
+			parent_node->right->parent = parent_node;
 
 			// left child of right child of current node
-			current_node->right->left = right_child_node;
+			parent_node->right->left = right_child_node;
 			if (right_child_node)
-				current_node->right->left->parent = current_node->right;
+				parent_node->right->left->parent = parent_node->right;
 
 			// parent of current node
-			current_node->parent = grand_parent_node;
-			if (current_node->parent != NULL)
+			parent_node->parent = grand_parent_parent_node;
+			if (parent_node->parent != NULL)
 			{
-				if (current_node->parent->left != NULL
-					&& current_node->parent->left == current_node->right)
-					current_node->parent->left = current_node;
+				if (parent_node->parent->left != NULL
+					&& parent_node->parent->left == parent_node->right)
+					parent_node->parent->left = parent_node;
 				else
-					current_node->parent->right = current_node;
+					parent_node->parent->right = parent_node;
 			}
 		}
 	/*

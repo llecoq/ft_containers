@@ -6,7 +6,7 @@
 /*   By: llecoq <llecoq@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/01 14:30:19 by llecoq            #+#    #+#             */
-/*   Updated: 2022/04/13 17:57:13 by llecoq           ###   ########.fr       */
+/*   Updated: 2022/04/13 17:58:22 by llecoq           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -117,7 +117,7 @@ namespace ut
 			map.insert(Pair(9, 9));
 			map.insert(Pair(12, 12));
 		}
-		else
+		else // QUEUE
 		{
 			for (int i = 0; i < n; i++)
 				map.insert(Pair(i, i));
