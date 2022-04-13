@@ -6,7 +6,7 @@
 /*   By: llecoq <llecoq@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/18 09:23:58 by llecoq            #+#    #+#             */
-/*   Updated: 2022/04/13 15:57:53 by llecoq           ###   ########.fr       */
+/*   Updated: 2022/04/13 17:16:21 by llecoq           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -454,16 +454,68 @@ class RB_tree
 	/*
 	** ---------------------------------------------------------- SELF-BALANCING
 	*/
-		// void	_balance_after_insert(node_pointer current_node, node_pointer parent_node)
-		// {
-
-		// }
-
-		bool	_parent_is_right_child(node_pointer parent_node)
+		int	_balance_after_insert(node_pointer current_node, node_pointer parent_node)
 		{
-			if (parent_node == _root_node)
-				return false;
-			return (parent_node->parent->right == parent_node);
+			if (current_node == _root_node || parent_node->color == BLACK)
+				return SUCCESS;
+			// parent->color is red
+			int	case = _find_insert_case(current_node, parent_node);
+
+			switch (case)
+			{
+				case UNCLE_IS_RED:
+				{
+					parent_node->color = BLACK;
+					break;
+				}
+				case UNCLE_IS_RED:
+				{
+
+					break;
+				}
+
+				default:
+					break;
+			}
+		}
+
+		enum	e_insert_case
+		{
+			LEFT_UNCLE_RED,
+			RIGHT_UNCLE_RED,
+			INNER_RIGHT_CHILD,
+			INNER_LEFT_CHILD,
+			OUTER_RIGHT_CHILD,
+			OUTER_LEFT_CHILD
+		};
+
+		int	_find_insert_case(node_pointer current_node, node_pointer parent_node)
+		{
+			node_pointer	grand_parent_node = parent_node->parent;
+
+			if (_is_right_child(parent_node) == true) // parent is right child
+			{
+				if (grand_parent_node->left != NULL
+					&& grand_parent_node->left->color == RED)
+					return LEFT_UNCLE_RED;
+				if (_is_right_child(current_node) == true) // current_node is right child
+					return OUTER_RIGHT_CHILD;
+				return INNER_LEFT_CHILD;
+			}
+			else // parent is left child
+			{
+				if (grand_parent_node->right != NULL
+					&& grand_parent_node->right->color == RED)
+					return RIGHT_UNCLE_RED;
+				if (_is_right_child(current_node) == true) // current_node is right child
+					return INNER_RIGHT_CHILD;
+				return OUTER_LEFT_CHILD;
+			}
+		}
+
+		bool	_is_right_child(node_pointer current_node)
+		{
+			return (current_node->parent->right == current_node);
 		}
 
 		void	_rotate_left(node_pointer current_node)
