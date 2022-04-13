@@ -6,7 +6,7 @@
 /*   By: llecoq <llecoq@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/18 09:23:58 by llecoq            #+#    #+#             */
-/*   Updated: 2022/04/13 15:51:19 by llecoq           ###   ########.fr       */
+/*   Updated: 2022/04/13 15:57:53 by llecoq           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -484,7 +484,7 @@ class RB_tree
 			if (current_node->parent != NULL)
 			{
 				if (current_node->parent->left != NULL
-					&& current_node->parent->left == current_node->right)
+					&& current_node->parent->left == current_node->left)
 					current_node->parent->left = current_node;
 				else
 					current_node->parent->right = current_node;
