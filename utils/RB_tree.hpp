@@ -6,7 +6,7 @@
 /*   By: llecoq <llecoq@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/18 09:23:58 by llecoq            #+#    #+#             */
-/*   Updated: 2022/04/12 15:07:18 by llecoq           ###   ########.fr       */
+/*   Updated: 2022/04/13 15:30:04 by llecoq           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -113,7 +113,7 @@ class RB_tree
 		}
 
 		// destructor
-		~RB_tree ()
+		~RB_tree()
 		{
 			// std::cout << "RB_tree destructor" << std::endl;
 			_destroy_from_root(_root_node);
@@ -267,6 +267,8 @@ class RB_tree
 			current_node = _create_node(val);
 			current_node->parent = parent_node;
 			_set_begin_or_end(current_node);
+			_balance_after_insert(current_node, parent_node);
+			_root_node->color = BLACK;
 			_size++;
 			return pair<iterator, bool>(iterator(current_node), true);
 		}
@@ -286,7 +288,6 @@ class RB_tree
 				_begin_node = current_node;
 				_begin_node->right = _end_node;
 				_end_node->parent = _root_node;
-				_root_node->color = BLACK;
 		}
 
 		pair<iterator, bool>	_check_before_position(node_pointer current_position, const value_type &val)
@@ -451,7 +452,69 @@ class RB_tree
 		}
 
 	/*
-	** ------------------------------------------------------------ UTILS
+	** ---------------------------------------------------------- SELF-BALANCING
+	*/
+		// void	_balance_after_insert(node_pointer current_node, node_pointer parent_node)
+		// {
+
+		// }
+
+		bool	_parent_is_right_child(node_pointer parent_node)
+		{
+			if (parent_node == _root_node)
+				return false;
+			return (parent_node->parent->right == parent_node);
+		}
+
+		void	_rotate_left(node_pointer current_node)
+		{
+			node_pointer	grand_parent_node = current_node->parent->parent; // parent cannot be NULL but GP can
+
+			// left child of current node
+			current_node->left = current_node->parent;
+			current_node->left->parent = current_node;
+
+			// right child of left child of current node
+			current_node->left->right = current_node->left;
+			current_node->left->right->parent = current_node->left;
+
+			// parent of current node
+			current_node->parent = grand_parent_node;
+			if (current_node->parent != NULL)
+			{
+				if (current_node->parent->left != NULL
+					&& current_node->parent->left == current_node->right)
+					current_node->parent->left = current_node;
+				else
+					current_node->parent->right = current_node;
+			}
+		}
+
+		void	_rotate_right(node_pointer current_node)
+		{
+			node_pointer	grand_parent_node = current_node->parent->parent; // GP can be NULL
+
+			// right child of current node
+			current_node->right = current_node->parent;						  // parent cannot be NULL
+			current_node->right->parent = current_node;
+
+			// left child of right child of current node
+			current_node->right->left = current_node->right;
+			current_node->right->left->parent = current_node->right;
+
+			// parent of current node
+			current_node->parent = grand_parent_node;
+			if (current_node->parent != NULL)
+			{
+				if (current_node->parent->left != NULL
+					&& current_node->parent->left == current_node->right)
+					current_node->parent->left = current_node;
+				else
+					current_node->parent->right = current_node;
+			}
+		}
+	/*
+	** ------------------------------------------------------------------- UTILS
 	*/
 		template <typename D, typename U>
 		void	_swap_data(D &data, U &tmp)
