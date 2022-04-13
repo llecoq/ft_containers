@@ -6,7 +6,7 @@
 /*   By: llecoq <llecoq@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/18 09:23:58 by llecoq            #+#    #+#             */
-/*   Updated: 2022/04/13 15:30:04 by llecoq           ###   ########.fr       */
+/*   Updated: 2022/04/13 15:51:19 by llecoq           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -469,14 +469,15 @@ class RB_tree
 		void	_rotate_left(node_pointer current_node)
 		{
 			node_pointer	grand_parent_node = current_node->parent->parent; // parent cannot be NULL but GP can
+			node_pointer	left_child_node = current_node->left;
 
 			// left child of current node
 			current_node->left = current_node->parent;
 			current_node->left->parent = current_node;
 
 			// right child of left child of current node
-			current_node->left->right = current_node->left;
-			current_node->left->right->parent = current_node->left;
+			current_node->left->right = left_child_node;
+			current_node->left->right->parent = left_child_node;
 
 			// parent of current node
 			current_node->parent = grand_parent_node;
@@ -493,14 +494,15 @@ class RB_tree
 		void	_rotate_right(node_pointer current_node)
 		{
 			node_pointer	grand_parent_node = current_node->parent->parent; // GP can be NULL
+			node_pointer	right_child_node = current_node->right;
 
 			// right child of current node
 			current_node->right = current_node->parent;						  // parent cannot be NULL
 			current_node->right->parent = current_node;
 
 			// left child of right child of current node
-			current_node->right->left = current_node->right;
-			current_node->right->left->parent = current_node->right;
+			current_node->right->left = right_child_node;
+			current_node->right->left->parent = right_child_node;
 
 			// parent of current node
 			current_node->parent = grand_parent_node;
