@@ -6,7 +6,7 @@
 /*   By: llecoq <llecoq@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/01 14:30:19 by llecoq            #+#    #+#             */
-/*   Updated: 2022/04/01 14:32:50 by llecoq           ###   ########.fr       */
+/*   Updated: 2022/04/13 17:57:13 by llecoq           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,7 @@ namespace ut
 {
 	# define RANDOM 1
 	# define RANDOMIZED_QUEUE 2
+	# define QUEUE 3
 	
 	// ------------------------------------------ display vector
 	template < typename T >

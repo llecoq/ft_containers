@@ -6,7 +6,7 @@
 /*   By: llecoq <llecoq@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/18 09:23:58 by llecoq            #+#    #+#             */
-/*   Updated: 2022/04/13 17:16:21 by llecoq           ###   ########.fr       */
+/*   Updated: 2022/04/13 17:53:10 by llecoq           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -454,29 +454,67 @@ class RB_tree
 	/*
 	** ---------------------------------------------------------- SELF-BALANCING
 	*/
-		int	_balance_after_insert(node_pointer current_node, node_pointer parent_node)
+		void	_balance_after_insert(node_pointer current_node, node_pointer parent_node)
 		{
 			if (current_node == _root_node || parent_node->color == BLACK)
-				return SUCCESS;
+				return;
 			// parent->color is red
-			int	case = _find_insert_case(current_node, parent_node);
-
-			switch (case)
+			
+			int	insert_case = _find_insert_case(current_node, parent_node);
+			switch (insert_case)
 			{
-				case UNCLE_IS_RED:
+				case LEFT_UNCLE_RED:
 				{
-					parent_node->color = BLACK;
+					_swap_node_colors(current_node, LEFT_UNCLE_RED);
 					break;
 				}
-				case UNCLE_IS_RED:
+				case RIGHT_UNCLE_RED:
 				{
-
+					_swap_node_colors(current_node, RIGHT_UNCLE_RED);
 					break;
 				}
-
-				default:
+				case INNER_LEFT_CHILD:
+				{
+					_rotate_right(current_node);
+					current_node = current_node->right;
+				} 
+				case OUTER_RIGHT_CHILD: 
+				{
+					_rotate_left(current_node);
+					current_node->color = RED;
+					current_node->right->color = BLACK;
+					current_node->left->color = BLACK;
 					break;
+				}
+				case INNER_RIGHT_CHILD:
+				{
+					_rotate_left(current_node);
+					current_node = current_node->left;
+				}
+				case OUTER_LEFT_CHILD:
+				{
+					_rotate_right(current_node);
+					current_node->color = RED;
+					current_node->right->color = BLACK;
+					current_node->left->color = BLACK;
+					break;
+				}
 			}
+		}
+
+		void	_swap_node_colors(node_pointer current_node, int insert_case)
+		{
+			node_pointer	uncle_node = NULL;
+			node_pointer	grand_parent_node = current_node->parent->parent;
+			
+			if (insert_case == LEFT_UNCLE_RED)
+				uncle_node = grand_parent_node->left;
+			else // insert case == RIGHT_UNCLE_RED
+				uncle_node = grand_parent_node->right;
+			current_node->parent->color = BLACK;
+			uncle_node->color = BLACK;
+			grand_parent_node->color = RED;
+			_balance_after_insert(grand_parent_node, grand_parent_node->parent);
 		}
 
 		enum	e_insert_case
@@ -529,7 +567,8 @@ class RB_tree
 
 			// right child of left child of current node
 			current_node->left->right = left_child_node;
-			current_node->left->right->parent = left_child_node;
+			if (left_child_node)
+				current_node->left->right->parent = current_node->left;
 
 			// parent of current node
 			current_node->parent = grand_parent_node;
@@ -554,7 +593,8 @@ class RB_tree
 
 			// left child of right child of current node
 			current_node->right->left = right_child_node;
-			current_node->right->left->parent = right_child_node;
+			if (right_child_node)
+				current_node->right->left->parent = current_node->right;
 
 			// parent of current node
 			current_node->parent = grand_parent_node;
