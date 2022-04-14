@@ -6,7 +6,7 @@
 /*   By: llecoq <llecoq@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/18 09:23:58 by llecoq            #+#    #+#             */
-/*   Updated: 2022/04/14 14:32:49 by llecoq           ###   ########.fr       */
+/*   Updated: 2022/04/14 14:56:38 by llecoq           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,19 +21,6 @@
 
 namespace ft
 {
-
-enum	e_child
-{
-	NO_CHILD = 0,
-	ONE_CHILD = 1,
-	TWO_CHILDREN = 2
-};
-
-enum	e_bound
-{
-	LOWER = 0,
-	UPPER = 1
-};
 
 template < class Key,
            class T,        
@@ -401,10 +388,10 @@ class RB_tree
 		size_type	_count_children(node_pointer node)
 		{
 			if (node->left == NULL && node->right == NULL)
-				return 0;
+				return NO_CHILD;
 			else if (node->left != NULL && node->right != NULL)
-				return 2;
-			return 1;
+				return TWO_CHILDREN;
+			return ONE_CHILD;
 		}
 
 	/*
@@ -450,19 +437,20 @@ class RB_tree
 		}
 
 	/*
-	** ---------------------------------------------------------- SELF-BALANCING
+	** --------------------------------------------------- SELF-BALANCING INSERT
 	*/
+
 		void	_balance_after_insert(node_pointer current_node, node_pointer parent_node)
 		{
 			if (current_node == _root_node || parent_node->color == BLACK)
 				return;
 			switch (_find_insert_case(current_node, parent_node))
 			{
-				case LEFT_UNCLE_RED:
-					_swap_node_colors(current_node, LEFT_UNCLE_RED);
+				case LEFT_UNCLE_IS_RED:
+					_swap_node_colors(current_node, LEFT_UNCLE_IS_RED);
 					break;
-				case RIGHT_UNCLE_RED:
-					_swap_node_colors(current_node, RIGHT_UNCLE_RED);
+				case RIGHT_UNCLE_IS_RED:
+					_swap_node_colors(current_node, RIGHT_UNCLE_IS_RED);
 					break;
 				case INNER_LEFT_CHILD:
 					_rotate_right(current_node, INNER_LEFT_CHILD);
@@ -482,74 +470,14 @@ class RB_tree
 			node_pointer	uncle_node = NULL;
 			node_pointer	grand_parent_node = current_node->parent->parent;
 			
-			if (insert_case == LEFT_UNCLE_RED)
+			if (insert_case == LEFT_UNCLE_IS_RED)
 				uncle_node = grand_parent_node->left;
-			else // insert case == RIGHT_UNCLE_RED
+			else // insert case == RIGHT_UNCLE_IS_RED
 				uncle_node = grand_parent_node->right;
 			current_node->parent->color = BLACK;
 			uncle_node->color = BLACK;
 			grand_parent_node->color = RED;
 			_balance_after_insert(grand_parent_node, grand_parent_node->parent);
-		}
-
-		enum	e_insert_case
-		{
-			LEFT_UNCLE_RED = 1,
-			RIGHT_UNCLE_RED = 2,
-			INNER_LEFT_CHILD = 3,
-			OUTER_RIGHT_CHILD = 4,
-			INNER_RIGHT_CHILD = 5,
-			OUTER_LEFT_CHILD = 6,
-			ROTATE_RIGHT = 7,
-			ROTATE_LEFT = 8
-		};
-
-		int	_find_insert_case(node_pointer current_node, node_pointer parent_node)
-		{
-			node_pointer	grand_parent_node = parent_node->parent;
-
-			if (_is_right_child(parent_node) == true) // parent is right child
-			{
-				if (grand_parent_node->left != NULL
-					&& grand_parent_node->left->color == RED)
-					return LEFT_UNCLE_RED;
-				if (_is_right_child(current_node) == true) // current_node is right child
-					return OUTER_RIGHT_CHILD;
-				return INNER_LEFT_CHILD;
-			}
-			else // parent is left child
-			{
-				if (grand_parent_node->right != NULL && grand_parent_node->right != _end_node
-					&& grand_parent_node->right->color == RED)
-					return RIGHT_UNCLE_RED;
-				if (_is_right_child(current_node) == true) // current_node is right child
-					return INNER_RIGHT_CHILD;
-				return OUTER_LEFT_CHILD;
-			}
-		}
-
-		bool	_is_right_child(node_pointer current_node)
-		{
-			return (current_node->parent->right == current_node);
-		}
-
-		void	_process_insert_case(node_pointer &current_node, int insert_case)
-		{
-			switch (insert_case)
-			{
-				case INNER_LEFT_CHILD:
-					current_node = current_node->right;
-					break;
-				case INNER_RIGHT_CHILD:
-					current_node = current_node->left;
-					break;
-				default:
-					current_node->color = RED;
-					current_node->right->color = BLACK;
-					current_node->left->color = BLACK;
-					_balance_after_insert(current_node, current_node->parent);
-					break;
-			}
 		}
 
 		void	_rotate_right(node_pointer &current_node, int insert_case)
@@ -580,6 +508,25 @@ class RB_tree
 			_process_insert_case(current_node, insert_case);
 		}
 
+		void	_process_insert_case(node_pointer &current_node, int insert_case)
+		{
+			switch (insert_case)
+			{
+				case INNER_LEFT_CHILD:
+					current_node = current_node->right;
+					break;
+				case INNER_RIGHT_CHILD:
+					current_node = current_node->left;
+					break;
+				default:	// OUTER_LEFT_CHILD || OUTER_RIGHT_CHILD
+					current_node->color = RED;
+					current_node->right->color = BLACK;
+					current_node->left->color = BLACK;
+					_balance_after_insert(current_node, current_node->parent);
+					break;
+			}
+		}
+
 		void	_assign_new_parent(node_pointer child_node,
 					node_pointer parent_node, int insert_case = 0)
 		{
@@ -604,6 +551,37 @@ class RB_tree
 					parent_node->right = child_node;
 			}
 		}
+
+		int	_find_insert_case(node_pointer current_node, node_pointer parent_node)
+		{
+			node_pointer	grand_parent_node = parent_node->parent;
+
+			if (_is_right_child(parent_node) == true) // parent is right child
+			{
+				if (grand_parent_node->left != NULL
+					&& grand_parent_node->left->color == RED)
+					return LEFT_UNCLE_IS_RED;
+				if (_is_right_child(current_node) == true) // current_node is right child
+					return OUTER_RIGHT_CHILD;
+				return INNER_LEFT_CHILD;
+			}
+			else // parent is left child
+			{
+				if (grand_parent_node->right != NULL
+					&& grand_parent_node->right != _end_node
+					&& grand_parent_node->right->color == RED)
+					return RIGHT_UNCLE_IS_RED;
+				if (_is_right_child(current_node) == true) // current_node is right child
+					return INNER_RIGHT_CHILD;
+				return OUTER_LEFT_CHILD;
+			}
+		}
+
+	/*
+	** ---------------------------------------------------- SELF-BALANCING ERASE
+	*/
+
+
 	/*
 	** ------------------------------------------------------------------- UTILS
 	*/
@@ -616,6 +594,11 @@ class RB_tree
 			data._size = tmp._size;
 		}
 
+		bool	_is_right_child(node_pointer current_node)
+		{
+			return (current_node->parent->right == current_node);
+		}
+	
 		bool	_position_is_before_insert(node_pointer current_position, key_type insert_key)
 		{
 			return key_compare()(current_position->value->first, insert_key);

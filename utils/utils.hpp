@@ -6,7 +6,7 @@
 /*   By: llecoq <llecoq@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/07 15:08:10 by llecoq            #+#    #+#             */
-/*   Updated: 2022/04/12 15:22:35 by llecoq           ###   ########.fr       */
+/*   Updated: 2022/04/14 14:42:58 by llecoq           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,31 @@ namespace ft
 	#define RESET 		  "\033[0m"
 	#define BLACK_COLOR   "\033[30m"      /* Black */
 	#define RED_COLOR     "\033[31m"      /* Red */
-	// # define COUNT 10
+
+	enum	e_child
+	{
+		NO_CHILD = 0,
+		ONE_CHILD = 1,
+		TWO_CHILDREN = 2
+	};
+
+	enum	e_bound
+	{
+		LOWER = 0,
+		UPPER = 1
+	};
+
+	enum	e_insert_case
+	{
+		LEFT_UNCLE_IS_RED = 1,
+		RIGHT_UNCLE_IS_RED = 2,
+		INNER_LEFT_CHILD = 3,
+		OUTER_RIGHT_CHILD = 4,
+		INNER_RIGHT_CHILD = 5,
+		OUTER_LEFT_CHILD = 6,
+		ROTATE_RIGHT = 7,
+		ROTATE_LEFT = 8
+	};
 
 /*
 ** ----------------------------------------------------- LEXICOGRAPHICAL COMPARE
@@ -114,30 +138,7 @@ namespace ft
 		size_type												_size;
 	};
 
-
-	// --------------------------------------- print 2D BSC
-	// template < typename Node >
-	// void	print2D(Node *root, int space, Node *end)
-	// {
-	// 	if (root == NULL || root == end)
-	// 		return;
-	// 	space += COUNT;
-	// 	print2D(root->right, space, end);
-	// 	std::cout << std::endl;
-	// 	for (int i = COUNT; i < space; i++)
-	// 		std::cout << " ";
-	// 	std::cout << root->value->first << " - " << root->value->second;
-	// 	if (root->parent)
-	// 		std::cout << " (parent = " << root->parent->value->first << ")" << std::endl;
-	// 	print2D(root->left, space, end);
-	// }
-
-	// template < typename Node >
-	// void	printTree(Node *root, Node *end)
-	// {
-	// 	print2D(root, 0, end);
-	// }
-
+	// --------------------------------------------- print tree
 	struct Trunk
 	{
 		Trunk *prev;
