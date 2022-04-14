@@ -6,7 +6,7 @@
 /*   By: llecoq <llecoq@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/27 14:49:09 by llecoq            #+#    #+#             */
-/*   Updated: 2022/04/12 15:16:31 by llecoq           ###   ########.fr       */
+/*   Updated: 2022/04/14 12:35:17 by llecoq           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,10 +53,15 @@ int		test();
 
 int		tester_bidirectional_it();
 
-typedef std::map<int, int> 		std_map;
-typedef ft::map<int, int> 		ft_map;
-typedef std::pair<int, int>		std_pair;
-typedef ft::pair<int, int>		ft_pair;
+typedef std::map<int, int> 			std_map;
+typedef ft::map<int, int> 			ft_map;
+typedef std::pair<int, int>			std_pair;
+typedef ft::pair<int, int>			ft_pair;
+
+typedef std::map<int, TestClass> 	std_test_map;
+typedef ft::map<int, TestClass> 	ft_test_map;
+typedef std::pair<int, TestClass>	std_test_pair;
+typedef ft::pair<int, TestClass>	ft_test_pair;
 
 #define ERROR 1
 #define SUCCESS 0

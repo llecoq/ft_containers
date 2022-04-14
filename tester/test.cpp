@@ -6,7 +6,7 @@
 /*   By: llecoq <llecoq@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/12 15:15:20 by llecoq            #+#    #+#             */
-/*   Updated: 2022/04/14 12:13:34 by llecoq           ###   ########.fr       */
+/*   Updated: 2022/04/14 14:28:05 by llecoq           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,10 +14,11 @@
 
 int	test()
 {
-	ft_map	map;
+	ft_test_map	map;
 
-	ut::fillMap<ft_map, ft_pair>(map, 20, RANDOM);
+	ut::fillMap<ft_test_map, ft_test_pair>(map, 10, QUEUE); // 7 diff
 	map.print_tree();
+	std::cout << std::endl;
 
 	return 0;
 }
