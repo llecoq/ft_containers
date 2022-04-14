@@ -6,7 +6,7 @@
 /*   By: llecoq <llecoq@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/18 09:23:58 by llecoq            #+#    #+#             */
-/*   Updated: 2022/04/14 14:56:38 by llecoq           ###   ########.fr       */
+/*   Updated: 2022/04/14 17:52:22 by llecoq           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -297,149 +297,9 @@ class RB_tree
 			return _check_after_position(parent, val);
 		}
 
-		
-	/*
-	** ------------------------------------------------------------ ERASE
-	*/
-		void	_erase_node(node_pointer &current_node)
-		{
-			switch (_count_children(current_node))
-			{
-				case NO_CHILD:
-				{
-					if (current_node == _end_node)
-						return ;
-					_set_predecessor_pointer(current_node, NULL);
-					_delete_node(current_node);
-					break;
-				}
-				case ONE_CHILD:
-				{
-					node_pointer	child = _get_child(current_node);
-
-					_set_predecessor_pointer(current_node, child);
-					_delete_node(current_node);
-					break;
-				}
-				case TWO_CHILDREN:
-				{
-					node_pointer	predecessor = _find_predecessor(current_node); // va à gauche car droite peut être end_node
-					
-					_swap_values(current_node->value, predecessor->value);
-					erase(predecessor);
-					break;
-				}
-			}
-		}
-
-		void	_swap_values(value_pointer &current, value_pointer &predecessor)
-		{
-			value_pointer	tmp = current;
-			current = predecessor;
-			predecessor = tmp;
-		}
-
-		node_pointer	_find_successor(node_pointer current_node) const
-		{
-			current_node = current_node->right;
-			
-			while (current_node->left != NULL)
-				current_node = current_node->left;
-			return current_node;
-		}
-
-		node_pointer	_find_predecessor(node_pointer current_node) const
-		{
-			current_node = current_node->left;
-
-			while (current_node->right != NULL)
-				current_node = current_node->right;
-			return current_node;
-		}
-
-		void	_set_predecessor_pointer(node_pointer &current_node, node_pointer child)
-		{
-			node_pointer	parent = current_node->parent;
-
-			if (parent != NULL)
-			{
-				if (parent->left == current_node)
-					parent->left = child;
-				else
-					parent->right = child;
-				if (child != NULL)
-					child->parent = parent;
-				if (current_node == _begin_node)
-					_begin_node = current_node->parent;
-			}
-			else
-			{
-				_root_node = child; 
-				if (child != NULL)
-					child->parent = NULL;
-				else     // begin_node with no child
-				{
-					node_allocator().deallocate(_end_node, 1);
-					_begin_node = _end_node = _root_node = NULL;
-				}
-			}
-		}
-
-		size_type	_count_children(node_pointer node)
-		{
-			if (node->left == NULL && node->right == NULL)
-				return NO_CHILD;
-			else if (node->left != NULL && node->right != NULL)
-				return TWO_CHILDREN;
-			return ONE_CHILD;
-		}
-
-	/*
-	** ------------------------------------------------------------ FIND
-	*/
-		node_pointer	_find_key(const key_type &k, node_pointer current_node) const
-		{
-			if (current_node == _end_node)
-				return _end_node;
-			if (_same_key(k, current_node->value->first))
-				return (current_node);
-			if (key_compare()(k, current_node->value->first) && current_node->left != NULL) 
-				return _find_key(k, current_node->left); // _find_key left
-			else if (current_node->right != NULL)
-				return _find_key(k, current_node->right); // _find_key right
-			return _end_node;
-		}
-
-		iterator	_find_bound(const key_type &k, node_pointer current_node, bool bound) const
-		{
-			if (current_node == _end_node)
-				return _end_node;
-			if (_same_key(k, current_node->value->first))
-			{
-				if (bound == LOWER)
-					return current_node;
-				else if (current_node->right != NULL)
-					return _find_successor(current_node);
-			}
-			else if (key_compare()(k, current_node->value->first)) // key plus petite
-			{
-				if (current_node->left != NULL)
-					return _find_bound(k, current_node->left, bound); // _find_bound left
-				return current_node;
-			}
-			else if (key_compare()(current_node->value->first, k)) // key plus grande
-			{
-				if (current_node->right != NULL)
-					return _find_bound(k, current_node->right, bound); // _find_bound right
-				return ++iterator(current_node);
-			}  
-			return _end_node;
-		}
-
 	/*
 	** --------------------------------------------------- SELF-BALANCING INSERT
 	*/
-
 		void	_balance_after_insert(node_pointer current_node, node_pointer parent_node)
 		{
 			if (current_node == _root_node || parent_node->color == BLACK)
@@ -568,7 +428,6 @@ class RB_tree
 			else // parent is left child
 			{
 				if (grand_parent_node->right != NULL
-					&& grand_parent_node->right != _end_node
 					&& grand_parent_node->right->color == RED)
 					return RIGHT_UNCLE_IS_RED;
 				if (_is_right_child(current_node) == true) // current_node is right child
@@ -576,10 +435,150 @@ class RB_tree
 				return OUTER_LEFT_CHILD;
 			}
 		}
+		
+	/*
+	** ------------------------------------------------------------ ERASE
+	*/
+		void	_erase_node(node_pointer &current_node)
+		{
+			switch (_count_children(current_node))
+			{
+				case NO_CHILD:
+				{
+					if (current_node == _end_node)
+						return ;
+					_set_predecessor_pointer(current_node, NULL);
+					_delete_node(current_node);
+					break;
+				}
+				case ONE_CHILD:
+				{
+					node_pointer	child = _get_child(current_node);
+
+					_set_predecessor_pointer(current_node, child);
+					_delete_node(current_node);
+					break;
+				}
+				case TWO_CHILDREN:
+				{
+					node_pointer	predecessor = _find_predecessor(current_node); // va à gauche car droite peut être end_node
+					
+					_swap_values(current_node->value, predecessor->value);
+					erase(predecessor);
+					break;
+				}
+			}
+		}
+
+		void	_set_predecessor_pointer(node_pointer current_node, node_pointer child)
+		{
+			node_pointer	parent = current_node->parent;
+
+			if (parent != NULL)
+			{
+				if (parent->left == current_node)
+					parent->left = child;
+				else
+					parent->right = child;
+				if (child != NULL)
+					child->parent = parent;
+				if (current_node == _begin_node)
+					_begin_node = current_node->parent;
+			}
+			else
+			{
+				_root_node = child; 
+				if (child != NULL)
+					child->parent = NULL;
+				else     // begin_node with no child
+				{
+					node_allocator().deallocate(_end_node, 1);
+					_begin_node = _end_node = _root_node = NULL;
+				}
+			}
+		}
+
+		void	_swap_values(value_pointer &current, value_pointer &predecessor)
+		{
+			value_pointer	tmp = current;
+			current = predecessor;
+			predecessor = tmp;
+		}
+
+		node_pointer	_find_successor(node_pointer current_node) const
+		{
+			current_node = current_node->right;
+			
+			while (current_node->left != NULL)
+				current_node = current_node->left;
+			return current_node;
+		}
+
+		node_pointer	_find_predecessor(node_pointer current_node) const
+		{
+			current_node = current_node->left;
+
+			while (current_node->right != NULL)
+				current_node = current_node->right;
+			return current_node;
+		}
+
+		size_type	_count_children(node_pointer node)
+		{
+			if (node->left == NULL && node->right == NULL)
+				return NO_CHILD;
+			else if (node->left != NULL && node->right != NULL)
+				return TWO_CHILDREN;
+			return ONE_CHILD;
+		}
 
 	/*
 	** ---------------------------------------------------- SELF-BALANCING ERASE
 	*/
+
+
+
+	/*
+	** ------------------------------------------------------------ FIND
+	*/
+		node_pointer	_find_key(const key_type &k, node_pointer current_node) const
+		{
+			if (current_node == _end_node)
+				return _end_node;
+			if (_same_key(k, current_node->value->first))
+				return (current_node);
+			if (key_compare()(k, current_node->value->first) && current_node->left != NULL) 
+				return _find_key(k, current_node->left); // _find_key left
+			else if (current_node->right != NULL)
+				return _find_key(k, current_node->right); // _find_key right
+			return _end_node;
+		}
+
+		iterator	_find_bound(const key_type &k, node_pointer current_node, bool bound) const
+		{
+			if (current_node == _end_node)
+				return _end_node;
+			if (_same_key(k, current_node->value->first))
+			{
+				if (bound == LOWER)
+					return current_node;
+				else if (current_node->right != NULL)
+					return _find_successor(current_node);
+			}
+			else if (key_compare()(k, current_node->value->first)) // key plus petite
+			{
+				if (current_node->left != NULL)
+					return _find_bound(k, current_node->left, bound); // _find_bound left
+				return current_node;
+			}
+			else if (key_compare()(current_node->value->first, k)) // key plus grande
+			{
+				if (current_node->right != NULL)
+					return _find_bound(k, current_node->right, bound); // _find_bound right
+				return ++iterator(current_node);
+			}  
+			return _end_node;
+		}
 
 
 	/*
@@ -641,6 +640,7 @@ class RB_tree
 			_end_node->value = value_allocator().allocate(1);
 			_end_node->right = NULL;
 			_end_node->left = NULL;
+			_end_node->color = BLACK;
 			_begin_node = _end_node;
 			return _end_node;
 		}
