@@ -6,7 +6,7 @@
 /*   By: llecoq <llecoq@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/01 14:30:19 by llecoq            #+#    #+#             */
-/*   Updated: 2022/04/13 17:58:22 by llecoq           ###   ########.fr       */
+/*   Updated: 2022/04/14 11:55:51 by llecoq           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -108,14 +108,14 @@ namespace ut
 			map.insert(Pair(4, 4));
 			map.insert(Pair(2, 2));
 			map.insert(Pair(3, 3));
-			map.insert(Pair(11, 11));
-			map.insert(Pair(6, 6));
-			map.insert(Pair(1, 1));
-			map.insert(Pair(7, 7));
-			map.insert(Pair(8, 8));
-			map.insert(Pair(10, 10));
-			map.insert(Pair(9, 9));
-			map.insert(Pair(12, 12));
+			// map.insert(Pair(11, 11));
+			// map.insert(Pair(6, 6));
+			// map.insert(Pair(1, 1));
+			// map.insert(Pair(7, 7));
+			// map.insert(Pair(8, 8));
+			// map.insert(Pair(10, 10));
+			// map.insert(Pair(9, 9));
+			// map.insert(Pair(12, 12));
 		}
 		else // QUEUE
 		{
