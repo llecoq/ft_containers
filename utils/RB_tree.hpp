@@ -6,7 +6,7 @@
 /*   By: llecoq <llecoq@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/18 09:23:58 by llecoq            #+#    #+#             */
-/*   Updated: 2022/04/15 11:56:59 by llecoq           ###   ########.fr       */
+/*   Updated: 2022/04/15 12:05:13 by llecoq           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,6 +96,7 @@ class RB_tree
 			{
 				current_node = _create_node(*node_to_copy->value);
 				current_node->parent = parent_node;
+				current_node->color = node_to_copy->color;
 				_set_begin_or_end(current_node);
 				_pre_order_insert(current_node->left, node_to_copy->left, copy_end_node, current_node);
 				_pre_order_insert(current_node->right, node_to_copy->right, copy_end_node, current_node);

@@ -6,7 +6,7 @@
 /*   By: llecoq <llecoq@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/12 15:15:20 by llecoq            #+#    #+#             */
-/*   Updated: 2022/04/15 11:48:17 by llecoq           ###   ########.fr       */
+/*   Updated: 2022/04/15 12:03:34 by llecoq           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,7 @@ int	test()
 	copy.print_tree();
 
 	map = copy;
+	map.print_tree();
 
 	return 0;
 }
