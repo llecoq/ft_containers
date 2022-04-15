@@ -6,7 +6,7 @@
 /*   By: llecoq <llecoq@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/27 18:01:12 by llecoq            #+#    #+#             */
-/*   Updated: 2022/04/06 15:36:10 by llecoq           ###   ########.fr       */
+/*   Updated: 2022/04/15 16:14:17 by llecoq           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,7 @@ class random_access_iterator
 
 		// const_iterator conversion
 		template <typename Iter>
-		random_access_iterator(const random_access_iterator<Iter> &src)
+		random_access_iterator( random_access_iterator<Iter> const &src)
 		:
 			_base(src.base())
 		{}

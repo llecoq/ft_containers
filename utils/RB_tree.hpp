@@ -6,7 +6,7 @@
 /*   By: llecoq <llecoq@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/18 09:23:58 by llecoq            #+#    #+#             */
-/*   Updated: 2022/04/15 12:48:20 by llecoq           ###   ########.fr       */
+/*   Updated: 2022/04/15 19:01:43 by llecoq           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -443,36 +443,56 @@ class RB_tree
 	/*
 	** ------------------------------------------------------------ ERASE
 	*/
-		void	_erase_node(node_pointer &current_node)
+		void	_erase_node(node_pointer &node_to_erase)
 		{
-			switch (_count_children(current_node))
+			switch (_count_children(node_to_erase))
 			{
 				case NO_CHILD:
 				{
-					if (current_node == _end_node)
+					if (node_to_erase == _end_node)
 						return ;
-					_set_predecessor_pointer(current_node, NULL);
-					_delete_node(current_node);
+					_set_predecessor_pointer(node_to_erase, NULL);
+					_delete_node(node_to_erase);
 					break;
 				}
 				case ONE_CHILD:
 				{
-					node_pointer	child = _get_child(current_node);
+					node_pointer	child = _get_child(node_to_erase);
 
-					_set_predecessor_pointer(current_node, child);
-					_delete_node(current_node);
+					_set_predecessor_pointer(node_to_erase, child);
+					_delete_node(node_to_erase);
 					break;
 				}
 				case TWO_CHILDREN:
 				{
-					node_pointer	predecessor = _find_predecessor(current_node); // va à gauche car droite peut être end_node
-					
-					current_node = predecessor;
-					// _swap_values(current_node->value, predecessor->value);
-					erase(predecessor);
+					_swap_all_pointers(node_to_erase, _find_predecessor(node_to_erase));
+					_erase_node(node_to_erase);
 					break;
 				}
 			}
+		}
+
+		void	_swap_all_pointers(node_pointer node_to_erase, node_pointer predecessor_node)
+		{
+			node_pointer	parent_node = predecessor_node->parent;
+			node_pointer	left_node = predecessor_node->left;
+
+			// predecessor_node take the place of the node_to_erase
+			_assign_new_parent(predecessor_node, node_to_erase->parent);
+			predecessor_node->right = node_to_erase->right;
+			_assign_new_parent(predecessor_node->right, predecessor_node);
+			predecessor_node->left = node_to_erase->left;
+			_assign_new_parent(predecessor_node->left, predecessor_node);
+			
+			// node_to_erase take the place of the predecessor_node
+			_assign_new_parent(node_to_erase, parent_node);
+			// the only child that could have the predecessor is a left child
+			node_to_erase->left = left_node;
+			_assign_new_parent(node_to_erase->left, node_to_erase);
+			node_to_erase->right = NULL; // NULL
+
+			if (node_to_erase == _root_node)
+				_root_node = predecessor_node;
 		}
 
 		void	_set_predecessor_pointer(node_pointer current_node, node_pointer child)
@@ -503,12 +523,12 @@ class RB_tree
 			}
 		}
 
-		void	_swap_values(value_pointer &current, value_pointer &predecessor)
-		{
-			value_pointer	tmp = current;
-			current = predecessor;
-			predecessor = tmp;
-		}
+		// void	_swap_values(value_pointer &current, value_pointer &predecessor)
+		// {
+		// 	value_pointer	tmp = current;
+		// 	current = predecessor;
+		// 	predecessor = tmp;
+		// }
 
 		node_pointer	_find_successor(node_pointer current_node) const
 		{

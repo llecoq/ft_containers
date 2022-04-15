@@ -6,7 +6,7 @@
 /*   By: llecoq <llecoq@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/17 16:42:25 by llecoq            #+#    #+#             */
-/*   Updated: 2022/04/15 10:44:08 by llecoq           ###   ########.fr       */
+/*   Updated: 2022/04/15 14:49:55 by llecoq           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,9 +58,9 @@ int	tester_map_ft()
 		ft_map	empty;
 
 		ut::fillMap<ft_map, ft_pair>(map, 20, RANDOM);
-		map.print_tree();
+		// map.print_tree();
 		ut::fillMap<ft_map, ft_pair>(copy, 10, RANDOM);
-		copy.print_tree();
+		// copy.print_tree();
 		if (map != copy)
 			std::cout << "map is not yet assigned to copy" << std::endl;
 		std::cout << "copy assignment : copy = map" << std::endl;
@@ -101,7 +101,7 @@ int	tester_map_ft()
 		std::cout << "decrement" << std::endl;
 		while (--it != test.begin())
 			std::cout << it->first << std::endl;
-		it--;
+		// it--; // should segfault
 		ft_map::reverse_iterator	revit = test.rbegin();
 		ft_map::reverse_iterator	revite = test.rend();
 
