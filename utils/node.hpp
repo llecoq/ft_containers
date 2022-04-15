@@ -6,7 +6,7 @@
 /*   By: llecoq <llecoq@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/06 15:34:54 by llecoq            #+#    #+#             */
-/*   Updated: 2022/04/14 15:52:25 by llecoq           ###   ########.fr       */
+/*   Updated: 2022/04/15 10:33:34 by llecoq           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,16 +59,15 @@ struct t_node
 		right(NULL)
 	{}
 
-	// t_node	&operator=(t_node const &rhs)
-	// {
-	// 	color = rhs.color;
-	// 	value = _allocate_and_construct(*rhs.value);
-	// 	// reset pointers
-	// 	parent = NULL;
-	// 	right = NULL;
-	// 	left = NULL;
-	// 	return *this;
-	// }
+	// operator= used when erase() is called
+	t_node	&operator=(t_node const &rhs)
+	{
+		Pair	*tmp = value;
+		
+		value = rhs->value;
+		rhs->value = tmp;
+		return *this;
+	}
 
 	~t_node(){}
 

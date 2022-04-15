@@ -6,7 +6,7 @@
 /*   By: llecoq <llecoq@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/18 09:23:58 by llecoq            #+#    #+#             */
-/*   Updated: 2022/04/15 10:21:25 by llecoq           ###   ########.fr       */
+/*   Updated: 2022/04/15 11:56:59 by llecoq           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,7 +75,7 @@ class RB_tree
 			_root_node(NULL),
 			_begin_node(NULL),
 			_end_node(_init_end_node()),
-			_size(0)	
+			_size(x._size)	
 		{
 			_pre_order_insert(_root_node, x._root_node, x._end_node);
 			// std::cout << "RB_tree copy constructor" << std::endl;
@@ -85,6 +85,7 @@ class RB_tree
 		{
 			clear();
 			_pre_order_insert(_root_node, x._root_node, x._end_node);
+			_size = x._size;
 			return *this;
 		}
 
@@ -93,7 +94,9 @@ class RB_tree
 		{
 			if (node_to_copy != NULL && node_to_copy != copy_end_node)
 			{
-				_set_new_node(*node_to_copy->value, current_node, parent_node);
+				current_node = _create_node(*node_to_copy->value);
+				current_node->parent = parent_node;
+				_set_begin_or_end(current_node);
 				_pre_order_insert(current_node->left, node_to_copy->left, copy_end_node, current_node);
 				_pre_order_insert(current_node->right, node_to_copy->right, copy_end_node, current_node);
 			}
@@ -189,7 +192,6 @@ class RB_tree
 		{
 			_destroy_from_root(_root_node);
 			_init_end_node();
-			_root_node = NULL;
 		}
 
 
@@ -465,7 +467,8 @@ class RB_tree
 				{
 					node_pointer	predecessor = _find_predecessor(current_node); // va à gauche car droite peut être end_node
 					
-					_swap_values(current_node->value, predecessor->value);
+					current_node = predecessor;
+					// _swap_values(current_node->value, predecessor->value);
 					erase(predecessor);
 					break;
 				}
@@ -656,7 +659,7 @@ class RB_tree
 		node_pointer	_create_node(const value_type &val)
 		{
 			node_pointer	tmp = node_allocator().allocate(1);
-
+			
 			node_allocator().construct(tmp, t_node());
 			tmp->value = value_allocator().allocate(1);
 			value_allocator().construct(tmp->value, val);
