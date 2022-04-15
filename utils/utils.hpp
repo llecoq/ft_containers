@@ -6,7 +6,7 @@
 /*   By: llecoq <llecoq@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/07 15:08:10 by llecoq            #+#    #+#             */
-/*   Updated: 2022/04/14 14:42:58 by llecoq           ###   ########.fr       */
+/*   Updated: 2022/04/15 14:27:10 by llecoq           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -193,13 +193,13 @@ namespace ft
 			std::cout << " " << RED_COLOR << root->value->first << RESET << std::endl;
 		else
 			std::cout << " " << root->value->first << std::endl;
-	
 		if (prev) {
 			prev->str = prev_str;
 		}
 		trunk->str = "   |";
 	
 		printTree(root->left, trunk, false, end);
+		delete	trunk;
 	}
 
 }

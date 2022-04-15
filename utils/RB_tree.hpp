@@ -6,7 +6,7 @@
 /*   By: llecoq <llecoq@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/18 09:23:58 by llecoq            #+#    #+#             */
-/*   Updated: 2022/04/15 12:05:13 by llecoq           ###   ########.fr       */
+/*   Updated: 2022/04/15 12:48:20 by llecoq           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,6 @@ class RB_tree
 		size_type												_size;
 
 		friend void	printTree<t_node>(t_node* root, Trunk *prev, bool isLeft, t_node* end);
-		// friend void	print2D<t_node>(t_node *root, int space, t_node *end);
 
 	public :
 	
@@ -660,7 +659,7 @@ class RB_tree
 		node_pointer	_create_node(const value_type &val)
 		{
 			node_pointer	tmp = node_allocator().allocate(1);
-			
+
 			node_allocator().construct(tmp, t_node());
 			tmp->value = value_allocator().allocate(1);
 			value_allocator().construct(tmp->value, val);
