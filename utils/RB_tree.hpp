@@ -6,7 +6,7 @@
 /*   By: llecoq <llecoq@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/18 09:23:58 by llecoq            #+#    #+#             */
-/*   Updated: 2022/04/14 17:52:22 by llecoq           ###   ########.fr       */
+/*   Updated: 2022/04/15 10:21:25 by llecoq           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -378,11 +378,13 @@ class RB_tree
 				case INNER_RIGHT_CHILD:
 					current_node = current_node->left;
 					break;
-				default:	// OUTER_LEFT_CHILD || OUTER_RIGHT_CHILD
-					current_node->color = RED;
-					current_node->right->color = BLACK;
-					current_node->left->color = BLACK;
-					_balance_after_insert(current_node, current_node->parent);
+				case OUTER_LEFT_CHILD:
+					current_node->color = BLACK;
+					current_node->right->color = RED;
+					break;
+				case OUTER_RIGHT_CHILD:
+					current_node->color = BLACK;
+					current_node->left->color = RED;
 					break;
 			}
 		}
