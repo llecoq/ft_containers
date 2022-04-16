@@ -6,7 +6,7 @@
 /*   By: llecoq <llecoq@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/18 09:23:58 by llecoq            #+#    #+#             */
-/*   Updated: 2022/04/15 19:01:43 by llecoq           ###   ########.fr       */
+/*   Updated: 2022/04/16 18:43:48 by llecoq           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,6 +42,7 @@ class RB_tree
 		typedef ft::t_node < value_type >						t_node;
 		typedef typename Alloc::template rebind<t_node>::other	node_allocator;
 		typedef typename node_allocator::pointer				node_pointer;
+		typedef ft::t_node_pointers < node_pointer >			t_node_pointers;
 		typedef size_t											size_type;
 
 	private:
@@ -309,10 +310,10 @@ class RB_tree
 			switch (_find_insert_case(current_node, parent_node))
 			{
 				case LEFT_UNCLE_IS_RED:
-					_swap_node_colors(current_node, LEFT_UNCLE_IS_RED);
+					_reset_node_colors(current_node, LEFT_UNCLE_IS_RED);
 					break;
 				case RIGHT_UNCLE_IS_RED:
-					_swap_node_colors(current_node, RIGHT_UNCLE_IS_RED);
+					_reset_node_colors(current_node, RIGHT_UNCLE_IS_RED);
 					break;
 				case INNER_LEFT_CHILD:
 					_rotate_right(current_node, INNER_LEFT_CHILD);
@@ -327,7 +328,7 @@ class RB_tree
 			}
 		}
 
-		void	_swap_node_colors(node_pointer current_node, int insert_case)
+		void	_reset_node_colors(node_pointer current_node, int insert_case)
 		{
 			node_pointer	uncle_node = NULL;
 			node_pointer	grand_parent_node = current_node->parent->parent;
@@ -443,92 +444,127 @@ class RB_tree
 	/*
 	** ------------------------------------------------------------ ERASE
 	*/
-		void	_erase_node(node_pointer &node_to_erase)
+		void	_erase_node(node_pointer node_to_erase)
 		{
 			switch (_count_children(node_to_erase))
 			{
 				case NO_CHILD:
 				{
-					if (node_to_erase == _end_node)
-						return ;
-					_set_predecessor_pointer(node_to_erase, NULL);
+					_set_predecessor_pointers(node_to_erase);
 					_delete_node(node_to_erase);
+					// _delete_node_and_balance_tree(node_to_erase);
 					break;
 				}
 				case ONE_CHILD:
 				{
 					node_pointer	child = _get_child(node_to_erase);
 
-					_set_predecessor_pointer(node_to_erase, child);
-					_delete_node(node_to_erase);
+					_swap_pointers(node_to_erase, child);
+					_swap_node_colors(node_to_erase, child);
+					_erase_node(node_to_erase);
 					break;
 				}
 				case TWO_CHILDREN:
 				{
-					_swap_all_pointers(node_to_erase, _find_predecessor(node_to_erase));
+					node_pointer	predecessor_node = _find_predecessor(node_to_erase);
+					
+					_swap_pointers(node_to_erase, predecessor_node);
+					_swap_node_colors(node_to_erase, predecessor_node);
 					_erase_node(node_to_erase);
 					break;
 				}
 			}
 		}
 
-		void	_swap_all_pointers(node_pointer node_to_erase, node_pointer predecessor_node)
+		void	_swap_node_colors(node_pointer node_to_erase, node_pointer replacing_node)
 		{
-			node_pointer	parent_node = predecessor_node->parent;
-			node_pointer	left_node = predecessor_node->left;
+			int	node_to_erase_color = node_to_erase->color;
 
-			// predecessor_node take the place of the node_to_erase
-			_assign_new_parent(predecessor_node, node_to_erase->parent);
-			predecessor_node->right = node_to_erase->right;
-			_assign_new_parent(predecessor_node->right, predecessor_node);
-			predecessor_node->left = node_to_erase->left;
-			_assign_new_parent(predecessor_node->left, predecessor_node);
-			
-			// node_to_erase take the place of the predecessor_node
-			_assign_new_parent(node_to_erase, parent_node);
-			// the only child that could have the predecessor is a left child
-			node_to_erase->left = left_node;
-			_assign_new_parent(node_to_erase->left, node_to_erase);
-			node_to_erase->right = NULL; // NULL
-
-			if (node_to_erase == _root_node)
-				_root_node = predecessor_node;
+			if (node_to_erase->color == replacing_node->color == BLACK)
+				node_to_erase->color = DOUBLE_BLACK;
+			else
+			{
+				node_to_erase->color = replacing_node->color;
+				replacing_node->color = node_to_erase_color;
+			}
 		}
 
-		void	_set_predecessor_pointer(node_pointer current_node, node_pointer child)
+		void	_swap_pointers(node_pointer node_to_erase, node_pointer replacing_node)
 		{
-			node_pointer	parent = current_node->parent;
+			t_node_pointers	predecessor_data(replacing_node);
 
-			if (parent != NULL)
+			replacing_node->parent = node_to_erase->parent;
+			_assign_new_parent(replacing_node, replacing_node->parent);
+
+			// assigning replacing node
+			if (node_to_erase->right == replacing_node)
 			{
-				if (parent->left == current_node)
-					parent->left = child;
-				else
-					parent->right = child;
-				if (child != NULL)
-					child->parent = parent;
-				if (current_node == _begin_node)
-					_begin_node = current_node->parent;
+				replacing_node->right = node_to_erase;
+				node_to_erase->parent = replacing_node;
 			}
 			else
 			{
-				_root_node = child; 
-				if (child != NULL)
-					child->parent = NULL;
-				else     // begin_node with no child
-				{
-					node_allocator().deallocate(_end_node, 1);
-					_begin_node = _end_node = _root_node = NULL;
-				}
+				replacing_node->right = node_to_erase->right;
+				_assign_new_parent(replacing_node->right, replacing_node);
+			}
+
+			if (node_to_erase->left == replacing_node)
+			{
+				replacing_node->left = node_to_erase;
+				node_to_erase->parent = replacing_node;
+			}
+			else
+			{
+				replacing_node->left = node_to_erase->left;
+				_assign_new_parent(replacing_node->left, replacing_node);
+			}
+
+			// assigning node_to_erase
+			node_to_erase->left = predecessor_data.left;
+			node_to_erase->right = predecessor_data.right;
+
+			if (predecessor_data.parent != node_to_erase)
+			{
+				_assign_new_parent(node_to_erase, predecessor_data.parent);
+				_assign_new_parent(node_to_erase->right, node_to_erase);
+				_assign_new_parent(node_to_erase->left, node_to_erase);
+			}
+			else
+			{
+				// parent deja link
+				if (node_to_erase->left != NULL)
+					node_to_erase->left->parent = node_to_erase;
+				if (node_to_erase->right != NULL)
+					node_to_erase->right->parent = node_to_erase;
+			}
+
+			if (node_to_erase == _root_node)
+			{
+				_root_node = replacing_node;
 			}
 		}
 
-		// void	_swap_values(value_pointer &current, value_pointer &predecessor)
-		// {
-		// 	value_pointer	tmp = current;
-		// 	current = predecessor;
-		// 	predecessor = tmp;
-		// }
+		void	_set_predecessor_pointers(node_pointer node_to_erase)
+		{
+			node_pointer	parent = node_to_erase->parent;
+
+			if (parent != NULL)
+			{
+				if (parent->left == node_to_erase)
+					parent->left = NULL;
+				else
+					parent->right = NULL;
+				if (node_to_erase == _begin_node)
+					_begin_node = parent;
+				if (node_to_erase->right == _end_node)
+					parent->right = _end_node;
+			}
+			else if (node_to_erase == _root_node)// node_to_erase == _root_node
+			{
+				_root_node = NULL; 
+				_begin_node = _end_node;
+			}
+		}
 
 		node_pointer	_find_successor(node_pointer current_node) const
 		{
@@ -550,7 +586,8 @@ class RB_tree
 
 		size_type	_count_children(node_pointer node)
 		{
-			if (node->left == NULL && node->right == NULL)
+			if (node->left == NULL
+				&& (node->right == NULL || node->right == _end_node))
 				return NO_CHILD;
 			else if (node->left != NULL && node->right != NULL)
 				return TWO_CHILDREN;

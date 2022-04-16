@@ -6,7 +6,7 @@
 /*   By: llecoq <llecoq@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/17 10:54:16 by llecoq            #+#    #+#             */
-/*   Updated: 2022/04/15 16:18:28 by llecoq           ###   ########.fr       */
+/*   Updated: 2022/04/16 18:31:22 by llecoq           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -183,7 +183,10 @@ class map
 			if (empty())
 				return ;
 			while (first != last)
+			{
+				// std::cout << "node to erase = " << first->first << std::endl;	
 				erase(first++);
+			}
 		}
 
 		void swap (map& x)

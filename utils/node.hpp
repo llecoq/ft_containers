@@ -6,7 +6,7 @@
 /*   By: llecoq <llecoq@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/06 15:34:54 by llecoq            #+#    #+#             */
-/*   Updated: 2022/04/15 18:45:16 by llecoq           ###   ########.fr       */
+/*   Updated: 2022/04/16 15:42:52 by llecoq           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,16 +50,15 @@ struct t_node
 	// 	(void)val;
 	// }
 
-	explicit t_node(t_node const &x)
-	:
-		color(x.color),
-		value(NULL),
-		parent(NULL),
-		left(NULL),
-		right(NULL)
-	{}
+	// explicit t_node(t_node const &x)
+	// :
+	// 	color(x.color),
+	// 	value(NULL),
+	// 	parent(NULL),
+	// 	left(NULL),
+	// 	right(NULL)
+	// {}
 
-	// // operator= used when erase() is called
 	// t_node	&operator=(t_node &rhs)
 	// {
 	// 	color = rhs.color;
@@ -71,7 +70,22 @@ struct t_node
 	// }
 
 	~t_node(){}
-
 };
+
+template <typename NodePtr>
+struct t_node_pointers
+{
+	NodePtr	parent;
+	NodePtr	left;
+	NodePtr right;
+
+	explicit t_node_pointers(NodePtr node)
+	:
+		parent(node->parent),
+		left(node->left),
+		right(node->right)
+	{}
+};
+
 
 }	// namespace ft
