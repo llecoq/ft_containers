@@ -6,7 +6,7 @@
 /*   By: llecoq <llecoq@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/18 09:23:58 by llecoq            #+#    #+#             */
-/*   Updated: 2022/04/16 18:43:48 by llecoq           ###   ########.fr       */
+/*   Updated: 2022/04/16 18:51:52 by llecoq           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -449,31 +449,23 @@ class RB_tree
 			switch (_count_children(node_to_erase))
 			{
 				case NO_CHILD:
-				{
 					_set_predecessor_pointers(node_to_erase);
 					_delete_node(node_to_erase);
-					// _delete_node_and_balance_tree(node_to_erase);
 					break;
-				}
 				case ONE_CHILD:
-				{
-					node_pointer	child = _get_child(node_to_erase);
-
-					_swap_pointers(node_to_erase, child);
-					_swap_node_colors(node_to_erase, child);
-					_erase_node(node_to_erase);
+					_push_node_down(node_to_erase, _get_child(node_to_erase));
 					break;
-				}
 				case TWO_CHILDREN:
-				{
-					node_pointer	predecessor_node = _find_predecessor(node_to_erase);
-					
-					_swap_pointers(node_to_erase, predecessor_node);
-					_swap_node_colors(node_to_erase, predecessor_node);
-					_erase_node(node_to_erase);
+					_push_node_down(node_to_erase, _find_predecessor(node_to_erase));
 					break;
-				}
 			}
+		}
+
+		void	_push_node_down(node_pointer node_to_erase, node_pointer replacing_node)
+		{
+			_swap_pointers(node_to_erase, replacing_node);
+			_swap_node_colors(node_to_erase, replacing_node);
+			_erase_node(node_to_erase);
 		}
 
 		void	_swap_node_colors(node_pointer node_to_erase, node_pointer replacing_node)
