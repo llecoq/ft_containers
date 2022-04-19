@@ -6,7 +6,7 @@
 /*   By: llecoq <llecoq@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/18 09:23:58 by llecoq            #+#    #+#             */
-/*   Updated: 2022/04/19 13:27:17 by llecoq           ###   ########.fr       */
+/*   Updated: 2022/04/19 19:19:12 by llecoq           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -452,6 +452,7 @@ class RB_tree
 			{
 				case NO_CHILD:
 					_set_predecessor_pointers(node_to_erase);
+					// _balance_before_erase(node_to_erase);
 					_delete_node(node_to_erase);
 					break;
 				case ONE_CHILD:
@@ -464,6 +465,42 @@ class RB_tree
 					break;
 			}
 		}
+
+		// void	_balance_before_erase(node_pointer current_node)
+		// {
+		// 	switch (_find_violation_type(current_node))
+		// 	{
+		// 		case /* PARENT RED (sibling black) */:
+		// 			// parent->color = BLACK;
+		// 			// sibling->color = RED;
+		// 			// if (_red_violation(sibling))
+		// 			//		_balance_after_insert(node_in_violation);
+		// 			break;
+		// 		case /* SIBLING RED (parent black) */:
+		// 			// sibling->color = RED;
+		// 			// if (_right_child(current_node))
+		// 			// 		_rotate_right(sibling);
+		// 			// else // left child
+		// 			//		_rotate_left(sibling);
+		// 			// sibling->color = RED;
+		// 			// if (_red_violation(sibling))
+		// 			//		_balande_after_insert(node_in_violation);
+		// 			break;
+		// 		case /* PARENT BLACK SIBLING BLACK */:
+		// 			// sibling->color = RED;
+		// 			// if (_red_violation(sibling))
+		// 			// {
+		// 			// 		_balance_after_insert(node_in_violation);
+		// 			// 		if (node_in_violation->color == RED)
+		// 			//			node_in_violation->color = BLACK
+		// 			//		else
+		// 			//			node_in_violation->parent->color = BLACK;
+		// 			// }
+		// 			// else
+		// 			//		_balance_before_erase(current_node->parent);
+		// 			break;
+		// 	}
+		// }
 
 		void	_push_node_down(node_pointer node_to_erase, node_pointer replacing_node)
 		{
@@ -513,15 +550,6 @@ class RB_tree
 			if (node_to_erase == _root_node)
 				_root_node = replacing_node;
 		}
-
-		// void	_swap_pointers(node_pointer node_to_erase, node_pointer replacing_node)
-		// {
-		// 	t_node_pointers	replacing_node_data(replacing_node);
-
-		// 	_assign_new_parent(replacing_node, node_to_erase->parent);
-		// 	_assign_new_child(replacing_node->left, node_to_erase->left);
-		// 	_assign_new_child(replacing_node->right, node_to_erase->right);
-		// }
 
 		void	_assign_children(node_pointer parent_node, node_pointer new_children)
 		{

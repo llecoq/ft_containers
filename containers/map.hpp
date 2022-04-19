@@ -6,7 +6,7 @@
 /*   By: llecoq <llecoq@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/17 10:54:16 by llecoq            #+#    #+#             */
-/*   Updated: 2022/04/16 18:31:22 by llecoq           ###   ########.fr       */
+/*   Updated: 2022/04/19 15:17:47 by llecoq           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -174,7 +174,8 @@ class map
 				_tree.erase(position);
 				return	1;
 			}
-			return 0;
+			else
+				return 0;
 		}
 
 		// enable if iterator and const_iterator are bidirectional iterator types that point to elements
@@ -182,11 +183,11 @@ class map
 		{
 			if (empty())
 				return ;
-			while (first != last)
-			{
-				// std::cout << "node to erase = " << first->first << std::endl;	
-				erase(first++);
-			}
+			if (first == begin() && last == end())
+				clear();
+			else
+				while (first != last)
+					erase(first++);
 		}
 
 		void swap (map& x)
