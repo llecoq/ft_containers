@@ -6,7 +6,7 @@
 /*   By: llecoq <llecoq@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/06 15:34:54 by llecoq            #+#    #+#             */
-/*   Updated: 2022/04/16 15:42:52 by llecoq           ###   ########.fr       */
+/*   Updated: 2022/04/17 11:02:45 by llecoq           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,14 +50,15 @@ struct t_node
 	// 	(void)val;
 	// }
 
-	// explicit t_node(t_node const &x)
-	// :
-	// 	color(x.color),
-	// 	value(NULL),
-	// 	parent(NULL),
-	// 	left(NULL),
-	// 	right(NULL)
-	// {}
+	// storing data, no deep copy, used for erase()
+	explicit t_node(t_node const &x)
+	:
+		color(x.color),
+		value(x.value),
+		parent(x.parent),
+		left(x.left),
+		right(x.right)
+	{}
 
 	// t_node	&operator=(t_node &rhs)
 	// {

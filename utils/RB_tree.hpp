@@ -6,7 +6,7 @@
 /*   By: llecoq <llecoq@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/18 09:23:58 by llecoq            #+#    #+#             */
-/*   Updated: 2022/04/16 18:51:52 by llecoq           ###   ########.fr       */
+/*   Updated: 2022/04/19 13:27:17 by llecoq           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -311,9 +311,11 @@ class RB_tree
 			{
 				case LEFT_UNCLE_IS_RED:
 					_reset_node_colors(current_node, LEFT_UNCLE_IS_RED);
+					_balance_after_insert(parent_node->parent, parent_node->parent->parent);
 					break;
 				case RIGHT_UNCLE_IS_RED:
 					_reset_node_colors(current_node, RIGHT_UNCLE_IS_RED);
+					_balance_after_insert(parent_node->parent, parent_node->parent->parent);
 					break;
 				case INNER_LEFT_CHILD:
 					_rotate_right(current_node, INNER_LEFT_CHILD);
@@ -340,7 +342,7 @@ class RB_tree
 			current_node->parent->color = BLACK;
 			uncle_node->color = BLACK;
 			grand_parent_node->color = RED;
-			_balance_after_insert(grand_parent_node, grand_parent_node->parent);
+			// _balance_after_insert(grand_parent_node, grand_parent_node->parent);
 		}
 
 		void	_rotate_right(node_pointer &current_node, int insert_case)
@@ -454,9 +456,11 @@ class RB_tree
 					break;
 				case ONE_CHILD:
 					_push_node_down(node_to_erase, _get_child(node_to_erase));
+					_erase_node(node_to_erase);
 					break;
 				case TWO_CHILDREN:
 					_push_node_down(node_to_erase, _find_predecessor(node_to_erase));
+					_erase_node(node_to_erase);
 					break;
 			}
 		}
@@ -465,7 +469,6 @@ class RB_tree
 		{
 			_swap_pointers(node_to_erase, replacing_node);
 			_swap_node_colors(node_to_erase, replacing_node);
-			_erase_node(node_to_erase);
 		}
 
 		void	_swap_node_colors(node_pointer node_to_erase, node_pointer replacing_node)
@@ -481,43 +484,21 @@ class RB_tree
 			}
 		}
 
+
+		// needing redesign
 		void	_swap_pointers(node_pointer node_to_erase, node_pointer replacing_node)
 		{
-			t_node_pointers	predecessor_data(replacing_node);
+			t_node_pointers	replacing_node_data(replacing_node);
 
-			replacing_node->parent = node_to_erase->parent;
-			_assign_new_parent(replacing_node, replacing_node->parent);
-
-			// assigning replacing node
-			if (node_to_erase->right == replacing_node)
-			{
-				replacing_node->right = node_to_erase;
-				node_to_erase->parent = replacing_node;
-			}
-			else
-			{
-				replacing_node->right = node_to_erase->right;
-				_assign_new_parent(replacing_node->right, replacing_node);
-			}
-
-			if (node_to_erase->left == replacing_node)
-			{
-				replacing_node->left = node_to_erase;
-				node_to_erase->parent = replacing_node;
-			}
-			else
-			{
-				replacing_node->left = node_to_erase->left;
-				_assign_new_parent(replacing_node->left, replacing_node);
-			}
+			_assign_new_parent(replacing_node, node_to_erase->parent);
+			_assign_children(replacing_node, node_to_erase);
 
 			// assigning node_to_erase
-			node_to_erase->left = predecessor_data.left;
-			node_to_erase->right = predecessor_data.right;
-
-			if (predecessor_data.parent != node_to_erase)
+			node_to_erase->left = replacing_node_data.left;
+			node_to_erase->right = replacing_node_data.right;
+			if (replacing_node_data.parent != node_to_erase)
 			{
-				_assign_new_parent(node_to_erase, predecessor_data.parent);
+				_assign_new_parent(node_to_erase, replacing_node_data.parent);
 				_assign_new_parent(node_to_erase->right, node_to_erase);
 				_assign_new_parent(node_to_erase->left, node_to_erase);
 			}
@@ -529,11 +510,34 @@ class RB_tree
 				if (node_to_erase->right != NULL)
 					node_to_erase->right->parent = node_to_erase;
 			}
-
 			if (node_to_erase == _root_node)
-			{
 				_root_node = replacing_node;
-			}
+		}
+
+		// void	_swap_pointers(node_pointer node_to_erase, node_pointer replacing_node)
+		// {
+		// 	t_node_pointers	replacing_node_data(replacing_node);
+
+		// 	_assign_new_parent(replacing_node, node_to_erase->parent);
+		// 	_assign_new_child(replacing_node->left, node_to_erase->left);
+		// 	_assign_new_child(replacing_node->right, node_to_erase->right);
+		// }
+
+		void	_assign_children(node_pointer parent_node, node_pointer new_children)
+		{
+			node_pointer	right_child = new_children->right;
+			node_pointer	left_child = new_children->left;
+
+			if (right_child == parent_node)
+				right_child = new_children;
+			else if (left_child == parent_node)
+				left_child = new_children;
+			parent_node->right = right_child;
+			parent_node->left = left_child;
+			if (right_child != NULL)
+				right_child->parent = parent_node;
+			if (left_child != NULL)
+				left_child->parent = parent_node;
 		}
 
 		void	_set_predecessor_pointers(node_pointer node_to_erase)
