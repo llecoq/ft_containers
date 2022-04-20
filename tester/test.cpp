@@ -6,7 +6,7 @@
 /*   By: llecoq <llecoq@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/12 15:15:20 by llecoq            #+#    #+#             */
-/*   Updated: 2022/04/20 11:51:29 by llecoq           ###   ########.fr       */
+/*   Updated: 2022/04/20 17:07:36 by llecoq           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,6 +85,10 @@ int	test()
 			std::cout << "erase" << std::endl;
 			mymap.erase(mymap.begin(), mymap.end());
 			std::cout << "size = " << mymap.size() << std::endl;
+			ut::fillMap<ft_map, ft_pair>(mymap, 3, QUEUE);
+			mymap.erase(1);
+			mymap.erase(2);
+			mymap.erase(0);
 			std::cout << std::endl;
 		} // INSERT ERASE
 	return 0;

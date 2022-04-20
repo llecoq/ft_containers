@@ -6,14 +6,14 @@
 /*   By: llecoq <llecoq@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/06 15:34:54 by llecoq            #+#    #+#             */
-/*   Updated: 2022/04/20 12:01:59 by llecoq           ###   ########.fr       */
+/*   Updated: 2022/04/20 12:08:01 by llecoq           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 namespace	ft
 {
 
-enum	e_node_color
+enum	e_node_colors
 {
 	RED,
 	BLACK
@@ -37,37 +37,6 @@ struct t_node
 		left(NULL),
 		right(NULL)
 	{}
-
-	// explicit t_node(Pair const &val)
-	// :
-	// 	color(0),
-	// 	value(NULL),
-	// 	parent(NULL),
-	// 	left(NULL),
-	// 	right(NULL)
-	// {
-	// 	(void)val;
-	// }
-
-	// storing data, no deep copy, used for erase()
-	explicit t_node(t_node const &x)
-	:
-		color(x.color),
-		value(x.value),
-		parent(x.parent),
-		left(x.left),
-		right(x.right)
-	{}
-
-	// t_node	&operator=(t_node &rhs)
-	// {
-	// 	color = rhs.color;
-	// 	value = rhs.value;
-	// 	parent = rhs.parent;
-	// 	left = rhs.left;
-	// 	right = rhs.right;
-	// 	return *this;
-	// }
 
 	~t_node(){}
 };
