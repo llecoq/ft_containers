@@ -6,7 +6,7 @@
 /*   By: llecoq <llecoq@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/18 09:23:58 by llecoq            #+#    #+#             */
-/*   Updated: 2022/04/20 19:40:24 by llecoq           ###   ########.fr       */
+/*   Updated: 2022/04/20 19:45:32 by llecoq           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,7 +67,6 @@ class RB_tree
 		{
 			(void)comp;
 			(void)alloc;
-			// std::cout << "RB_tree default constructor" << std::endl;
 		}
 
 		RB_tree(const RB_tree& x)
@@ -78,7 +77,6 @@ class RB_tree
 			_size(x._size)	
 		{
 			_pre_order_insert(_root_node, x._root_node, x._end_node);
-			// std::cout << "RB_tree copy constructor" << std::endl;
 		}
 
 		RB_tree& operator=(const RB_tree& x)
@@ -106,7 +104,6 @@ class RB_tree
 		// destructor
 		~RB_tree()
 		{
-			// std::cout << "RB_tree destructor" << std::endl;
 			_destroy_from_root(_root_node);
 		}
 
@@ -341,7 +338,6 @@ class RB_tree
 			current_node->parent->color = BLACK;
 			uncle_node->color = BLACK;
 			grand_parent_node->color = RED;
-			// _balance_after_insert(grand_parent_node, grand_parent_node->parent);
 		}
 
 		void	_rotate_right(node_pointer &current_node, int insert_case)
@@ -449,11 +445,9 @@ class RB_tree
 			switch (_count_children(node_to_erase))
 			{
 				case NO_CHILD:
-					print_tree();
 					_balance_before_erase(node_to_erase);
 					_set_predecessor_pointers(node_to_erase);
 					_delete_node(node_to_erase);
-					print_tree();
 					break;
 				case ONE_CHILD:
 					_push_node_down(node_to_erase, _get_child(node_to_erase));
@@ -578,7 +572,6 @@ class RB_tree
 	/*
 	** ---------------------------------------------------- SELF-BALANCING ERASE
 	*/
-
 	void	_balance_before_erase(node_pointer current_node)
 		{
 			node_pointer	sibling_node = _get_sibling(current_node);
