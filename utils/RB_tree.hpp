@@ -6,7 +6,7 @@
 /*   By: llecoq <llecoq@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/18 09:23:58 by llecoq            #+#    #+#             */
-/*   Updated: 2022/04/20 18:22:20 by llecoq           ###   ########.fr       */
+/*   Updated: 2022/04/20 19:40:24 by llecoq           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -326,7 +326,6 @@ class RB_tree
 					_rotate_left(current_node, INNER_RIGHT_CHILD);
 				case OUTER_LEFT_CHILD:
 					_rotate_right(current_node->parent, OUTER_LEFT_CHILD);
-					break;
 			}
 		}
 
@@ -390,7 +389,6 @@ class RB_tree
 				case OUTER_RIGHT_CHILD:
 					current_node->color = BLACK;
 					current_node->left->color = RED;
-					break;
 			}
 		}
 
@@ -464,7 +462,6 @@ class RB_tree
 				case TWO_CHILDREN:
 					_push_node_down(node_to_erase, _find_predecessor(node_to_erase));
 					_erase_node(node_to_erase);
-					break;
 			}
 		}
 
@@ -581,23 +578,30 @@ class RB_tree
 	/*
 	** ---------------------------------------------------- SELF-BALANCING ERASE
 	*/
-		void	_balance_before_erase(node_pointer current_node)
+
+	void	_balance_before_erase(node_pointer current_node)
 		{
+			node_pointer	sibling_node = _get_sibling(current_node);
+		
 			switch (_find_violation_type(current_node))
 			{
 				case NO_VIOLATION:
 					break;
 				case PARENT_IS_RED:
-					_fix_double_black_violation(current_node, PARENT_IS_RED);
+					current_node->parent->color = BLACK;
+					sibling_node->color = RED;
+					_fix_red_violation(sibling_node);
 					break;
 				case SIBLING_IS_RED:
-					_rotate_sibling_node(current_node, _get_sibling(current_node));		
-					_fix_double_black_violation(current_node, SIBLING_IS_RED);					
+					_rotate_sibling_node(current_node, sibling_node);
+					sibling_node->color = BLACK;
+					current_node->parent->color = BLACK;
+					_fix_red_violation(sibling_node);
 					break;
 				case PARENT_AND_SIBLING_ARE_BLACK:
-					if (_fix_double_black_violation(current_node, PARENT_AND_SIBLING_ARE_BLACK) == NULL)
+					sibling_node->color = RED;
+					if (_fix_red_violation(sibling_node, PARENT_AND_SIBLING_ARE_BLACK) == NULL)
 						_balance_before_erase(current_node->parent);
-					break;
 			}
 		}
 
@@ -614,35 +618,22 @@ class RB_tree
 				current_node->parent->right->color = RED;
 			}
 		}
-
-		node_pointer	_fix_double_black_violation(node_pointer current_node, int violation_type)
+			
+		node_pointer	_fix_red_violation(node_pointer current_node, int violation_type = 0)
 		{
-			node_pointer	sibling_node = _get_sibling(current_node);
-			node_pointer	parent_node = current_node->parent;
+			node_pointer	node_in_violation = _get_child(current_node);
 
-			if (violation_type == PARENT_IS_RED)
-				sibling_node->color = BLACK;
-			else
-				sibling_node->color = RED;
-			parent_node->color = BLACK;
-			return _fix_red_violation(sibling_node, violation_type);
-		}
-
-		node_pointer	_fix_red_violation(node_pointer parent_node, int violation_type)
-		{
-			node_pointer	child = _get_child(parent_node);
-
-			if (child != NULL && child->color == RED)
+			if (node_in_violation != NULL && node_in_violation->color == RED)
 			{
-				_balance_after_insert(child, parent_node);
+				_balance_after_insert(node_in_violation, current_node);
 				if (violation_type == PARENT_AND_SIBLING_ARE_BLACK)
 				{
-					if (child->color == RED)
-						child->color = BLACK;
+					if (node_in_violation->color == RED)
+						node_in_violation->color = BLACK;
 					else
-						child->parent->color = BLACK;
+						node_in_violation->parent->color = BLACK;
 				}
-				return child;
+				return node_in_violation;
 			}
 			else
 				return NULL;
@@ -671,7 +662,6 @@ class RB_tree
 			else
 				return PARENT_AND_SIBLING_ARE_BLACK;
 		}
-
 
 	/*
 	** ------------------------------------------------------------ FIND
