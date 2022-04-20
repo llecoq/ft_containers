@@ -6,7 +6,7 @@
 /*   By: llecoq <llecoq@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/07 15:08:10 by llecoq            #+#    #+#             */
-/*   Updated: 2022/04/16 15:51:21 by llecoq           ###   ########.fr       */
+/*   Updated: 2022/04/20 08:43:20 by llecoq           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ namespace ft
 		UPPER = 1
 	};
 
-	enum	e_balance_case
+	enum	e_insert
 	{
 		LEFT_UNCLE_IS_RED = 1,
 		RIGHT_UNCLE_IS_RED = 2,
@@ -43,6 +43,14 @@ namespace ft
 		ROTATE_RIGHT = 7,
 		ROTATE_LEFT = 8,
 		ERASE = 9
+	};
+
+	enum	e_erase
+	{
+		NO_VIOLATION = 0,
+		PARENT_IS_RED = 1,
+		SIBLING_IS_RED = 2,
+		PARENT_AND_SIBLING_ARE_BLACK = 3
 	};
 
 /*

@@ -6,7 +6,7 @@
 /*   By: llecoq <llecoq@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/12 15:15:20 by llecoq            #+#    #+#             */
-/*   Updated: 2022/04/19 15:17:23 by llecoq           ###   ########.fr       */
+/*   Updated: 2022/04/20 11:51:29 by llecoq           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,16 +16,18 @@ int	test()
 {
 		{
 			std::cout << "-------------- INSERT / ERASE -------------" << std::endl;
-			ft::map<int, int> map;
+			// ft::map<int, int> map;
 
-			map.insert(ft::pair<int, int>(1, 1));
-			ut::fillMap<ft::map<int, int>,ft::pair<int, int> > (map, 20, RANDOM);
+			// map.insert(ft::pair<int, int>(1, 1));
+			// ut::fillMap<ft::map<int, int>,ft::pair<int, int> > (map, 30, QUEUE);
 			ft_map mymap;
 			
 			// first insert function version (single parameter):
 			mymap.insert ( ft_pair(6, 100) );
 			mymap.insert ( ft_pair(26, 200) );
 			
+			ut::fillMap<ft_map, ft_pair>(mymap, 30, QUEUE);
+
 			ft::pair<ft_map::iterator,bool> ret;
 			ret = mymap.insert ( ft_pair(26, 500) );
 			if (ret.second==false)
@@ -68,6 +70,10 @@ int	test()
 			std::cout << "size = " << mymap.size() << std::endl;
 			std::cout << "erase 90" << std::endl;
 			mymap.erase(90);
+			mymap.erase(16);
+			mymap.erase(18);
+			mymap.erase(7);
+			mymap.erase(23);
 			mymap.erase(mymap.begin(), mymap.end());
 			it = mymap.begin();
 			while (it != mymap.end())
