@@ -6,7 +6,7 @@
 /*   By: llecoq <llecoq@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/06 15:34:54 by llecoq            #+#    #+#             */
-/*   Updated: 2022/04/17 11:02:45 by llecoq           ###   ########.fr       */
+/*   Updated: 2022/04/20 12:01:59 by llecoq           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,14 +16,13 @@ namespace	ft
 enum	e_node_color
 {
 	RED,
-	BLACK,
-	DOUBLE_BLACK
+	BLACK
 };
 
 template <class Pair>
 struct t_node
 {	
-	int		color;
+	bool	color;
 	Pair	*value;
 
 	t_node	*parent;
