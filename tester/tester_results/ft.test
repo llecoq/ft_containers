@@ -125,9 +125,23 @@ lower and upper bounds
 12
 1
 OK
--1094795586
+6
 5
 5
 5
 5
 5
+the lower bound points to: 30
+the upper bound points to: 40
+-------------- ALLOCATOR ---------------
+The allocated array contains: 10 20 30 40 50
+-------------- RELATIONAL OPERATORS ---------------
+foo and bar are not equal
+foo is greater than bar
+foo is greater than or equal to bar
+foo and zob are not equal
+foo is greater than zob
+foo is greater than or equal to zob
+bah and zob are not equal
+bah is greater than zob
+bah is greater than or equal to zob

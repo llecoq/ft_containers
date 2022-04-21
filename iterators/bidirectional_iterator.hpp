@@ -6,7 +6,7 @@
 /*   By: llecoq <llecoq@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/18 13:37:15 by llecoq            #+#    #+#             */
-/*   Updated: 2022/04/21 15:18:23 by llecoq           ###   ########.fr       */
+/*   Updated: 2022/04/21 19:42:57 by llecoq           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,9 +20,9 @@
 namespace ft
 {
 
-template < class Pair, class Node >
+template < class Val, class Node >
 class bidirectional_iterator 
-	: virtual public iterator_traits < iterator< bidirectional_iterator_tag, Pair > >
+	: virtual public iterator_traits < iterator< bidirectional_iterator_tag, Val > >
 {
 	
 	public :

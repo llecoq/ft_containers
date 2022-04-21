@@ -6,7 +6,7 @@
 /*   By: llecoq <llecoq@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/21 10:44:21 by llecoq            #+#    #+#             */
-/*   Updated: 2022/04/21 18:29:31 by llecoq           ###   ########.fr       */
+/*   Updated: 2022/04/21 19:45:16 by llecoq           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,8 +33,8 @@ class set
 	
 	public :
 
-		typedef	T														key_type;
-		typedef	T														value_type;
+		typedef	T 														key_type;
+		typedef	T		 												value_type;
 		typedef Compare													key_compare;
 		typedef Compare													value_compare;
 		typedef Alloc													allocator_type;
@@ -43,7 +43,7 @@ class set
 		typedef typename allocator_type::pointer						pointer;
 		typedef typename allocator_type::const_pointer					const_pointer;
 	private :	
-		typedef	ft::t_node_set<value_type, key_type>					_node_type;
+		typedef	ft::t_node_set<value_type, key_type>				_node_type;
 	public :
 		typedef ft::bidirectional_iterator<value_type, _node_type>		iterator;
 		typedef ft::bidirectional_iterator<const value_type, _node_type>const_iterator;

@@ -6,7 +6,7 @@
 /*   By: llecoq <llecoq@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/21 17:22:18 by llecoq            #+#    #+#             */
-/*   Updated: 2022/04/21 19:07:40 by llecoq           ###   ########.fr       */
+/*   Updated: 2022/04/21 19:45:33 by llecoq           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -330,7 +330,7 @@ int	tester_set_ft()
 				std::cout << "OK" << std::endl;
 			else
 				std::cout << "KO" << std::endl;
-			myset.print_tree();
+			// myset.print_tree();
 			std::cout << *myset.upper_bound(5) << std::endl;
 			std::cout << *myset.lower_bound(5) << std::endl;
 			std::cout << *myset.upper_bound(3) << std::endl;
@@ -340,87 +340,78 @@ int	tester_set_ft()
 
 		} // LOWER / UPPER_BOUND
 
-	// 	//-------------------------- EQUAL_RANGE
-	// 	{
-	// 		std::cout << "equal range" << std::endl;
-	
-	// 		ft_set myset;
+		//-------------------------- EQUAL_RANGE
+		{
+			ft_set myset;
 
-	// 		myset['a']=10;
-	// 		myset['b']=20;
-	// 		myset['c']=30;
+			for (int i=1; i<=5; i++) myset.insert(i*10);   // myset: 10 20 30 40 50
 
-	// 		ft::pair<ft_set::iterator,ft_set::iterator> ret;
-	// 		ret = myset.equal_range('b');
+			ft::pair<ft_set::const_iterator,ft_set::const_iterator> ret;
+			ret = myset.equal_range(30);
 
-	// 		std::cout << "lower bound points to: ";
-	// 		std::cout << ret.first << " => " << ret.first->second << std::endl;;
+			std::cout << "the lower bound points to: " << *ret.first << std::endl;
+			std::cout << "the upper bound points to: " << *ret.second << std::endl;
 
-	// 		std::cout << "upper bound points to: ";
-	// 		std::cout << ret.second << " => " << ret.second->second << std::endl;;
+		} // EQUAL_RANGE
 
-	// 	} // EQUAL_RANGE
-
-	// 	std::cout << std::endl;
-	// }
 
 	// /*------------------------------ ALLOCATOR ----------------------------*/
-	// {
-	// 	std::cout << "-------------- ALLOCATOR ---------------" << std::endl;
+	{
+		std::cout << "-------------- ALLOCATOR ---------------" << std::endl;
 	
-	// 	int psize;
-	// 	ft_set myset;
-	// 	int* p;
+		ft_set myset;
+		int * p;
+		unsigned int i;
 
-	// 	// allocate an array of 5 elements using myset's allocator:
-	// 	p=myset.get_allocator().allocate(5);
+		// allocate an array of 5 elements using myset's allocator:
+		p=myset.get_allocator().allocate(5);
 
-	// 	// assign some values to array
-	// 	psize = sizeof(std::set<char,int>::value_type)*5;
+		// assign some values to array
+		for (i=0; i<5; i++) p[i]=(i+1)*10;
 
-	// 	std::cout << "The allocated array has a size of " << psize << " bytes." << std::endl;
+		std::cout << "The allocated array contains:";
+		for (i=0; i<5; i++) std::cout << ' ' << p[i];
+		std::cout << '\n';
 
-	// 	myset.get_allocator().deallocate(p,5);
+		myset.get_allocator().deallocate(p,5);
+	}
 
-	// 	std::cout << std::endl;
-	// }
-
-	// /*------------------------------ RELATIONAL OPERATORS ----------------------------*/
-	// {
-	// 	std::cout << "-------------- RELATIONAL OPERATORS ---------------" << std::endl;
+	/*------------------------------ RELATIONAL OPERATORS ----------------------------*/
+	{
+		std::cout << "-------------- RELATIONAL OPERATORS ---------------" << std::endl;
 	
-	// 	ft_set foo,bar,zob,bah;
-	// 	ut::fillSet<ft_set>>(zob, 10, RANDOMIZED_QUEUE);
-	// 	ut::fillSet<ft_set>>(bah, 10, RANDOMIZED_QUEUE);
-	// 	foo['a']=100;
-	// 	foo['b']=200;
-	// 	bar['a']=10;
-	// 	bar['z']=1000;
+		ft_set foo,bar,zob,bah;
+		ut::fillSet<ft_set>(zob, 10, RANDOMIZED_QUEUE);
+		ut::fillSet<ft_set>(bah, 10, RANDOMIZED_QUEUE);
+		foo.insert(100);
+		foo.insert(200);
+		bar.insert(10);
+		bar.insert(1000);
+
+		// foo ({{a,100},{b,200}}) vs bar ({a,10},{z,1000}}):
+		if (foo==bar) std::cout << "foo and bar are equal" << std::endl;
+		if (foo!=bar) std::cout << "foo and bar are not equal" << std::endl;
+		if (foo< bar) std::cout << "foo is less than bar" << std::endl;
+		if (foo> bar) std::cout << "foo is greater than bar" << std::endl;
+		if (foo<=bar) std::cout << "foo is less than or equal to bar" << std::endl;
+		if (foo>=bar) std::cout << "foo is greater than or equal to bar" << std::endl;
 	
-	// 	// foo ({{a,100},{b,200}}) vs bar ({a,10},{z,1000}}):
-	// 	if (foo==bar) std::cout << "foo and bar are equal" << std::endl;
-	// 	if (foo!=bar) std::cout << "foo and bar are not equal" << std::endl;
-	// 	if (foo< bar) std::cout << "foo is less than bar" << std::endl;
-	// 	if (foo> bar) std::cout << "foo is greater than bar" << std::endl;
-	// 	if (foo<=bar) std::cout << "foo is less than or equal to bar" << std::endl;
-	// 	if (foo>=bar) std::cout << "foo is greater than or equal to bar" << std::endl;
+		if (foo==zob) std::cout << "foo and zob are equal" << std::endl;
+		if (foo!=zob) std::cout << "foo and zob are not equal" << std::endl;
+		if (foo< zob) std::cout << "foo is less than zob" << std::endl;
+		if (foo> zob) std::cout << "foo is greater than zob" << std::endl;
+		if (foo<=zob) std::cout << "foo is less than or equal to zob" << std::endl;
+		if (foo>=zob) std::cout << "foo is greater than or equal to zob" << std::endl;
 	
-	// 	if (foo==zob) std::cout << "foo and zob are equal" << std::endl;
-	// 	if (foo!=zob) std::cout << "foo and zob are not equal" << std::endl;
-	// 	if (foo< zob) std::cout << "foo is less than zob" << std::endl;
-	// 	if (foo> zob) std::cout << "foo is greater than zob" << std::endl;
-	// 	if (foo<=zob) std::cout << "foo is less than or equal to zob" << std::endl;
-	// 	if (foo>=zob) std::cout << "foo is greater than or equal to zob" << std::endl;
-	
-	// 	ft_set::iterator	it = bah.begin();
-	// 	*it = 7;
-	// 	if (bah==zob) std::cout << "bah and zob are equal" << std::endl;
-	// 	if (bah!=zob) std::cout << "bah and zob are not equal" << std::endl;
-	// 	if (bah< zob) std::cout << "bah is less than zob" << std::endl;
-	// 	if (bah> zob) std::cout << "bah is greater than zob" << std::endl;
-	// 	if (bah<=zob) std::cout << "bah is less than or equal to zob" << std::endl;
-	// 	if (bah>=zob) std::cout << "bah is greater than or equal to zob" << std::endl;
-	// } // RELATIONAL OPERATORS
+		ft_set::iterator	it = bah.begin();
+		// *it = 7; 
+		if (bah==zob) std::cout << "bah and zob are equal" << std::endl;
+		if (bah!=zob) std::cout << "bah and zob are not equal" << std::endl;
+		if (bah< zob) std::cout << "bah is less than zob" << std::endl;
+		if (bah> zob) std::cout << "bah is greater than zob" << std::endl;
+		if (bah<=zob) std::cout << "bah is less than or equal to zob" << std::endl;
+		if (bah>=zob) std::cout << "bah is greater than or equal to zob" << std::endl;
+	} // RELATIONAL OPERATORS
 
 	return (SUCCESS);
 }
