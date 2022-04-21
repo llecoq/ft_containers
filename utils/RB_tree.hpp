@@ -6,7 +6,7 @@
 /*   By: llecoq <llecoq@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/18 09:23:58 by llecoq            #+#    #+#             */
-/*   Updated: 2022/04/21 19:14:32 by llecoq           ###   ########.fr       */
+/*   Updated: 2022/04/21 20:53:11 by llecoq           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -587,8 +587,8 @@ class RB_tree
 					break;
 				case SIBLING_IS_RED:
 					_rotate_sibling_node(current_node, sibling_node);
-					sibling_node->color = BLACK;
-					current_node->parent->color = BLACK;
+					// sibling_node->color = BLACK;
+					// current_node->parent->color = BLACK;
 					_fix_red_violation(sibling_node);
 					break;
 				case PARENT_AND_SIBLING_ARE_BLACK:
@@ -598,20 +598,44 @@ class RB_tree
 			}
 		}
 
-		void	_rotate_sibling_node(node_pointer current_node, node_pointer sibling_node)
+		void	_rotate_sibling_node(node_pointer current_node, node_pointer &sibling_node)
 		{
 			if (_is_right_child(current_node) == true)
 			{
-				_rotate_right(sibling_node, OUTER_LEFT_CHILD);
-				current_node->parent->left->color = RED;
+				sibling_node = sibling_node->right;
+				_rotate_left(sibling_node, INNER_RIGHT_CHILD);
+				_rotate_right(sibling_node->parent, OUTER_LEFT_CHILD);
+				sibling_node->parent->right->color = BLACK;
+				sibling_node->left->color = RED;
+				sibling_node->color = BLACK;
+				sibling_node = sibling_node->left;
 			}
 			else // current_node is left child
 			{
-				_rotate_left(sibling_node, OUTER_RIGHT_CHILD);
-				current_node->parent->right->color = RED;
+				sibling_node = sibling_node->left;
+				_rotate_right(sibling_node, INNER_LEFT_CHILD);
+				_rotate_left(sibling_node->parent, OUTER_RIGHT_CHILD);
+				sibling_node->parent->left->color = BLACK;
+				sibling_node->right->color = RED;
+				sibling_node->color = BLACK;
+				sibling_node = sibling_node->right;
 			}
 		}
-			
+
+		// void	_rotate_sibling_node(node_pointer current_node, node_pointer sibling_node)
+		// {
+		// 	if (_is_right_child(current_node) == true)
+		// 	{
+		// 		_rotate_right(sibling_node, OUTER_LEFT_CHILD);
+		// 		current_node->parent->left->color = RED;
+		// 	}
+		// 	else // current_node is left child
+		// 	{
+		// 		_rotate_left(sibling_node, OUTER_RIGHT_CHILD);
+		// 		current_node->parent->right->color = RED;
+		// 	}
+		// }
+
 		node_pointer	_fix_red_violation(node_pointer current_node, int violation_type = 0)
 		{
 			node_pointer	node_in_violation = _get_child(current_node);
