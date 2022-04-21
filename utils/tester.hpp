@@ -6,7 +6,7 @@
 /*   By: llecoq <llecoq@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/27 14:49:09 by llecoq            #+#    #+#             */
-/*   Updated: 2022/04/14 12:35:17 by llecoq           ###   ########.fr       */
+/*   Updated: 2022/04/21 16:22:04 by llecoq           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,9 +24,10 @@
 #else
 	# define TESTING "Testing with ft library"
 	# include "metafunctions.hpp"
-	# include "../containers/vector.hpp"
-	# include "../containers/stack.hpp"
-	# include "../containers/map.hpp"
+	# include "vector.hpp"
+	# include "stack.hpp"
+	# include "map.hpp"
+	# include "set.hpp"
 	# include "utils.hpp"
 #endif
 

@@ -6,7 +6,7 @@
 /*   By: llecoq <llecoq@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/17 10:54:16 by llecoq            #+#    #+#             */
-/*   Updated: 2022/04/21 15:59:51 by llecoq           ###   ########.fr       */
+/*   Updated: 2022/04/21 16:16:00 by llecoq           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -114,9 +114,7 @@ class map
 	** ------------------------------------------------------------ CAPACITY
 	*/
 		bool empty() const {return _tree.empty();}
-
 		size_type size() const {return _tree.size();}
-
 		size_type max_size() const {return _tree.max_size();}
 
 	/*
@@ -206,7 +204,7 @@ class map
 			_tree.clear();
 		}
 	/*
-	** -------------------------------------------------------------- OBESERVERS
+	** -------------------------------------------------------------- OBSERVERS
 	*/
 		key_compare key_comp() const
 		{

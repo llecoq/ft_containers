@@ -6,7 +6,7 @@
 #    By: llecoq <llecoq@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/11/16 11:27:48 by llecoq            #+#    #+#              #
-#    Updated: 2022/04/21 14:46:02 by llecoq           ###   ########.fr        #
+#    Updated: 2022/04/21 16:21:08 by llecoq           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -22,6 +22,7 @@ INCLUDES_UTILS_FILES =		utils.hpp\
 
 INCLUDES_FILES =  			vector.hpp\
 							stack.hpp\
+							set.hpp\
 							map.hpp
 
 ITERATORS_FILES =  			iterator.hpp\
