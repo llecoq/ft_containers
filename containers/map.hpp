@@ -6,7 +6,7 @@
 /*   By: llecoq <llecoq@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/17 10:54:16 by llecoq            #+#    #+#             */
-/*   Updated: 2022/04/19 15:17:47 by llecoq           ###   ########.fr       */
+/*   Updated: 2022/04/21 15:32:51 by llecoq           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,17 +43,19 @@ class map
 		typedef typename allocator_type::const_reference				const_reference;
 		typedef typename allocator_type::pointer						pointer;
 		typedef typename allocator_type::const_pointer					const_pointer;
-		typedef ft::bidirectional_iterator<value_type>					iterator;
-		typedef ft::bidirectional_iterator<const value_type>			const_iterator;
+	private :
+		typedef	ft::t_node_map<value_type, key_type>					_node_type;
+	public :
+		typedef ft::bidirectional_iterator<value_type, _node_type>		iterator;
+		typedef ft::bidirectional_iterator<const value_type, _node_type>const_iterator;
 		typedef ft::reverse_iterator<iterator>							reverse_iterator;
 		typedef ft::reverse_iterator<const_iterator>					const_reverse_iterator;
 		typedef typename iterator_traits<iterator>::difference_type		difference_type;
 		typedef typename allocator_type::size_type						size_type;
 
-
 	private :
 
-		typedef	RB_tree<Key, T, Compare, allocator_type, iterator>			_RB_tree_base;
+		typedef	RB_tree<_node_type, Compare, allocator_type, iterator>	_RB_tree_base;
 
 		_RB_tree_base													_tree;
 
@@ -124,7 +126,7 @@ class map
 
 		mapped_type& operator[] (const key_type& k)
 		{
-			return _tree.insert(value_type(k, mapped_type())).first->second;
+			return _tree.insert(value_type(k, mapped_type()), k).first->second;
 		}
 
 	/*
@@ -140,15 +142,15 @@ class map
 		// single element (1)	
 		pair<iterator,bool> insert (const value_type& val)
 		{
-			return _tree.insert(val);
+			return _tree.insert(val, val.first);
 		}
 
 		// with hint (2)	
 		iterator insert (iterator position, const value_type& val)
 		{
 			if (_faster_from_root(val.first, position))
-				return _tree.insert(val).first;
-			return _tree.insert(position, val).first; // insert key = root key
+				return _tree.insert(val, val.first).first;
+			return _tree.insert(position, val, val.first).first; // insert key = root key
 		}
 	
 		// range (3)	

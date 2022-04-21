@@ -6,7 +6,7 @@
 /*   By: llecoq <llecoq@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/18 13:37:15 by llecoq            #+#    #+#             */
-/*   Updated: 2022/04/12 13:28:42 by llecoq           ###   ########.fr       */
+/*   Updated: 2022/04/21 15:18:23 by llecoq           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@
 namespace ft
 {
 
-template < class Pair >
+template < class Pair, class Node >
 class bidirectional_iterator 
 	: virtual public iterator_traits < iterator< bidirectional_iterator_tag, Pair > >
 {
@@ -35,8 +35,8 @@ class bidirectional_iterator
 
 	private :
 		
-		typedef	t_node< Pair >											_node;
-		typedef	iterator< bidirectional_iterator_tag, _node > 			_node_iterator;
+		typedef	Node													_node_type;
+		typedef	iterator< bidirectional_iterator_tag, _node_type > 		_node_iterator;
 		typedef typename iterator_traits<_node_iterator>::pointer		_node_pointer;
 
 	public :
@@ -59,10 +59,10 @@ class bidirectional_iterator
 			_base(node_ptr)
 		{}
 
-		template <typename Iter>
-		bidirectional_iterator(const bidirectional_iterator<Iter> &src)
+		template <typename T, typename U>
+		bidirectional_iterator(const bidirectional_iterator<T, U> &src)
 		:
-			_base(reinterpret_cast<typename bidirectional_iterator<const Iter>::_node_pointer >(src._base))
+			_base(reinterpret_cast<typename bidirectional_iterator<const T, U>::_node_pointer >(src._base))
 		{}
 
 		~bidirectional_iterator()

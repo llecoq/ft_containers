@@ -6,30 +6,35 @@
 /*   By: llecoq <llecoq@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/06 15:34:54 by llecoq            #+#    #+#             */
-/*   Updated: 2022/04/20 12:08:01 by llecoq           ###   ########.fr       */
+/*   Updated: 2022/04/21 15:17:01 by llecoq           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 namespace	ft
 {
 
-enum	e_node_colors
+enum	e_colors
 {
 	RED,
 	BLACK
 };
 
-template <class Pair>
-struct t_node
-{	
-	bool	color;
-	Pair	*value;
+template <class Pair, class T>
+struct t_node_map
+{
+	typedef	T				key_type;
+	typedef Pair			value_type;
+	typedef Pair*			value_pointer;
+	typedef t_node_map*		node_pointer;
 
-	t_node	*parent;
-	t_node	*left;
-	t_node	*right;
+	bool					color;
+	value_pointer			value;
+		
+	node_pointer			parent;
+	node_pointer			left;
+	node_pointer			right;
 
-	explicit t_node()
+	explicit t_node_map()
 	:
 		color(RED),
 		value(NULL),
@@ -38,7 +43,12 @@ struct t_node
 		right(NULL)
 	{}
 
-	~t_node(){}
+	key_type	get_key( void )
+	{
+		return value->first;
+	}
+
+	~t_node_map(){}
 };
 
 template <typename NodePtr>
