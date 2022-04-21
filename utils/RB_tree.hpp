@@ -6,7 +6,7 @@
 /*   By: llecoq <llecoq@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/18 09:23:58 by llecoq            #+#    #+#             */
-/*   Updated: 2022/04/21 15:46:02 by llecoq           ###   ########.fr       */
+/*   Updated: 2022/04/21 19:14:32 by llecoq           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -157,6 +157,8 @@ class RB_tree
 			node_pointer		current_position = _iterator_to_pointer(position);
 			node_pointer		parent = current_position->parent;
 
+			if (position == _root_node)
+				return _insert_node(val, key, _root_node);
 			if (_position_is_after_insert(current_position, key))
 				return _check_before_position(parent, val, key);
 			else if (_position_is_before_insert(current_position, key))
@@ -680,8 +682,8 @@ class RB_tree
 			{
 				if (bound == LOWER)
 					return current_node;
-				else if (current_node->right != NULL)
-					return _find_successor(current_node);
+				else
+					return ++iterator(current_node);
 			}
 			else if (key_compare()(k, current_node->get_key())) // key plus petite
 			{

@@ -6,7 +6,7 @@
 /*   By: llecoq <llecoq@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/17 16:42:25 by llecoq            #+#    #+#             */
-/*   Updated: 2022/04/21 16:03:22 by llecoq           ###   ########.fr       */
+/*   Updated: 2022/04/21 19:06:52 by llecoq           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -386,7 +386,6 @@ int	tester_map_ft()
 			std::cout << it->first << " => " << it->second << std::endl;
 
 			
-			// mymap.print_tree();
 			itlow = mymap.lower_bound(0);
 			std::cout << itlow->first << std::endl;
 			itup = mymap.upper_bound(13);

@@ -6,7 +6,7 @@
 /*   By: llecoq <llecoq@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/21 10:44:21 by llecoq            #+#    #+#             */
-/*   Updated: 2022/04/21 16:23:16 by llecoq           ###   ########.fr       */
+/*   Updated: 2022/04/21 18:29:31 by llecoq           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -145,8 +145,7 @@ class set
 		{
 			_tree.erase(position);
 		}
-
-			
+	
 		size_type erase (const value_type& k)
 		{
 			iterator		position = find(k);
@@ -158,6 +157,17 @@ class set
 			}
 			else
 				return 0;
+		}
+		
+		void erase (iterator first, iterator last)
+		{
+			if (empty())
+				return ;
+			if (first == begin() && last == end())
+				clear();
+			else
+				while (first != last)
+					erase(first++);
 		}
 
 		void swap (set& x)
@@ -251,7 +261,7 @@ class set
 				return true;
 			if (position == end())
 				position--;
-			return size() < 2 || _position_is_opposite_way(insert_key, position->first);
+			return size() < 2 || _position_is_opposite_way(insert_key, *position);
 		}
 
 		bool	_position_is_opposite_way(key_type insert_key, key_type position_key)
@@ -280,6 +290,54 @@ class set
 		}
 
 };
+
+/*
+** -------------------------------------------------------- RELATIONAL OPERATORS
+*/
+template <class T, class Compare, class Alloc>
+bool operator== ( const set<T,Compare,Alloc>& lhs,
+				const set<T,Compare,Alloc>& rhs )
+{
+	if (lhs.size() == rhs.size())
+		return (ft::equal(lhs.begin(), lhs.end(), rhs.begin()));
+	return false;
+}
+
+
+template <class T, class Compare, class Alloc>
+bool operator!= ( const set<T,Compare,Alloc>& lhs,
+				const set<T,Compare,Alloc>& rhs )
+{
+	return !(lhs == rhs);
+}
+
+template <class T, class Compare, class Alloc>
+bool operator<  ( const set<T,Compare,Alloc>& lhs,
+				const set<T,Compare,Alloc>& rhs )
+{
+	return (ft::lexicographical_compare(lhs.begin(), lhs.end(), rhs.begin(), rhs.end()));
+}				
+
+template <class T, class Compare, class Alloc>
+bool operator<= ( const set<T,Compare,Alloc>& lhs,
+				const set<T,Compare,Alloc>& rhs )
+{
+	return !(rhs < lhs);
+}
+
+template <class T, class Compare, class Alloc>
+bool operator>  ( const set<T,Compare,Alloc>& lhs,
+				const set<T,Compare,Alloc>& rhs )
+{
+	return rhs < lhs;
+}						
+
+template <class T, class Compare, class Alloc>
+bool operator>= ( const set<T,Compare,Alloc>& lhs,
+				const set<T,Compare,Alloc>& rhs )
+{
+	return !(lhs < rhs);
+}
 
 
 }	// namespace ft

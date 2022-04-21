@@ -1,164 +1,133 @@
 -------------- CONSTRUCTOR ---------------
-empty size = 0
-map begin = 5
-map2 begin = 5
-map size = 4
-map2 size = 4
-vect size = 4
-copy begin = 5
-copy size = 4
-copy constructor OK
-
 -------------- COPY ASSIGNMENT ---------------
-map is not yet assigned to copy
-copy assignment : copy = map
-copy assignment successful
-copy assignment : copy = empty
-------------DATA-----------
-name = map
-size = 0
-------------MAP------------
----------------------------
-copy assignment : empty  = copy
-copy assignment successful
-
+Size of first: 0
+Size of second: 5
 -------------- ITERATORS ---------------
-increment
-3
-4
-5
-11
-decrement
-11
-5
-4
-3
-reverse increment
-11
-5
-4
-3
-2
-reverse decrement
-2
-3
-4
-5
-5
-
+myset contains: 13 23 42 65 75
+myset contains: 78 64 49 21 17
 -------------- CAPACITY ---------------
-
--------------- ELEMENT ACCESS ---------------
-size = 5
-2
-size = 6
-0
-6
-size = 7
-
+myset contains: 10 20 30
+-------------- SIZE ---------------
+0. size: 0
+1. size: 10
+2. size: 11
+3. size: 10
+-------------- MAX SIZE ---------------
+The set contains 1000 elements.
 -------------- MODIFIERS ---------------
 -------------- INSERT / ERASE -------------
-element 26 already existed with a value of 200
-size = 2
-size = 3
-it->second 4 = 400
-it->second 27 = 700
-it->second 1 = 30
-find 4 = 400
-find 3 = 300
-find 2 = 900
-find 27 = 700
-find 90 = 30
-size = 9
-size = 6
-erase
-erase
-size = 0
-erase
-size = 0
-
+*it = 20
+myset contains: 5 10 15 20 24 25 26 30 40 50
+myset contains: 10 30 50
 -------------- CLEAR -------------
 ------------DATA-----------
-name = map
-size = 5
-------------MAP------------
+name = set
+size = 12
+------------SET------------
+1
 2
 3
 4
 5
+6
+7
+8
+9
+10
 11
+12
 ---------------------------
 ------------DATA-----------
-name = map
+name = set
 size = 0
-------------MAP------------
+------------SET------------
 ---------------------------
 
 -------------- SWAP -------------
 foo contains:
-a => 11
-b => 22
-c => 33
+1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
 bar contains:
-x => 100
-y => 200
+0
+1
+2
+3
+4
+5
+6
+7
+8
+9
 swap friend
 foo contains:
-x => 100
-y => 200
+0
+1
+2
+3
+4
+5
+6
+7
+8
+9
 bar contains:
-a => 11
-b => 22
-c => 33
+1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
 -------------- OBSERVERS ---------------
-mymap contains:
-a => 100
-b => 200
-c => 300
-mymap contains:
-x => 1001
-y => 2002
-z => 3003
+myset contains: 0 1 2 3 4
+myset contains:
+1001
+2002
+3003
 
 -------------- OPERATIONS ---------------
-elements in mymap:
-a => 50
-c => 150
-d => 200
-a is an element of mymap.
-b is not an element of mymap.
-c is an element of mymap.
-d is not an element of mymap.
-e is not an element of mymap.
-f is an element of mymap.
-g is not an element of mymap.
+myset contains: 10 30 50
+0 is not an element of myset.
+1 is not an element of myset.
+2 is not an element of myset.
+3 is an element of myset.
+4 is not an element of myset.
+5 is not an element of myset.
+6 is an element of myset.
+7 is not an element of myset.
+8 is not an element of myset.
+9 is an element of myset.
 lower and upper bounds
 5
-1 => 20
-5 => 100
-11 => 11
+1
+5
+6
+7
+8
+9
+10
+11
+12
 1
 OK
-11
+6
 5
 5
 5
 5
 5
-equal range
-lower bound points to: b => 20
-upper bound points to: c => 30
-
--------------- ALLOCATOR ---------------
-The allocated array has a size of 40 bytes.
-
--------------- RELATIONAL OPERATORS ---------------
-foo and bar are not equal
-foo is greater than bar
-foo is greater than or equal to bar
-foo and zob are not equal
-foo is greater than zob
-foo is greater than or equal to zob
-bah and zob are not equal
-bah is greater than zob
-bah is greater than or equal to zob
