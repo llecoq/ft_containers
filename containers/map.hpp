@@ -6,7 +6,7 @@
 /*   By: llecoq <llecoq@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/17 10:54:16 by llecoq            #+#    #+#             */
-/*   Updated: 2022/04/21 15:32:51 by llecoq           ###   ########.fr       */
+/*   Updated: 2022/04/21 15:59:51 by llecoq           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,8 +36,7 @@ class map
 		typedef Key														key_type;
 		typedef T														mapped_type;
 		typedef Compare													key_compare;
-		typedef Alloc													allocator_type;
-				
+		typedef Alloc													allocator_type;			
 		typedef ft::pair<const key_type, mapped_type>					value_type;
 		typedef typename allocator_type::reference						reference;
 		typedef typename allocator_type::const_reference				const_reference;

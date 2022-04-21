@@ -6,7 +6,7 @@
 /*   By: llecoq <llecoq@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/07 15:08:10 by llecoq            #+#    #+#             */
-/*   Updated: 2022/04/20 08:43:20 by llecoq           ###   ########.fr       */
+/*   Updated: 2022/04/21 15:45:30 by llecoq           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -146,70 +146,6 @@ namespace ft
 		node_pointer											_end_node;
 		size_type												_size;
 	};
-
-	// --------------------------------------------- print tree
-	struct Trunk
-	{
-		Trunk *prev;
-		std::string str;
-	
-		Trunk(Trunk *prev, std::string str)
-		{
-			this->prev = prev;
-			this->str = str;
-		}
-	};
-	
-	// Helper function to print branches of the binary tree
-	template < typename Node >
-	void showTrunks(Trunk *p)
-	{
-		if (p == NULL) {
-			return;
-		}
-	
-		showTrunks<Node>(p->prev);
-		std::cout << p->str;
-	}
-	
-	template < typename Node >
-	void printTree(Node* root, Trunk *prev, bool isLeft, Node* end)
-	{
-		if (root == NULL || root == end) {
-			return;
-		}
-	
-		std::string prev_str = "    ";
-		Trunk *trunk = new Trunk(prev, prev_str);
-	
-		printTree(root->right, trunk, true, end);
-	
-		if (!prev) {
-			trunk->str = "———";
-		}
-		else if (isLeft)
-		{
-			trunk->str = ".———";
-			prev_str = "   |";
-		}
-		else {
-			trunk->str = "`———";
-			prev->str = prev_str;
-		}
-	
-		showTrunks<Node>(trunk);
-		if (root->color == 0)
-			std::cout << " " << RED_COLOR << root->value->first << RESET << std::endl;
-		else
-			std::cout << " " << root->value->first << std::endl;
-		if (prev) {
-			prev->str = prev_str;
-		}
-		trunk->str = "   |";
-	
-		printTree(root->left, trunk, false, end);
-		delete	trunk;
-	}
 
 }
 

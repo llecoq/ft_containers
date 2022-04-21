@@ -6,7 +6,7 @@
 /*   By: llecoq <llecoq@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/18 09:23:58 by llecoq            #+#    #+#             */
-/*   Updated: 2022/04/21 15:35:49 by llecoq           ###   ########.fr       */
+/*   Updated: 2022/04/21 15:46:02 by llecoq           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,12 +45,10 @@ class RB_tree
 
 	private:
 
-		node_pointer											_root_node;
-		node_pointer											_begin_node;
-		node_pointer											_end_node;
-		size_type												_size;
-
-		friend void	printTree<node_type>(node_type* root, Trunk *prev, bool isLeft, node_type* end);
+		node_pointer												_root_node;
+		node_pointer												_begin_node;
+		node_pointer												_end_node;
+		size_type													_size;
 
 	public :
 	
@@ -223,7 +221,7 @@ class RB_tree
 
 		void	print_tree()
 		{
-			printTree(_root_node, NULL, false, end());
+			_print_tree(_root_node, NULL, false, end());
 		}
 
 	private :
@@ -806,6 +804,68 @@ class RB_tree
 				_delete_node(current_node);
 			}
 		}
+	// --------------------------------------------- print tree
+	struct Trunk
+	{
+		Trunk 		*prev;
+		std::string str;
+	
+		Trunk(Trunk *prev, std::string str)
+		{
+			this->prev = prev;
+			this->str = str;
+		}
+	};
+	
+	// Helper function to print branches of the binary tree
+	void _show_trunks(Trunk *p)
+	{
+		if (p == NULL) {
+			return;
+		}
+	
+		_show_trunks(p->prev);
+		std::cout << p->str;
+	}
+	
+	void _print_tree(node_pointer root, Trunk *prev, bool is_left, node_pointer end)
+	{
+		if (root == NULL || root == end) {
+			return;
+		}
+	
+		std::string prev_str = "    ";
+		Trunk *trunk = new Trunk(prev, prev_str);
+	
+		_print_tree(root->right, trunk, true, end);
+	
+		if (!prev) {
+			trunk->str = "———";
+		}
+		else if (is_left)
+		{
+			trunk->str = ".———";
+			prev_str = "   |";
+		}
+		else {
+			trunk->str = "`———";
+			prev->str = prev_str;
+		}
+	
+		_show_trunks(trunk);
+		if (root->color == 0)
+			std::cout << " " << RED_COLOR << root->get_key() << RESET << std::endl;
+		else
+			std::cout << " " << root->get_key() << std::endl;
+		if (prev) {
+			prev->str = prev_str;
+		}
+		trunk->str = "   |";
+	
+		_print_tree(root->left, trunk, false, end);
+		delete	trunk;
+	}
+
 };
 
 }	// namespace ft

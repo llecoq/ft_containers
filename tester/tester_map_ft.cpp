@@ -6,7 +6,7 @@
 /*   By: llecoq <llecoq@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/17 16:42:25 by llecoq            #+#    #+#             */
-/*   Updated: 2022/04/15 14:49:55 by llecoq           ###   ########.fr       */
+/*   Updated: 2022/04/21 16:03:22 by llecoq           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -156,10 +156,10 @@ int	tester_map_ft()
 		//-------------------------- INSERT / ERASE
 		{
 			std::cout << "-------------- INSERT / ERASE -------------" << std::endl;
-			ft::map<int, TestClass> map;
+			ft::map<int, int> map;
 
-			map.insert(ft::pair<int, TestClass>(1, 1));
-			ut::fillMap<ft::map<int, TestClass>,ft::pair<int, TestClass> > (map, 20, RANDOM);
+			map.insert(ft::pair<int, int>(1, 1));
+			ut::fillMap<ft::map<int, int>,ft::pair<int, int> > (map, 20, RANDOM);
 			ft_map mymap;
 			
 			// first insert function version (single parameter):
@@ -239,7 +239,7 @@ int	tester_map_ft()
 		//-------------------------- SWAP
 		{
 			std::cout << "-------------- SWAP -------------" << std::endl;
-			ft::map<char, TestClass> foo,bar;
+			ft::map<char, int> foo,bar;
 
 			foo['x']=100;
 			foo['y']=200;
@@ -251,11 +251,11 @@ int	tester_map_ft()
 			foo.swap(bar);
 			
 			std::cout << "foo contains:" << std::endl;
-			for (ft::map<char, TestClass>::iterator it = foo.begin(); it != foo.end(); ++it)
+			for (ft::map<char, int>::iterator it = foo.begin(); it != foo.end(); ++it)
 				std::cout << it->first << " => " << it->second << std::endl;
 			
 			std::cout << "bar contains:" << std::endl;
-			for (ft::map<char, TestClass>::iterator it = bar.begin(); it != bar.end(); ++it)
+			for (ft::map<char, int>::iterator it = bar.begin(); it != bar.end(); ++it)
 				std::cout << it->first << " => " << it->second << std::endl;
 			
 			std::cout << "swap friend" << std::endl;
@@ -263,11 +263,11 @@ int	tester_map_ft()
 			swap(foo, bar);
 
 			std::cout << "foo contains:" << std::endl;
-			for (ft::map<char, TestClass>::iterator it = foo.begin(); it != foo.end(); ++it)
+			for (ft::map<char, int>::iterator it = foo.begin(); it != foo.end(); ++it)
 				std::cout << it->first << " => " << it->second << std::endl;
 			
 			std::cout << "bar contains:" << std::endl;
-			for (ft::map<char, TestClass>::iterator it = bar.begin(); it != bar.end(); ++it)
+			for (ft::map<char, int>::iterator it = bar.begin(); it != bar.end(); ++it)
 			std::cout << it->first << " => " << it->second << std::endl;
 		} // SWAP
 	}

@@ -6,7 +6,7 @@
 /*   By: llecoq <llecoq@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/06 15:34:54 by llecoq            #+#    #+#             */
-/*   Updated: 2022/04/21 15:17:01 by llecoq           ###   ########.fr       */
+/*   Updated: 2022/04/21 15:48:10 by llecoq           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,6 +49,38 @@ struct t_node_map
 	}
 
 	~t_node_map(){}
+};
+
+template <class T, class U = T>
+struct t_node_set
+{
+	typedef	U				key_type;
+	typedef T				value_type;
+	typedef T*				value_pointer;
+	typedef t_node_set*		node_pointer;
+
+	bool					color;
+	value_pointer			value;
+		
+	node_pointer			parent;
+	node_pointer			left;
+	node_pointer			right;
+
+	explicit t_node_set()
+	:
+		color(RED),
+		value(NULL),
+		parent(NULL),
+		left(NULL),
+		right(NULL)
+	{}
+
+	key_type	get_key( void )
+	{
+		return *value;
+	}
+
+	~t_node_set(){}
 };
 
 template <typename NodePtr>
