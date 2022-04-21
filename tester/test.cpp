@@ -6,7 +6,7 @@
 /*   By: llecoq <llecoq@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/12 15:15:20 by llecoq            #+#    #+#             */
-/*   Updated: 2022/04/20 17:07:36 by llecoq           ###   ########.fr       */
+/*   Updated: 2022/04/21 14:45:51 by llecoq           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ int	test()
 			mymap.insert ( ft_pair(6, 100) );
 			mymap.insert ( ft_pair(26, 200) );
 			
-			ut::fillMap<ft_map, ft_pair>(mymap, 30, QUEUE);
+			ut::fillMap<ft_map, ft_pair>(mymap, 250, QUEUE);
 
 			ft::pair<ft_map::iterator,bool> ret;
 			ret = mymap.insert ( ft_pair(26, 500) );

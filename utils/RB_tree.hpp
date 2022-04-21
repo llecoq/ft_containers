@@ -6,7 +6,7 @@
 /*   By: llecoq <llecoq@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/18 09:23:58 by llecoq            #+#    #+#             */
-/*   Updated: 2022/04/20 19:45:32 by llecoq           ###   ########.fr       */
+/*   Updated: 2022/04/21 14:51:29 by llecoq           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -621,7 +621,9 @@ class RB_tree
 				_balance_after_insert(node_in_violation, current_node);
 				if (violation_type == PARENT_AND_SIBLING_ARE_BLACK)
 				{
-					if (node_in_violation->color == RED)
+					if (node_in_violation == _root_node)
+						return (node_in_violation);
+					else if (node_in_violation->color == RED)
 						node_in_violation->color = BLACK;
 					else
 						node_in_violation->parent->color = BLACK;
