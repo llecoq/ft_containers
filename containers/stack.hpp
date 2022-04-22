@@ -6,7 +6,7 @@
 /*   By: llecoq <llecoq@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/16 15:10:48 by llecoq            #+#    #+#             */
-/*   Updated: 2022/04/22 17:27:06 by llecoq           ###   ########.fr       */
+/*   Updated: 2022/04/22 17:30:07 by llecoq           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ namespace ft
 /*
 ** ----------------------------------------------------------------------- STACK
 */
-template <class T, class Container = std::deque<T> >
+template <class T, class Container = ft::vector<T> >
 class stack
 {
 	public :
