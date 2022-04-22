@@ -6,17 +6,17 @@
 /*   By: llecoq <llecoq@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/16 15:57:56 by llecoq            #+#    #+#             */
-/*   Updated: 2022/04/15 16:12:17 by llecoq           ###   ########.fr       */
+/*   Updated: 2022/04/22 17:27:27 by llecoq           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef VECTOR_HPP
 #define VECTOR_HPP
 
-#include "../iterators/random_access_iterator.hpp"
-#include "../iterators/reverse_iterator.hpp"
-#include "../utils/utils.hpp"
-#include "../utils/metafunctions.hpp"
+#include "random_access_iterator.hpp"
+#include "reverse_iterator.hpp"
+#include "utils.hpp"
+#include "metafunctions.hpp"
 
 #include <memory>
 #include <stdexcept>
@@ -47,7 +47,6 @@ class vector
 		typedef ft::reverse_iterator<iterator>						reverse_iterator;
 		typedef ft::reverse_iterator<const_iterator>				const_reverse_iterator;
 		typedef typename iterator_traits<iterator>::difference_type	difference_type;
-		// A FAIRE ?
 		typedef size_t												size_type;
 		
 	private :

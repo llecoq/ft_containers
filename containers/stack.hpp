@@ -6,7 +6,7 @@
 /*   By: llecoq <llecoq@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/16 15:10:48 by llecoq            #+#    #+#             */
-/*   Updated: 2022/03/16 16:18:01 by llecoq           ###   ########.fr       */
+/*   Updated: 2022/04/22 17:27:06 by llecoq           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,7 +67,7 @@ class stack
 		friend bool operator>= (const stack<T,Container>& lhs, const stack<T,Container>& rhs)
 		{return lhs._ctnr >= rhs._ctnr;}
 	
-	private :
+	protected :
 
 		container_type		_ctnr;
 
