@@ -1,9 +1,13 @@
 echo "*--------------------------------------------------------*"
 echo "			  STACK"
 echo "stack std execution time :"
-/usr/bin/time ./ft_containers std stack > tester/tester_results/stack_std.test
+make clean
+make DFLAGS=-Dstd_lib=1
+/usr/bin/time ./ft_containers stack > tester/tester_results/stack_std.test
 echo "stack ft execution time :"
-/usr/bin/time ./ft_containers ft stack > tester/tester_results/stack_ft.test
+make clean
+make DFLAGS=-Dstd_lib=0
+/usr/bin/time ./ft_containers stack > tester/tester_results/stack_ft.test
 echo "diff :"
 diff tester/tester_results/stack_ft.test tester/tester_results/stack_std.test
 echo "		        STACK DONE"

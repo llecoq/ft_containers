@@ -6,7 +6,7 @@
 /*   By: llecoq <llecoq@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/21 10:44:21 by llecoq            #+#    #+#             */
-/*   Updated: 2022/04/22 12:05:58 by llecoq           ###   ########.fr       */
+/*   Updated: 2022/04/22 12:11:10 by llecoq           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -144,7 +144,6 @@ class set
 		void erase (iterator position)
 		{
 			_tree.erase(position);
-			print_tree();
 		}
 	
 		size_type erase (const value_type& k)

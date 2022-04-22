@@ -1,1 +1,1 @@
-make re DFLAGS=-Dstd_lib=0 && ./ft_containers
+make DFLAGS=-Dstd_lib=0 && ./ft_containers

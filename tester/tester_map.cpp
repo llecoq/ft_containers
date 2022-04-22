@@ -1,19 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   tester_map_ft.cpp                                  :+:      :+:    :+:   */
+/*   tester_map.cpp                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: llecoq <llecoq@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/17 16:42:25 by llecoq            #+#    #+#             */
-/*   Updated: 2022/04/22 11:58:52 by llecoq           ###   ########.fr       */
+/*   Updated: 2022/04/22 13:45:47 by llecoq           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "tester.hpp"
 
-int	tester_map_ft()
+int	tester_map()
 {
+		/*---------------------------- SPEED TEST ----------------------------*/
+	{
+		ft_map	IamSpeed;
+
+		ut::fillMap<ft_map, ft_pair>(IamSpeed, 100000, QUEUE);
+	}
 	/*------------------------------ CONSTRUCTOR ----------------------------*/
 	{	
 		std::cout << "-------------- CONSTRUCTOR ---------------" << std::endl;
@@ -119,8 +125,44 @@ int	tester_map_ft()
 
 	/*------------------------------ CAPACITY ----------------------------*/
 	{
-		std::cout << "-------------- CAPACITY ---------------" << std::endl;
-	
+		{
+			std::cout << "-------------- CAPACITY ---------------" << std::endl;
+			std::cout << "empty" << std::endl;
+			ft_map	mymap;
+
+			mymap['a']=10;
+			mymap['b']=20;
+			mymap['c']=30;
+
+			while (!mymap.empty())
+			{
+				std::cout << mymap.begin()->first << " => " << mymap.begin()->second << std::endl;
+				mymap.erase(mymap.begin());
+			}
+		}
+		{
+			std::cout << "size" << std::endl;
+		
+			ft_map	mymap;
+		
+			mymap['a']=101;
+			mymap['b']=202;
+			mymap['c']=302;
+			std::cout << "mymap.size() is " << mymap.size() << std::endl;
+		}
+		{
+			int		i;
+			ft_map	mymap;
+
+			if (mymap.max_size()>1000)
+			{
+				for (i=0; i<1000; i++) mymap[i]=0;
+				std::cout << "The map contains 1000 elements." << std::endl;
+			}
+			else std::cout << "The map could not hold 1000 elements." << std::endl;
+		}
+
+
 		std::cout << std::endl;
 	}
 

@@ -6,13 +6,13 @@
 /*   By: llecoq <llecoq@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/21 17:22:18 by llecoq            #+#    #+#             */
-/*   Updated: 2022/04/22 09:13:31 by llecoq           ###   ########.fr       */
+/*   Updated: 2022/04/22 12:18:23 by llecoq           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "tester.hpp"
 
-int	tester_set_ft()
+int	tester_set()
 {
 	/*------------------------------ CONSTRUCTOR ----------------------------*/
 	{	
@@ -303,11 +303,11 @@ int	tester_set_ft()
 			ft_set myset;
 			ft_set::iterator itlow,itup;
 
-			// myset.insert(1);
-			// myset.insert(2);
-			// myset.insert(3);
-			// myset.insert(4);
-			// myset.insert(5);
+			myset.insert(1);
+			myset.insert(2);
+			myset.insert(3);
+			myset.insert(4);
+			myset.insert(5);
 			
 			ut::fillSet<ft_set>(myset, 10, RANDOMIZED_QUEUE);
 
@@ -322,7 +322,6 @@ int	tester_set_ft()
 			std::cout << *it << std::endl;
 
 			
-			// myset.print_tree();
 			itlow = myset.lower_bound(0);
 			std::cout << *itlow << std::endl;
 			itup = myset.upper_bound(13);
@@ -330,7 +329,6 @@ int	tester_set_ft()
 				std::cout << "OK" << std::endl;
 			else
 				std::cout << "KO" << std::endl;
-			// myset.print_tree();
 			std::cout << *myset.upper_bound(5) << std::endl;
 			std::cout << *myset.lower_bound(5) << std::endl;
 			std::cout << *myset.upper_bound(3) << std::endl;

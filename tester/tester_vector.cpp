@@ -1,39 +1,39 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   tester_vector_std.cpp                              :+:      :+:    :+:   */
+/*   tester_vector.cpp                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: llecoq <llecoq@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/27 14:26:55 by llecoq            #+#    #+#             */
-/*   Updated: 2022/04/01 14:23:02 by llecoq           ###   ########.fr       */
+/*   Updated: 2022/04/22 12:19:17 by llecoq           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../utils/tester.hpp"
 
-int	tester_vector_std(void)
+int	tester_vector(void)
 {
 	/*---------------------------- SPEED TEST ----------------------------*/
 	{
-		std::vector<int>	IamSpeed;
+		ft::vector<int>	IamSpeed;
 		ut::pushBackVec(IamSpeed, 50000000);
 	}
 	/*----------------------------- ITERATOR -----------------------------*/
 	{
 		std::cout << "-------------- ITERATOR ----------------" << std::endl;
-		std::vector<int>				vec(5, 10);
-		std::vector<int>::iterator	it = vec.begin();
-		std::vector<int>::iterator	itcopy(it);
-		std::vector<int>::iterator	ittmp = it;
+		ft::vector<int>				vec(5, 10);
+		ft::vector<int>::iterator	it = vec.begin();
+		ft::vector<int>::iterator	itcopy(it);
+		ft::vector<int>::iterator	ittmp = it;
 		if (it == itcopy)
 			std::cout << "it == itcopy" << std::endl;
 	
 		/*-------------------- MEMBER ACCESS */
 		std::cout << "------------ MEMBER ACCESS -------------" << std::endl;
-		std::vector<TestClass>				michel;
+		ft::vector<TestClass>				michel;
 		michel.push_back(TestClass());
-		std::vector<TestClass>::iterator	iterClass = michel.begin();
+		ft::vector<TestClass>::iterator	iterClass = michel.begin();
 		
 		// indirection to rvalue
 		std::cout << *it << std::endl;
@@ -55,16 +55,16 @@ int	tester_vector_std(void)
 			std::cout << "post incrementation OK" << std::endl;
 		else
 			std::cout << "post incrementation KO" << std::endl;
-		std::vector<int>::const_iterator	constit = vec.begin();
+		ft::vector<int>::const_iterator	constit = vec.begin();
 		constit = vec.begin();
 		std::cout << *constit << std::endl;
-		std::vector<int>::const_reverse_iterator	constrevit;
+		ft::vector<int>::const_reverse_iterator	constrevit;
 		constrevit = vec.rbegin();
 		std::cout << *constrevit << std::endl;
-		std::vector<int>::reverse_iterator		revit;
+		ft::vector<int>::reverse_iterator		revit;
 		revit = vec.rbegin();
 		std::cout << *revit << std::endl;
-		
+
 		/*------------------------ DECREMENT */
 		std::cout << "-------------- DECREMENT ---------------" << std::endl;
 		it = vec.end();
@@ -79,7 +79,7 @@ int	tester_vector_std(void)
 			std::cout << "post decrementation OK" << std::endl;
 		else
 			std::cout << "post decrementation KO" << std::endl;
-		std::vector<int>::iterator	ite = vec.end();
+		ft::vector<int>::iterator	ite = vec.end();
 		if (it != ite)
 			std::cout << "it != ite" << std::endl;
 		it = vec.begin();
@@ -143,9 +143,9 @@ int	tester_vector_std(void)
 		/*--------------------------- SIZE -------------------------------*/
 	{
 		std::cout << "----------------- SIZE -----------------" << std::endl;
-		std::vector<int>			vec(5, 10);
-		std::vector<int>			empty;
-		std::vector<TestClass>	testClass;
+		ft::vector<int>			vec(5, 10);
+		ft::vector<int>			empty;
+		ft::vector<TestClass>	testClass;
 
 		std::cout << vec.size() << std::endl;
 		std::cout << empty.size() << std::endl;
@@ -154,16 +154,16 @@ int	tester_vector_std(void)
 		/*------------------------- MAX_SIZE -----------------------------*/
 		std::cout << "--------------- MAX SIZE ----------------" << std::endl;
 	{
-		std::vector<int>			vec_int;
-		std::vector<char>		vec_char;
-		std::vector<TestClass>	testClass;
+		ft::vector<int>			vec_int;
+		ft::vector<char>		vec_char;
+		ft::vector<TestClass>	testClass;
 
 		std::cout << vec_int.max_size() << std::endl;
 		std::cout << vec_char.max_size() << std::endl;
 		std::cout << testClass.max_size() << std::endl;
 		try
 		{
-			std::vector<int>	vec(-1, 10);
+			ft::vector<int>	vec(-1, 10);
 		}
 		catch(const std::exception& e)
 		{
@@ -171,14 +171,14 @@ int	tester_vector_std(void)
 		}
 	}
 	{
-		std::vector<int>			vec_int;
-		std::vector<char>			vec_char;
-		std::vector<double>			vec_double;
-		std::vector<float>			vec_float;
-		std::vector<long>			vec_long;
-		std::vector<const char>		vec_const_char;
-		std::vector<const int>		vec_const_int;
-		std::vector<TestClass>		vec_class;
+		ft::vector<int>			vec_int;
+		ft::vector<char>			vec_char;
+		ft::vector<double>			vec_double;
+		ft::vector<float>			vec_float;
+		ft::vector<long>			vec_long;
+		ft::vector<const char>		vec_const_char;
+		ft::vector<const int>		vec_const_int;
+		ft::vector<TestClass>		vec_class;
 
 		std::cout << "vec_int max_size = " << vec_int.max_size() << std::endl;
 		std::cout << "vec_char max_size = " << vec_char.max_size() << std::endl;
@@ -192,10 +192,10 @@ int	tester_vector_std(void)
 		/*------------------------- ASSIGN -----------------------------*/
 		std::cout << "--------------- ASSIGN ----------------" << std::endl;
 	{
-		std::vector<TestClass> first;
-		std::vector<TestClass> second;
-		std::vector<TestClass> third;
-		// std::vector<TestClass> fourth;
+		ft::vector<TestClass> first;
+		ft::vector<TestClass> second;
+		ft::vector<TestClass> third;
+		// ft::vector<TestClass> fourth;
 
 		first.assign (7,100);             // 7 ints with a value of 100
 		ut::displayData(first);
@@ -205,7 +205,7 @@ int	tester_vector_std(void)
 		ut::displayData(first);
 		ut::displayVec(first);
 
-		std::vector<TestClass>::iterator it;
+		ft::vector<TestClass>::iterator it;
 		it=first.begin()+1;
 
 		second.assign (it,first.end()-1); // the 5 central values of first
@@ -245,7 +245,7 @@ int	tester_vector_std(void)
 		/*------------------------- CLEAR -----------------------------*/
 		std::cout << "--------------- CLEAR ----------------" << std::endl;
 	{
-		std::vector<TestClass> myvector;
+		ft::vector<TestClass> myvector;
 		myvector.clear();
 		ut::displayData(myvector);
 		
@@ -277,8 +277,8 @@ int	tester_vector_std(void)
 		/*-------------------- COPY ASSIGNMENT ------------------------*/
 		std::cout << "---------- COPY ASSIGNMENT -----------" << std::endl;
 	{
-		std::vector<TestClass>	vec(5, 100);
-		std::vector<TestClass>	vec_2;
+		ft::vector<TestClass>	vec(5, 100);
+		ft::vector<TestClass>	vec_2;
 	
 		ut::pushBackVec(vec_2);
 	
@@ -291,31 +291,31 @@ int	tester_vector_std(void)
 		ut::displayData(vec_2, "vec_2");
 		ut::displayVec(vec_2);
 	
-		std::vector<TestClass>	vec_3 = vec;
+		ft::vector<TestClass>	vec_3 = vec;
 		ut::displayData(vec_3, "vec_3");
 		ut::displayVec(vec_3);
 	}
 		/*-------------------- COPY CONSTRUCTOR ------------------------*/
 		std::cout << "---------- COPY CONSTRUCTOR -----------" << std::endl;
 	{	/* COPY CONSTRUCTOR */
-		std::vector<TestClass>		vec;
+		ft::vector<TestClass>		vec;
 	
 		ut::pushBackVec(vec, 5);
 		ut::displayData(vec);
 		ut::displayVec(vec);
 
-		std::vector<TestClass>		copy(vec);
+		ft::vector<TestClass>		copy(vec);
 		ut::displayData(copy, "copy");
 		ut::displayVec(copy);
 
 		// /* RANGE */
-		std::vector<TestClass>	range(vec.begin() + 1, vec.end());
+		ft::vector<TestClass>	range(vec.begin() + 1, vec.end());
 		ut::displayData(range, "range");
 		ut::displayVec(range);
 	}
 	{	/* OPERATOR= */
-		std::vector<TestClass>		vec;
-		std::vector<TestClass>		copy;
+		ft::vector<TestClass>		vec;
+		ft::vector<TestClass>		copy;
 	
 		ut::pushBackVec(vec, 5);
 		for (int i = 10; i > 0; i--)
@@ -332,9 +332,9 @@ int	tester_vector_std(void)
 		/*--------------------- ELEMENT ACCESS -------------------------*/
 		std::cout << "----------- ELEMENT ACCESS ------------" << std::endl;
 	{	// OPERATOR[]
-		std::vector<int> myvector (10);   // 10 zero-initialized elements
+		ft::vector<int> myvector (10);   // 10 zero-initialized elements
 
-		std::vector<int>::size_type sz = myvector.size();
+		ft::vector<int>::size_type sz = myvector.size();
 
 		// assign some values:
 		for (unsigned i=0; i<sz; i++) myvector[i]=i;
@@ -354,7 +354,7 @@ int	tester_vector_std(void)
 		std::cout << '\n';
 	}
 	{	// AT
-		std::vector<int> myvector (10);   // 10 zero-initialized ints
+		ft::vector<int> myvector (10);   // 10 zero-initialized ints
 		
 		// assign some values:
 		for (unsigned i=0; i<myvector.size(); i++)
@@ -374,7 +374,7 @@ int	tester_vector_std(void)
 		}
 	}
 	{	// FRONT
-		std::vector<int> myvector;
+		ft::vector<int> myvector;
 		
 		// std::cout << myvector.back() << std::endl; // undefined when called on empty vector
 		myvector.push_back(78);
@@ -387,7 +387,7 @@ int	tester_vector_std(void)
 		std::cout << "myvector.front() is now " << myvector.front() << '\n';
 	}
 	{	// BACK
-		std::vector<int> myvector;
+		ft::vector<int> myvector;
 		
 		myvector.push_back(10);
 		
@@ -404,7 +404,7 @@ int	tester_vector_std(void)
 		/*------------------------- ERASE -----------------------------*/
 		std::cout << "--------------- ERASE ----------------" << std::endl;
 	{
-		std::vector<TestClass> myvector;
+		ft::vector<TestClass> myvector;
 
 		// set some values (from 1 to 10)
 		ut::pushBackVec(myvector);
@@ -423,8 +423,8 @@ int	tester_vector_std(void)
 		/*------------------------- INSERT -----------------------------*/
 		std::cout << "--------------- INSERT ----------------" << std::endl;
 	{
-		std::vector<TestClass> myvector (3, TestClass(100));
-		std::vector<TestClass>::iterator it;
+		ft::vector<TestClass> myvector (3, TestClass(100));
+		ft::vector<TestClass>::iterator it;
 
 		ut::displayData(myvector);
 		std::cout << "resize 6" << std::endl;
@@ -457,7 +457,7 @@ int	tester_vector_std(void)
 		ut::displayVec(myvector);
 
 		it = myvector.begin();
-		std::vector<TestClass> anothervector (2, TestClass(400));
+		ft::vector<TestClass> anothervector (2, TestClass(400));
 			myvector.insert (it+2,anothervector.begin(),anothervector.end());
 
 		ut::displayData(myvector);
@@ -547,7 +547,7 @@ int	tester_vector_std(void)
 		/*------------------------- POP BACK ----------------------------*/
 		std::cout << "--------------- POP BACK ---------------" << std::endl;
 	{
-		std::vector<int>	vec;
+		ft::vector<int>	vec;
 		// vec.pop_back(); // std::vector non protege, segfault
 		vec.push_back(1);
 		vec.push_back(2);
@@ -556,7 +556,7 @@ int	tester_vector_std(void)
 		vec.pop_back();
 		dprintf(1, "pop back done\n");
 
-		std::vector<int> myvector;
+		ft::vector<int> myvector;
 		int sum (0);
 		myvector.push_back (100);
 		myvector.push_back (200);
@@ -573,9 +573,9 @@ int	tester_vector_std(void)
 		/*------------------------ PUSH BACK ----------------------------*/
 		std::cout << "-------------- PUSH BACK ---------------" << std::endl;
 	{
-		std::vector<TestClass>	ft;
-		std::vector<TestClass>::iterator	it = ft.begin();
-		std::vector<TestClass>::iterator	ite = ft.end();
+		ft::vector<TestClass>	ft;
+		ft::vector<TestClass>::iterator	it = ft.begin();
+		ft::vector<TestClass>::iterator	ite = ft.end();
 
 		ft.push_back(TestClass());
 		dprintf(1, "%zu -----------------------------------\n", ft.capacity());
@@ -641,8 +641,8 @@ int	tester_vector_std(void)
 		/*--------------------- RELATIONAL OPERATORS -------------------------*/
 		std::cout << "----------- RELATIONAL OPERATORS ------------" << std::endl;
 	{
-		std::vector<int> foo (3,100);   // three ints with a value of 100
-		std::vector<int> bar (2,200);   // two ints with a value of 200
+		ft::vector<int> foo (3,100);   // three ints with a value of 100
+		ft::vector<int> bar (2,200);   // two ints with a value of 200
 		
 		if (foo == bar) std::cout << "foo and bar are equal" << std::endl;
 		if (foo != bar) std::cout << "foo and bar are not equal" << std::endl;
@@ -651,8 +651,8 @@ int	tester_vector_std(void)
 		if (foo <= bar) std::cout << "foo is less than or equal to bar" << std::endl;
 		if (foo >= bar) std::cout << "foo is greater than or equal to bar" << std::endl;
 
-		std::vector<int>	vec;
-		std::vector<int>	vec_2;
+		ft::vector<int>	vec;
+		ft::vector<int>	vec_2;
 
 		ut::pushBackVec(vec);
 		ut::pushBackVec(vec_2);
@@ -673,24 +673,25 @@ int	tester_vector_std(void)
 		if (vec <= vec_2) std::cout << "vec is less than or equal to vec_2" << std::endl;
 		if (vec >= vec_2) std::cout << "vec is greater than or equal to vec_2" << std::endl;
 	
-		std::vector<std::string> string(2, "AH");
-		std::vector<std::string> string_2(2, "MAIS");
+		ft::vector<std::string> string(2, "AH");
+		ft::vector<std::string> string_2(2, "MAIS");
 		if (string == string_2) std::cout << "string and string_2 are equal" << std::endl;
 		if (string != string_2) std::cout << "string and string_2 are not equal" << std::endl;
 		if (string < string_2) std::cout << "string is less than string_2" << std::endl;
 		if (string > string_2) std::cout << "string is greater than string_2" << std::endl;
 		if (string <= string_2) std::cout << "string is less than or equal to string_2" << std::endl;
 		if (string >= string_2) std::cout << "string is greater than or equal to string_2" << std::endl;
+
 	}
 		/*----------------------------- RESERVE ------------------------------*/
 		std::cout << "------------------- RESERVE -----------------" << std::endl;
 	{
-		std::vector<int> foo;
+		ft::vector<int> foo;
 		std::cout << "making foo grow:\n";
 		ut::pushBackVec(foo, 100);
 		ut::displayDataVec(foo, "foo");
 
-		std::vector<TestClass> bar;
+		ft::vector<TestClass> bar;
 		ut::pushBackVec(bar, 3);
 		ut::displayDataVec(bar, "bar");
 		
@@ -714,7 +715,7 @@ int	tester_vector_std(void)
 		/*----------------------------- RESIZE ------------------------------*/
 		std::cout << "------------------- RESIZE -----------------" << std::endl;
 	{
-		std::vector<TestClass>		vec;
+		ft::vector<TestClass>		vec;
 
 		for (int i = 0; i < 3; i++)
 			vec.push_back(TestClass());
@@ -734,14 +735,14 @@ int	tester_vector_std(void)
 		/*------------------------- REVERSE ITERATOR -------------------------*/
 		std::cout << "--------------- REVERSE ITERATOR ------------" << std::endl;
 	{
-		std::vector<TestClass>					myvector;
+		ft::vector<TestClass>					myvector;
 		for (int i=0; i<10; i++) myvector.push_back(i);
 
 		ut::displayVec(myvector);
 
-		std::vector<TestClass>::reverse_iterator	rev_it = myvector.rbegin();
-		std::vector<TestClass>::reverse_iterator	rev_ite (myvector.rend());
-		std::vector<TestClass>::reverse_iterator	copy;
+		ft::vector<TestClass>::reverse_iterator	rev_it = myvector.rbegin();
+		ft::vector<TestClass>::reverse_iterator	rev_ite (myvector.rend());
+		ft::vector<TestClass>::reverse_iterator	copy;
 		copy = rev_it;
 		std::cout << "*rev_it = " << *rev_it;
 		std::cout << "*copy = " << *copy;
@@ -773,9 +774,9 @@ int	tester_vector_std(void)
 		/*------------------------------ SWAP ------------------------------*/
 		std::cout << "-------------------- SWAP -----------------" << std::endl;
 	{
-		std::vector<TestClass>	vec;
+		ft::vector<TestClass>	vec;
 		
-		std::vector<TestClass>	vec_2(5, 100);
+		ft::vector<TestClass>	vec_2(5, 100);
 
 		ut::pushBackVec(vec);
 		ut::displayData(vec, "vec");

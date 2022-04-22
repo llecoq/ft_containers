@@ -1,18 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   tester_stack_ft.cpp                                :+:      :+:    :+:   */
+/*   tester_stack.cpp                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: llecoq <llecoq@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/16 15:40:59 by llecoq            #+#    #+#             */
-/*   Updated: 2022/03/16 16:25:23 by llecoq           ###   ########.fr       */
+/*   Updated: 2022/04/22 12:19:23 by llecoq           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../utils/tester.hpp"
 
-int	tester_stack_ft()
+int	tester_stack()
 {
 	// ---------------------- constructors
 	ft::vector<TestClass> myvector (2,200);        // vector with 2 elements

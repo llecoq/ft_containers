@@ -6,7 +6,7 @@
 #    By: llecoq <llecoq@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/11/16 11:27:48 by llecoq            #+#    #+#              #
-#    Updated: 2022/04/22 09:20:34 by llecoq           ###   ########.fr        #
+#    Updated: 2022/04/22 13:51:45 by llecoq           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -39,7 +39,6 @@ TESTER_FILES =				tester_map_ft.cpp\
 							# tester_pair.cpp\
 							# tester_stack_ft.cpp\
 							# tester_stack_std.cpp\
-
 INCLUDES_PATH = 			containers/
 INCLUDES_UTILS_PATH = 		utils/
 INCLUDES_ITERATOR_PATH =	iterators/
@@ -85,10 +84,10 @@ $(TEST):	@
 
 clean:
 			$(RM) $(OBJSPATH) 
-			# tester/tester_results/*.test
 
 fclean:		clean
 			$(RM) $(NAME)
+			@ rm -rf tester/tester_results/*.test
 
 re:			fclean all
 
@@ -104,6 +103,12 @@ diff:		$(TEST)
 vector:		$(NAME)
 			@sh tester/scripts/test_vector.sh
 
+map:		$(NAME)
+			@sh tester/scripts/test_map.sh
+
+set:		$(NAME)
+			@sh tester/scripts/test_set.sh
+
 stack:		$(NAME)
 			@sh tester/scripts/test_stack.sh
 
@@ -111,8 +116,6 @@ pair:		$(NAME)
 			@sh tester/scripts/test_pair.sh
 
 full:		$(NAME)
-			@sh tester/scripts/test_vector.sh
-			@sh tester/scripts/test_stack.sh
-			@sh tester/scripts/test_pair.sh
+			@sh tester/scripts/test_full.sh
 
-.PHONY:		all clean fclean re stack vector pair full ft std
+.PHONY:		all clean fclean re stack vector pair full ft std set map

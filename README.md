@@ -1,6 +1,7 @@
 # ft_containers
 
-Usage : ./ft_containers [ft/std] <container>
-Example : ./ft_containers ft vector 		// test ft::vector
+Usage : ./ft_containers <container_type>
+Example : ./ft_containers vector 		// test ft::vector
 
-make vector : run ft::vector test, compare the output and speed execution with std::vector 
+make <container_type> : run ft::<container_type> test, compare the output and speed execution with std::<container_type> 
+make full : run all tests in once

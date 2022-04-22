@@ -6,13 +6,13 @@
 /*   By: llecoq <llecoq@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/16 13:59:45 by llecoq            #+#    #+#             */
-/*   Updated: 2022/03/16 16:24:51 by llecoq           ###   ########.fr       */
+/*   Updated: 2022/04/22 12:18:16 by llecoq           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../utils/tester.hpp"
 
-int	tester_pair_ft(void)
+int	tester_pair(void)
 {
 	ft::pair <std::string,double> product1;                     // default constructor
 	ft::pair <std::string,double> product2 ("tomatoes",2.30);   // value init

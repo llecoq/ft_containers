@@ -6,7 +6,7 @@
 /*   By: llecoq <llecoq@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/19 12:29:36 by llecoq            #+#    #+#             */
-/*   Updated: 2022/04/14 12:34:11 by llecoq           ###   ########.fr       */
+/*   Updated: 2022/04/22 12:52:27 by llecoq           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ namespace ft
 		second_type		second;
 
 	// ------------------------------------------------------------ constructors
-		pair(): first(0), second(0) {}
+		pair(): first(), second() {}
 		template<class U, class V>
 		pair (const pair<U,V>& pr) : first(pr.first), second(pr.second) {}
 		pair (const first_type& a, const second_type& b) : first(a), second(b) {}
