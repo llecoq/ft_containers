@@ -6,7 +6,7 @@
 /*   By: llecoq <llecoq@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/17 10:54:16 by llecoq            #+#    #+#             */
-/*   Updated: 2022/04/22 14:21:47 by llecoq           ###   ########.fr       */
+/*   Updated: 2022/04/22 18:54:06 by llecoq           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -315,11 +315,11 @@ class map
 	*/
 	// public :
 	
-		// void	print_tree()
-		// {
-		// 	_tree.print_tree();
-		// 	std::cout << std::endl;
-		// }
+	// 	void	print_tree()
+	// 	{
+	// 		_tree.print_tree();
+	// 		std::cout << std::endl;
+	// 	}
 
 };
 
