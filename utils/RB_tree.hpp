@@ -6,7 +6,7 @@
 /*   By: llecoq <llecoq@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/18 09:23:58 by llecoq            #+#    #+#             */
-/*   Updated: 2022/04/22 10:28:12 by llecoq           ###   ########.fr       */
+/*   Updated: 2022/04/22 11:12:38 by llecoq           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -573,8 +573,7 @@ class RB_tree
 				case NO_VIOLATION:
 					break;
 				case PARENT_IS_RED:
-					current_node->parent->color = BLACK;
-					sibling_node->color = RED;
+					_recolor_nodes(sibling_node, PARENT_IS_RED);
 					_fix_red_violation(sibling_node);
 					break;
 				case SIBLING_IS_RED:
@@ -582,9 +581,21 @@ class RB_tree
 					_fix_red_violation(sibling_node);
 					break;
 				case PARENT_AND_SIBLING_ARE_BLACK:
-					sibling_node->color = RED;
+					_recolor_nodes(sibling_node);
 					if (_fix_red_violation(sibling_node) == NULL)
 						_balance_before_erase(current_node->parent);
+			}
+			_root_node->color = BLACK;
+		}
+
+		void	_recolor_nodes(node_pointer sibling_node, int balance_case = 0)
+		{
+			switch (balance_case)
+			{
+				case PARENT_IS_RED:
+					sibling_node->parent->color = BLACK;
+				default:
+					sibling_node->color = RED;
 			}
 		}
 
@@ -614,23 +625,33 @@ class RB_tree
 
 		node_pointer	_fix_red_violation(node_pointer current_node)
 		{
-			node_pointer	node_in_violation = _check_children(current_node);
+			node_pointer	right_child_violation = _check_right_child(current_node);
+			node_pointer	left_child_violation = _check_left_child(current_node);
 
-			if (node_in_violation != NULL)
-			{
-				_balance_after_insert(node_in_violation, current_node);
-				return node_in_violation;
-			}
+			if (right_child_violation != NULL)
+				_balance_after_insert(right_child_violation, right_child_violation->parent);
+			if (left_child_violation != NULL)
+				_balance_after_insert(left_child_violation, left_child_violation->parent);
+			if (right_child_violation != NULL)
+				return right_child_violation;
+			else if (left_child_violation != NULL)
+				return left_child_violation;
 			else
 				return NULL;
 		}
 
-		node_pointer	_check_children(node_pointer current_node)
+		node_pointer	_check_right_child(node_pointer current_node)
+		{
+			if (current_node->right != NULL && current_node->right->color == RED)
+				return current_node->right;
+			else
+				return NULL;
+		}
+
+		node_pointer	_check_left_child(node_pointer current_node)
 		{
 			if (current_node->left != NULL && current_node->left->color == RED)
 				return current_node->left;
-			else if (current_node->right != NULL && current_node->right->color == RED)
-				return current_node->right;
 			else
 				return NULL;
 		}
