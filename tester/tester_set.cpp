@@ -6,7 +6,7 @@
 /*   By: llecoq <llecoq@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/21 17:22:18 by llecoq            #+#    #+#             */
-/*   Updated: 2022/04/21 20:17:33 by llecoq           ###   ########.fr       */
+/*   Updated: 2022/04/22 09:13:31 by llecoq           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -403,7 +403,7 @@ int	tester_set_ft()
 		if (foo<=zob) std::cout << "foo is less than or equal to zob" << std::endl;
 		if (foo>=zob) std::cout << "foo is greater than or equal to zob" << std::endl;
 	
-		ft_set::iterator	it = bah.begin();
+		// ft_set::iterator	it = bah.begin();
 		// *it = 7; 
 		if (bah==zob) std::cout << "bah and zob are equal" << std::endl;
 		if (bah!=zob) std::cout << "bah and zob are not equal" << std::endl;

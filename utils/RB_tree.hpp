@@ -6,7 +6,7 @@
 /*   By: llecoq <llecoq@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/18 09:23:58 by llecoq            #+#    #+#             */
-/*   Updated: 2022/04/21 20:53:11 by llecoq           ###   ########.fr       */
+/*   Updated: 2022/04/22 09:50:38 by llecoq           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -485,19 +485,11 @@ class RB_tree
 			node_to_erase->left = replacing_node_data.left;
 			node_to_erase->right = replacing_node_data.right;
 			if (replacing_node_data.parent != node_to_erase)
-			{
 				_assign_new_parent(node_to_erase, replacing_node_data.parent);
-				_assign_new_parent(node_to_erase->right, node_to_erase);
-				_assign_new_parent(node_to_erase->left, node_to_erase);
-			}
-			else
-			{
-				// parent already linked
-				if (node_to_erase->left != NULL)
-					node_to_erase->left->parent = node_to_erase;
-				if (node_to_erase->right != NULL)
-					node_to_erase->right->parent = node_to_erase;
-			}
+			if (node_to_erase->left != NULL)
+				node_to_erase->left->parent = node_to_erase;
+			if (node_to_erase->right != NULL)
+				node_to_erase->right->parent = node_to_erase;
 			if (node_to_erase == _root_node)
 				_root_node = replacing_node;
 		}

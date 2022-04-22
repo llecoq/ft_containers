@@ -6,7 +6,7 @@
 #    By: llecoq <llecoq@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/11/16 11:27:48 by llecoq            #+#    #+#              #
-#    Updated: 2022/04/21 19:46:30 by llecoq           ###   ########.fr        #
+#    Updated: 2022/04/22 09:20:34 by llecoq           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -65,9 +65,9 @@ CXXC	= clang++
 
 RM		= rm -rf
 
-# CFLAGS	= -Wall -Wextra -Werror -std=c++98 -g3 $(DFLAGS)
+CFLAGS	= -Wall -Wextra -Werror -std=c++98 -g3 $(DFLAGS)
 
-CFLAGS	= -Wall -Wextra -Werror -std=c++98 -g3 -fsanitize=address $(DFLAGS)
+# CFLAGS	= -Wall -Wextra -Werror -std=c++98 -g3 -fsanitize=address $(DFLAGS)
 
 DIR		=	.objs/
 
