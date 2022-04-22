@@ -6,7 +6,7 @@
 /*   By: llecoq <llecoq@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/21 10:44:21 by llecoq            #+#    #+#             */
-/*   Updated: 2022/04/22 11:13:08 by llecoq           ###   ########.fr       */
+/*   Updated: 2022/04/22 11:17:35 by llecoq           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -153,7 +153,7 @@ class set
 			
 			if (position != end())
 			{
-				_tree.erase(position);
+				erase(position);
 				return	1;
 			}
 			else

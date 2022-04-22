@@ -6,7 +6,7 @@
 /*   By: llecoq <llecoq@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/18 09:23:58 by llecoq            #+#    #+#             */
-/*   Updated: 2022/04/22 11:12:38 by llecoq           ###   ########.fr       */
+/*   Updated: 2022/04/22 11:55:20 by llecoq           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -585,7 +585,6 @@ class RB_tree
 					if (_fix_red_violation(sibling_node) == NULL)
 						_balance_before_erase(current_node->parent);
 			}
-			_root_node->color = BLACK;
 		}
 
 		void	_recolor_nodes(node_pointer sibling_node, int balance_case = 0)
@@ -627,11 +626,19 @@ class RB_tree
 		{
 			node_pointer	right_child_violation = _check_right_child(current_node);
 			node_pointer	left_child_violation = _check_left_child(current_node);
-
+			
 			if (right_child_violation != NULL)
 				_balance_after_insert(right_child_violation, right_child_violation->parent);
 			if (left_child_violation != NULL)
 				_balance_after_insert(left_child_violation, left_child_violation->parent);
+			if (left_child_violation != NULL || right_child_violation != NULL)
+			{
+				if (current_node->right)
+					current_node->right->color = BLACK;
+				if (current_node->left)
+					current_node->left->color = BLACK;
+				_root_node->color = BLACK;
+			}
 			if (right_child_violation != NULL)
 				return right_child_violation;
 			else if (left_child_violation != NULL)

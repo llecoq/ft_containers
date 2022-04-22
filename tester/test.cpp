@@ -6,7 +6,7 @@
 /*   By: llecoq <llecoq@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/12 15:15:20 by llecoq            #+#    #+#             */
-/*   Updated: 2022/04/22 11:07:26 by llecoq           ###   ########.fr       */
+/*   Updated: 2022/04/22 11:19:26 by llecoq           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,18 @@ int	test()
 
 			myset.erase(itlow,itup);        // erases [itlow,itup)
 			// myset.print_tree();
+			ut::fillSet<ft_set>(myset, 30, QUEUE);
+
+			myset.erase(15);
+			myset.erase(27);
+			myset.erase(4);
+			myset.erase(9);
+			// myset.erase(7);
+			// myset.erase(17);
+			// myset.erase(3);
+			// myset.erase(28);
+			// myset.erase(19);
+
 
 			// // myset.print_tree();
 			// // // print content:
