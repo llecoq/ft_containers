@@ -6,7 +6,7 @@
 /*   By: llecoq <llecoq@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/17 16:42:25 by llecoq            #+#    #+#             */
-/*   Updated: 2022/04/22 13:45:47 by llecoq           ###   ########.fr       */
+/*   Updated: 2022/04/22 14:22:02 by llecoq           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,17 @@ int	tester_map()
 	{
 		ft_map	IamSpeed;
 
-		ut::fillMap<ft_map, ft_pair>(IamSpeed, 100000, QUEUE);
+		// insert speed
+		ut::fillMap<ft_map, ft_pair>(IamSpeed, 1000000, QUEUE);
+		
+		// find speed
+		for (size_t i = 0; i < 1000000; i++)
+			IamSpeed.find(i);
+
+		// erase speed
+		ft_map::iterator	it = IamSpeed.find(1);
+		IamSpeed.erase(it, IamSpeed.end());
+
 	}
 	/*------------------------------ CONSTRUCTOR ----------------------------*/
 	{	

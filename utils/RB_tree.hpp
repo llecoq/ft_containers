@@ -6,7 +6,7 @@
 /*   By: llecoq <llecoq@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/18 09:23:58 by llecoq            #+#    #+#             */
-/*   Updated: 2022/04/22 11:55:20 by llecoq           ###   ########.fr       */
+/*   Updated: 2022/04/22 14:14:03 by llecoq           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -589,6 +589,9 @@ class RB_tree
 
 		void	_recolor_nodes(node_pointer sibling_node, int balance_case = 0)
 		{
+			if (sibling_node == NULL)
+				return ;
+			// std::cout << "sibling = " << sibling_node->get_key() << std::endl;
 			switch (balance_case)
 			{
 				case PARENT_IS_RED:
@@ -649,6 +652,8 @@ class RB_tree
 
 		node_pointer	_check_right_child(node_pointer current_node)
 		{
+			if (current_node == NULL)
+				return NULL;
 			if (current_node->right != NULL && current_node->right->color == RED)
 				return current_node->right;
 			else
@@ -657,6 +662,8 @@ class RB_tree
 
 		node_pointer	_check_left_child(node_pointer current_node)
 		{
+			if (current_node == NULL)
+				return NULL;
 			if (current_node->left != NULL && current_node->left->color == RED)
 				return current_node->left;
 			else
@@ -665,7 +672,7 @@ class RB_tree
 
 		node_pointer	_get_sibling(node_pointer current_node)
 		{
-			if (current_node == _root_node)
+			if (current_node == _root_node || current_node == NULL)
 				return NULL;
 			if (_is_right_child(current_node) == true)
 				return current_node->parent->left;
@@ -677,7 +684,8 @@ class RB_tree
 		{
 			node_pointer	sibling_node = _get_sibling(current_node);
 
-			if (current_node == _root_node || current_node->color == RED)
+			if (current_node == _root_node 
+				|| current_node == NULL || current_node->color == RED)
 				return	NO_VIOLATION;
 			else if (current_node->parent->color == RED)
 				return PARENT_IS_RED;

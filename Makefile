@@ -6,18 +6,18 @@
 #    By: llecoq <llecoq@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/11/16 11:27:48 by llecoq            #+#    #+#              #
-#    Updated: 2022/04/22 13:51:45 by llecoq           ###   ########.fr        #
+#    Updated: 2022/04/22 14:26:18 by llecoq           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 SRCS_FILES	=				main.cpp
 
-INCLUDES_UTILS_FILES =		utils.hpp\
-							tester.hpp\
-							tester_utils.hpp\
-							RB_tree.hpp\
-							node.hpp\
+INCLUDES_UTILS_FILES =		node.hpp\
 							pair.hpp\
+							utils.hpp\
+							tester.hpp\
+							RB_tree.hpp\
+							tester_utils.hpp\
 							metafunctions.hpp
 
 INCLUDES_FILES =  			vector.hpp\
@@ -28,17 +28,15 @@ INCLUDES_FILES =  			vector.hpp\
 ITERATORS_FILES =  			iterator.hpp\
 							random_access_iterator.hpp\
 							bidirectional_iterator.hpp\
-							RB_tree_iterator.hpp\
 							reverse_iterator.hpp
 
-TESTER_FILES =				tester_map_ft.cpp\
+TESTER_FILES =				tester_map.cpp\
 							tester_set.cpp\
-							test.cpp\
+							tester_stack.cpp\
+							tester_vector.cpp\
+							tester_pair.cpp\
 							TestClass.cpp
-							# tester_vector_std.cpp\
-							# tester_pair.cpp\
-							# tester_stack_ft.cpp\
-							# tester_stack_std.cpp\
+
 INCLUDES_PATH = 			containers/
 INCLUDES_UTILS_PATH = 		utils/
 INCLUDES_ITERATOR_PATH =	iterators/
@@ -60,9 +58,9 @@ INCLUDES_ITERATOR = $(addprefix $(INCLUDES_ITERATOR_PATH),$(ITERATORS_FILES))
 
 NAME	= ft_containers
 
-CXXC	= clang++
+CXXC	= @clang++
 
-RM		= rm -rf
+RM		= @rm -rf
 
 CFLAGS	= -Wall -Wextra -Werror -std=c++98 -g3 $(DFLAGS)
 

@@ -6,7 +6,7 @@
 /*   By: llecoq <llecoq@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/17 10:54:16 by llecoq            #+#    #+#             */
-/*   Updated: 2022/04/22 12:00:24 by llecoq           ###   ########.fr       */
+/*   Updated: 2022/04/22 14:21:47 by llecoq           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -129,12 +129,6 @@ class map
 	/*
 	** ------------------------------------------------------------ MODIFIERS
 	*/
-
-		void	print_tree()
-		{
-			_tree.print_tree();
-			std::cout << std::endl;
-		}
 
 		// single element (1)	
 		pair<iterator,bool> insert (const value_type& val)
@@ -315,6 +309,17 @@ class map
 				return true;
 			return (!root_is_after_insert && !root_is_before_insert); // insert_key = root_key
 		}
+
+	/*
+	** ------------------------------------------------------------ UTILS
+	*/
+	// public :
+	
+		// void	print_tree()
+		// {
+		// 	_tree.print_tree();
+		// 	std::cout << std::endl;
+		// }
 
 };
 

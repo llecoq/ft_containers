@@ -1,6 +1,7 @@
 echo "		           STD"
 echo "*--------------------------------------------------------*"
 make clean
+echo "compiling ..."
 make DFLAGS=-Dstd_lib=1
 echo "map ft execution time :"
 /usr/bin/time ./ft_containers map > tester/tester_results/map_std.test
@@ -18,6 +19,7 @@ echo "*--------------------------------------------------------*"
 echo "		           FT"
 echo "*--------------------------------------------------------*"
 make clean 
+echo "compiling ..."
 make DFLAGS=-Dstd_lib=0
 echo "map ft execution time :"
 /usr/bin/time ./ft_containers map > tester/tester_results/map_ft.test
