@@ -6,7 +6,7 @@
 /*   By: llecoq <llecoq@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/18 13:37:15 by llecoq            #+#    #+#             */
-/*   Updated: 2022/04/22 12:01:40 by llecoq           ###   ########.fr       */
+/*   Updated: 2022/04/26 13:15:54 by llecoq           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,15 +43,14 @@ class bidirectional_iterator
 		
 		_node_pointer													_base;
 	
-	
+	/*
+	** ------------------------------------------------------------ CONSTRUCTORS
+	*/
+		// copy constructor, copy assignment and destructor are implicitly declared
+		
 		bidirectional_iterator()
 		:
 			_base(NULL)
-		{}
-		
-		bidirectional_iterator( bidirectional_iterator const &src )
-		:
-			_base(src._base)
 		{}
 
 		bidirectional_iterator(_node_pointer node_ptr)
@@ -64,16 +63,6 @@ class bidirectional_iterator
 		:
 			_base(reinterpret_cast<typename bidirectional_iterator<const T, U>::_node_pointer >(src._base))
 		{}
-
-		~bidirectional_iterator()
-		{}
-		
-		bidirectional_iterator &	operator=( bidirectional_iterator const &rhs )
-		{
-			_base = rhs._base;
-			return *this;
-		}
-
 
 	/*
 	** ----------------------------------------------------------- MEMBER ACCESS
@@ -130,10 +119,6 @@ class bidirectional_iterator
 			_decrement();
 			return (tmp);
 		}
-
-// *a++
-
-// *a--
 
 	private :
 

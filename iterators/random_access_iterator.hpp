@@ -6,7 +6,7 @@
 /*   By: llecoq <llecoq@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/27 18:01:12 by llecoq            #+#    #+#             */
-/*   Updated: 2022/04/15 16:14:17 by llecoq           ###   ########.fr       */
+/*   Updated: 2022/04/26 13:24:50 by llecoq           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,14 +41,11 @@ class random_access_iterator
 	/*
 	** ------------------------------------------------------------ CONSTRUCTORS
 	*/
+		// copy constructor, copy assignment and destructor are implicitly declared
+1
 		random_access_iterator()
 		:
 			_base(NULL)
-		{}
-
-		random_access_iterator( random_access_iterator const &src )
-		:
-			_base(src._base)
 		{}
 	
 		random_access_iterator( pointer pointer )
@@ -62,14 +59,6 @@ class random_access_iterator
 		:
 			_base(src.base())
 		{}
-
-		random_access_iterator &	operator=( random_access_iterator const &rhs )
-		{
-			_base = rhs._base;
-			return *this;
-		}
-
-		~random_access_iterator(){}
 	
 	/*
 	** ----------------------------------------------------------- MEMBER ACCESS
@@ -228,10 +217,6 @@ class random_access_iterator
 			return (_base);
 		}
 
-		// operator random_access_iterator<const value_type> () const
-		// { 	
-		// 	return (random_access_iterator<const value_type>(_pointer));
-		// }
 };
 
 
