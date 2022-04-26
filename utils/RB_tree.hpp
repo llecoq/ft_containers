@@ -6,7 +6,7 @@
 /*   By: llecoq <llecoq@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/18 09:23:58 by llecoq            #+#    #+#             */
-/*   Updated: 2022/04/22 18:53:23 by llecoq           ###   ########.fr       */
+/*   Updated: 2022/04/26 12:52:34 by llecoq           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,6 @@ class RB_tree
 
 	public :
 	
-		// default
 		explicit RB_tree(const key_compare & comp = key_compare(),
 					const value_allocator& alloc = value_allocator())
 		:
@@ -83,21 +82,6 @@ class RB_tree
 			return *this;
 		}
 
-		void	_pre_order_insert(node_pointer &current_node, node_pointer node_to_copy,
-									node_pointer copy_end_node, node_pointer parent_node = NULL)
-		{
-			if (node_to_copy != NULL && node_to_copy != copy_end_node)
-			{
-				current_node = _create_node(*node_to_copy->value);
-				current_node->parent = parent_node;
-				current_node->color = node_to_copy->color;
-				_set_begin_or_end(current_node);
-				_pre_order_insert(current_node->left, node_to_copy->left, copy_end_node, current_node);
-				_pre_order_insert(current_node->right, node_to_copy->right, copy_end_node, current_node);
-			}
-		}
-
-		// destructor
 		~RB_tree()
 		{
 			_destroy_from_root(_root_node);
@@ -231,6 +215,21 @@ class RB_tree
 	/*
 	** ------------------------------------------------------------ INSERT
 	*/
+
+		void	_pre_order_insert(node_pointer &current_node, node_pointer node_to_copy,
+									node_pointer copy_end_node, node_pointer parent_node = NULL)
+		{
+			if (node_to_copy != NULL && node_to_copy != copy_end_node)
+			{
+				current_node = _create_node(*node_to_copy->value);
+				current_node->parent = parent_node;
+				current_node->color = node_to_copy->color;
+				_set_begin_or_end(current_node);
+				_pre_order_insert(current_node->left, node_to_copy->left, copy_end_node, current_node);
+				_pre_order_insert(current_node->right, node_to_copy->right, copy_end_node, current_node);
+			}
+		}
+
 		pair<iterator, bool> _insert_node(const value_type &val, key_type key,
 					node_pointer &current_node, node_pointer parent_node = NULL)
 		{
