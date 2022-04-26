@@ -6,7 +6,7 @@
 /*   By: llecoq <llecoq@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/18 09:23:58 by llecoq            #+#    #+#             */
-/*   Updated: 2022/04/26 12:52:34 by llecoq           ###   ########.fr       */
+/*   Updated: 2022/04/26 16:32:37 by llecoq           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -792,8 +792,6 @@ class RB_tree
 			_end_node = node_allocator().allocate(1);
 			node_allocator().construct(_end_node, node_type());
 			_end_node->value = value_allocator().allocate(1);
-			_end_node->right = NULL;
-			_end_node->left = NULL;
 			_end_node->color = BLACK;
 			_begin_node = _end_node;
 			return _end_node;
