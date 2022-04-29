@@ -6,7 +6,7 @@
 /*   By: llecoq <llecoq@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/17 10:54:16 by llecoq            #+#    #+#             */
-/*   Updated: 2022/04/29 13:26:50 by llecoq           ###   ########.fr       */
+/*   Updated: 2022/04/29 15:36:42 by llecoq           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,8 @@ template < class Key,
            >
 class map
 {
+		typedef	ft::t_node_map<ft::pair<const Key, T>, Key>				_node_type;
+
 	public :
 
 		typedef Key														key_type;
@@ -42,9 +44,6 @@ class map
 		typedef typename allocator_type::const_reference				const_reference;
 		typedef typename allocator_type::pointer						pointer;
 		typedef typename allocator_type::const_pointer					const_pointer;
-	private :
-		typedef	ft::t_node_map<value_type, key_type>					_node_type;
-	public :
 		typedef ft::bidirectional_iterator<value_type, _node_type>		iterator;
 		typedef ft::bidirectional_iterator<const value_type, _node_type>const_iterator;
 		typedef ft::reverse_iterator<iterator>							reverse_iterator;

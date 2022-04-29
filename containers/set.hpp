@@ -6,7 +6,7 @@
 /*   By: llecoq <llecoq@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/21 10:44:21 by llecoq            #+#    #+#             */
-/*   Updated: 2022/04/22 14:21:42 by llecoq           ###   ########.fr       */
+/*   Updated: 2022/04/29 15:35:35 by llecoq           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,7 @@ template  < class T,
 			>
 class set
 {
+		typedef	ft::t_node_set<T, T>									_node_type;
 	
 	public :
 
@@ -42,9 +43,6 @@ class set
 		typedef typename allocator_type::const_reference				const_reference;
 		typedef typename allocator_type::pointer						pointer;
 		typedef typename allocator_type::const_pointer					const_pointer;
-	private :	
-		typedef	ft::t_node_set<value_type, key_type>					_node_type;
-	public :
 		typedef ft::bidirectional_iterator<const value_type, _node_type>iterator;
 		typedef ft::bidirectional_iterator<const value_type, _node_type>const_iterator;
 		typedef ft::reverse_iterator<iterator>							reverse_iterator;
