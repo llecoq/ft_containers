@@ -6,7 +6,7 @@
 /*   By: llecoq <llecoq@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/06 15:34:54 by llecoq            #+#    #+#             */
-/*   Updated: 2022/04/21 19:27:05 by llecoq           ###   ########.fr       */
+/*   Updated: 2022/04/29 13:52:57 by llecoq           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,8 @@ struct t_node_map
 	node_pointer			left;
 	node_pointer			right;
 
+	//	parent, left and right shouldn't be initiated to NULL because incrementing iterator to end() 
+	//	or decrementing iterator to begin() should segfault like in std::map
 	explicit t_node_map()
 	:
 		color(RED),
@@ -48,7 +50,6 @@ struct t_node_map
 		return value->first;
 	}
 
-	~t_node_map(){}
 };
 
 template <class T, class U = T>
@@ -80,7 +81,6 @@ struct t_node_set
 		return *value;
 	}
 
-	~t_node_set(){}
 };
 
 template <typename NodePtr>
