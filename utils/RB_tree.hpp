@@ -6,7 +6,7 @@
 /*   By: llecoq <llecoq@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/18 09:23:58 by llecoq            #+#    #+#             */
-/*   Updated: 2022/04/26 16:32:37 by llecoq           ###   ########.fr       */
+/*   Updated: 2022/04/29 13:37:59 by llecoq           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -138,7 +138,7 @@ class RB_tree
 
 		pair<iterator, bool> insert(iterator position, const value_type& val, key_type key)
 		{
-			node_pointer		current_position = _iterator_to_pointer(position);
+			node_pointer		current_position = _iterator_to_node_pointer(position);
 			node_pointer		parent = current_position->parent;
 
 			if (position == _root_node)
@@ -152,7 +152,7 @@ class RB_tree
 
 		void	erase(iterator position)
 		{
-			node_pointer	node_to_erase = _iterator_to_pointer(position);
+			node_pointer	node_to_erase = _iterator_to_node_pointer(position);
 
 			_erase_node(node_to_erase);
 			if (_empty_tree())
@@ -762,7 +762,7 @@ class RB_tree
 			return key_compare()(insert_key, current_position->get_key());
 		}
 
-		node_pointer	_iterator_to_pointer(iterator iter)
+		node_pointer	_iterator_to_node_pointer(iterator iter)
 		{
 			return iter._base;
 		}
