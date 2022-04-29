@@ -6,7 +6,7 @@
 /*   By: llecoq <llecoq@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/18 09:23:58 by llecoq            #+#    #+#             */
-/*   Updated: 2022/04/29 13:37:59 by llecoq           ###   ########.fr       */
+/*   Updated: 2022/04/29 13:44:17 by llecoq           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -143,11 +143,10 @@ class RB_tree
 
 			if (position == _root_node)
 				return _insert_node(val, key, _root_node);
-			if (_position_is_after_insert(current_position, key))
+			if (_current_position_is_after_insert(current_position, key))
 				return _check_before_position(parent, val, key);
-			else if (_position_is_before_insert(current_position, key))
+			else // iterator position is before the node to insert
 				return _check_after_position(parent, val, key);
-			return _insert_node(val, key, _root_node);
 		}
 
 		void	erase(iterator position)
@@ -280,7 +279,7 @@ class RB_tree
 			node_pointer	parent = current_position->parent;
 		
 			if (current_position == _root_node
-				|| _position_is_before_insert(current_position, key))
+				|| _current_position_is_before_insert(current_position, key))
 				return _insert_node(val, key, current_position, parent);
 			return _check_before_position(parent, val, key);
 		}
@@ -291,7 +290,7 @@ class RB_tree
 			node_pointer	parent = current_position->parent;
 
 			if (current_position == _root_node
-				|| _position_is_after_insert(current_position, key))
+				|| _current_position_is_after_insert(current_position, key))
 				return _insert_node(val, key, current_position, parent);
 			return _check_after_position(parent, val, key);
 		}
@@ -752,12 +751,12 @@ class RB_tree
 			return (current_node->parent->right == current_node);
 		}
 	
-		bool	_position_is_before_insert(node_pointer current_position, key_type insert_key)
+		bool	_current_position_is_before_insert(node_pointer current_position, key_type insert_key)
 		{
 			return key_compare()(current_position->get_key(), insert_key);
 		}
 
-		bool	_position_is_after_insert(node_pointer current_position, key_type insert_key)
+		bool	_current_position_is_after_insert(node_pointer current_position, key_type insert_key)
 		{
 			return key_compare()(insert_key, current_position->get_key());
 		}
