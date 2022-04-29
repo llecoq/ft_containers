@@ -6,7 +6,7 @@
 /*   By: llecoq <llecoq@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/03 13:20:29 by llecoq            #+#    #+#             */
-/*   Updated: 2022/03/29 12:09:18 by llecoq           ###   ########.fr       */
+/*   Updated: 2022/04/29 13:20:44 by llecoq           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,6 +77,7 @@ class reverse_iterator
 	reverse_iterator operator+(difference_type n) const
 	{
 		reverse_iterator	tmp(*this);
+	
 		tmp._base -= n;
 		return tmp;
 	}
@@ -104,6 +105,7 @@ class reverse_iterator
 	reverse_iterator operator-(difference_type n) const
 	{
 		reverse_iterator	tmp(*this);
+		
 		tmp._base += n;
 		return tmp;
 	}
