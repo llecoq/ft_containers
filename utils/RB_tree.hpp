@@ -6,18 +6,18 @@
 /*   By: llecoq <llecoq@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/18 09:23:58 by llecoq            #+#    #+#             */
-/*   Updated: 2022/04/29 13:44:17 by llecoq           ###   ########.fr       */
+/*   Updated: 2022/05/02 18:57:44 by llecoq           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef RB_TREE_HPP
 #define RB_TREE_HPP
 
-#include "bidirectional_iterator.hpp"
-#include "utils.hpp"
-#include "node.hpp"
+# include "bidirectional_iterator.hpp"
+# include "utils.hpp"
+# include "node.hpp"
 
-# include <iostream>
+#  include <iostream>
 
 namespace ft
 {
@@ -123,10 +123,10 @@ class RB_tree
 			return (_size);
 		}
 
-		size_type max_size() const
-		{
-			return (node_allocator().max_size());
-		}
+		// size_type max_size() const
+		// {
+		// 	return (value_allocator().max_size());
+		// }
 
 	/*
 	** ------------------------------------------------------------ MODIFIERS

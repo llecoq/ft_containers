@@ -6,7 +6,7 @@
 /*   By: llecoq <llecoq@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/21 10:44:21 by llecoq            #+#    #+#             */
-/*   Updated: 2022/04/29 15:35:35 by llecoq           ###   ########.fr       */
+/*   Updated: 2022/05/12 13:53:27 by llecoq           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,8 +18,8 @@
 # include "pair.hpp"
 # include "RB_tree.hpp"
 
-#include <memory>
-#include <functional>
+#  include <memory>
+#  include <functional>
 
 namespace ft
 {
@@ -90,9 +90,6 @@ class set
 			_tree = x._tree;
 			return *this;
 		}
-	
-		//-------------------------------------------------------------- destructor
-		~set () {}
 
 	/*
 	** ------------------------------------------------------------ ITERATORS
@@ -111,7 +108,7 @@ class set
 	*/
 		bool empty() const {return _tree.empty();}
 		size_type size() const {return _tree.size();}
-		size_type max_size() const {return _tree.max_size();}
+		size_type max_size() const {return std::numeric_limits<size_type>::max();} // different output from std::set expected because different node size
 
 	/*
 	** ------------------------------------------------------------ MODIFIERS

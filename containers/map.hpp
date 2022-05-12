@@ -6,7 +6,7 @@
 /*   By: llecoq <llecoq@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/17 10:54:16 by llecoq            #+#    #+#             */
-/*   Updated: 2022/04/29 15:36:42 by llecoq           ###   ########.fr       */
+/*   Updated: 2022/05/12 13:53:13 by llecoq           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,9 +17,9 @@
 # include "reverse_iterator.hpp"
 # include "pair.hpp"
 # include "RB_tree.hpp"
-
-#include <memory>
-#include <functional>
+ 
+#  include <memory>
+#  include <functional>
 
 namespace ft
 {
@@ -111,7 +111,7 @@ class map
 	*/
 		bool empty() const {return _tree.empty();}
 		size_type size() const {return _tree.size();}
-		size_type max_size() const {return _tree.max_size();}
+		size_type max_size() const {return std::numeric_limits<size_type>::max();} // different output from std::map expected because different node size
 
 	/*
 	** ------------------------------------------------------------ ELEMENT ACCESS

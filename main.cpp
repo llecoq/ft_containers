@@ -6,7 +6,7 @@
 /*   By: llecoq <llecoq@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/18 11:21:24 by llecoq            #+#    #+#             */
-/*   Updated: 2022/04/29 13:26:55 by llecoq           ###   ########.fr       */
+/*   Updated: 2022/05/02 18:52:13 by llecoq           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,14 @@ int	tester(std::string container)
 
 int	main(int argc, char **argv)			
 {
+	ft_map	map;
+
+	ft::map<char, TestClass>	oh;
+
+	std::cout << "max size = " << map.max_size() << std::endl;
+	std::cout << "max size = " << oh.max_size() << std::endl;
+
+	return 1;
 	if (argc != 2)
 	{
 		std::cout << "Usage : ./ft_containers <container_type>" << std::endl;
