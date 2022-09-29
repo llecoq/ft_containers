@@ -6,7 +6,7 @@
 #    By: llecoq <llecoq@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/11/16 11:27:48 by llecoq            #+#    #+#              #
-#    Updated: 2022/04/22 17:32:39 by llecoq           ###   ########.fr        #
+#    Updated: 2022/05/16 12:42:20 by llecoq           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -79,8 +79,6 @@ $(OBJSPATH)%.o:		$(SRCSPATH)%.cpp $(INCLUDES) $(INCLUDES_UTILS) $(INCLUDES_ITERA
 $(NAME):	$(OBJS)
 			$(CXXC) $(CFLAGS) $(OBJS) -o $(NAME)
 
-$(TEST):	@
-
 clean:
 			$(RM) $(OBJSPATH) 
 
@@ -90,13 +88,13 @@ fclean:		clean
 
 re:			fclean all
 
-std:		$(TEST)
+std:		$(NAME)
 			@sh tester/scripts/test_std.sh
 
-ft:			$(TEST)
+ft:			$(NAME)
 			@sh tester/scripts/test_ft.sh
 
-diff:		$(TEST)
+diff:		$(NAME)
 			@sh tester/scripts/test_diff.sh
 
 vector:		$(NAME)
