@@ -1,6 +1,6 @@
 <p align="center">
   <a href="https://42lyon.fr/">
-    <img src="https://github.com/llecoq/ft_containers/blob/main/assets/final%20grade.png" alt="ft_containers" width=200 height=170>
+    <img src="./assets/final_grade.png" alt="ft_containers" width=200 height=170>
   </a>
 
   <h2 align="center">ft_containers</h2>
@@ -10,7 +10,7 @@
     Re-implementation of a selection of standard C++ containers featuring a self-balancing binary search tree (red-black tree).
     <br>
     <br>
-    <a href="https://github.com/llecoq/ft_containers/blob/master/assets/en.subject.pdf">English Subject </a>
+    <a href="./assets/en.subject.pdf">English Subject </a>
   </p>
 </p>
 
